@@ -1,0 +1,6 @@
+# Claude Code local state (may contain credentials/local permissions)
+.claude/settings.local.json
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
