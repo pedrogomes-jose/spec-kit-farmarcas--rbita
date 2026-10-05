@@ -74,24 +74,124 @@ renda), não só para este caso.
 4. Só então `/software-improvement` ou `/claude-system-builder` para
    especificar e implementar a integração.
 
+## Atualização (2026-09-17): pesquisa web sobre os pontos não confirmados
+
+Rodado `(⚑_⚑) estrategista-fontes-dados` + pesquisa web dedicada para
+aprofundar os dois pontos abaixo. Resumo do que foi **confirmado** e do que
+**segue em aberto**, com fonte e nível de confiança de cada afirmação.
+
+### GeoFusion / Cortex Intelligence
+
+- A Geofusion foi adquirida pela Cortex Intelligence (aporte de R$260
+  milhões) e passou a operar como "Cortex Geofusion" — confirmado, confiança
+  alta (fonte oficial: https://www.cortex-intelligence.com/blog/geofusion-agora-e-cortex
+  e imprensa: https://exame.com/negocios/apos-aporte-de-r-260-milhoes-cortex-adquire-geofusion-e-amplia-modelo-de-inteligencia-de-dados/).
+- Existe um produto de API oficial, o **Data License Service (DLS)**
+  (https://geofusion.cortex-intelligence.com/dls), para licenciamento de
+  dados via API ou entrega em lote — confiança média-alta (site oficial).
+  **Porém a página não confirma que o DLS cobre fluxo de pedestres/veículos**;
+  o foco declarado é perfil populacional, consumo e dados de empresas. Isto é,
+  a suposição original de que "a GeoFusion tem API pronta para fluxo por
+  endereço" **não foi confirmada** — pode ser um produto diferente (relatório/
+  plataforma fechada) ou pode nem existir como dado consultável.
+- Preço não é público; funciona por proposta comercial (assinatura mensal ou
+  licença anual, variável por módulo/volume) — confiança média (fonte
+  terciária: https://ondeabrir.com/blog/ferramentas-de-geomarketing, cita
+  clientes como McDonald's, Cacau Show, Whirlpool, Santander).
+- **Risco novo, mais crítico que o original**: mesmo confirmando que existe
+  API, não está confirmado que o dado por trás dela é fluxo **medido**
+  (sensores, contagem, parceiro de dados) e não um índice **modelado/
+  estimado** a partir de variáveis socioeconômicas — prática comum em
+  geomarketing. Se for estimado, o valor incremental sobre o que o Órbita já
+  calcula internamente (população + consumo + renda) pode ser bem menor do
+  que o esperado. Isso precisa ser perguntado explicitamente ao fornecedor,
+  não assumido a partir da existência da API.
+
+### StreetLight Data, INRIX, TomTom Move, HERE Traffic Analytics
+
+- **StreetLight Data**: foi adquirida pela TomTom
+  (https://www.tomtom.com/customers/streetlight/). Sua página oficial de
+  cobertura/pricing (https://www.streetlightdata.com/pricing/) só menciona
+  América do Norte (25 milhões de segmentos de rodovia nos EUA), sem citar
+  Brasil ou América Latina — sinal indireto forte (não uma negativa
+  explícita) de que não é a rota certa aqui.
+- **INRIX**: expandiu para o Brasil em 2012 via parceria exclusiva com a
+  MapLink, cobrindo >10.000km de rodovias, ruas urbanas e vias locais
+  (https://inrix.com/press-releases/inrix-expands-brazil-exclusive-traffic-partnership-maplink/).
+  Ainda publicava dado de congestionamento de São Paulo em 2021
+  (via Statista, confiança média). Cobertura confirmada existe, mas o anúncio
+  original é de 2012 — não está confirmado o quanto essa cobertura ainda é
+  ativa/atualizada nem se chega a cidades médias/pequenas do interior.
+- **TomTom Move (Traffic Stats)**: Brasil está listado na "Global Product
+  Coverage" oficial (https://docs.tomtom.com/move-portal/guides/coverage),
+  incluindo Traffic Stats, Area Analytics, O/D Analysis. Confirma cobertura
+  formal no Brasil, mas a documentação **não especifica granularidade** (rua
+  local vs. só rodovia/eixo arterial).
+- **HERE Traffic Analytics**: Brasil coberto em 3 sub-regiões (documentação
+  oficial: https://docs.here.com/traffic-api/docs/traffic-here-traffic-api-v7-coverage-information),
+  com nível "Deep Coverage 2.0" declarado. É o mais promissor dos 4
+  provedores globais para uma eventual POC, mas o nível de detalhe real em
+  cidade média/pequena não foi testado, só declarado em documentação.
+- **Conclusão geral sobre os 4**: são produtos de **tráfego veicular em rede
+  viária** (rodovia/avenida monitorada), não desenhados para medir "pedestre
+  passando na calçada de um endereço específico" — que é o sinal que o caso
+  "25 de Março" realmente pede. Mesmo onde a cobertura Brasil está
+  confirmada (TomTom, HERE), ela tende a ser mais forte em grandes eixos e
+  centros urbanos, o que é o oposto de onde a Farmarcas também abre lojas
+  (cidades médias/pequenas do interior).
+
+### Fonte recomendada, com ressalva
+
+**GeoFusion/Cortex segue como candidato mais alinhado ao caso de uso**
+(única fonte desenhada desde a origem para decisão de expansão de varejo no
+Brasil, com cases de varejo/franquia), mas a recomendação **não pode mais
+ser tratada como "confirmada, só falta negociar preço"**. Ela está
+condicionada a 3 perguntas bloqueantes diretas ao fornecedor, que nenhuma
+pesquisa pública resolve:
+
+1. O DLS (ou outro produto da Cortex Geofusion) realmente expõe fluxo de
+   pedestres/veículos por endereço pontual, ou isso é um dado diferente do
+   que a API cobre hoje?
+2. Esse dado é medido/observado ou é um índice modelado a partir de outras
+   variáveis (o que reduziria o valor incremental para o Órbita)?
+3. Modelo de precificação (por consulta vs. assinatura fixa) — decisivo
+   porque o Órbita consulta pontos em volume, não pontualmente.
+
+Os 4 provedores globais de tráfego veicular não são descartados, mas
+**HERE Traffic Analytics** é o único que justificaria uma POC exploratória
+como fonte complementar (ex.: pontos à beira de rodovia/avenida monitorada);
+os demais (StreetLight, INRIX, TomTom Move) têm sinais mais fracos ou mais
+desatualizados de relevância para o caso de uso da Farmarcas.
+
 ## Riscos e suposições ainda não confirmadas
 
-- Modelo comercial da GeoFusion (SaaS fixo vs. por consulta) e se oferecem
-  API para consulta pontual por endereço — não confirmado, checar
-  diretamente com o fornecedor antes de assumir viável.
-- Cobertura granular real de StreetLight/INRIX/TomTom/HERE no Brasil fora de
-  grandes eixos rodoviários — não confirmado.
+- **[Bloqueante, requer contato comercial]** Se a GeoFusion/Cortex realmente
+  expõe fluxo de pedestres/veículos via API (DLS ou outro produto), e se
+  esse dado é medido ou estimado por modelo.
+- **[Bloqueante, requer contato comercial]** Modelo de precificação da
+  GeoFusion/Cortex (por consulta vs. assinatura fixa) — muda o caso de
+  negócio inteiro dado o volume de consultas do Órbita.
+- Cobertura granular real dos 4 provedores globais fora de grandes eixos
+  rodoviários segue sem validação de campo (só documentação oficial) —
+  nenhum foi testado com amostra real em cidade média/pequena brasileira.
 - Dado de telecom depende de avaliação jurídica (LGPD), o que pode adicionar
   meses ao cronograma.
 - Google Places como proxy tende a ser mais fraco em cidades menores/interior,
   onde a Farmarcas também abre lojas.
+- Nenhuma fonte paga deveria ser contratada antes de `/problem-validation`
+  confirmar volume/frequência real do problema "25 de Março" na carteira de
+  pontos avaliados pela Farmarcas — o gap está documentado conceitualmente,
+  mas não há dado de quantos pontos reais isso afeta por ano.
 
 ## Próximos passos
 
 1. Rodar `/problem-validation` com analistas de Expansão sobre a hipótese do
-   perfil "25 de Março".
-2. Testar `(⚑_⚑) estrategista-fontes-dados` de verdade (requer sessão do
-   Claude Code recarregada após a criação do arquivo) para aprofundar a
-   comparação de fornecedores.
-3. Contato comercial com GeoFusion para confirmar modelo de API e preço antes
-   de qualquer decisão de investimento.
+   perfil "25 de Março" — antes de comprometer orçamento em qualquer fonte
+   paga.
+2. Contato comercial com Cortex Geofusion para responder as 3 perguntas
+   bloqueantes da seção acima (escopo real do DLS, natureza medida vs.
+   estimada do dado, e modelo de precificação).
+3. Se a GeoFusion não confirmar dado de fluxo real, avaliar POC com HERE
+   Traffic Analytics como fonte complementar para pontos próximos a
+   rodovia/avenida monitorada, e reconsiderar telecom (Vivo/Claro/TIM) como
+   rota de médio/longo prazo apesar do cronograma jurídico mais longo.
