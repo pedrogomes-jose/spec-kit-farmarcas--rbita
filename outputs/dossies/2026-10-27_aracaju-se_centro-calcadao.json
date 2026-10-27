@@ -1,0 +1,115 @@
+{
+  "endereco": "CALÇADÃO — R. João Pessoa, 182 A · Centro, Aracaju/SE · CEP 49010-130",
+  "lat": -10.911123,
+  "lng": -37.049093,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "2800308",
+  "municipio": "Aracaju",
+  "uf": "SE",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "novo",
+  "ge": "",
+  "receita_por_m2": null,
+  "resumo": "Calçadão de uma Capital Regional A que polariza 48 municípios, em região de 1.416 residentes e R$ 3,68 milhões de potencial de consumo em drogarias nos 7 setores do raio — com 16 concorrentes dentro de 300 metros e uma Drogasil cadastrada no mesmo número da rua.",
+  "lentes": {
+    "Forças": [
+      {
+        "titulo": "Capital Regional A, polo de 48 municípios.",
+        "texto": "Segundo nível mais alto da hierarquia urbana do IBGE; a cidade atrai consumo de fora. Fonte: regic_2018_municipio. Confiança alta. Muda a leitura se: a REGIC é de 2018."
+      },
+      {
+        "titulo": "IPC no percentil 99 do país (0,33477).",
+        "texto": "Comparação: percentil 99 entre os 5.571 municípios da base; IFDM no percentil 73 e PIB per capita no 60. Fonte: contexto_municipio.py, bloco percentis. Confiança alta. Muda a leitura se: são índices municipais, não do Centro."
+      },
+      {
+        "titulo": "Mercado de R$ 1,07 bilhão crescendo 15,6%.",
+        "texto": "Comparação: o gasto em medicamentos da cidade é estimado em R$ 979,3 milhões por outra base — 9% de diferença entre fontes que não conversam. Fonte: mercado_utc.py e dados_farmacia_popular. Confiança média: ano do gasto não declarado. Muda a leitura se: as duas fontes forem de anos diferentes."
+      },
+      {
+        "titulo": "Preço médio no brick 9,7% acima da UF.",
+        "texto": "R$ 33,22 por unidade no brick 994-SE_AJU_CENTRO contra R$ 30,27 em Sergipe. Fonte: mercado_brick.py, base IQVIA. Confiança média: o brick foi casado por UF + bairro, não por geometria. Muda a leitura se: o ponto cair em brick vizinho."
+      }
+    ],
+    "Fragilidades": [
+      {
+        "titulo": "16 registros de concorrente em 300 m — 13 confirmados em Aracaju.",
+        "texto": "Três dos 16 estão cadastrados em outra cidade (Nossa Senhora do Socorro, Araua e Barra dos Coqueiros), os três exatamente a 276 m — assinatura de geocodificação por centroide. São 240 registros em 5 km, 28 deles com cidade divergente. Farmácia Souza aparece 4 vezes no raio curto; Pague Menos a 69 m e 135 m. Comparação: 103 estabelecimentos de comércio e serviço mapeados em 500 m, e a farmácia disputa esse mesmo fluxo. Fonte: concorrentes_2025 via raio_concorrencia.py, blocos concorrentes e qualidade_do_dado. Confiança alta no piso de 13, média no total de 16. Muda a leitura se: 3.700 registros da base foram descartados por coordenada fora do Brasil e 18 estão sem coordenada — a contagem pode subir também."
+      },
+      {
+        "titulo": "Há uma Drogasil cadastrada no mesmo número da rua do ponto.",
+        "texto": "O endereço registrado é JOAO PESSOA 182; o ponto é R. João Pessoa, 182 A, e o script a coloca a 12 m. Comparação: é o mais próximo dos 16. Fonte: raio_concorrencia.py. Confiança alta no registro, nenhuma na interpretação: ou é porta com porta, ou a coordenada enviada é a da própria Drogasil. Muda a leitura se: confirmar em campo — são cenários opostos."
+      },
+      {
+        "titulo": "Mercado mais saturado que a média do país.",
+        "texto": "1.293,5 habitantes por farmácia pelo Censo 2022 e 1.356,9 pela população do dump; são 466 farmácias na cidade. Comparação: percentil 35 e 40 contra mediana nacional de 1.492,6. Fonte: contexto_municipio.py. Confiança média: o numerador muda com a população escolhida. Muda a leitura se: a contagem de 466 farmácias estiver desatualizada."
+      },
+      {
+        "titulo": "Renda municipal no percentil 16 do país.",
+        "texto": "R$ 242,23 per capita domiciliar contra mediana nacional de R$ 456,30 (n=5.565); 71,7% dos domicílios em C1, C2 ou D/E, sendo 30,5% em D/E. No raio, porém, a renda domiciliar é de R$ 4.191,02 e a renda por habitante R$ 2.623,08 — o Centro é bem mais rico que a média da cidade. Fonte: contexto_municipio.py e raio_setores.py. Confiança média: anos de referência não declarados. Muda a leitura se: a diferença entre cidade e raio é grande e vale checar o perfil de quem compra no calçadão, que não é quem mora nele."
+      }
+    ],
+    "Oportunidades": [
+      {
+        "titulo": "Seis das sete UTCs de Aracaju têm receita Farmarcas zero.",
+        "texto": "A rede fatura R$ 9,17 milhões, toda concentrada na UTC Farolândia. Comparação: share inferido de 0,86% num mercado de R$ 1,07 bilhão. Fonte: mercado_utc.py. Confiança média: o share não foi medido — 6 das 7 UTCs estão ausentes da base de share e a sétima registra 0,0 contradizendo a receita. Muda a leitura se: o zero é inferido da receita, não lido da base."
+      },
+      {
+        "titulo": "A rede opera com preço 34% abaixo do concorrente em Sergipe.",
+        "texto": "R$ 20,22 por unidade do Grupo Farmarcas contra R$ 30,56 dos concorrentes na UF. Comparação: no brick do Centro, o preço médio é R$ 33,22 — o mais alto dos três recortes. Fonte: mercado_brick.py. Confiança média: a base IQVIA é a carteira atual. Muda a leitura se: posicionamento popular num brick de preço alto pode ser diferencial ou descompasso de público."
+      },
+      {
+        "titulo": "Mercado pouco credenciado ao Farmácia Popular.",
+        "texto": "Só 32 das 466 farmácias da cidade (6,9%), e nenhuma loja Farmarcas entre elas. Comparação: o credenciamento está longe de ser padrão local. Fonte: dados_farmacia_popular via contexto_municipio.py. Confiança alta. Muda a leitura se: o credenciamento mudou após o dump."
+      },
+      {
+        "titulo": "Há praça mais aberta que esta na própria UF.",
+        "texto": "Itabaiana/SE tem R$ 133,1 milhões de mercado não atendido, zero loja Farmarcas, crescimento de 16% e vaga de zoneamento; Lagarto e Estância repetem o padrão. Comparação: em Aracaju a rede já está presente e o Centro é o trecho mais disputado. Fonte: alternativas.py. Confiança média: UTC não é raio. Muda a leitura se: a estratégia for capital, e não interior."
+      }
+    ],
+    "Dificuldades": [
+      {
+        "titulo": "A regra de 300 m não pôde ser checada.",
+        "texto": "As 3 lojas Ultra Popular de Aracaju estão sem coordenada no cadastro — e Ultra Popular é justamente a bandeira pretendida, a de mínimo menor. Pelo centroide do bairro, a mais próxima fica a ~3,9 km (Jardins) e outra a ~6,6 km (Farolândia); Aruana não tem centroide. Fonte: zoneamento.py. Confiança baixa na distância, alta na lacuna. Muda a leitura se: geocodificar os três endereços resolve de vez. As três são de outro associado (do_solicitante: false) e o solicitante é empresário novo — aqui toda sobreposição é conflito de terceiro, nunca escolha estratégica."
+      },
+      {
+        "titulo": "A vizinhança foi majoritariamente reprovada.",
+        "texto": "Em 5 km há 13 análises registradas: 8 reprovadas e 2 aprovadas, incluindo uma Reprovada a 152 m (jul/2022) e NAO RECOMENDADO a 688 m (set/2024, lido com --com-parecer). Nem todas na mesma direção: há uma Aprovada a 67 m (jan/2023), também Ultra Popular. Comparação: 8 contra 2 entre as 11 com situação registrada, de 13 análises no raio. Fonte: benchmark_historico.py. Confiança alta nas contagens. Muda a leitura se: nada — é memória institucional, não prognóstico; o parecer não prediz desfecho de loja."
+      },
+      {
+        "titulo": "Já existe uma análise registrada neste exato ponto.",
+        "texto": "De 13/10/2026, treze dias antes do dump, sem situação nem status preenchidos e com apenas 2 camadas. Comparação: entre as 2.475 análises da base que registram camadas, a mediana é 7 — contagem própria sobre all_expansion.analysis_data no dump de 2026-10-26, não devolvida por nenhum script. Confiança alta. Muda a leitura se: checar com o time se é a mesma demanda — pode ser retrabalho."
+      },
+      {
+        "titulo": "Quase ninguém mora aqui — e quem mora, mora em apartamento.",
+        "texto": "1.416 residentes em 7 setores censitários no raio de 300 m, mas 56% dos domicílios são apartamentos — contra 103 estabelecimentos de comércio e serviço, 14 pontos de transporte e 13 bancos mapeados em 500 m. Comparação: o perfil é de calçadão comercial verticalizado, não de bairro residencial. Fonte: raio_setores.py (indice_de_verticalizacao, fração 0–1) e pois_no_raio.py. Confiança alta no padrão. Muda a leitura se: é exatamente o caso em que a ausência de dado de fluxo mais distorce — este dossiê subestima o ponto."
+      }
+    ]
+  },
+  "nao_sabe": [
+    "Fluxo de passantes. Não existe no dump nem no produto. Este ponto é um calçadão — o caso em que a ausência desse dado mais distorce. Destravaria: fonte de mobilidade.",
+    "Periodicidade do potencial de consumo por setor. A base potencial_de_consumo_setor_censitario não declara se o valor é por ANO ou por MÊS (a base municipal traz as duas colunas; a setorial, nenhuma). O teste de ordem de grandeza aponta ANUAL: como anual, drogarias ficam em 5,1% do consumo total do município e o mercado medido pela CloseUp representa 72% de captura; como mensal, seriam 62% do consumo total e 6% de captura. Atenção: o relatório do produto rotula este campo como \"/mês\" — divergência a confirmar com a área de Expansão.",
+    "População, renda e potencial do raio somam o setor censitário INTEIRO que toca o círculo, sem rateio proporcional — mesmo limite do produto nesta versão do código. Num raio de 300 m com 7 setores, é onde o viés é maior. O relatório de referência do produto mostra população fracionada (897,44 habitantes), o que indica uma versão com rateio proporcional: os dois números não são diretamente comparáveis. Destravaria: rateio por área do polígono.",
+    "A regra de expansão diz que loja popular e convencional seguem critérios diferentes, sem detalhar quais (Confluence 4.5 e 6.1). O ponto é popular — é justamente a regra que a fonte oficial não escreve. Destravaria: a área de Expansão documentar a diferença.",
+    "Cinco camadas não existem no raio: farmacias (Receita/QSA) e farmacias_populares_2025, bancos e clinicas_oftalmologicas vieram só com endereço; barreiras_geograficas ficou sem polígono. Sem farmacias não há checagem cruzada da contagem de concorrentes por outra fonte; sem barreiras não se sabe se o calçadão corta ou conecta os dois lados do raio. Destravaria: CNES para farmácias e recuperar os polígonos do asset.",
+    "Premissas do gate não escritas na regra oficial: só Ativado, Montando e Transição ocupam vaga de zoneamento, e as faixas de 60/120/200 mil são tratadas como cortes fechados. Impacto baixo aqui, porque 602.757 habitantes está longe de qualquer corte.",
+    "O cadastro de lojas é de 2026-10-23, três dias mais velho que o resto do dump (2026-10-26).",
+    "Onde ficam as 3 lojas Ultra Popular da cidade: sem coordenada no cadastro, a checagem de 300 m fica na aproximação por bairro.",
+    "Share Farmarcas medido: 6 das 7 UTCs estão ausentes da base de share, e a sétima registra 0,0 com R$ 9,17 milhões de receita.",
+    "Em qual das 7 UTCs e em qual brick o ponto cai: o casamento do brick foi por UF + bairro, não por geometria.",
+    "Se o crescimento de 15% da receita Farmarcas dentro da UTC Farolândia (a UTC inteira cresceu 19%) veio de mesma-loja ou de mudança no número de PDVs: ela está ausente da base de cobertura.",
+    "Área de venda da loja: não há benchmark de R$/m² nem no acervo interno nem em fonte pública localizada. Com uma régua informada, o script estima.",
+    "Valor do aluguel e área do imóvel: campos do analista, como no relatório do produto.",
+    "Cobertura do OpenStreetMap é colaborativa — ausência de equipamento no mapa não é ausência no mundo.",
+    "A população do dump (632.300) não é o Censo 2022 (602.757): +4,9%, com ano de referência não declarado.",
+    "Qualidade de coordenada: 3.700 de 100.612 concorrentes descartados por cair fora do Brasil; 931 das 2.804 lojas do cadastro sem coordenada preenchida e 32 fora do Brasil."
+  ],
+  "campo": [
+    "A Drogasil do nº 182 é vizinha de porta do 182 A, ou a coordenada enviada é a dela? Os dois cenários levam a conclusões opostas.",
+    "Contagem de fluxo de pedestres no calçadão, dia útil e sábado — é o dado que falta e o que mais pesa aqui.",
+    "A análise de 13/10/2026 neste mesmo endereço: é a mesma demanda em andamento?",
+    "Os endereços exatos das 3 lojas Ultra Popular da cidade, para fechar a checagem de 300 m.",
+    "Área de venda disponível no imóvel e valor do aluguel, para fechar o custo de ocupação."
+  ]
+}

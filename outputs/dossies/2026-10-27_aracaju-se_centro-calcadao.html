@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossiê de Região</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente ul{margin:7px 0 0;padding-left:18px}
+.lente li{margin:5px 0}
+.analista{border:1px dashed var(--roxo);border-radius:8px;padding:11px 14px;margin-top:12px}
+.analista .linhas{height:64px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split{grid-template-columns:1fr}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Dossiê de Região</div>
+  <div class="sub">Leitura de região para análise de ponto — <b>sem score</b> ·
+    dump de 2026-10-26 · cadastro de lojas de 2026-10-23</div>
+</header>
+<div class="faixa-end">CALÇADÃO — R. João Pessoa, 182 A · Centro, Aracaju/SE · CEP 49010-130</div>
+<section class="topo">
+  <div class="gate" style="border-color:#b07d00">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#b07d00">Alerta</div>
+    <div class="nota">Acima de 200 mil → sem teto de lojas, ocupação por market share</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Calçadão de uma Capital Regional A que polariza 48 municípios, em região de 1.416 residentes e R$ 3,68 milhões de potencial de consumo em drogarias nos 7 setores do raio — com 16 concorrentes dentro de 300 metros e uma Drogasil cadastrada no mesmo número da rua.</p>
+    <div class="meta">Solicitante: <b>novo</b> ·
+      Bandeira: <b>Ultra Popular</b> (popular) ·
+      População do município (Censo 2022): <b>602.757</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da região</h2>
+  <div class="lente" style="border-color:#0f7b45;background:#e8f6ee"><div class="lente-tit" style="color:#0f7b45">Forças</div><ul><li><b>Capital Regional A, polo de 48 municípios.</b> Segundo nível mais alto da hierarquia urbana do IBGE; a cidade atrai consumo de fora. Fonte: regic_2018_municipio. Confiança alta. Muda a leitura se: a REGIC é de 2018.</li><li><b>IPC no percentil 99 do país (0,33477).</b> Comparação: percentil 99 entre os 5.571 municípios da base; IFDM no percentil 73 e PIB per capita no 60. Fonte: contexto_municipio.py, bloco percentis. Confiança alta. Muda a leitura se: são índices municipais, não do Centro.</li><li><b>Mercado de R$ 1,07 bilhão crescendo 15,6%.</b> Comparação: o gasto em medicamentos da cidade é estimado em R$ 979,3 milhões por outra base — 9% de diferença entre fontes que não conversam. Fonte: mercado_utc.py e dados_farmacia_popular. Confiança média: ano do gasto não declarado. Muda a leitura se: as duas fontes forem de anos diferentes.</li><li><b>Preço médio no brick 9,7% acima da UF.</b> R$ 33,22 por unidade no brick 994-SE_AJU_CENTRO contra R$ 30,27 em Sergipe. Fonte: mercado_brick.py, base IQVIA. Confiança média: o brick foi casado por UF + bairro, não por geometria. Muda a leitura se: o ponto cair em brick vizinho.</li></ul></div><div class="lente" style="border-color:#b4503c;background:#fdeee9"><div class="lente-tit" style="color:#b4503c">Fragilidades</div><ul><li><b>16 registros de concorrente em 300 m — 13 confirmados em Aracaju.</b> Três dos 16 estão cadastrados em outra cidade (Nossa Senhora do Socorro, Araua e Barra dos Coqueiros), os três exatamente a 276 m — assinatura de geocodificação por centroide. São 240 registros em 5 km, 28 deles com cidade divergente. Farmácia Souza aparece 4 vezes no raio curto; Pague Menos a 69 m e 135 m. Comparação: 103 estabelecimentos de comércio e serviço mapeados em 500 m, e a farmácia disputa esse mesmo fluxo. Fonte: concorrentes_2025 via raio_concorrencia.py, blocos concorrentes e qualidade_do_dado. Confiança alta no piso de 13, média no total de 16. Muda a leitura se: 3.700 registros da base foram descartados por coordenada fora do Brasil e 18 estão sem coordenada — a contagem pode subir também.</li><li><b>Há uma Drogasil cadastrada no mesmo número da rua do ponto.</b> O endereço registrado é JOAO PESSOA 182; o ponto é R. João Pessoa, 182 A, e o script a coloca a 12 m. Comparação: é o mais próximo dos 16. Fonte: raio_concorrencia.py. Confiança alta no registro, nenhuma na interpretação: ou é porta com porta, ou a coordenada enviada é a da própria Drogasil. Muda a leitura se: confirmar em campo — são cenários opostos.</li><li><b>Mercado mais saturado que a média do país.</b> 1.293,5 habitantes por farmácia pelo Censo 2022 e 1.356,9 pela população do dump; são 466 farmácias na cidade. Comparação: percentil 35 e 40 contra mediana nacional de 1.492,6. Fonte: contexto_municipio.py. Confiança média: o numerador muda com a população escolhida. Muda a leitura se: a contagem de 466 farmácias estiver desatualizada.</li><li><b>Renda municipal no percentil 16 do país.</b> R$ 242,23 per capita domiciliar contra mediana nacional de R$ 456,30 (n=5.565); 71,7% dos domicílios em C1, C2 ou D/E, sendo 30,5% em D/E. No raio, porém, a renda domiciliar é de R$ 4.191,02 e a renda por habitante R$ 2.623,08 — o Centro é bem mais rico que a média da cidade. Fonte: contexto_municipio.py e raio_setores.py. Confiança média: anos de referência não declarados. Muda a leitura se: a diferença entre cidade e raio é grande e vale checar o perfil de quem compra no calçadão, que não é quem mora nele.</li></ul></div><div class="lente" style="border-color:#1a5fb4;background:#e9f0fb"><div class="lente-tit" style="color:#1a5fb4">Oportunidades</div><ul><li><b>Seis das sete UTCs de Aracaju têm receita Farmarcas zero.</b> A rede fatura R$ 9,17 milhões, toda concentrada na UTC Farolândia. Comparação: share inferido de 0,86% num mercado de R$ 1,07 bilhão. Fonte: mercado_utc.py. Confiança média: o share não foi medido — 6 das 7 UTCs estão ausentes da base de share e a sétima registra 0,0 contradizendo a receita. Muda a leitura se: o zero é inferido da receita, não lido da base.</li><li><b>A rede opera com preço 34% abaixo do concorrente em Sergipe.</b> R$ 20,22 por unidade do Grupo Farmarcas contra R$ 30,56 dos concorrentes na UF. Comparação: no brick do Centro, o preço médio é R$ 33,22 — o mais alto dos três recortes. Fonte: mercado_brick.py. Confiança média: a base IQVIA é a carteira atual. Muda a leitura se: posicionamento popular num brick de preço alto pode ser diferencial ou descompasso de público.</li><li><b>Mercado pouco credenciado ao Farmácia Popular.</b> Só 32 das 466 farmácias da cidade (6,9%), e nenhuma loja Farmarcas entre elas. Comparação: o credenciamento está longe de ser padrão local. Fonte: dados_farmacia_popular via contexto_municipio.py. Confiança alta. Muda a leitura se: o credenciamento mudou após o dump.</li><li><b>Há praça mais aberta que esta na própria UF.</b> Itabaiana/SE tem R$ 133,1 milhões de mercado não atendido, zero loja Farmarcas, crescimento de 16% e vaga de zoneamento; Lagarto e Estância repetem o padrão. Comparação: em Aracaju a rede já está presente e o Centro é o trecho mais disputado. Fonte: alternativas.py. Confiança média: UTC não é raio. Muda a leitura se: a estratégia for capital, e não interior.</li></ul></div><div class="lente" style="border-color:#8b3a62;background:#fbeaf2"><div class="lente-tit" style="color:#8b3a62">Dificuldades</div><ul><li><b>A regra de 300 m não pôde ser checada.</b> As 3 lojas Ultra Popular de Aracaju estão sem coordenada no cadastro — e Ultra Popular é justamente a bandeira pretendida, a de mínimo menor. Pelo centroide do bairro, a mais próxima fica a ~3,9 km (Jardins) e outra a ~6,6 km (Farolândia); Aruana não tem centroide. Fonte: zoneamento.py. Confiança baixa na distância, alta na lacuna. Muda a leitura se: geocodificar os três endereços resolve de vez. As três são de outro associado (do_solicitante: false) e o solicitante é empresário novo — aqui toda sobreposição é conflito de terceiro, nunca escolha estratégica.</li><li><b>A vizinhança foi majoritariamente reprovada.</b> Em 5 km há 13 análises registradas: 8 reprovadas e 2 aprovadas, incluindo uma Reprovada a 152 m (jul/2022) e NAO RECOMENDADO a 688 m (set/2024, lido com --com-parecer). Nem todas na mesma direção: há uma Aprovada a 67 m (jan/2023), também Ultra Popular. Comparação: 8 contra 2 entre as 11 com situação registrada, de 13 análises no raio. Fonte: benchmark_historico.py. Confiança alta nas contagens. Muda a leitura se: nada — é memória institucional, não prognóstico; o parecer não prediz desfecho de loja.</li><li><b>Já existe uma análise registrada neste exato ponto.</b> De 13/10/2026, treze dias antes do dump, sem situação nem status preenchidos e com apenas 2 camadas. Comparação: entre as 2.475 análises da base que registram camadas, a mediana é 7 — contagem própria sobre all_expansion.analysis_data no dump de 2026-10-26, não devolvida por nenhum script. Confiança alta. Muda a leitura se: checar com o time se é a mesma demanda — pode ser retrabalho.</li><li><b>Quase ninguém mora aqui — e quem mora, mora em apartamento.</b> 1.416 residentes em 7 setores censitários no raio de 300 m, mas 56% dos domicílios são apartamentos — contra 103 estabelecimentos de comércio e serviço, 14 pontos de transporte e 13 bancos mapeados em 500 m. Comparação: o perfil é de calçadão comercial verticalizado, não de bairro residencial. Fonte: raio_setores.py (indice_de_verticalizacao, fração 0–1) e pois_no_raio.py. Confiança alta no padrão. Muda a leitura se: é exatamente o caso em que a ausência de dado de fluxo mais distorce — este dossiê subestima o ponto.</li></ul></div>
+  <div class="analista"><div class="rot">Comentários do analista</div><div class="linhas"></div></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Detalhes da região analisada</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População na área</div><div class="val">1.416 habitantes</div><div class="nota">7 setores censitários no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Raio de estudo</div><div class="val">300 m</div><div class="nota">comparado também a 5.000 m</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Domicílios</div><div class="val">556</div><div class="nota">3,02 moradores por domicílio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo</div><div class="val">R$ 3.676.570,73</div><div class="nota">drogarias, soma dos setores do raio</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Contexto macroeconômico</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Densidade demográfica</div><div class="val">1.552 hab/km²</div><div class="nota">média dos setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média por habitante</div><div class="val">R$ 2.623,08</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média domiciliar</div><div class="val">R$ 4.191,02</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Verticalização</div><div class="val">56,0%</div><div class="nota">domicílios em apartamento — casas x apartamentos</div></div>
+    <div class="card" style="border-left-color:#b07d00"><div class="rot">Área de venda estimada</div><div class="val">—</div><div class="nota">informe --receita-por-m2 para estimar; sem régua de R$/m² não há estimativa honesta</div></div>
+    <div class="card" style="border-left-color:#777"><div class="rot">Valor do aluguel</div><div class="val">—</div><div class="nota">a informar pelo analista</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">$</span> Microterritório e concorrência</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais na região</div><div class="val">R$ 42.117.449,98</div><div class="nota">205 lojas nas cidades do raio</div></div>
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Média de faturamento por loja</div><div class="val">R$ 287.013,65</div><div class="nota">mensal estimado, no raio</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais no raio</div><div class="val">R$ 2.296.109,23</div><div class="nota">8 lojas com faturamento</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Concorrentes em 300 m</div><div class="val">16</div><div class="nota">240 em 5.000 m</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Lojas Farmarcas no raio</div><div class="val">0</div><div class="nota">pelo cadastro de lojas (CNPJ + coordenada) — atenção: 3 loja(s) do município estão sem coordenada e não entram nesta conta</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Preço médio no brick</div><div class="val">R$ 33,22</div><div class="nota">UF: R$ 30,27 · UF + bairro do ponto (Centro, centroide a 117 m)</div></div>
+  </div>
+  <h3>Venda mensal aproximada — raio de estudo</h3>
+  <table><thead><tr><th>Máxima</th><th>Mínima</th><th>Classificação</th><th>Lojas no raio</th></tr></thead><tbody><tr><td>Acima</td><td>R$ 1.336.854,12</td><td><span class="faixa f1">1</span></td><td>—</td></tr><tr><td>R$ 1.336.854,11</td><td>R$ 846.655,41</td><td><span class="faixa f2">2</span></td><td>—</td></tr><tr class="tem"><td>R$ 846.655,40</td><td>R$ 549.075,62</td><td><span class="faixa f3">3</span></td><td>1</td></tr><tr class="tem"><td>R$ 549.075,61</td><td>R$ 388.442,64</td><td><span class="faixa f4">4</span></td><td>1</td></tr><tr class="tem"><td>R$ 388.442,63</td><td>R$ 271.181,25</td><td><span class="faixa f5">5</span></td><td>2</td></tr><tr><td>R$ 271.181,24</td><td>R$ 162.244,26</td><td><span class="faixa f6">6</span></td><td>—</td></tr><tr class="tem"><td>R$ 162.244,25</td><td>R$ 89.997,74</td><td><span class="faixa f7">7</span></td><td>3</td></tr><tr class="tem"><td>R$ 89.997,74</td><td>Abaixo</td><td><span class="faixa f8">8</span></td><td>1</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">◷</span> Potencial de consumo da região analisada</h2>
+  <div class="split">
+    <div class="split-cards">
+      <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo total</div><div class="val">R$ 3.676.570,73</div><div class="nota">médio potencial de captura</div></div>
+      <div class="card" style="border-left-color:#3b7ddd"><div class="rot">Medicamentos</div><div class="val">R$ 1.678.722,20</div><div class="nota">45,7% do total</div></div>
+      <div class="card" style="border-left-color:#e8558f"><div class="rot">Higiene, Beleza &amp; Nutrição</div><div class="val">R$ 1.997.848,53</div><div class="nota">54,3% do total</div></div>
+    </div>
+    <div class="split-graf">
+      <svg viewBox="0 0 180 180" width="190" height="190" role="img"
+  aria-label="Medicamentos 46%, Higiene, Beleza &amp; Nutrição 54%">
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#e8558f" stroke-width="34"/>
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#3b7ddd" stroke-width="34"
+     stroke-dasharray="201.00 238.82" transform="rotate(-90 90 90)"/>
+</svg>
+      <div class="legenda"><span class="p azul"></span>Medicamentos
+        <span class="p rosa"></span>Higiene, Beleza &amp; Nutrição</div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Geradores de fluxo no entorno</h2>
+  <table><thead><tr><th>Categoria</th><th>No raio</th><th>Mais próximo</th><th>Exemplos</th></tr></thead><tbody><tr><td>Saude</td><td>1</td><td>438 m</td><td>Hospital de Olhos Santo Antônio</td></tr><tr><td>Creche Escola</td><td>1</td><td>482 m</td><td>Colégio Estadual Jackson de Figueiredo</td></tr><tr><td>Mercado Supermercado</td><td>1</td><td>441 m</td><td>Shopping aracaju</td></tr><tr><td>Banco Loteria</td><td>13</td><td>74 m</td><td>Banesco, Itaú, State Bank of Sergipe</td></tr><tr><td>Transporte</td><td>14</td><td>134 m</td><td>(sem nome), (sem nome), (sem nome)</td></tr><tr><td>Moradia Coletiva</td><td>2</td><td>266 m</td><td>Grande Hotel, (sem nome)</td></tr><tr><td>Moradia Individual</td><td>0</td><td>—</td><td></td></tr><tr><td>Comercio Servicos</td><td>103</td><td>10 m</td><td>Ipanema, (sem nome), C&amp;A</td></tr><tr><td>Lazer Culto</td><td>6</td><td>40 m</td><td>Igreja de São Salvador, Praça General Valadão, Praça General Valadão</td></tr></tbody></table><p class='vazio'>OpenStreetMap. Contagem de equipamentos é proxy fraco de fluxo — não substitui contagem de passantes.</p>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Onde mais olhar — mesma UF</h2>
+  <table><thead><tr><th>Praça</th><th>Mercado não atendido</th><th>Share</th><th>Cresc.</th><th>Lojas</th><th>Zoneamento</th></tr></thead><tbody><tr><td>ITABAIANA/SE</td><td>R$ 133.065.236</td><td>0,0%</td><td>16,0%</td><td>0</td><td>COM VAGA</td></tr><tr><td>NOSSA SENHORA DO SOCORRO/SE</td><td>R$ 128.526.484</td><td>11,4%</td><td>17,0%</td><td>1</td><td>COM VAGA</td></tr><tr><td>LAGARTO/SE</td><td>R$ 104.013.665</td><td>0,0%</td><td>13,0%</td><td>0</td><td>COM VAGA</td></tr><tr><td>ESTÂNCIA/SE</td><td>R$ 60.757.062</td><td>0,0%</td><td>20,0%</td><td>0</td><td>COM VAGA</td></tr><tr><td>NOSSA SENHORA DA GLÓRIA/SE</td><td>R$ 51.358.457</td><td>0,0%</td><td>15,0%</td><td>0</td><td>COM VAGA</td></tr><tr><td>TOBIAS BARRETO/SE</td><td>R$ 50.545.032</td><td>0,0%</td><td>12,0%</td><td>0</td><td>COM VAGA</td></tr></tbody></table><p class='vazio'>Lista de onde vale rodar um dossiê, não recomendação de abertura.</p>
+</section>
+<section class="lacunas">
+  <h2><span class="ic">!</span> O que este dossiê NÃO sabe</h2>
+  <ul><li>Fluxo de passantes. Não existe no dump nem no produto. Este ponto é um calçadão — o caso em que a ausência desse dado mais distorce. Destravaria: fonte de mobilidade.</li><li>Periodicidade do potencial de consumo por setor. A base potencial_de_consumo_setor_censitario não declara se o valor é por ANO ou por MÊS (a base municipal traz as duas colunas; a setorial, nenhuma). O teste de ordem de grandeza aponta ANUAL: como anual, drogarias ficam em 5,1% do consumo total do município e o mercado medido pela CloseUp representa 72% de captura; como mensal, seriam 62% do consumo total e 6% de captura. Atenção: o relatório do produto rotula este campo como &quot;/mês&quot; — divergência a confirmar com a área de Expansão.</li><li>População, renda e potencial do raio somam o setor censitário INTEIRO que toca o círculo, sem rateio proporcional — mesmo limite do produto nesta versão do código. Num raio de 300 m com 7 setores, é onde o viés é maior. O relatório de referência do produto mostra população fracionada (897,44 habitantes), o que indica uma versão com rateio proporcional: os dois números não são diretamente comparáveis. Destravaria: rateio por área do polígono.</li><li>A regra de expansão diz que loja popular e convencional seguem critérios diferentes, sem detalhar quais (Confluence 4.5 e 6.1). O ponto é popular — é justamente a regra que a fonte oficial não escreve. Destravaria: a área de Expansão documentar a diferença.</li><li>Cinco camadas não existem no raio: farmacias (Receita/QSA) e farmacias_populares_2025, bancos e clinicas_oftalmologicas vieram só com endereço; barreiras_geograficas ficou sem polígono. Sem farmacias não há checagem cruzada da contagem de concorrentes por outra fonte; sem barreiras não se sabe se o calçadão corta ou conecta os dois lados do raio. Destravaria: CNES para farmácias e recuperar os polígonos do asset.</li><li>Premissas do gate não escritas na regra oficial: só Ativado, Montando e Transição ocupam vaga de zoneamento, e as faixas de 60/120/200 mil são tratadas como cortes fechados. Impacto baixo aqui, porque 602.757 habitantes está longe de qualquer corte.</li><li>O cadastro de lojas é de 2026-10-23, três dias mais velho que o resto do dump (2026-10-26).</li><li>Onde ficam as 3 lojas Ultra Popular da cidade: sem coordenada no cadastro, a checagem de 300 m fica na aproximação por bairro.</li><li>Share Farmarcas medido: 6 das 7 UTCs estão ausentes da base de share, e a sétima registra 0,0 com R$ 9,17 milhões de receita.</li><li>Em qual das 7 UTCs e em qual brick o ponto cai: o casamento do brick foi por UF + bairro, não por geometria.</li><li>Se o crescimento de 15% da receita Farmarcas dentro da UTC Farolândia (a UTC inteira cresceu 19%) veio de mesma-loja ou de mudança no número de PDVs: ela está ausente da base de cobertura.</li><li>Área de venda da loja: não há benchmark de R$/m² nem no acervo interno nem em fonte pública localizada. Com uma régua informada, o script estima.</li><li>Valor do aluguel e área do imóvel: campos do analista, como no relatório do produto.</li><li>Cobertura do OpenStreetMap é colaborativa — ausência de equipamento no mapa não é ausência no mundo.</li><li>A população do dump (632.300) não é o Censo 2022 (602.757): +4,9%, com ano de referência não declarado.</li><li>Qualidade de coordenada: 3.700 de 100.612 concorrentes descartados por cair fora do Brasil; 931 das 2.804 lojas do cadastro sem coordenada preenchida e 32 fora do Brasil.</li><li>[zoneamento] lojas da cidade sem coordenada: 3</li><li>[zoneamento] cobertura de coordenada no cadastro: 1.841 de 2.804 lojas (66%) têm coordenada utilizável; 931 vazias e 32 fora do Brasil (dump de 2026-10-23)</li><li>[zoneamento] premissa status: ocupam vaga: Ativado, Montando, Transição — desativada não ocupa (premissa, não está na regra)</li><li>[zoneamento] limites de faixa: a página escreve faixas sobrepostas (60, 120, 200 mil); aqui o corte é &lt;=60.000, &lt;=120.000, &lt;=200.000</li><li>[zoneamento] popular x convencional: a página diz que as regras diferem entre loja popular e convencional, sem detalhar a diferença</li><li>[concorrência] registros sem coordenada em concorrentes: 18</li><li>[concorrência] lojas do cadastro sem coordenada preenchida: 931</li><li>[concorrência] lojas do cadastro com coordenada fora do brasil: 32</li><li>[concorrência] registros com coordenada fora do brasil descartados: 3700</li><li>[concorrência] farmacias: cadastro Receita/QSA — só endereço; conferir via CNES (Fase 3)</li><li>[concorrência] farmacias_populares_2025: só endereço</li><li>[concorrência] bancos: só endereço</li><li>[concorrência] clinicas_oftalmologicas: só endereço</li><li>[concorrência] barreiras_geograficas: polígono/linha ficou no asset, não no CSV</li><li>[concorrência] setor_censitario: polígono ficou no asset — habilita na Fase 2 com a malha do IBGE</li><li>[concorrência] fluxo de passantes: NÃO existe no dump nem no produto — gap documentado em docs/confluence/ia/analises/estudo-peso-populacao-score-viabilidade.md</li><li>[mercado UTC] mat_atual_utc_market_share: UTC ausente nesta base <b>(5×)</b></li><li>[mercado UTC] mat_anterior_x_atual_utc_sem_cobertura: UTC ausente nesta base</li></ul>
+  <h3>Para confirmar em campo</h3>
+  <ul><li>A Drogasil do nº 182 é vizinha de porta do 182 A, ou a coordenada enviada é a dela? Os dois cenários levam a conclusões opostas.</li><li>Contagem de fluxo de pedestres no calçadão, dia útil e sábado — é o dado que falta e o que mais pesa aqui.</li><li>A análise de 13/10/2026 neste mesmo endereço: é a mesma demanda em andamento?</li><li>Os endereços exatos das 3 lojas Ultra Popular da cidade, para fechar a checagem de 300 m.</li><li>Área de venda disponível no imóvel e valor do aluguel, para fechar o custo de ocupação.</li></ul>
+</section>
+<footer>
+  Dump do Órbita de 2026-10-26 · geometria do asset público do Órbita ·
+  população do Censo 2022 (API do IBGE) · POIs do OpenStreetMap ·
+  preço por unidade da IQVIA. <b>Este dossiê não pontua o ponto.</b>
+</footer></div></body></html>

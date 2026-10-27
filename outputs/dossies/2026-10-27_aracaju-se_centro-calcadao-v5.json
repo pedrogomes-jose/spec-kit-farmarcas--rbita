@@ -1,0 +1,144 @@
+{
+  "endereco": "CALÇADÃO — R. João Pessoa, 182 A · Centro, Aracaju/SE · CEP 49010-130",
+  "lat": -10.911123,
+  "lng": -37.049093,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "2800308",
+  "municipio": "Aracaju",
+  "uf": "SE",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "novo",
+  "ge": "",
+  "receita_por_m2": null,
+  "resumo": "Calçadão de uma Capital Regional A que polariza 48 municípios, em região de 1.416 residentes e R$ 3,68 milhões de potencial de consumo em drogarias nos 7 setores do raio — com 16 concorrentes dentro de 300 metros e uma Drogasil cadastrada no mesmo número da rua.",
+  "lentes": {
+    "Forças": {
+      "abertura": "Aracaju é praça grande e rica em consumo, e o ponto está no centro dela. A cidade manda numa rede urbana de 48 municípios, aparece no topo do país em potencial de consumo, e o mercado farmacêutico local é de mais de um bilhão de reais ao ano — medido por duas fontes que não conversam entre si e mesmo assim chegam perto. No recorte mais fino, o brick do Centro ainda vende a preço acima da média do estado.",
+      "itens": [
+        {
+          "titulo": "Capital Regional A, polo de 48 municípios.",
+          "texto": "É o segundo nível mais alto da hierarquia urbana do IBGE, o que significa que a cidade atrai consumo de fora e não vive só dos próprios moradores — relevante num ponto cuja população residente é pequena. Confiança alta quanto à classificação, com a ressalva de que o levantamento é de 2018 e descreve a cidade de sete anos atrás: o papel regional de Aracaju pode ter mudado desde então, para mais ou para menos.",
+          "fonte": "REGIC 2018, do IBGE"
+        },
+        {
+          "titulo": "IPC no percentil 99 do país.",
+          "texto": "O índice de potencial de consumo é 0,33477, o que coloca Aracaju entre os 1% maiores dos 5.571 municípios da base; o índice Firjan fica no percentil 73 e o PIB per capita no 60. Confiança alta nos valores. O limite é de escopo, não de qualidade: são índices do município inteiro, e dizem que Aracaju é praça forte — não que este quarteirão do Centro seja.",
+          "fonte": "Ranking de Consumo, índice Firjan e PIB municipal, do acervo do Órbita"
+        },
+        {
+          "titulo": "Mercado farmacêutico de R$ 1,07 bilhão, crescendo 15,6%.",
+          "texto": "A receita medida nas sete UTCs da cidade passou de R$ 926,9 milhões para R$ 1.071,8 milhões entre os MAT de maio/2025 e maio/2026. Uma segunda base, de origem diferente, estima o gasto da cidade em medicamentos em R$ 979,3 milhões — 9% de diferença entre fontes que não se falam, o que reforça as duas em vez de enfraquecê-las. Confiança média: a base do gasto não declara o ano de referência, e se houver defasagem grande entre as duas a convergência de 9% perde força.",
+          "fonte": "base de crescimento por UTC da IQVIA e base do Farmácia Popular"
+        },
+        {
+          "titulo": "Preço médio no brick 9,7% acima da média do estado.",
+          "texto": "No brick que cobre o Centro, o preço médio é de R$ 33,22 por unidade vendida, contra R$ 30,27 em Sergipe — sinal de mix mais caro ou de menos pressão de desconto na região. Confiança média, e a razão é de localização: como não há geometria dos bricks, o casamento foi feito pelo bairro do ponto, cujo centroide fica a 117 metros daqui. Se o endereço pertencer a um brick vizinho, esse preço muda.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "O que pesa contra não é o tamanho do mercado, é a disputa por ele e o perfil de quem mora em volta. A concorrência no raio curto é densa, a cidade já tem mais farmácia por habitante que a mediana do país, e a renda municipal está entre as mais baixas — ainda que o Centro, isoladamente, seja bem mais rico que a média de Aracaju.",
+      "itens": [
+        {
+          "titulo": "Dezesseis registros de concorrente em 300 metros, dos quais 13 confirmados em Aracaju.",
+          "texto": "Três dos dezesseis estão cadastrados em outra cidade — Nossa Senhora do Socorro, Araua e Barra dos Coqueiros — e os três aparecem exatamente a 276 metros, distância idêntica que é assinatura de geocodificação por centroide, não de endereço real. No raio de 5 km são 240 registros, 28 deles com a mesma divergência. A Farmácia Souza aparece quatro vezes só no raio curto, e a Pague Menos a 69 e a 135 metros. Comparação: há 103 estabelecimentos de comércio e serviço mapeados em 500 metros, e a farmácia disputa esse mesmo fluxo. Confiança alta no piso de 13 e média no total de 16; a contagem também pode subir, porque 3.700 registros da base inteira foram descartados por coordenada fora do Brasil e outros 18 estão sem coordenada.",
+          "fonte": "camada Concorrentes 2025, com a checagem de cadastro"
+        },
+        {
+          "titulo": "Há uma Drogasil cadastrada no mesmo número da rua do ponto.",
+          "texto": "O endereço registrado é João Pessoa 182; o ponto analisado é a João Pessoa 182 A, e o cálculo a coloca a 12 metros — o mais próximo dos dezesseis. A confiança no registro é alta e a confiança na interpretação é nenhuma, porque há duas leituras incompatíveis: ou a loja é vizinha de porta, e o ponto nasce colado a uma rede nacional, ou a coordenada enviada para esta análise é a da própria Drogasil, e então todo o recorte de 300 metros está centrado no lugar errado. Essa é a primeira coisa a confirmar em campo.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "Mercado mais saturado que a média do país.",
+          "texto": "São 1.293,5 habitantes por farmácia pela população do Censo 2022 e 1.356,9 pela população do dump, num universo de 466 farmácias na cidade. Comparação: percentil 35 e 40 respectivamente, contra mediana nacional de 1.492,6 habitantes por farmácia. Confiança média, porque o numerador muda conforme a população escolhida — a distribuição de referência, não. Se a contagem de 466 farmácias estiver desatualizada para mais, a saturação é pior do que esta leitura mostra.",
+          "fonte": "acervo municipal do Órbita"
+        },
+        {
+          "titulo": "Renda municipal no percentil 16 do país, mas o Centro é mais rico que a cidade.",
+          "texto": "A renda domiciliar per capita de Aracaju é de R$ 242,23 contra mediana nacional de R$ 456,30, e 71,7% dos domicílios estão em C1, C2 ou D/E, sendo 30,5% em D/E. Nos sete setores do raio, porém, a renda domiciliar é de R$ 4.191,02 e a renda por habitante de R$ 2.623,08 — bem acima da média municipal. Confiança média nos valores, que não declaram ano de referência. A diferença entre cidade e raio é o ponto a observar: capital com índice de consumo alto e renda baixa é mercado de volume, não de ticket, e num calçadão quem compra não é necessariamente quem mora — o perfil da clientela pode não ser nenhum dos dois retratos.",
+          "fonte": "acervo municipal do Órbita e camadas por setor censitário no raio"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "A Farmarcas está praticamente ausente de uma praça que fatura mais de um bilhão ao ano, e o pouco que fatura está concentrado num único bolsão da cidade. O posicionamento de preço da rede e o baixo credenciamento local ao Farmácia Popular abrem espaço — mas há praças mais vazias que esta na própria Sergipe.",
+      "itens": [
+        {
+          "titulo": "Seis das sete UTCs de Aracaju têm receita Farmarcas zero.",
+          "texto": "A rede fatura R$ 9,17 milhões na cidade, toda concentrada na UTC Farolândia, o que equivale a 0,86% de um mercado de R$ 1,07 bilhão. Confiança média, e a razão é importante: esse share não foi medido, foi inferido da receita, porque seis das sete UTCs estão ausentes da base de market share e a sétima registra share zero ao mesmo tempo em que mostra R$ 9,17 milhões de receita. As duas afirmações não podem estar certas, e se a base de share estiver correta e a de receita errada, a leitura se inverte.",
+          "fonte": "base de crescimento por UTC da IQVIA"
+        },
+        {
+          "titulo": "A rede opera com preço 34% abaixo do concorrente em Sergipe.",
+          "texto": "O Grupo Farmarcas vende a R$ 20,22 por unidade no estado, contra R$ 30,56 dos concorrentes. Comparação: no brick do Centro o preço médio é R$ 33,22, o mais alto dos três recortes. Confiança média, porque a base reflete a carteira atual da rede com o histórico retroagido. A tensão aqui merece atenção antes de virar argumento: bandeira popular num brick de preço alto tanto pode ser diferencial competitivo quanto descompasso com o público que já compra ali.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        },
+        {
+          "titulo": "Mercado pouco credenciado ao Farmácia Popular.",
+          "texto": "Apenas 32 das 466 farmácias da cidade são credenciadas, 6,9% do total, e nenhuma delas é loja Farmarcas. Comparação: o credenciamento está longe de ser padrão local, diferente do que se vê em praças onde ele passa de um terço das farmácias. Confiança alta na contagem, com a ressalva de que o credenciamento pode ter mudado depois da extração do dump, em outubro de 2026.",
+          "fonte": "base do Farmácia Popular"
+        },
+        {
+          "titulo": "Há praça mais aberta que esta na própria Sergipe.",
+          "texto": "Itabaiana tem R$ 133,1 milhões de mercado sem receita nossa dentro, nenhuma loja Farmarcas, crescimento de 16% e vaga de zoneamento; Lagarto e Estância repetem o padrão. Comparação: em Aracaju a rede já está presente e o Centro é o trecho mais disputado da cidade. Confiança média, porque a UTC é um recorte de mercado e não um raio de influência: ela serve para escolher a praça, não o ponto dentro dela. A leitura muda conforme a estratégia — se a decisão for ocupar capital, esta comparação não se aplica.",
+          "fonte": "bases de UTC da CloseUp e IQVIA, cruzadas com o cadastro de lojas"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "Três obstáculos convivem aqui: uma regra de zoneamento que não pôde ser verificada por falta de coordenada no cadastro, uma vizinhança que o time já reprovou mais vezes do que aprovou, e um ponto cujo público não é quem mora nele — justamente o que este dossiê não consegue medir.",
+      "itens": [
+        {
+          "titulo": "A regra de 300 metros não pôde ser checada.",
+          "texto": "As três lojas Ultra Popular de Aracaju estão sem coordenada no cadastro, e Ultra Popular é justamente a bandeira pretendida, a que exige a distância mínima menor — 300 metros, contra 500 de outra bandeira. Pelo centroide do bairro, a mais próxima fica a cerca de 3,9 km, em Jardins, e outra a 6,6 km, em Farolândia; Aruana não tem centroide na base. As três são de outro associado, e como o solicitante é empresário novo, qualquer sobreposição aqui seria conflito de terceiro, nunca escolha estratégica. Confiança alta na lacuna e baixa na distância: 3,9 km é treze vezes o mínimo exigido, mas centroide de bairro não é endereço de loja, e só a geocodificação dos três endereços fecha essa checagem.",
+          "fonte": "cadastro de lojas Farmarcas e camada Bairros"
+        },
+        {
+          "titulo": "A vizinhança foi majoritariamente reprovada.",
+          "texto": "Em 5 km há treze análises registradas, oito reprovadas e duas aprovadas, incluindo uma reprovada a 152 metros em julho de 2022 e um \"não recomendado\" a 688 metros em setembro de 2024 — este último com o parecer registrado em texto. Nem todas apontam na mesma direção: há uma aprovada a 67 metros, de janeiro de 2023, também Ultra Popular. Comparação: oito contra duas entre as onze que têm situação registrada, de treze análises no raio. Confiança alta nas contagens, e aqui cabe o aviso mais importante do dossiê: isto é memória institucional, não prognóstico. O estudo que cruzou pareceres com o desfecho das lojas não encontrou poder preditivo no parecer, nem para aprovar nem para reprovar.",
+          "fonte": "histórico de análises do Órbita"
+        },
+        {
+          "titulo": "Já existe uma análise registrada neste exato ponto.",
+          "texto": "É de 13 de outubro de 2026, treze dias antes da extração do dump, e está sem situação e sem status preenchidos, com apenas duas camadas aplicadas. Comparação: entre as 2.475 análises da base que registram camadas, a mediana é sete — contagem própria sobre o histórico de análises do Órbita, no dump de 2026-10-26. Confiança alta no registro. O que isso significa depende de uma checagem simples com o time: se for a mesma demanda em andamento, há dois analistas sobre o mesmo endereço e este dossiê é retrabalho.",
+          "fonte": "histórico de análises do Órbita"
+        },
+        {
+          "titulo": "Quase ninguém mora aqui — e quem mora, mora em apartamento.",
+          "texto": "São 1.416 residentes em sete setores censitários dentro de 300 metros, com 56% dos domicílios em apartamento, contra 103 estabelecimentos de comércio e serviço, catorze pontos de transporte e treze bancos mapeados em 500 metros. Comparação: o perfil é de calçadão comercial verticalizado, não de bairro residencial. Confiança alta no padrão. É exatamente o tipo de ponto em que a ausência de dado de fluxo mais distorce o resultado: a clientela de um calçadão é o passante, que nenhuma base deste dossiê conta, então tudo o que está aqui subestima o ponto.",
+          "fonte": "camadas por setor censitário no raio, com a verticalização em fração de 0 a 1, e OpenStreetMap"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "Fluxo de passantes. Não existe em fonte alguma — nem nas bases do Órbita, nem no código do produto, nem em API pública localizada. Importa mais aqui do que em qualquer outro ponto deste dossiê: um calçadão vive de quem passa, e a população residente de 1.416 pessoas descreve justamente quem não é a clientela. Todo número deste relatório, portanto, subestima o ponto, e nenhum outro indicador compensa isso. Destravaria uma fonte de mobilidade — operadora de telecom, provedor de footfall ou contagem em campo.",
+    "Periodicidade e reconciliação do potencial de consumo por setor. A camada de Potencial de Consumo por setor censitário não declara se o valor é por ano ou por mês. A base municipal de potencial declara as duas para Aracaju: R$ 2,37 bilhões no ano e R$ 197,7 milhões no mês, em drogarias. A soma dos 752 setores da cidade dá R$ 1,48 bilhão, o que equivale a 62% do municipal anual e 7,5 vezes o mensal — a escala é anual sem sombra de dúvida, mas sobram 38% de diferença entre as duas bases sem explicação. Importa porque o potencial é o número que dimensiona a demanda do ponto, e ele aparece no cabeçalho do relatório. Agrava que o relatório do produto rotula o mesmo campo como mensal. Destravaria a área de Expansão confirmar a periodicidade e a razão da diferença.",
+    "Rateio proporcional dos setores. População, renda e potencial do raio somam o setor censitário inteiro que toca o círculo, sem considerar que fração dele está de fato dentro — mesmo limite que o Órbita aplica hoje. Num raio de 300 metros com sete setores, é onde esse viés é maior: um setor grande que apenas encosta no círculo entra com tudo. O relatório de referência do produto mostra população fracionada, 897,44 habitantes, o que indica uma versão com rateio proporcional; os dois números não são diretamente comparáveis. Destravaria o rateio pela área do polígono dentro do raio.",
+    "Onde ficam as três lojas Ultra Popular da cidade. Estão sem coordenada no cadastro, então a distância mínima de 300 metros — a regra de zoneamento que de fato se aplicaria a este pedido — ficou na aproximação por centroide de bairro. Importa porque é a única regra que poderia barrar o ponto. Destravaria geocodificar os três endereços, que já constam do cadastro.",
+    "Share Farmarcas medido. Seis das sete UTCs de Aracaju estão ausentes da base de market share por UTC da IQVIA, e a sétima, Farolândia, registra share zero ao mesmo tempo em que a base de receita mostra R$ 9,17 milhões. O 0,86% deste dossiê é inferido da receita, e share ausente não é share zero. Importa porque é o número que sustenta a leitura de praça aberta. Destravaria a IQVIA publicar a UTC na base de share.",
+    "Em qual UTC e em qual brick o ponto cai. Os bricks vieram sem polígono, então o casamento foi feito por UF e bairro — acertou o brick do Centro, mas por nome, não por geometria. Pelo mesmo motivo, os números de mercado são do município inteiro, não da vizinhança. Importa para o preço médio e para o share. Destravaria a geometria dos bricks e das UTCs.",
+    "Se o crescimento de 15% da receita Farmarcas na UTC Farolândia veio de mesma loja ou de mudança no número de PDVs. A UTC está ausente da base de cobertura de PDVs por UTC da IQVIA, única das sete nessa situação. Importa porque é a evidência de que a rede funciona nesta cidade: crescer com a mesma loja é desempenho, crescer abrindo loja é expansão. Destravaria a cobertura de PDVs dessa UTC.",
+    "A regra de expansão para loja popular. As regras de zoneamento e de expansão da Farmarcas dizem que loja popular e convencional seguem critérios diferentes, sem detalhar quais. O ponto é popular, então é justamente a regra aplicável que a fonte oficial não escreve. Importa porque o gate deste dossiê passou sem poder verificar essa distinção. Destravaria a área de Expansão documentar a diferença.",
+    "Cinco camadas não existem no raio. Farmácias, do cadastro da Receita, e Farmácias Populares 2025, Bancos e Clínicas Oftalmológicas vieram só com endereço; Barreiras Geográficas ficou sem polígono. A ausência mais cara é a de Farmácias, que seria a segunda fonte para conferir a contagem de concorrentes, e a de Barreiras, que num calçadão diria se a via corta ou conecta os dois lados da área de influência. Destravaria o CNES para farmácias e a recuperação dos polígonos das camadas.",
+    "Área de venda da loja. Não há referência de faturamento por metro quadrado nem no acervo interno nem em fonte pública localizada — as entidades do setor publicam faturamento e número de lojas, não área. Importa para dimensionar o imóvel e calcular o custo de ocupação. Destravaria uma régua de R$/m² informada pelo analista, e com ela o cálculo sai automático.",
+    "Valor do aluguel e área do imóvel. São campos do analista, como no relatório do produto, e sem eles não há custo de ocupação nem comparação com o faturamento esperado.",
+    "Premissas do gate de zoneamento que não estão escritas na regra oficial. Considerou-se que só lojas com status Ativado, Montando ou Transição ocupam vaga, e que as faixas de 60, 120 e 200 mil habitantes são cortes fechados. O impacto aqui é baixo, porque 602.757 habitantes está longe de qualquer corte, mas numa cidade próxima do limite essas duas premissas mudariam o teto aplicado.",
+    "Cobertura do OpenStreetMap. O mapeamento é colaborativo e irregular no Brasil, especialmente para edificações: a tabela mostra zero moradia individual no raio, o que pode significar ausência real num centro verticalizado ou simplesmente prédios não mapeados. A contagem de equipamentos serve para dizer que os geradores de fluxo existem e a que distância, nunca quanta gente passa.",
+    "A diferença entre a população do dump e a do Censo. O dump traz 632.300 habitantes para Aracaju e o Censo 2022 traz 602.757, uma diferença de 4,9%, com o ano de referência do dump não declarado. A faixa de zoneamento foi cortada pelo Censo, que é a fonte oficial e datada; por isso a saturação aparece nas duas bases.",
+    "Qualidade das coordenadas. Na camada de concorrentes, 3.700 dos 100.612 registros foram descartados por cair fora do Brasil e outros 18 estão sem coordenada. No cadastro de lojas, 931 das 2.804 não têm coordenada preenchida e outras 32 caem fora do Brasil. Isso afeta tanto a contagem de concorrentes quanto a checagem de distância mínima, e nos dois casos o erro pode ser para mais ou para menos.",
+    "A idade do cadastro de lojas. Ele é de 23 de outubro de 2026, três dias mais velho que o resto do dump, de 26 de outubro. Loja aberta, fechada ou com coordenada corrigida nesse intervalo não aparece aqui."
+  ],
+  "campo": [
+    "A Drogasil do número 182 é vizinha de porta do 182 A, ou a coordenada enviada para esta análise é a dela? É a primeira checagem, porque os dois cenários levam a conclusões opostas: no primeiro o ponto nasce colado a uma rede nacional; no segundo, todo o recorte de 300 metros está centrado no lugar errado e o dossiê precisa ser refeito.",
+    "Contagem de fluxo de pedestres no calçadão, em dia útil e no sábado, em pelo menos dois horários. É o dado que falta e o que mais pesa neste tipo de ponto — sem ele, tudo o que está aqui subestima a região. Um volume alto justifica o ponto mesmo com os 1.416 residentes; um volume baixo derruba a tese do calçadão.",
+    "A análise registrada em 13 de outubro de 2026 neste mesmo endereço: é a mesma demanda em andamento? Se for, há dois analistas sobre o mesmo ponto e este dossiê vira insumo daquela análise, não uma nova. Se não for, vale saber por que a anterior ficou sem situação preenchida.",
+    "Os endereços exatos das três lojas Ultra Popular da cidade, para fechar a checagem de distância mínima de 300 metros. Enquanto a coordenada não existir no cadastro, o gate de zoneamento passa por aproximação de bairro — e é a única regra que poderia barrar este pedido.",
+    "Área de venda disponível no imóvel e valor do aluguel, para fechar o custo de ocupação. Sem os dois, não há como confrontar o investimento com o faturamento que a região comporta, e o relatório fica sem a conta que decide.",
+    "Os três concorrentes cadastrados a 276 metros em cidades diferentes: existem mesmo nesse raio ou é erro de geocodificação? A resposta move a contagem de concorrentes de 13 para 16 — e, no raio de 5 km, 28 registros estão na mesma situação."
+  ]
+}

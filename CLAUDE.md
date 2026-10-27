@@ -51,3 +51,35 @@ Novas features neste projeto devem seguir o fluxo spec-driven do spec-kit:
 5. `/speckit-tasks` — quebra o plano em tarefas executáveis.
 6. `/speckit-analyze` (opcional) — checa consistência entre spec/plan/tasks.
 7. `/speckit-implement` — executa a implementação.
+
+## Análise de região (dossiê de ponto)
+
+Para avaliar uma região/endereço com dados, use a skill
+`.claude/skills/analise-regiao-farmarcas/`. Ela roda sobre o dump local das
+bases do Órbita em `C:\Users\zequi\Downloads\bases órbita` (sobrescreva com a
+variável de ambiente `ORBITA_BASES`) e entrega um dossiê com forças,
+fragilidades, oportunidades e dificuldades da região.
+
+Regras que valem para qualquer análise de dado neste projeto:
+
+- **Nenhum número sai do modelo.** Todo valor vem de um script determinístico
+  ou de API pública consultada na sessão. Sem script de origem, não entra.
+- **Fonte, arquivo e data do dump** acompanham cada número. O dump é estático
+  e envelhece em silêncio.
+- **Lacuna é declarada**, com o que a destravaria — nunca preenchida por
+  estimativa.
+- **O dossiê não pontua.** A régua de viabilidade 0–20 pertence ao produto e
+  tem dono (executivos da Farmarcas). Duplicá-la cria dois números divergentes
+  para a mesma pergunta.
+- **Raio é a unidade de análise**, não isócrona — é o que o produto usa e o que
+  torna o resultado comparável com a tela.
+- **Nome de pessoa nunca entra** em entregável: as bases de análises e
+  contratos contêm dados pessoais (LGPD).
+- **Zoneamento é gate, não indicador.** Nenhuma análise de ponto segue sem
+  passar pelas regras oficiais de expansão (Confluence 4.5 e 6.1). Se a regra
+  barra, o entregável é o impedimento — não um estudo de mercado.
+- **Perfil do solicitante é pergunta obrigatória**: empresário novo ou já
+  associado. Loja Farmarcas vizinha é conflito entre associados num caso e
+  escolha estratégica no outro.
+- **"Loja nossa" é o que está no cadastro de lojas (CNPJ + coordenada)**, nunca
+  o que casa por nome de bandeira na camada Concorrentes.

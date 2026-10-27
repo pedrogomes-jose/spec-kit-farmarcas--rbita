@@ -1,0 +1,152 @@
+{
+  "endereco": "R. Rosa Carolina, 20 — Jardins, São Gonçalo do Amarante/RN · CEP 59293-504",
+  "lat": -5.752213,
+  "lng": -35.304588,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "2412005",
+  "municipio": "São Gonçalo do Amarante",
+  "uf": "RN",
+  "bandeira": "Maxi Popular",
+  "modelo": "popular",
+  "perfil": "existente",
+  "ge": "Caio Acioly",
+  "metodo_setores": "area",
+  "receita_por_m2": null,
+  "resumo": "Ponto de bairro numa cidade do arranjo urbano de Natal que cresce 2,3% ao ano, com apenas 59 residentes e quatro farmácias dentro de 300 metros — num mercado municipal de R$ 42,5 milhões crescendo 18,9%, onde a rede tem participação estimada em 5,7% e vende a preço alinhado com a praça.",
+  "lentes": {
+    "Forças": {
+      "abertura": "O encaixe entre a bandeira pretendida e a praça é o ponto mais forte aqui. São Gonçalo do Amarante é cidade de renda baixa e classe popular dominante, com mercado farmacêutico crescendo quase 19% ao ano e preço médio bem abaixo do estado — o perfil em que uma bandeira popular opera. A rede já está presente, com participação estimada em 5,7% do mercado da cidade, e vende a preço alinhado com o que a praça pratica.",
+      "itens": [
+        {
+          "titulo": "Mercado de R$ 42,5 milhões crescendo 18,9%, com a rede já dentro.",
+          "texto": "A receita medida na cidade passou de R$ 35,8 milhões para R$ 42,5 milhões entre os MAT de maio/2025 e maio/2026, e a Farmarcas responde por R$ 2,43 milhões — share de 5,71%. Comparação: o município tem uma única UTC, então o número é da cidade inteira, sem aproximação de recorte. Confiança média, porque esse share é inferido da receita e não lido da base de participação, que registra zero para esta UTC. Há um terceiro número que ajuda a decidir: a mesma base mostra a bandeira Ultra Popular com 6% de presença na praça, próximo dos 5,71% calculados pela receita — dois indicadores convergem e o de participação destoa dos dois.",
+          "fonte": "base de crescimento por UTC da IQVIA"
+        },
+        {
+          "titulo": "Preço médio da praça 21,7% abaixo do estado — e a rede opera nessa faixa.",
+          "texto": "No brick do município o preço médio é de R$ 22,33 por unidade vendida, contra R$ 28,51 no Rio Grande do Norte. Dentro do próprio município, o Grupo Farmarcas vende a R$ 17,53 e os concorrentes locais a R$ 22,58 — 22,4% de diferença na mesma praça. Comparação: é mercado de volume e ticket baixo, e o posicionamento da rede conversa com ele em vez de destoar. Confiança média: o brick casou pelo nome do município, que aqui aparece por extenso, e não pela geometria, que não existe nessa base.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        },
+        {
+          "titulo": "Classe popular dominante: 86,9% dos domicílios em C1, C2 ou D/E.",
+          "texto": "São 40,7% em D/E e 28,7% em C2, contra apenas 2,7% somando A e B1. A renda domiciliar per capita do município é de R$ 376,57, no percentil 41 do país. Comparação: é o público-alvo declarado de uma bandeira popular, e o descompasso entre bandeira e público — risco real em praça de renda alta — não existe aqui. Confiança média: nenhuma das duas bases declara ano de referência.",
+          "fonte": "base do Farmácia Popular e acervo municipal do Órbita"
+        },
+        {
+          "titulo": "Cidade em expansão: 2,32% de crescimento demográfico ao ano.",
+          "texto": "A população municipal cresce 2,32% ao ano, com 91,3% de urbanização, a 13 km da capital. Comparação: os três números juntos descrevem o que o próprio perfil regional registra — município do arranjo urbano da capital, em expansão e com parte da vida econômica ocorrendo fora dele. Confiança alta no indicador demográfico, que vem de base própria e tem o município presente; não existe nas bases um referente de crescimento por porte de cidade, então não dá para dizer se 2,32% é alto ou baixo entre pares.",
+          "fonte": "camada de densidade demográfica e situação do território, do acervo municipal"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "O que enfraquece o ponto é o que ele não tem por perto e o que a cidade não é. Não há base residencial imediata — cinquenta e nove pessoas moram dentro de 300 metros —, o município não tem centralidade própria e parte do consumo escapa para Natal, e os indicadores de desenvolvimento e renda estão abaixo da mediana nacional.",
+      "itens": [
+        {
+          "titulo": "Cidade-dormitório: sem centralidade própria na rede urbana.",
+          "texto": "A camada registra a cidade como Capital Regional A, hierarquia 2A — mas a classificação é do arranjo urbano de Natal, não dela: o próprio campo de perfil diz que o município integra esse arranjo sem centralidade própria, e que parte dos moradores se desloca ao núcleo para trabalho e compras. Comparação: a 13 km da capital, parte do consumo que aparece como potencial da cidade é realizado lá. Confiança alta na leitura, com duas ressalvas: quem abrir a camada vê o rótulo de Capital Regional A e precisa do campo de perfil para entender o que ele significa aqui, e o levantamento é de 2018, oito anos atrás, numa praça que cresce 2,3% ao ano.",
+          "fonte": "REGIC 2018, do IBGE"
+        },
+        {
+          "titulo": "Desenvolvimento municipal no percentil 17 do país.",
+          "texto": "O índice de desenvolvimento municipal é de 0,4859, contra mediana nacional de 0,61 — percentil 17. O PIB per capita de R$ 22.346 fica no percentil 38 e a renda no percentil 41. Comparação: só o índice de potencial de consumo destoa para cima, no percentil 94, e ele é puxado pelo tamanho da população, não pelo poder aquisitivo dela. Confiança alta nos valores; o que varia é a leitura, porque índice baixo de desenvolvimento num mercado que cresce 19% ao ano descreve uma praça em transição, não uma praça pobre e estagnada.",
+          "fonte": "índice Firjan, PIB municipal e renda média, do acervo municipal"
+        },
+        {
+          "titulo": "Saturação exatamente na mediana nacional.",
+          "texto": "São 78 farmácias para a população do município, o que dá 1.485,1 habitantes por farmácia pelo Censo 2022 e 1.612,4 pela população do acervo. Comparação: percentil 49 e 59 respectivamente, contra mediana nacional de 1.492,6 habitantes por farmácia — a praça não está desabastecida nem sobre-ofertada. Confiança média: o numerador muda conforme a população escolhida, e a contagem de 78 farmácias, se estiver defasada numa cidade que cresce 2,3% ao ano, subestima a oferta atual.",
+          "fonte": "base do Farmácia Popular e acervo municipal do Órbita"
+        },
+        {
+          "titulo": "Apenas 59 residentes dentro de 300 metros.",
+          "texto": "A densidade na área é de 210 habitantes por quilômetro quadrado, e os dois setores censitários que tocam o círculo entram com 2,8% e 0,9% das suas áreas — nenhum deles chega perto de caber ali. A verticalização é de 0,05%: não há prédio. Comparação: a densidade implícita pela população rateada, 209 habitantes por quilômetro quadrado, confere com a declarada pela base, 210 — o cálculo é coerente. Confiança alta no número e na leitura: o ponto não se sustenta na vizinhança imediata, depende de quem passa ou de quem vem de mais longe. A interpolação geoestatística foi tentada e recusada por amostra insuficiente, com apenas quatro setores com valor na vizinhança contra o mínimo de doze, então o que está aqui é rateio proporcional puro.",
+          "fonte": "camadas por setor censitário, rateadas pela fração dentro do raio"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "A concorrência colada no ponto é fraca e fragmentada, e há geradores de fluxo relevantes a menos de 200 metros — inclusive um supermercado na esquina. Some-se a isso um mercado municipal crescendo 19% ao ano, nenhuma loja da rede credenciada ao Farmácia Popular, e a última vaga de zoneamento da cidade ainda aberta.",
+      "itens": [
+        {
+          "titulo": "Quatro concorrentes em 300 metros, três independentes e uma associativista.",
+          "texto": "São Comunidade Farma a 154 metros, Drogaria Cidade das Rosas a 158, Drog Mais Saúde Popular a 184 e Drogaria Camilo a 187. A camada classifica três como independentes e a de 158 metros como associativista — e é justamente ela a única com faturamento cadastrado, R$ 89.998 por mês, o que a coloca na faixa 8, a mais baixa das oito. Comparação: no raio de 5 km são 96 concorrentes, com as redes locais Farmácia dos Trabalhadores e Comunidade Farma repetindo nove e cinco vezes. Confiança alta na contagem e na classificação, baixa no faturamento, porque só um dos quatro tem o campo preenchido e um valor sozinho não descreve a vizinhança competitiva.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "Uma loja típica da praça fatura R$ 216,7 mil por mês.",
+          "texto": "Entre as 30 lojas do município com faturamento cadastrado, a menor fatura R$ 90,0 mil por mês, a mediana fica em R$ 216,7 mil e a maior em R$ 697,9 mil — quase oito vezes a menor. Comparação: a única loja com faturamento dentro do raio de 300 metros registra exatamente o mínimo da praça, R$ 90,0 mil, o que coloca a concorrência imediata no piso da distribuição municipal. Confiança média: são valores estimados e presentes em 30 das 78 farmácias da cidade, então a amostra cobre pouco mais de um terço do parque; a distância entre mínimo e máximo mostra que o resultado depende muito mais de execução e de ponto do que da cidade.",
+          "fonte": "campo de faturamento médio estimado da camada Concorrentes 2025"
+        },
+        {
+          "titulo": "Supermercado a 57 metros, escola a 142 e oito pontos de transporte.",
+          "texto": "O entorno imediato tem três supermercados, sendo o mais próximo a 57 metros, uma escola municipal a 142 metros, oito pontos de transporte a partir de 168 metros e cinco equipamentos de lazer e culto. Não há equipamento de saúde nem banco mapeado no raio. Comparação: é um conjunto de geradores de compra de rotina, o tipo que traz a mesma pessoa várias vezes por semana — justamente o que compensa a ausência de moradores no raio. Confiança média: o mapeamento colaborativo é irregular no interior, e ausência no mapa não é ausência no mundo.",
+          "fonte": "OpenStreetMap"
+        },
+        {
+          "titulo": "Nenhuma loja da rede credenciada ao Farmácia Popular.",
+          "texto": "Das 78 farmácias da cidade, 10 são credenciadas — 12,8% — e nenhuma delas é loja Farmarcas. Comparação: o credenciamento não é padrão local, o que reduz a pressão competitiva por esse canal, mas também significa que a rede está fora de um programa que o público D/E, 40,7% dos domicílios daqui, usa. Confiança alta na contagem, com a ressalva de que o credenciamento pode ter mudado depois da extração.",
+          "fonte": "base do Farmácia Popular"
+        },
+        {
+          "titulo": "A segunda e última vaga de zoneamento da cidade está aberta.",
+          "texto": "Com 115.838 habitantes pelo Censo 2022, a cidade cai na faixa de 60 a 120 mil, cujo teto é de duas lojas, e hoje há uma ocupada — uma Ultra Popular, de outro associado. A regra exige que a segunda seja de bandeira popular, condição que a Maxi Popular cumpre, e como as bandeiras são diferentes vale a distância mínima de 500 metros, folgada contra os 1.296 metros que separam os dois endereços. Comparação: ocupada esta vaga, a cidade fecha para novos pedidos enquanto permanecer nesta faixa populacional. Confiança alta: a checagem usou coordenada real da loja existente, não aproximação por bairro.",
+          "fonte": "cadastro de lojas Farmarcas e regras de zoneamento da Farmarcas"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "Duas pendências de cadastro pesam mais que qualquer número de mercado aqui: o solicitante não aparece no cadastro de lojas com o nome informado, e este mesmo endereço já está sob mapeamento ativo para a mesma bandeira há três semanas. Some-se a isso a qualidade ruim do cadastro de concorrentes na região e a ausência do dado que mais importaria num ponto sem moradores.",
+      "itens": [
+        {
+          "titulo": "O solicitante não aparece no cadastro como responsável por grupo econômico.",
+          "texto": "Nenhuma loja do cadastro traz o nome informado como responsável. Existe, porém, um grupo econômico cujo responsável compartilha sobrenome com o solicitante informado, operando quatro lojas Maxi Popular ativas na vizinhança: três com coordenada, a 5,7 km em Natal, 8,8 km em Extremoz e 13,6 km também em Natal, e uma quarta em Natal sem coordenada no cadastro, cuja distância não é verificável. Comparação: é a mesma bandeira pretendida, nos dois municípios que fazem divisa com este. Confiança alta no que o cadastro mostra e nenhuma na relação entre as duas coisas: ou o solicitante integra esse grupo, e então isto é adensamento de um cluster que já existe, ou é entrante novo com sobrenome coincidente, e então a leitura de canibalização muda inteira — e a quarta loja, sem coordenada, pode estar mais perto que qualquer uma das três medidas.",
+          "fonte": "cadastro de lojas Farmarcas"
+        },
+        {
+          "titulo": "Este endereço já está sob mapeamento ativo para Maxi Popular.",
+          "texto": "Há uma análise registrada a zero metro deste ponto, criada em 5 de outubro de 2026, com situação Mapeamento Ativo, bandeira Maxi Popular e raio de estudo de 1.000 metros. Comparação: é a única análise registrada neste endereço, e a segunda mais próxima está a 4,5 km, reprovada em 2023 para Ultra Popular. Confiança alta no registro. O que ele significa depende de uma checagem com o time: se for a mesma demanda, este dossiê é insumo daquela análise e não uma nova, e há risco de dois analistas sobre o mesmo ponto.",
+          "fonte": "histórico de análises do Órbita"
+        },
+        {
+          "titulo": "Quatro concorrentes com cadastro implausível no raio amplo.",
+          "texto": "Dos 96 registros no raio de 5 km, 60 estão cadastrados em municípios diferentes do ponto — mas 53 deles são de Natal e 3 de Extremoz, que fazem divisa com a cidade e são alcançadas pelo raio: isso é esperado, não defeito. Implausíveis mesmo são quatro, cadastrados em cidades que o raio não alcança: duas em Parnamirim e uma em cada uma de Parelhas e Jucurutu, no interior do estado. Comparação: quatro de 96, contra nenhum no raio de 300 metros. Confiança alta de que esses quatro têm erro de cadastro ou de coordenada; nenhuma sobre qual dos dois campos está errado.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "O ponto depende de fluxo, e fluxo é o que não se mede.",
+          "texto": "Com 59 residentes no raio e densidade de 210 habitantes por quilômetro quadrado, a clientela não mora aqui: vem do supermercado a 57 metros, da escola a 142, dos oito pontos de transporte e de quem corta o bairro. Comparação: os quatro concorrentes do raio somam menos clientes residentes do que uma única quadra de bairro adensado teria — a disputa aqui é por passagem, não por vizinhança. Confiança alta no diagnóstico e nenhuma na magnitude, porque nenhuma base deste dossiê conta passante — o que significa que todos os números aqui descrevem a base residencial, que é a menor parte do que sustenta este ponto.",
+          "fonte": "camadas por setor censitário e OpenStreetMap"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "Fluxo de passantes. Não existe em fonte alguma — nem nas bases do Órbita, nem no código do produto, nem em API pública localizada. Importa mais aqui do que em quase qualquer outro recorte deste dossiê: com 59 moradores dentro de 300 metros, a viabilidade do ponto depende quase inteiramente de quem passa, e é exatamente isso que nenhum número aqui mede. Destravaria uma contagem manual na calçada, em dia útil e sábado, ou uma fonte de mobilidade contratada.",
+    "Se o solicitante integra o grupo econômico de sobrenome coincidente que já opera a mesma bandeira na vizinhança. O nome informado não aparece no cadastro de lojas como responsável por grupo econômico, mas há três lojas Maxi Popular ativas de um grupo cujo responsável compartilha sobrenome com ele, a 5,7 km, 8,8 km e 13,6 km. Importa porque muda a natureza da sobreposição: adensamento do próprio cluster é decisão estratégica dele, conflito com terceiro é o que a regra de expansão existe para evitar. Destravaria uma conferência do CNPJ ou do grupo econômico no cadastro.",
+    "Se a análise de 5 de outubro de 2026 neste mesmo endereço é a mesma demanda. Ela está como Mapeamento Ativo, para a mesma bandeira, com raio de estudo de 1.000 metros. Importa porque determina se este dossiê é um segundo olhar sobre um processo em andamento ou uma duplicação de trabalho. Destravaria uma conversa com quem abriu aquele mapeamento.",
+    "Share da rede medido na praça. A base de market share por UTC registra zero para São Gonçalo do Amarante, ao mesmo tempo em que a base de receita mostra R$ 2,43 milhões de faturamento Farmarcas no município. Os 5,71% deste dossiê são inferidos da receita, não lidos da base de share. Importa porque é o número que descreve a presença atual da rede. Destravaria a IQVIA publicar o share desta UTC.",
+    "Se o crescimento de 18,9% do mercado veio das lojas existentes ou de abertura de PDVs. A UTC do município está ausente da base de cobertura de PDVs, então o número de pontos de venda e a variação dele não estão disponíveis. Importa porque crescer com as mesmas lojas é desempenho da praça, e crescer abrindo loja é saturação em curso. Destravaria a cobertura de PDVs dessa UTC.",
+    "Heterogeneidade dentro do setor censitário. O rateio proporcional está aplicado: cada setor entra pela fração da área que cai dentro do círculo, e a coerência foi verificada — a densidade implícita pela população rateada, 209 habitantes por quilômetro quadrado, bate com a declarada, 210. O que resta como premissa é que a população se distribui uniformemente dentro do setor, e aqui os dois setores entram com 2,8% e 0,9% da área, o que torna a premissa mais sensível que o usual. Destravaria um rateio dasimétrico ponderado por área construída, que o acervo não tem.",
+    "Periodicidade do potencial de consumo por setor. A camada não declara se o valor é anual ou mensal. A base municipal declara as duas para drogarias, e o teste de ordem de grandeza coloca o campo setorial na escala anual. Importa porque o potencial dimensiona a demanda do ponto e aparece no cabeçalho. Agrava que o relatório do produto rotula o mesmo campo como mensal. Destravaria a área de Expansão confirmar a periodicidade.",
+    "Qual campo está errado nos quatro registros implausíveis do raio de 5 km. São dois cadastrados em Parnamirim e um em cada uma de Parelhas e Jucurutu, cidades que um raio de 5 km a partir daqui não alcança — ou a coordenada está errada, ou a cidade do cadastro está. Importa pouco para a densidade competitiva, porque são quatro de 96 e nenhum no entorno imediato, mas é sinal da qualidade da base. Destravaria a conferência desses quatro registros, ou uma segunda fonte como o CNES.",
+    "A regra de expansão para loja popular. As regras de zoneamento dizem que loja popular e convencional seguem critérios diferentes sem detalhar quais, e o pedido é para bandeira popular — justamente o caso que a fonte oficial não escreve. Aqui a exigência explícita da faixa, de que a segunda loja seja popular, foi cumprida, mas qualquer outro critério específico de loja popular não pôde ser verificado. Destravaria a área de Expansão documentar a diferença.",
+    "Cinco camadas não existem no raio. Farmácias, do cadastro da Receita, Farmácias Populares, Bancos, Clínicas Oftalmológicas e Barreiras Geográficas vieram só com endereço ou sem polígono. A ausência mais cara aqui é a de Farmácias, que seria a segunda fonte para conferir a contagem de concorrentes num raio onde quase metade dos registros está com cadastro inconsistente. Destravaria o CNES para farmácias e a recuperação dos polígonos.",
+    "Aluguel comercial por metro quadrado na região. Não existe fonte pública por município: o índice de mercado mais usado para locação comercial cobre dez capitais, é publicado em PDF mensal e não tem interface de consulta — São Gonçalo do Amarante não está entre elas, como não está a maioria das praças da rede. Média de portal de anúncio não é fonte verificável e por isso não entra. Importa porque sem ela não há custo de ocupação, e sem custo de ocupação não há como confrontar o investimento com o faturamento que a praça comporta. Destravaria o valor pesquisado pelo analista no mercado local, que o relatório então usa para calcular a área de venda compatível e o aluguel mensal estimado.",
+    "Qualidade das coordenadas no acervo. Na camada de concorrentes, 3.700 dos 100.612 registros foram descartados por cair fora do Brasil e 18 estão sem coordenada. No cadastro de lojas, 931 das 2.804 não têm coordenada preenchida e outras 32 caem fora do Brasil. Aqui o efeito é limitado, porque a loja existente da cidade tem coordenada real, mas afeta a contagem de concorrentes no raio amplo.",
+    "A diferença entre a população do acervo e a do Censo. O acervo traz 125.768 habitantes e o Censo 2022 traz 115.838, uma diferença de 8,6%, com o ano de referência do acervo não declarado. A faixa de zoneamento foi cortada pelo Censo, que é a fonte oficial e datada. Importa especialmente nesta cidade: pelo número do acervo ela já estaria 5.768 habitantes acima do corte de 120 mil, portanto dentro da faixa seguinte, cujo teto é de três lojas em vez de duas — as duas fontes levam a vereditos diferentes sobre quantas vagas a cidade ainda tem. Destravaria a área de Expansão declarar qual população governa o corte.",
+    "A idade do cadastro de lojas. Ele é de 23 de outubro de 2026, três dias mais antigo que o restante do acervo. Loja aberta, fechada ou com coordenada corrigida nesse intervalo não aparece aqui — e numa cidade com a segunda vaga de zoneamento ainda aberta, uma abertura recente mudaria o veredito do gate.",
+    "A base de faturamento por brick reflete a carteira atual da rede, com o histórico retroagido: quem saiu do grupo foi apagado para trás. Importa para o preço médio e para a participação, porque uma loja que deixou a rede não aparece em nenhum dos dois. Destravaria uma série que preserve a composição histórica da carteira."
+  ],
+  "campo": [
+    "Confirmar se o solicitante integra o grupo econômico de sobrenome coincidente que já opera três lojas Maxi Popular a 5,7 km, 8,8 km e 13,6 km daqui. Se integrar, a sobreposição é adensamento de cluster e a decisão é dele; se não, é a segunda e última vaga da cidade sendo ocupada por um entrante, com a loja do outro associado a 1.296 metros.",
+    "Checar com o time o mapeamento ativo aberto em 5 de outubro de 2026 neste mesmo endereço, para a mesma bandeira. Se for a mesma demanda, este dossiê é insumo daquela análise; se não for, há dois processos sobre o mesmo ponto.",
+    "Contagem de fluxo de pedestres na calçada, em dia útil e sábado, em pelo menos dois horários. Com 59 moradores no raio, é o dado que decide: volume alto sustenta o ponto apesar da ausência de base residencial, volume baixo derruba a tese, porque não há de onde mais vir cliente.",
+    "Verificar o movimento do supermercado a 57 metros e os horários de entrada e saída da escola a 142 metros. São os dois geradores de fluxo mais próximos e, na prática, a principal fonte de clientela do ponto.",
+    "Área de venda disponível no imóvel e valor do aluguel, para fechar o custo de ocupação contra o faturamento que a praça comporta — sem os dois, falta a conta que decide.",
+    "Conferir os quatro registros de concorrente cadastrados em cidades que o raio não alcança — dois em Parnamirim, um em Parelhas e um em Jucurutu. A resposta diz se é erro de coordenada ou de cadastro, e não altera a leitura competitiva do entorno, onde nenhum dos quatro do raio curto apresenta o problema.",
+    "Localizar a quarta loja Maxi Popular do grupo de sobrenome coincidente, a que está sem coordenada no cadastro. Se estiver mais perto que os 5,7 km da mais próxima medida, a leitura de adensamento de cluster muda."
+  ],
+  "aluguel_m2": null,
+  "aluguel_fonte": ""
+}

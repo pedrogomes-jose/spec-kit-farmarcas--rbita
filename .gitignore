@@ -4,3 +4,9 @@
 # OS/editor cruft
 .DS_Store
 Thumbs.db
+
+__pycache__/
+*.pyc
+
+# cache gerado pela skill analise-regiao-farmarcas
+.claude/skills/analise-regiao-farmarcas/scripts/cache/
