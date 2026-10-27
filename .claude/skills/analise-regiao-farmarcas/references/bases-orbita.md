@@ -89,6 +89,48 @@ separa loja nossa de concorrente pela lista de bandeiras em `_bases.py`.
 município → UTC é exato. São Paulo tem 84. Nas cidades grandes o número é o
 agregado do município, e o script diz isso na saída.
 
+### A régua de canal — a segunda via do faturamento do concorrente
+
+A planilha `Faturamento IQVIA ... Detalhado por CNPJ, BRICK e UTC` tem duas abas
+que as demais bases do dump não cobrem, e que `preparar_iqvia_canal.py` extrai:
+
+| Aba | Granularidade | Traz |
+|---|---|---|
+| `DADOS POR CANAL - CPP` | canal × bandeira × **UF**, visão MAT | receita (`soma_cpp`) e unidades |
+| `DADOS POR CANAL - PDV` | canal × bandeira × **UF**, visão YTD | quantidade de PDVs |
+
+Os seis canais são ABRAFARMA, OUTRAS REDES CORPORATIVAS, GRUPO FARMARCAS,
+FEBRAFAR, ASSOCIACOES + FRANQUIAS e INDEPENDENTES. As 27 UFs estão presentes nas
+duas abas, e os seis canais aparecem em todas elas.
+
+    R$ por loja/mês = receita MAT do canal na UF ÷ PDVs do canal na UF ÷ 12
+
+Por que isso importa: `MDM-ClassifdoPDV`, na camada Concorrentes, classifica cada
+loja num rótulo que mapeia para esses canais — 85% dos 100.612 registros caem em
+quatro rótulos genéricos (`INDEPENDENTE`, `ASSOCIAÇÃO,`, `FRANQUIA`,
+`OUTRAS REDES`), e o resto nomeia redes. Então **toda loja do raio ganha um
+faturamento de referência medido**, inclusive as que têm o campo `fatMedio`
+vazio — que são mais da metade.
+
+**Duas ressalvas que não podem sumir do texto.** A receita é MAT (12 meses) e a
+contagem de PDVs é YTD (ano corrente): janelas diferentes, viés em canal que
+abriu ou fechou muita loja. E a base não traz dispersão **dentro** do canal — só
+a média — então o número dimensiona mercado, nunca afirma o faturamento de um
+endereço.
+
+**A aba `RESULTADOS POR BRICK` não substitui isso:** ela registra, no próprio
+rodapé, que *a IQVIA não disponibiliza quantidade de PDVs por brick na visão de
+canais*. Por isso a régua é por UF, não por brick. E `mat_atual_qtd_pdvs` tem
+coluna `Concorrente`, mas ela é **zero em todos os 2.087 bricks** — essa base
+conta só PDVs Farmarcas.
+
+**Aferição feita (2026-10-27).** Aplicando a régua às 47 farmácias cadastradas em
+São Gonçalo do Amarante/RN, o mercado bottom-up dá R$ 32,0 milhões ao ano (43
+lojas com canal) contra R$ 42,5 milhões medidos no total do município pela via
+independente da UTC. Os dois caminhos ficam dentro de ~25% um do outro, na
+direção esperada: a camada de concorrentes subconta lojas e quatro ficaram sem
+canal. Serve de teste de sanidade, não de calibração.
+
 ## Histórico Farmarcas
 
 | Base | Conteúdo |

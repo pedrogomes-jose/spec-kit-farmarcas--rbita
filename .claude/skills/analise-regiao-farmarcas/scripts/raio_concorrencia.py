@@ -22,6 +22,7 @@ import sys
 
 sys.path.insert(0, __file__.rsplit("\\", 1)[0].rsplit("/", 1)[0])
 import _bases as B  # noqa: E402
+import faturamento_canal as FC  # noqa: E402
 
 # Faixas fixas de faturamento MENSAL do produto, copiadas de
 # api-agent-orbita/src/constants/competitorRevenueTiers.ts. São constantes de
@@ -156,6 +157,7 @@ def main() -> int:
     ap.add_argument("--raio", type=float, default=300.0, help="metros (padrão do Órbita: 300)")
     ap.add_argument("--listar", type=int, default=15)
     ap.add_argument("--municipio", default="", help="município do ponto; é a referência de cadastro")
+    ap.add_argument("--uf", default="", help="UF do ponto; destrava a régua de faturamento por canal")
     args = ap.parse_args()
 
     cidade_ref = None
@@ -259,6 +261,24 @@ def main() -> int:
     except FileNotFoundError as e:
         cadastro, lojas_vazias, lojas_invalidas, erro_cadastro = [], 0, 0, str(e)
 
+    # Segunda via para o faturamento do concorrente: a régua MEDIDA por canal e
+    # UF da IQVIA, aplicada ao rótulo de classificação que a própria camada traz.
+    # O campo `fatMedio` é estimado e falta em mais da metade dos registros; esta
+    # via cobre toda loja cuja classificação mapeia para um canal.
+    mercado_canal = None
+    if args.uf:
+        try:
+            bench = FC.benchmark_por_canal(args.uf)
+            mercado_canal = FC.estimar_mercado(dentro, bench)
+            mercado_canal["_fonte"] = "receita e PDVs por canal da base da IQVIA, por UF"
+            mercado_canal["_o_que_e"] = (
+                "soma do faturamento de uma loja MÉDIA de cada canal presente no raio — "
+                "dimensiona o mercado do entorno, não afirma quanto cada loja vende"
+            )
+            mercado_canal["benchmark_por_canal"] = bench["canais"]
+        except FileNotFoundError as e:
+            mercado_canal = {"erro": str(e)}
+
     B.emitir(
         {
             "ponto": {"lat": args.lat, "lng": args.lng, "raio_m": args.raio},
@@ -293,6 +313,9 @@ def main() -> int:
                 "no_raio": estatisticas_de_venda(com_fat),
                 "na_cidade": estatisticas_de_venda(reg_valores),
                 "_fonte": "campo de faturamento médio estimado da camada Concorrentes 2025",
+            },
+            "mercado_por_canal": mercado_canal or {
+                "_leitura": "informe --uf para estimar o mercado do raio pela régua medida por canal"
             },
             "lojas_farmarcas_no_raio": {
                 "total": len(cadastro),

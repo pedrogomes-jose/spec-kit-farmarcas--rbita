@@ -134,9 +134,56 @@ quais 1.294 ativos e 800 com coordenada — o suficiente para medir por raio.
 > **Carteira atual**: loja que saiu do grupo foi apagada para trás, então a
 > amostra descreve quem está na rede hoje.
 
-**As duas fontes não medem a mesma coisa** e vão lado a lado no relatório: a
-estimada descreve o **mercado**, a medida descreve a **nossa operação**.
-Divergência entre elas é achado, não erro a resolver escolhendo uma.
+### Terceira fonte: a régua de canal — a que cobre o raio inteiro
+
+As duas primeiras deixam um buraco: o campo estimado falta em mais da metade dos
+cadastros, e a receita medida do grupo descreve a nossa loja, não o concorrente.
+Num raio de 300 m é comum sobrar **um** valor estimado, ou nenhum — e um valor
+só não descreve a vizinhança competitiva.
+
+A régua de canal fecha esse buraco. As abas de canal da planilha da IQVIA trazem
+receita e quantidade de PDVs por **canal e UF**, e `MDM-ClassifdoPDV` classifica
+cada concorrente num rótulo que mapeia para esses canais:
+
+| Indicador | Como |
+|---|---|
+| **Faturamento de referência por loja** | receita MAT do canal na UF ÷ PDVs do canal na UF ÷ 12 |
+| **Mercado do raio** | soma da referência de cada concorrente do raio, por canal |
+| **Faixa das lojas sem canal** | rede local não reconhecida entra entre o canal mais barato e o mais caro da UF, com a contagem declarada |
+| **Confiança do mapeamento** | alta (o rótulo é a categoria), média (rede corporativa nomeada, atribuída por porte) ou nenhuma |
+
+Ordem de grandeza no Rio Grande do Norte, para calibrar a leitura — ABRAFARMA
+R$ 1,03 milhão por loja/mês, outras redes corporativas R$ 417 mil, Grupo
+Farmarcas R$ 294 mil, FEBRAFAR R$ 129 mil, associações e franquias R$ 102 mil,
+independentes R$ 44,5 mil. **Vinte e três vezes** entre o topo e a base: o canal
+do concorrente importa mais para o mercado do raio que a contagem de lojas.
+
+> **É a média do canal na UF, não o faturamento daquela loja.** A base não traz
+> dispersão dentro do canal — sem mínimo, sem máximo, sem quartil. Duas
+> independentes no mesmo quarteirão podem diferir várias vezes, e isso não
+> aparece aqui. Serve para dimensionar mercado e situar um concorrente; não
+> serve para afirmar quanto a farmácia da esquina vende, e o texto diz isso onde
+> o número aparece.
+
+> **Duas janelas diferentes.** A receita é MAT (12 meses) e a contagem de PDVs é
+> YTD (ano corrente). Canal que abriu ou fechou muita loja no período sai
+> enviesado — efeito de segunda ordem para canal estável, declarado junto do
+> número.
+
+> **A atribuição das redes nomeadas é julgamento, não campo da base.** Os quatro
+> rótulos genéricos cobrem 85% dos registros e mapeiam sozinhos; as redes
+> nomeadas são atribuídas por porte numa lista declarada em
+> `scripts/faturamento_canal.py`. Mover uma rede de ABRAFARMA para outras redes
+> corporativas muda a referência dela em mais de duas vezes — por isso a lista é
+> explícita e revisável pelo time de Expansão.
+
+**As três fontes não medem a mesma coisa** e vão lado a lado no relatório: a
+estimada descreve **aquela loja**, a régua de canal descreve o **mercado do
+raio**, e a medida do grupo descreve a **nossa operação**. Divergência entre
+elas é achado, não erro a resolver escolhendo uma — e quando convergem, vale
+dizer: em São Gonçalo do Amarante/RN a única vizinha com campo preenchido
+registrava R$ 90,0 mil e a régua do canal dela apontava R$ 102,4 mil, 14% de
+diferença entre duas vias independentes.
 
 São o **piso, o meio e o teto do que as lojas vizinhas já faturam** — não
 projeção para a loja nova. Em varejo farmacêutico a distribuição tem cauda

@@ -32,12 +32,35 @@ Referências (ler quando indicado):
 - **"Loja nossa" sai do cadastro de lojas (CNPJ + coordenada)**, nunca do nome
   de bandeira dentro da camada Concorrentes — esse dá falso positivo
   comprovado. Match por nome é suspeita a confirmar, e vai rotulada como tal.
-- **Venda por loja tem DUAS fontes, e elas não medem a mesma coisa.** O
-  faturamento da camada de concorrentes é **estimado** e está em menos da metade
-  dos cadastros; a receita das lojas do grupo é **medida** por instituto e casa
-  por CNPJ com o cadastro, o que permite filtrar pela bandeira pretendida. As
-  duas entram no relatório, lado a lado e rotuladas — a divergência entre elas é
-  achado, não erro a resolver escolhendo uma.
+- **Venda por loja tem TRÊS fontes, e elas não medem a mesma coisa.**
+  1. **Faturamento da camada de concorrentes** — *estimado*, presente em menos
+     da metade dos cadastros, descreve aquela loja específica. Num raio curto
+     costuma sobrar um valor só, ou nenhum.
+  2. **Régua de canal** — *medida*: receita e quantidade de PDVs por canal
+     (ABRAFARMA, FEBRAFAR, associações e franquias, independentes, outras redes
+     corporativas) **e por UF**, da base do instituto. A camada de concorrentes
+     já classifica cada loja num rótulo que mapeia para esses canais, então toda
+     loja do raio ganha um faturamento de referência, mesmo as que têm o campo
+     estimado vazio. É o que **dimensiona o mercado do raio**.
+  3. **Receita das lojas do grupo** — *medida*, casa por CNPJ com o cadastro e
+     permite filtrar pela bandeira pretendida. É o que a **nossa** operação
+     fatura numa praça assim.
+
+  As três entram no relatório, rotuladas, e a divergência entre elas é achado,
+  não erro a resolver escolhendo uma.
+- **A régua de canal diz quanto uma loja MÉDIA do canal fatura naquele estado**
+  — nunca quanto a farmácia da esquina vende. A base não traz dispersão dentro
+  do canal: não há mínimo, máximo nem quartil por loja. Serve para dimensionar
+  mercado e para situar um concorrente; não serve para afirmar o faturamento de
+  um endereço, e o texto precisa dizer isso onde o número aparece.
+- **A régua de canal mistura duas janelas.** A receita é acumulado de 12 meses
+  e a contagem de PDVs é do ano corrente. Canal que abriu ou fechou muita loja
+  no período sai enviesado. O viés é de segunda ordem para canal estável, e vai
+  declarado junto do número.
+- **Loja sem canal reconhecido vira faixa, não zero nem média.** Rede local que
+  o mapeamento não conhece entra como intervalo entre o canal mais barato e o
+  mais caro da UF, com a contagem declarada. Preencher com a média do raio
+  inventa precisão que a base não tem.
 - **MAT é acumulado de 12 meses, não de um mês.** Dividir por 12 só vale para
   loja que operou o período inteiro; loja aberta no meio aparece baixa sem ser
   pequena. Por isso o corte descarta receita anual implausível e a leitura usa
@@ -200,6 +223,7 @@ Preparos de uma vez só (da raiz do projeto, **sem** `-I`, porque usam openpyxl)
 ```
 python .claude/skills/analise-regiao-farmarcas/scripts/preparar_cadastro_lojas.py
 python .claude/skills/analise-regiao-farmarcas/scripts/preparar_iqvia_brick.py
+python .claude/skills/analise-regiao-farmarcas/scripts/preparar_iqvia_canal.py
 ```
 
 Depois, por análise:
@@ -209,8 +233,8 @@ python scripts/contexto_municipio.py  --municipio "<NOME>" --uf <UF>
 python scripts/malha_setores.py       --codigo-ibge <CODIGO>          # 1ª vez do município
 python scripts/raio_setores.py        --lat <LAT> --lng <LNG> --raio 300  --codigo-ibge <CODIGO>
 #   --metodo area|inteiro|krigagem   (padrão: area)   --comparar  mostra os três
-python scripts/raio_concorrencia.py   --lat <LAT> --lng <LNG> --raio 300  --municipio "<NOME>"
-python scripts/raio_concorrencia.py   --lat <LAT> --lng <LNG> --raio 5000 --municipio "<NOME>"
+python scripts/raio_concorrencia.py   --lat <LAT> --lng <LNG> --raio 300  --municipio "<NOME>" --uf <UF>
+python scripts/raio_concorrencia.py   --lat <LAT> --lng <LNG> --raio 5000 --municipio "<NOME>" --uf <UF>
 #   --municipio é obrigatório na prática: define a cidade de referência e a "região"
 python scripts/mercado_utc.py         --codigo-ibge <CODIGO>
 python scripts/mercado_brick.py       --uf <UF> --codigo-ibge <CODIGO> --lat <LAT> --lng <LNG>
@@ -218,6 +242,7 @@ python scripts/pois_no_raio.py        --lat <LAT> --lng <LNG> --raio 500
 python scripts/benchmark_historico.py --lat <LAT> --lng <LNG> --vizinhanca 5000
 python scripts/alternativas.py        --uf <UF> --excluir-municipio <CODIGO>
 python scripts/venda_por_loja.py      --uf <UF> --bandeira "<BANDEIRA>" --modelo <popular|convencional>
+python scripts/faturamento_canal.py   --uf <UF> --lat <LAT> --lng <LNG> --raio 300
 ```
 
 `malha_setores.py` baixa a geometria dos setores do município do asset público
@@ -318,6 +343,10 @@ lente ficar vazia por falta de fonte.
 | "Uso só o faturamento dos concorrentes" | é estimado e cobre metade; a receita medida do grupo existe e filtra por bandeira |
 | "Receita MAT é do mês" | MAT é acumulado de 12 meses; dividir por 12 só vale para loja do período inteiro |
 | "As duas fontes divergem, escolho a melhor" | a divergência é achado: uma mede concorrente, a outra mede a nossa bandeira |
+| "Só uma loja do raio tem faturamento, então não dá para dimensionar o mercado" | a régua de canal cobre toda loja classificada, inclusive as de campo vazio |
+| "A régua de canal diz que aquela loja fatura R$ X" | diz o que a loja MÉDIA do canal fatura na UF; a dispersão dentro do canal não está na base |
+| "A loja não casou com nenhum canal, uso a média das outras" | vira faixa entre o canal mais barato e o mais caro, com a contagem declarada |
+| "Somo o raio pela régua de canal e chamo de mercado do município" | o raio cruza divisa; mercado do município é o total medido da cidade |
 | "Conto equipamentos no OSM e chamo de fluxo" | é proxy fraco; fluxo continua sendo lacuna |
 | "Região é o que o raio alcança" | região é a CIDADE do ponto; o raio em divisa vira macrorregião |
 | "Listo a cidade sem dizer qual UTC é" | sem a localidade, a mesma cidade repetida parece oportunidade duplicada |
@@ -348,7 +377,9 @@ lente ficar vazia por falta de fonte.
 - [ ] "Onde mais olhar" com escala por extenso, preço médio, captura e o porquê de cada praça
 - [ ] Nenhuma citação de fonte na prosa — todas na seção Fontes, numeradas
 - [ ] Cards de origem não óbvia citam a fonte na própria nota
-- [ ] Faixa de venda por loja nas DUAS fontes: estimada dos concorrentes e medida do grupo
+- [ ] Faixa de venda por loja nas TRÊS fontes: estimada dos concorrentes, régua medida por canal e receita medida do grupo
+- [ ] Mercado do raio dimensionado pela régua de canal, com a contagem de lojas sem canal declarada
+- [ ] Dito, onde a régua de canal aparece, que ela é a média do canal na UF e não o faturamento daquela loja
 - [ ] Receita medida filtrada pela bandeira pretendida, com o recorte nacional ao lado
 - [ ] Seção Fontes com a tabela numerada e a procedência geral
 - [ ] Nenhum nome de script, flag ou arquivo de base no corpo do relatório
