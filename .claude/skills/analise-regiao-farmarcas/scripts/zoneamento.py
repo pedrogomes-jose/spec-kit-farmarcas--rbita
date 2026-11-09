@@ -31,13 +31,16 @@ import _bases as B  # noqa: E402
 DIST_MIN_MESMA_BANDEIRA = 300.0
 DIST_MIN_OUTRA_BANDEIRA = 500.0
 
-# Teto de LOJAS por cidade (não de empresários distintos — decisão do PM em
-# 2026-10-27; a página fala em "empresários").
+# Teto de GRUPOS ECONOMICOS por cidade — refinado com o PM em 2026-10-29. O
+# que barra e a entrada de um grupo novo na praca; quantidade de lojas acima
+# do numero da faixa vira alerta de densidade. O texto de cada faixa sai no
+# relatorio em tres lugares, entao ele precisa anunciar a unidade certa — na
+# unidade errada, o leitor aplica a regra revogada contra os cards ao lado.
 FAIXAS = [
-    (60_000, 1, "Até 60 mil → 1 loja, sem expansão adicional"),
-    (120_000, 2, "60–120 mil → até 2 lojas, a 2ª de bandeira popular, distância mínima"),
-    (200_000, 3, "120–200 mil → até 3 lojas, alternância de bandeiras, distância mínima"),
-    (None, None, "Acima de 200 mil → sem teto de lojas, ocupação por market share"),
+    (60_000, 1, "Até 60 mil → 1 grupo econômico, sem expansão adicional"),
+    (120_000, 2, "60–120 mil → até 2 grupos econômicos, o 2º grupo de bandeira popular, distância mínima"),
+    (200_000, 3, "120–200 mil → até 3 grupos econômicos, alternância de bandeiras, distância mínima"),
+    (None, None, "Acima de 200 mil → sem teto de grupos, ocupação por market share"),
 ]
 
 
@@ -103,12 +106,20 @@ def main() -> int:
         return 1
 
     limite, teto, texto_regra = faixa_de(pop)
+    try:
+        pop_acervo = B.num(
+            (B.indexar_por_municipio("populacao_municipios").get(str(args.codigo_ibge)) or {})
+            .get("01-POPULACAOTOTAL")
+        )
+    except Exception:
+        pop_acervo = None
 
     # ---- lojas da cidade no cadastro --------------------------------------
     cidade_alvo = B.normalizar(args.municipio)
     uf_alvo = args.uf.strip().upper()
     ocupam, desativadas, sem_coord = [], [], 0
     ges = set()
+    rotulo_de_grupo = {}
     # Loja fisicamente perto do ponto mas cadastrada em OUTRA cidade. Caso real
     # verificado em 2026-10-27: loja cadastrada em Patrocínio Paulista/SP a 342 m
     # do centro de Franca/SP (~25 km de distância real entre as duas cidades).
@@ -156,7 +167,22 @@ def main() -> int:
                 aprox = round(B.haversine_m(args.lat, args.lng, centro[0], centro[1]))
 
         ge_loja = (loja.get("Nome do responsável pelo GE", "") or "").strip()
+        # Rotulo anonimo e estavel por grupo economico. O impedimento inteiro
+        # repousa na contagem de grupos, e sem isto o leitor ve N lojas e tem de
+        # acreditar que sao N donos. O rotulo torna a contagem conferivel sem
+        # que nome de pessoa saia do script.
+        chave_ge = B.normalizar(ge_loja)
+        if chave_ge and chave_ge not in rotulo_de_grupo:
+            i = len(rotulo_de_grupo)
+            rotulo_de_grupo[chave_ge] = "Grupo " + chr(ord("A") + i) if i < 26 else f"Grupo {i + 1}"
         registro = {
+            "grupo_economico": rotulo_de_grupo.get(chave_ge, "não informado no cadastro"),
+            # Sem responsavel no cadastro nao da para dizer de quem a loja e —
+            # nem que e do solicitante, nem que nao e. Quem consome precisa
+            # distinguir isso de um "nao casou", senao publica como afirmacao
+            # o que e ausencia de dado.
+            "responsavel_no_cadastro": bool(chave_ge),
+            "_chave_ge": chave_ge,
             "bandeira": (loja.get("Bandeira", "") or "").strip(),
             "modelo": (loja.get("Modelo de Negócio", "") or "").strip(),
             "status": (loja.get("Status", "") or "").strip(),
@@ -176,48 +202,117 @@ def main() -> int:
     ocupam.sort(key=lambda r: (r["distancia_m"] is None, r["distancia_m"]))
     desativadas.sort(key=lambda r: (r["distancia_m"] is None, r["distancia_m"]))
 
+    # O rotulo e atribuido na ordem em que o cadastro foi lido, mas a tabela se
+    # le ordenada por distancia — e saia "Grupo A, Grupo C, Grupo B", que num
+    # relance parece linha faltando. Reatribuir na ordem de leitura do relatorio.
+    ordem = {}
+    for r in ocupam + desativadas:
+        chave = r.pop("_chave_ge", "")
+        if chave and chave not in ordem:
+            i = len(ordem)
+            ordem[chave] = "Grupo " + chr(ord("A") + i) if i < 26 else f"Grupo {i + 1}"
+        r["grupo_economico"] = ordem.get(chave, "não informado no cadastro")
+
+    # Contagens DEPOIS do pedido: e sobre elas que a regra decide. O pedido
+    # sempre acrescenta uma loja; so acrescenta um grupo economico quando o
+    # solicitante ainda nao responde por loja nesta cidade. Calculadas aqui, uma
+    # vez, para que gate e relatorio nao possam divergir.
+    solicitante_ja_tem = sum(1 for r in ocupam if r.get("do_solicitante"))
+    lojas_depois = len(ocupam) + 1
+    ges_depois = len(ges) + (0 if solicitante_ja_tem else 1)
+
     impedimentos, alertas = [], []
 
-    # ---- teto de lojas -----------------------------------------------------
-    # A regra vigente conta LOJAS (decisão do PM, 2026-10-27). A página 4.5
-    # escreve "empresários". As duas leituras divergem MUITO na prática: sobre
-    # 830 cidades com loja ativa e código IBGE resolvido, 207 (25%) estouram o
-    # teto contando lojas e apenas 34 (4%) contando empresários distintos.
-    # Exemplo: Passos/MG, teto 2, tem 7 lojas de 1 único empresário.
-    # Por isso a saída SEMPRE mostra as duas contagens.
-    if teto is not None and len(ocupam) >= teto:
+    # ---- teto de GRUPOS ECONOMICOS na praca --------------------------------
+    # Regra refinada pelo PM em 2026-10-29: o que barra e a entrada de um NOVO
+    # grupo economico na praca, nao a quantidade de lojas. Cidade cujas lojas
+    # respondem todas ao mesmo grupo nao esta saturada no sentido que a regra
+    # protege — o objetivo declarado e "evitar conflito e concorrencia desleal
+    # entre associados", e nao ha conflito entre associados onde so ha um.
+    # Densidade alta de loja por habitante continua sendo risco, mas vira
+    # ALERTA, nao impedimento.
+    #
+    # A contagem de grupos sai do responsavel pelo GE no cadastro, deduplicado
+    # por nome normalizado — nao por CNPJ. Agora que e ELE que barra, e nao mais
+    # uma leitura secundaria, a fragilidade pesa mais: grafia divergente entre
+    # duas lojas do mesmo dono inventa um grupo a mais e barra sem motivo.
+    if teto is not None and ges_depois > teto:
         impedimentos.append(
             {
+                "id": "teto_de_grupos_economicos",
                 "regra": texto_regra,
-                "constatado": f"a cidade já tem {len(ocupam)} loja(s) Farmarcas ocupando vaga; o teto da faixa é {teto}",
+                "constatado": (
+                    f"com o pedido a praça passa a ter {ges_depois} grupo(s) econômico(s) "
+                    f"distinto(s); o teto da faixa é {teto}"
+                ),
                 "fonte": "Confluence 4.5 Regras de Zoneamento + cadastro de lojas",
-                "leitura": "teto conta LOJAS (regra vigente confirmada com o PM em 2026-10-27)",
+                "leitura": (
+                    "o teto conta GRUPOS ECONÔMICOS, não lojas (regra refinada com o PM em "
+                    "2026-10-29). Grupos apurados pelo responsável registrado no cadastro, "
+                    "deduplicado por nome e não por CNPJ"
+                ),
             }
         )
-        if len(ges) <= teto:
-            alertas.append(
+
+    # ---- densidade de lojas: alerta, nunca impedimento ---------------------
+    if teto is not None and lojas_depois > teto:
+        alertas.append(
+            {
+                # Identificador estavel: quem consome este alerta precisa
+                # reconhece-lo sem depender da redacao, que muda.
+                "id": "densidade_de_lojas",
+                "regra": "quantidade de lojas acima do que a faixa de população dimensiona",
+                "constatado": (
+                    f"com o pedido a cidade fica com {lojas_depois} loja(s) Farmarcas para uma "
+                    f"faixa dimensionada em {teto}, distribuídas entre {ges_depois} grupo(s) econômico(s)"
+                ),
+                "ressalva": (
+                    "não barra: o teto conta grupos econômicos. É sinal de que a praça pode ficar "
+                    "densa demais em loja por habitante, o que divide o mesmo mercado entre mais "
+                    "pontos — efeito econômico a dimensionar, não conflito entre associados"
+                ),
+            }
+        )
+
+    # ---- 2º GRUPO tem de entrar com bandeira popular (faixa 60–120 mil) ----
+    # Mesma unidade do teto, por coerencia: a exigencia vale para o grupo que
+    # ENTRA como segundo na praca, nao para a segunda loja contada. Loja adicional
+    # de um grupo que ja esta na cidade nao e "a 2a" no sentido que a regra
+    # protege — e, como o teto nao barra esse caso, a exigencia tambem nao barra;
+    # vira alerta, porque a regra escrita nao define o que acontece ali.
+    if limite == 120_000 and args.modelo == "convencional":
+        if len(ges) == 1 and ges_depois == 2:
+            impedimentos.append(
                 {
-                    "regra": "as duas leituras do teto discordam neste caso",
+                    "id": "segundo_grupo_popular",
+                    "regra": "60–120 mil → o 2º grupo econômico deve entrar com bandeira popular",
                     "constatado": (
-                        f"{len(ocupam)} lojas (acima do teto {teto}) mas apenas {len(ges)} "
-                        f"empresário(s) distinto(s) (dentro do teto)"
+                        "o pedido traz o 2º grupo econômico para a praça e a loja pretendida "
+                        "é Convencional"
                     ),
-                    "ressalva": (
-                        "a página 4.5 escreve 'empresários'; a regra aplicada conta lojas. "
-                        "Na rede inteira, 25% das cidades estouram o teto por lojas contra 4% por empresários"
+                    "fonte": "Confluence 4.5 Regras de Zoneamento + cadastro de lojas",
+                    "leitura": (
+                        "a exigência conta GRUPOS ECONÔMICOS, como o teto (regra refinada com "
+                        "o PM em 2026-10-29); a página escreve 'a 2ª loja'"
                     ),
                 }
             )
-
-    # ---- 2ª loja tem de ser popular (faixa 60–120 mil) ---------------------
-    if limite == 120_000 and len(ocupam) == 1 and args.modelo == "convencional":
-        impedimentos.append(
-            {
-                "regra": "60–120 mil → a 2ª loja deve ser de bandeira popular",
-                "constatado": "a loja pretendida é Convencional",
-                "fonte": "Confluence 4.5 Regras de Zoneamento",
-            }
-        )
+        elif ges_depois == len(ges) and lojas_depois >= 2:
+            alertas.append(
+                {
+                    "id": "segunda_loja_popular_sem_grupo_novo",
+                    "regra": "60–120 mil → o 2º grupo econômico deve entrar com bandeira popular",
+                    "constatado": (
+                        f"a loja pretendida é Convencional e seria a {lojas_depois}ª da cidade, "
+                        "mas não traz grupo econômico novo"
+                    ),
+                    "ressalva": (
+                        "não barra: a exigência conta grupos econômicos, como o teto. A página "
+                        "escreve 'a 2ª loja' e não define o que vale para loja adicional de um "
+                        "grupo que já está na praça — tratado como ALERTA"
+                    ),
+                }
+            )
 
     # ---- distância mínima --------------------------------------------------
     if pop > 60_000:
@@ -319,10 +414,12 @@ def main() -> int:
             "perfil": "empresário que já opera loja(s) Farmarcas",
             "lojas_do_solicitante_nesta_cidade": len(proprias),
             "_leitura": (
-                "Sobreposição com loja DO PRÓPRIO solicitante pode ser escolha estratégica "
-                "(fechar mercado, ganhar share e poder de negociação) — mas o zoneamento NÃO "
-                "abre exceção para isso: o teto conta lojas, de quem quer que sejam. "
-                "Sobreposição com loja de OUTRO associado é o conflito que a regra existe para evitar."
+                "O teto conta GRUPOS ECONÔMICOS (regra refinada com o PM em 2026-10-29): se o "
+                "solicitante já responde por loja nesta cidade, o pedido não traz grupo novo e "
+                "não há o que barrar — sobra o alerta de densidade, que é risco econômico do "
+                "próprio grupo. Se ele não responde, entra como grupo novo, mesmo já sendo "
+                "associado em outro município. Sobreposição com loja de OUTRO associado é o "
+                "conflito que a regra existe para evitar."
             ),
         }
     elif args.perfil == "novo":
@@ -336,6 +433,11 @@ def main() -> int:
             "veredito": veredito,
             "municipio": {"nome": args.municipio, "uf": uf_alvo, "codigo_ibge": args.codigo_ibge},
             "populacao_censo_2022": pop,
+            # O acervo interno NAO guarda o Censo, e o ano de referencia dele nao
+            # esta declarado em lugar nenhum da base. Perto de 60, 120 ou 200 mil a
+            # diferenca troca a faixa e o teto, entao a divergencia e achado — e
+            # precisa sair como numero de script, nao digitada na narrativa.
+            "populacao_acervo_interno": pop_acervo,
             "_origem_populacao": origem_pop,
             "faixa_aplicada": texto_regra,
             "teto_de_lojas": teto,
@@ -344,8 +446,15 @@ def main() -> int:
             "_duas_leituras_do_teto": {
                 "contando_lojas": {"valor": len(ocupam), "acima_do_teto": teto is not None and len(ocupam) > teto},
                 "contando_empresarios": {"valor": len(ges), "acima_do_teto": teto is not None and len(ges) > teto},
-                "_aplicada": "contando lojas",
-                "_nota": "na rede inteira: 207 de 830 cidades (25%) estouram por lojas, 34 (4%) por empresários",
+                "com_o_pedido": {
+                    "contando_lojas": lojas_depois,
+                    "contando_grupos_economicos": ges_depois,
+                    "excede_contando_lojas": teto is not None and lojas_depois > teto,
+                    "excede_contando_grupos": teto is not None and ges_depois > teto,
+                    "_nota": "o pedido sempre soma uma loja; soma um grupo econômico só quando o solicitante ainda não responde por loja nesta cidade",
+                },
+                "_aplicada": "contando GRUPOS ECONÔMICOS (regra refinada com o PM em 2026-10-29)",
+                "_nota": "na rede inteira: 207 de 830 cidades (25%) ficam acima do teto contando lojas, 34 (4%) contando grupos econômicos — é a segunda que barra",
             },
             "impedimentos": impedimentos,
             "alertas": alertas,
@@ -356,7 +465,12 @@ def main() -> int:
             "lacunas": {
                 "lojas_da_cidade_sem_coordenada": sem_coord,
                 "_impacto": "sem coordenada não dá para checar distância mínima dessas lojas",
-                "cobertura_de_coordenada_no_cadastro": "1.841 de 2.804 lojas (66%) têm coordenada utilizável; 931 vazias e 32 fora do Brasil (dump de 2026-10-23)",
+                "cobertura_de_coordenada_no_cadastro": f"1.841 de 2.804 lojas (66%) têm coordenada utilizável; 931 vazias e 32 fora do Brasil (cadastro de {B.DATA_DO_CADASTRO})",
+                # Premissa que so descreve a cidade pequena. Emitir sempre jogaria
+                # no relatorio de uma cidade de 150 mil uma ressalva sobre uma
+                # checagem que ali rodou normalmente — lacuna irrelevante vira ruido
+                # e esconde as que importam.
+                **({"distancia_abaixo_de_60_mil": "a checagem de distância mínima entre lojas não roda abaixo de 60 mil habitantes — premissa de implementação, não texto da regra"} if pop is not None and pop <= 60_000 else {}),
                 "premissa_status": f"ocupam vaga: {', '.join(B.STATUS_OCUPA_VAGA)} — desativada não ocupa (premissa, não está na regra)",
                 "limites_de_faixa": "a página escreve faixas sobrepostas (60, 120 e 200 mil habitantes); aqui os cortes são tratados como fechados em 60.000, 120.000 e 200.000",
                 "popular_x_convencional": "a página diz que as regras diferem entre loja popular e convencional, sem detalhar a diferença",

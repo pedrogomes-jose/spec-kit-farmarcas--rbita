@@ -185,6 +185,74 @@ def saturacao(codigo: str) -> dict:
     }
 
 
+def cidades_influenciadas(codigo: str, nome: str, uf: str) -> dict:
+    """Quais cidades têm este município como polo, com nome e população.
+
+    A camada REGIC guarda, em cada município, apenas a CONTAGEM de municípios
+    que ele influencia — e, do outro lado, o polo a que cada município se
+    vincula. A lista nominal sai invertendo essa relação: influenciado é quem
+    aponta para cá.
+
+    Por que isso importa no dossiê: "atende 3 cidades do entorno" não diz nada
+    sobre tamanho de mercado. Três cidades de 4 mil habitantes e três de 40 mil
+    são praças diferentes, e a diferença é justamente o público que não mora no
+    raio e nenhum indicador de área captura.
+
+    A contagem própria da base entra junto como conferência: quando as duas
+    divergem, a divergência é o achado, e não se escolhe uma em silêncio.
+    """
+    alvo = f"{B.normalizar(nome)} ({uf.upper()})"
+    pop = {c: B.num(l.get("01-POPULACAOTOTAL"))
+           for c, l in B.indexar_por_municipio("populacao_municipios").items()}
+    achadas, soma = [], 0.0
+    try:
+        linhas = B.indexar_por_municipio("regic_2018_municipio")
+    except Exception as e:
+        return {"_erro": str(e)}
+
+    for cod, linha in linhas.items():
+        if cod == str(codigo):
+            continue
+        blob = f"{linha.get('polosPrincipais', '')}{linha.get('redeUrbana', '')}"
+        # O polo é gravado como "Nome (UF)" dentro do JSON achatado da coluna.
+        if alvo not in B.normalizar(blob):
+            continue
+        p = pop.get(cod)
+        achadas.append({
+            "codigo_ibge": cod,
+            "municipio": (linha.get("municipio") or "").strip(),
+            "uf": (linha.get("uf") or "").strip(),
+            "classificacao_regic": (linha.get("classificacaoRegic") or "").strip(),
+            "populacao": p,
+        })
+        if p:
+            soma += p
+    achadas.sort(key=lambda x: (x["populacao"] is None, -(x["populacao"] or 0)))
+
+    propria = linhas.get(str(codigo), {})
+    declarada = B.num(propria.get("municipiosInfluenciados"))
+    bloco = {
+        "cidades": achadas,
+        "quantidade_encontrada": len(achadas),
+        "quantidade_declarada_na_base": declarada,
+        "populacao_somada": round(soma) if soma else None,
+        "sem_populacao_na_base": sum(1 for a in achadas if a["populacao"] is None),
+        "_como_foi_obtida": (
+            "a camada guarda só a contagem; a lista sai invertendo a relação — "
+            "influenciado é o município que registra este como polo"
+        ),
+        "_fonte": "regic_2018_municipio",
+        "_populacao_de": "populacao_municipios (acervo, ano de referência não declarado)",
+    }
+    if declarada is not None and len(achadas) != declarada:
+        bloco["_divergencia"] = (
+            f"a base declara {int(declarada)} município(s) influenciado(s) e a inversão "
+            f"da relação encontra {len(achadas)} — as duas leituras saem, e a diferença "
+            "é achado, não erro a resolver escolhendo uma"
+        )
+    return bloco
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--municipio")
@@ -233,6 +301,9 @@ def main() -> int:
         saida["indicadores"][base] = bloco
 
     saida["saturacao"] = saturacao(codigo)
+    saida["cidades_influenciadas"] = cidades_influenciadas(
+        codigo, municipio["nome"], municipio["uf"]
+    )
     saida["percentis"] = {
         "renda_media_domic_per_capita": percentil_municipal("renda_media_municipio", "Renda_media_domic_per_capita", codigo),
         "ipc": percentil_municipal("ranking_de_consumo", "IPC", codigo),

@@ -8,11 +8,13 @@
 Nenhum indicador aparece sozinho. Cada um vem com **um** referente, nesta ordem
 de preferência:
 
-1. **O histórico de análises da Farmarcas** — 6.946 análises em
-   `all_expansion.analysis_data`. É a régua tácita do time.
-2. **O município ou a UF** — quando a pergunta é "este bairro dentro desta
+1. **O município ou a UF** — quando a pergunta é "este bairro dentro desta
    cidade" (ex.: `ranking_bairros.RANKINGMUNICIPIO`).
-3. **A mediana nacional da própria base** — quando não há recorte melhor.
+2. **O percentil ou a mediana nacional da própria camada** — é o referente que
+   transforma um número solto numa frase acionável.
+3. **O período anterior do próprio indicador** — crescimento contra si mesmo.
+
+O histórico de análises **não** é referente: ver a seção abaixo.
 
 ## Um dossiê não se apoia em outro
 
@@ -27,41 +29,31 @@ informa que dois números diferem. O referente que responde a pergunta é o
 percentil, a mediana da base ou o histórico agregado — e esses estão todos
 disponíveis.
 
-## O que o histórico já respondeu
+## O histórico de análises não entra no dossiê
 
-Rodando `benchmark_historico.py --panorama` sobre o dump de 2026-10-26:
+A base de análises da casa existe e é tentadora como referente — ela é a régua
+tácita do time. **Ela não entra no relatório**, em forma nenhuma: nem contagem
+de análises, nem "já analisamos aqui", nem resultado de análise anterior, nem
+parecer.
 
-| Fato | Valor | Por que importa |
-|---|---|---|
-| Análises na base | 6.946 (2.940 com coordenada) | universo do benchmark |
-| Situação | 2.257 Reprovado · 1.865 Aprovado · 2.330 Mapeamento | reprovar é o desfecho mais comum |
-| **Raio mediano usado** | **5.500 m** (min 300, max 6.800) | o padrão de 300 m do produto **não é** a prática |
-| Camadas mais abertas | Municípios · Setor censitário · Potencial de Consumo · Concorrentes · Renda Média · Densidade do Setor · Região de Influência · **Lojas Farmarcas** | é a régua tácita: o que o time olha de verdade |
+Dois motivos somados. O primeiro é medido: parecer aprovado × reprovado **não
+prediz** se a loja sobrevive (log-rank p = 0,8275 sobre 101 fechamentos), e
+contra o próprio brick as reprovadas não ficaram atrás. Citar o histórico
+sugere ao leitor um sinal que a própria Farmarcas já mediu não existir. O
+segundo é de escopo: o dossiê descreve **a região**, não o que a casa já
+decidiu sobre ela — quem lê precisa formar juízo sobre o ponto, não ancorar no
+juízo anterior.
 
-Duas leituras diretas:
-- **Dossiê com raio de 300 m responde outra pergunta** que a do analista.
-  Rodar pelo menos dois raios (300 m e ~5 km) e mostrar os dois.
-- **"Lojas Farmarcas" está no top-8 de camadas usadas** e **não entra no score
-  do produto**. A lente Dificuldades existe por causa disso.
-
-## Vizinhança como contexto, nunca como prognóstico
-
-`benchmark_historico.py --lat --lng --vizinhanca` lista as análises já feitas
-perto do ponto, com situação e, sob `--com-parecer`, o texto do parecer.
-
-Isso é **memória institucional**: "a 800 m daqui reprovou-se em 2024, pelo
-motivo X". É contexto para o analista confirmar ou contestar.
-
-**Não é previsão.** O estudo em `C:\Users\zequi\projetos\analise-ponto-orbita`
-mediu: parecer aprovado × reprovado **não prediz** se a loja sobrevive
-(log-rank p = 0,8275 sobre 101 fechamentos), e contra o próprio brick as
-reprovadas **não ficaram atrás**. Escrever "reprovaram aqui, logo é ruim" é
-contrariar a evidência que a própria Farmarcas produziu.
+O que sobrou dessa base é **calibração interna da skill**, não conteúdo: é dela
+que veio a decisão de rodar dois raios, 300 m e ~5 km, em vez de só o padrão do
+produto. Essa decisão aparece no relatório como os dois raios comparados, nunca
+como a sua procedência.
 
 ## O que NÃO é referência
 
 | Não use | Por quê |
 |---|---|
+| **O histórico de análises** | o parecer não prediz desfecho, e o dossiê descreve a região e não as decisões anteriores sobre ela |
 | **Outro dossiê já feito** | um dossiê é lido isolado, por quem pode nunca ter visto o outro. E dois pontos específicos não formam distribuição: "o dobro do ponto anterior" não diz se o número é alto ou baixo, só que é diferente de um caso. Vale para menção explícita e para eco ("ao contrário de um calçadão central") |
 | **O Centro de Franca/SP como referência de comparação** | proibido por decisão do PM em 2026-10-27, em qualquer situação. Franca aparece nas referências apenas como **caso de erro de dado** (falso positivo de bandeira, cadastro em cidade errada, população do dump × Censo) — isso é evidência de defeito, não régua |
 | Faixas absolutas de "renda boa" / "população suficiente" | é exatamente o conhecimento prévio que a descoberta aponta como causa do problema (`orbita-descoberta-analise-pontos.md:34`) |

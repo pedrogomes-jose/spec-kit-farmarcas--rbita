@@ -21,9 +21,17 @@ Se não estiver dito na solicitação, **perguntar**. Não assumir.
 
 São itens diferentes da lente Dificuldades. Juntá-los apaga a diferença que decide.
 
-**O que o perfil NÃO muda:** o zoneamento. O teto de lojas por cidade conta
-lojas, de quem quer que sejam (decisão do PM, 2026-10-27). Empresário existente
-não ganha vaga extra por já ser da casa.
+**O que o perfil muda no zoneamento — e passou a mudar em 2026-10-29.** O teto
+conta **grupos econômicos**. Um solicitante que **já responde por loja nesta
+cidade** não traz grupo novo: o pedido dele não mexe na contagem que barra, e
+sobra apenas o alerta de densidade. Um solicitante que **não** opera nesta cidade
+entra como grupo novo, mesmo já sendo associado em outro município — ser da casa
+não dá vaga, estar na praça sim.
+
+**Grupo econômico é o `Nome do responsável pelo GE` do cadastro, deduplicado por
+nome normalizado — não por CNPJ.** Agora que é ele que barra, essa fragilidade
+decide: duas lojas do mesmo dono com grafia divergente viram dois grupos e barram
+um pedido que caberia. Todo dossiê declara isso onde a contagem aparece.
 
 ---
 
@@ -40,12 +48,47 @@ Fonte: Confluence **"4.5 Regras de Zoneamento e Regras de Expansão"**
 
 ### Faixas por população
 
-| População (Censo 2022) | Teto de lojas na cidade | Condições |
+> ⚠️ **O teto conta GRUPOS ECONÔMICOS, não lojas** — regra refinada com o PM em
+> 2026-10-29. O que barra é a entrada de um **novo grupo** na praça. Cidade cujas
+> lojas respondem todas ao mesmo grupo **não** está barrada: a quantidade de lojas
+> por habitante vira **alerta** de densidade, nunca impedimento.
+
+| População (Censo 2022) | Teto de grupos econômicos na cidade | Condições |
 |---|---|---|
 | ≤ 60.000 | **1** | sem expansão adicional |
-| 60.001 – 120.000 | **2** | a 2ª deve ser de bandeira **popular** |
+| 60.001 – 120.000 | **2** | o 2º grupo deve entrar com bandeira **popular** |
 | 120.001 – 200.000 | **3** | alternância de bandeiras |
 | > 200.000 | **sem teto** | ocupação decidida por market share |
+
+### Por que o teto mudou de unidade
+
+O objetivo declarado da regra é *"evitar conflito e concorrência desleal entre
+associados"*. **Não há conflito entre associados onde só há um associado.** Sete
+lojas de um mesmo dono numa cidade de teto 2 não produzem o problema que a regra
+existe para evitar — produzem risco econômico daquele dono, que é decisão dele.
+
+Isso reconcilia a regra com a prática medida: contando lojas, **207 das 830**
+cidades com loja ativa (25%) estouravam o teto; contando grupos econômicos, são
+**34 (4%)**. A leitura por lojas acusava como violação o que era estratégia de um
+único associado.
+
+**Efeito colateral do refinamento, descoberto em 2026-10-29.** A checagem de
+distância mínima só roda **acima de 60 mil habitantes**. Essa exclusão fazia
+sentido quando o teto contava lojas: numa cidade de teto 1 com 2 lojas, o teto
+barrava antes e a distância era irrelevante. Com o teto contando **grupos**,
+nasceu uma classe de casos que antes não existia — cidade abaixo de 60 mil onde
+o teto **não** barra, porque as lojas são todas do mesmo grupo. Nesses pontos o
+gate devolve `alerta`, o dossiê diz "Zoneamento: Alerta", e **a segunda regra
+nunca foi avaliada**. O resultado do gate não avisa disso.
+
+Até a regra oficial declarar se a distância vale em toda faixa, **todo dossiê
+dessa classe declara a distância como regra sem veredito** — não como pergunta
+econômica de canibalização, que é coisa diferente.
+
+**O que a densidade de lojas ainda significa.** Ela não barra, mas não é
+irrelevante: mais pontos dividem o mesmo mercado. Entra sempre como alerta, com a
+contagem de lojas e a de grupos lado a lado, para que o solicitante veja o que
+está escolhendo.
 
 ### Distância mínima entre lojas Farmarcas
 
@@ -68,12 +111,15 @@ no bloco `lacunas` do script.
 | Ponto em aberto | O que o script faz | Status |
 |---|---|---|
 | **Qual população corta a faixa** | usa o **Censo 2022 do IBGE** via API pública | decidido pelo PM em 2026-10-27 |
-| **Teto conta lojas ou empresários?** | conta **lojas** | decidido pelo PM; a página escreve "empresários" |
+| **Teto conta lojas ou empresários?** | conta **grupos econômicos** | refinado com o PM em 2026-10-29; alinha a regra ao que a página escreve e ao objetivo dela |
+| **Como se identifica um grupo econômico** | pelo responsável pelo GE no cadastro, por nome | premissa: o certo seria CNPJ, que o cadastro tem mas não vincula entre lojas |
+| **A partir de quando a densidade de lojas alerta** | quando a cidade passa do número da faixa em lojas | premissa, não está na regra |
 | **Loja desativada ocupa vaga?** | **não** — ocupam vaga apenas `Ativado`, `Montando`, `Transição` | premissa, não está na regra |
 | **Limites de faixa são sobrepostos** na página (60, 120, 200 mil) | corta em `≤60.000`, `≤120.000`, `≤200.000` | premissa |
 | **Distância vale acima de 200 mil?** | calcula e levanta **alerta**, não impedimento | a página não declara |
 | **Alternância de bandeiras é obrigatória?** | **alerta**, não impedimento | a página não declara |
-| **Como popular e convencional diferem** | só aplica a exigência explícita da faixa 60–120 mil | a página diz que diferem, sem detalhar |
+| **Como popular e convencional diferem** | só aplica a exigência explícita da faixa 60–120 mil, e na unidade do teto: vale para o **grupo** que entra como 2º | a página diz que diferem, sem detalhar, e escreve "a 2ª loja" |
+| **Loja adicional de grupo já presente, na faixa 60–120 mil** | **alerta**, não impedimento — a exigência de popular não barra quem não traz grupo novo | premissa: a página não define esse caso |
 
 ### Por que a população importa tanto
 

@@ -84,10 +84,21 @@ raio. Num raio que cruza divisa, cidade diferente é o esperado e não é defeit
 o bloco separa isso dos registros **implausíveis**, cadastrados em cidade que o
 raio não alcança — esses sim são erro provável.
 
-> **`fatMedio` é faturamento médio MENSAL estimado por PDV.** O dump não declara
-> a periodicidade; o código do produto declara
-> (`classifyByFatMedio`: *"Average monthly revenue (`fatMedio`)"*). É
-> **estimado**, não medido, e está preenchido em menos da metade dos PDVs.
+> **`fatMedio` é um RÓTULO DE FAIXA mensal, não o faturamento daquele PDV.**
+> A periodicidade é mensal: o dump não a declara, o código do produto sim
+> (`classifyByFatMedio`: *"Average monthly revenue (`fatMedio`)"*). Mas o campo
+> **assume apenas os 8 valores da tabela abaixo em toda a base** — verificado em
+> 2026-11-06: 100.612 registros, 8 valores distintos. Sete deles são o ponto
+> médio da faixa e o mais baixo é o teto da faixa aberta embaixo, de modo que o
+> número diz **em que faixa a loja caiu**, e não quanto ela vende. Está
+> preenchido em menos da metade dos PDVs.
+>
+> Consequência para o texto do dossiê: mínimo, mediana e máximo desse campo são
+> a **faixa mais baixa ocupada**, a **faixa mediana ocupada** e a **faixa mais
+> alta ocupada** — nunca "o faturamento da loja X" nem "a mediana do faturamento
+> dos vizinhos". A distância entre dois desses valores é distância entre faixas.
+> Somá-los dá a soma dos rótulos, que é ordem de grandeza do porte das lojas do
+> recorte, não a venda do recorte.
 
 **As 8 faixas** (constantes de negócio, não variam com a localidade):
 
@@ -106,9 +117,9 @@ raio não alcança — esses sim são erro provável.
 
 | Indicador | Fórmula | Fonte |
 |---|---|---|
-| **Menor venda observada** | mínimo de `fatMedio` entre as lojas do município com valor > 0 | camada Concorrentes 2025 |
-| **Venda mediana** | mediana da mesma amostra | idem |
-| **Maior venda observada** | máximo da mesma amostra | idem |
+| **Faixa mais baixa ocupada** | mínimo de `fatMedio` entre as lojas do município com valor > 0 — é o rótulo da faixa, não a venda da loja | camada Concorrentes 2025 |
+| **Faixa mediana ocupada** | mediana da mesma amostra | idem |
+| **Faixa mais alta ocupada** | máximo da mesma amostra | idem |
 
 ### Segunda fonte: receita medida das lojas do grupo
 
@@ -237,7 +248,16 @@ rede contra o mercado.
 > como dizer em qual brick o ponto cai. O nome do brick traz UF e, nas cidades
 > grandes, o bairro (`994-SE_AJU_CENTRO`), com o município **abreviado**
 > (Aracaju = AJU, Belo Horizonte = BH). O casamento é por **UF + bairro do
-> ponto**, e a saída sempre diz qual critério casou.
+> ponto**, e a saída do script sempre diz qual critério casou.
+>
+> **O critério não vai para a nota do card, e o código do brick nunca vai.** A
+> nota do card leva a comparação com a UF e a fonte do dado; o identificador do
+> brick é nome de registro de base, não informa analista nem executivo e ainda
+> anuncia "saída de robô" bem onde o problema a resolver é confiança no número.
+> O que o leitor precisa saber — que **não se sabe em qual brick o ponto cai** —
+> é lacuna obrigatória, escrita em linguagem de negócio, e é lá que ela fica. Por
+> qual chave as duas tabelas casaram é detalhe de implementação, e vive na saída
+> do script.
 
 ## Bloco: Geradores de fluxo — `pois_no_raio.py`
 
@@ -311,3 +331,39 @@ perdida — `crescimento_farmarcas` negativo é o segundo caso.
 | **Status (Recomendado / Não recomendado)** | o dossiê não pontua; a régua tem dono e vive no produto |
 | **Score de viabilidade (%)** | idem |
 | **População flutuante** | não existe em fonte alguma: nem nas 57 bases, nem no código, nem em API pública localizada. Entra como lacuna, sempre |
+
+
+## Implantação do ponto — esquina ou meio de quadra
+
+Sai de `implantacao.py`, sobre a geometria viária do OpenStreetMap. Responde
+onde o endereço está na quadra, que separa dois pontos da mesma rua mais do que
+quase qualquer indicador de área: esquina tem duas faces de exposição e recebe
+quem circula por duas vias; meio de quadra tem uma.
+
+**Três portas, todas obrigatórias para afirmar:**
+
+| Porta | O corte | Por que existe |
+|---|---|---|
+| Ancoragem | ponto a ≤ 20 m de via mapeada | mais longe, ou a coordenada está errada ou a via não está no mapa — e nos dois casos a classificação descreve outra coisa |
+| Separação | esquina ≤ 20 m · meio de quadra ≥ 40 m | entre os dois há **zona morta deliberada**: ponto a 30 m de um cruzamento é "perto da esquina" na fala e não tem classificação defensável no dado |
+| Nomeação | cruzamento só conta com duas vias **nomeadas e diferentes** | nó compartilhado por dois trechos da mesma rua é continuidade de via, não esquina |
+
+Fora disso, `classificacao: null` e **o assunto não entra no relatório**, em
+forma nenhuma. A cobertura viária do OSM é boa em cidade e irregular em
+distrito pequeno, então a abstenção é o caso comum, não a falha.
+
+## Cidades que têm este município como polo
+
+A camada REGIC guarda, em cada município, apenas a **contagem** de municípios
+influenciados — e, do outro lado, o polo a que cada um se vincula. A lista
+nominal sai **invertendo** essa relação: influenciado é quem aponta para cá.
+`contexto_municipio.py` faz a inversão e junta a população de cada um.
+
+Por que nomear importa: "atende 3 cidades do entorno" não diz nada sobre
+tamanho de mercado. Três cidades de 2 mil habitantes e três de 40 mil são
+praças diferentes, e a diferença é exatamente o público que **não mora no
+raio** e que nenhum indicador de área do relatório captura.
+
+A contagem declarada pela base entra como conferência. Quando as duas
+divergem, **as duas saem** e a divergência é o achado — não se escolhe uma em
+silêncio.

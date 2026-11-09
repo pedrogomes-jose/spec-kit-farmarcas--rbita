@@ -11,6 +11,17 @@ Responde duas perguntas que nenhuma régua absoluta responde:
 LGPD: nome e e-mail de consultor, analista e empresário existem na base e são
 DESCARTADOS aqui. O texto do parecer só sai com --com-parecer, e mesmo assim
 nunca deve ser copiado para o dossiê com nome de pessoa.
+
+FORA DO FLUXO DO DOSSIÊ (decisão de 2026-10-29). Nada do que este script
+devolve entra no relatório: nem a contagem de análises, nem a existência de
+análise anterior no ponto ou na região, nem o resultado dela, nem parecer.
+O parecer não prediz desfecho (log-rank p = 0,8275 sobre 101 fechamentos), de
+modo que citá-lo sugere um sinal que não existe — e o dossiê descreve a região,
+não o que a casa já decidiu sobre ela.
+
+O script fica porque serve a OUTRA coisa: calibrar a skill. Foi dele que veio a
+decisão de rodar dois raios em vez do padrão de 300 m do produto. Use para
+decidir como a skill funciona, nunca para escrever o que o analista lê.
 """
 
 from __future__ import annotations

@@ -126,29 +126,65 @@ def main() -> int:
     if args.lat is not None and args.lng is not None and args.codigo_ibge:
         bairro, dist = bairro_do_ponto(args.lat, args.lng, args.codigo_ibge)
 
+    # ORDEM: município ANTES de bairro — e a inversão disso era um defeito grave.
+    # O nome do município é sinal forte: brick chamado pelo município É o
+    # município. "Centro" é sinal fraco: quase toda cidade tem um, e o nome do
+    # brick de bairro traz a capital abreviada (Aracaju = AJU, Belo Horizonte =
+    # BH), então o casamento por sufixo cruza cidades sem avisar.
+    #
+    # Caso real, 2026-10-29: ponto no Centro de Lagarto/SE casou com
+    # `994-SE_AJU_CENTRO`, o Centro de Aracaju, a 63 km — porque era o único
+    # brick da UF terminado em "_CENTRO". O relatório afirmou preço de R$ 33,22
+    # acima da média do estado, quando o brick de Lagarto (`1003-SE_LAGARTO`)
+    # devolve R$ 29,02, ABAIXO dela. A conclusão saiu invertida.
+    #
+    # O bairro continua útil, mas só DEPOIS do município, para refinar quando a
+    # cidade tem vários bricks — e, quando o município não casa, o fallback por
+    # bairro declara o risco de cruzar cidade em vez de escondê-lo.
     criterio = None
     alvo = []
+    nome_municipio = None
+    if args.codigo_ibge:
+        for m in B.ler("municipios"):
+            if (m.get("CD_MUN") or "").strip() == str(args.codigo_ibge).strip():
+                nome_municipio = m.get("NM_MUN")
+                break
+
     if args.brick:
         alvo = [r for r in da_uf if r["descricao_brick_rpe"].strip().upper() == args.brick.strip().upper()]
         criterio = f"nome exato do brick informado ({args.brick})"
+
+    if not alvo and nome_municipio:
+        chave = B.normalizar(nome_municipio)
+        alvo = [r for r in da_uf if chave in B.normalizar(r["descricao_brick_rpe"])]
+        if alvo:
+            criterio = f"UF + nome do município ({nome_municipio})"
+            # Cidade com vários bricks: o bairro refina DENTRO do município.
+            nomes = {r["descricao_brick_rpe"] for r in alvo}
+            if len(nomes) > 1 and bairro:
+                chave_b = B.normalizar(bairro)
+                refinado = [r for r in alvo if B.normalizar(r["descricao_brick_rpe"]).endswith("_" + chave_b)]
+                if refinado:
+                    alvo = refinado
+                    criterio = (
+                        f"UF + município ({nome_municipio}) + bairro do ponto "
+                        f"({bairro}, centroide a {dist} m)"
+                    )
+
     if not alvo and bairro:
         chave = B.normalizar(bairro)
         alvo = [r for r in da_uf if B.normalizar(r["descricao_brick_rpe"]).endswith("_" + chave)]
         if alvo:
-            criterio = f"UF + bairro do ponto ({bairro}, centroide a {dist} m)"
-    if not alvo and args.codigo_ibge:
-        nome = None
-        for m in B.ler("municipios"):
-            if (m.get("CD_MUN") or "").strip() == str(args.codigo_ibge).strip():
-                nome = m.get("NM_MUN")
-                break
-        if nome:
-            chave = B.normalizar(nome)
-            alvo = [r for r in da_uf if chave in B.normalizar(r["descricao_brick_rpe"])]
-            if alvo:
-                criterio = f"UF + nome do município ({nome})"
+            criterio = (
+                f"UF + bairro do ponto ({bairro}, centroide a {dist} m) — "
+                "SEM casamento por município: o brick pode ser de OUTRA cidade do estado"
+            )
 
     bricks = sorted({r["descricao_brick_rpe"] for r in alvo})
+    # O critério tem de dizer em QUE brick caiu. Sem isso ninguém percebe um
+    # casamento cruzado: foi exatamente o que deixou passar o brick de Aracaju.
+    if criterio and bricks:
+        criterio = f"{criterio} → {', '.join(bricks)}"
 
     B.emitir(
         {

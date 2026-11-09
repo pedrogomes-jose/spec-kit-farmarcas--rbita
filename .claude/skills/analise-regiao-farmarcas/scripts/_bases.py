@@ -30,6 +30,12 @@ DEFAULT_DIR = r"C:\Users\zequi\Downloads\bases órbita"
 
 # Data do dump. Todo dossiê carimba isto: o dado NÃO se atualiza sozinho.
 DATA_DO_DUMP = "2026-10-26"
+# O cadastro de lojas tem extracao propria, mais antiga que o acervo. Ela era
+# literal escrita a mao em quatro pontos dos relatorios: na proxima atualizacao
+# do cadastro, um deles ficaria para tras e o relatorio carimbaria data velha
+# sem ninguem perceber — o envelhecimento silencioso que o proprio documento
+# alerta. Atualizar AQUI, num lugar so.
+DATA_DO_CADASTRO = "2026-10-23"
 
 ERRO_PLANILHA = ('{"error":"#N/A"}', "#N/A", "---", "")
 

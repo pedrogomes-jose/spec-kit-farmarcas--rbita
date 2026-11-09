@@ -96,7 +96,7 @@ def classificar_faturamento(valor):
     return None
 
 
-def vendas_da_regiao(municipio: str):
+def vendas_da_regiao(municipio: str, uf: str = ""):
     """Soma de `fatMedio` de todos os concorrentes **do município do ponto**.
 
     DIVERGÊNCIA DELIBERADA do produto, decidida pelo PM em 2026-10-27. O produto
@@ -106,17 +106,29 @@ def vendas_da_regiao(municipio: str):
     número virava o mercado da macrorregião de Natal, não o da cidade.
 
     "Região" aqui é sempre **a cidade do ponto** — nem o raio, nem a macrorregião.
+
+    **A UF entra no casamento.** Nome de município se repete entre estados: há
+    São Gonçalo do Amarante no RN e no CE, e casar só por nome trazia as 17
+    lojas cearenses junto com as 47 potiguares — 8 delas com faixa de
+    faturamento, uma das quais virava o "máximo da praça". Sem `--uf` o
+    casamento continua só por nome, e a saída diz isso.
     """
     alvo = B.normalizar(municipio)
-    total, valores = 0.0, []
+    alvo_uf = (uf or "").strip().upper()
+    total, valores, homonimos = 0.0, [], 0
     for linha in B.ler("concorrentes_2025"):
         if B.normalizar(linha.get("CIDADE") or "") != alvo:
             continue
+        if alvo_uf:
+            linha_uf = (linha.get("UF") or linha.get("ESTADO") or "").strip().upper()
+            if linha_uf and linha_uf != alvo_uf:
+                homonimos += 1
+                continue
         v = B.num(linha.get("fatMedio"))
         if v is not None and v > 0:
             total += v
             valores.append(v)
-    return (round(total, 2) if valores else None), len(valores), valores
+    return (round(total, 2) if valores else None), len(valores), valores, homonimos
 
 
 def lojas_farmarcas_no_raio(lat: float, lng: float, raio: float):
@@ -251,8 +263,8 @@ def main() -> int:
 
     _freq = _c2.Counter(r["cidade"] for r in (dentro + nossas) if r.get("cidade"))
     cidades_vizinhas = {c for c, n in _freq.items() if n >= 3}
-    reg_total, reg_lojas, reg_valores = (
-        vendas_da_regiao(args.municipio) if args.municipio else (None, 0, [])
+    reg_total, reg_lojas, reg_valores, reg_homonimos = (
+        vendas_da_regiao(args.municipio, args.uf) if args.municipio else (None, 0, [], 0)
     )
 
     try:
@@ -313,6 +325,21 @@ def main() -> int:
                 "no_raio": estatisticas_de_venda(com_fat),
                 "na_cidade": estatisticas_de_venda(reg_valores),
                 "_fonte": "campo de faturamento médio estimado da camada Concorrentes 2025",
+                "_natureza": (
+                    "ATENÇÃO: o campo assume apenas 8 valores distintos em toda a base, "
+                    "um por faixa — sete deles são o ponto médio exato da faixa e o da "
+                    "faixa 8 é o teto dela. NÃO é estimativa por loja: é o RÓTULO DA "
+                    "FAIXA em que a loja caiu. Mínimo, mediana e máximo descrevem a "
+                    "distribuição das lojas entre as faixas, não o faturamento de "
+                    "nenhuma loja — e a diferença entre dois desses números é a "
+                    "distância entre faixas, não entre lojas"
+                ),
+                "_homonimos_descartados": reg_homonimos,
+                "_criterio_cidade": (
+                    f"CIDADE = {args.municipio} e UF = {args.uf.upper()}" if args.uf and args.municipio
+                    else f"CIDADE = {args.municipio}, SEM filtro de UF — homônimo de outro estado entra"
+                    if args.municipio else "sem município de referência"
+                ),
             },
             "mercado_por_canal": mercado_canal or {
                 "_leitura": "informe --uf para estimar o mercado do raio pela régua medida por canal"

@@ -131,12 +131,19 @@ def construir(codigo: str, verbose: bool = True) -> str:
 
     ultima = ultima_parte_existente()
     inicio = parte_do_id(ordenados[0], ultima)
+    # Os ids de um municipio NAO sao necessariamente contiguos entre as partes.
+    # Em Santarem/PA eles ocupam as partes 123 e 125, e a 124 nao tem nenhum.
+    # Parar na primeira parte vazia perdia tudo depois do buraco — 355 dos 370
+    # setores — e o script ainda saia com codigo 0, entao o dossie era montado
+    # sobre 4% da cidade sem ninguem notar. O fim da varredura passa a ser a
+    # parte do MAIOR id, achada pela mesma busca binaria.
+    fim = parte_do_id(ordenados[-1], ultima)
     if verbose:
-        print(f"partes existentes: 0..{ultima} | varredura a partir da parte {inicio}")
+        print(f"partes existentes: 0..{ultima} | varredura das partes {inicio} a {fim}")
 
     encontrados, features, parte = {}, [], inicio
     os.makedirs(CACHE_MUNICIPIOS, exist_ok=True)
-    while parte <= ultima and len(encontrados) < len(alvos):
+    while parte <= fim and len(encontrados) < len(alvos):
         dados = baixar_parte(parte)
         achou_nesta = 0
         for f in dados.get("features", []):
@@ -153,9 +160,8 @@ def construir(codigo: str, verbose: bool = True) -> str:
                 )
         if verbose:
             print(f"  parte {parte}: {achou_nesta} setores | acumulado {len(encontrados)}/{len(alvos)}")
-        # Passou do trecho do município e nada foi achado: para.
-        if achou_nesta == 0 and encontrados:
-            break
+        # Parte vazia NAO interrompe mais: ela pode ser um buraco no meio do
+        # intervalo do municipio. O limite agora e `fim`, nao o primeiro zero.
         parte += 1
 
     saida = {
@@ -170,6 +176,17 @@ def construir(codigo: str, verbose: bool = True) -> str:
         json.dump(saida, fh)
     if verbose:
         print(f"gravado: {destino} ({len(features)} de {len(alvos)} setores)")
+    # Malha incompleta nao pode sair calada: ela alimenta populacao, renda,
+    # densidade e potencial de consumo no raio, e uma cobertura parcial vira
+    # numero errado com cara de numero certo.
+    if len(features) < len(alvos):
+        falta = len(alvos) - len(features)
+        print(
+            f"AVISO: malha INCOMPLETA — {falta} de {len(alvos)} setores sem geometria "
+            f"({len(features) / len(alvos) * 100:.1f}% de cobertura). Os indicadores de "
+            f"raio saem subestimados; declare como lacuna no dossiê.",
+            file=sys.stderr,
+        )
     return destino
 
 
