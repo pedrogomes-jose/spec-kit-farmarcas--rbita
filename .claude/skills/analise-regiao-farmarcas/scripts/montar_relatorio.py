@@ -844,6 +844,24 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     av, av_nota = area_de_venda(pot, cfg.get("receita_por_m2"))
     alu, alu_nota = aluguel_comercial(cfg)
     occ, occ_nota = custo_de_ocupacao(cfg, pot, av)
+    # Área de venda, aluguel e custo de ocupação dependem de régua que só o
+    # analista tem: R$/m² de receita e aluguel pesquisado. Sem elas não há o
+    # que estimar, e o card vazio é PIOR que a ausência — um card de destaque
+    # existe para carregar número, e três deles em sequência dizendo "—"
+    # gastam a faixa de maior atenção do relatório para informar que não há
+    # informação. Mesmo critério que já tira o card de preço no brick quando
+    # não houve brick casado. O que destravaria cada um continua escrito: a
+    # régua está documentada no formato do config e na SKILL, e o card volta
+    # inteiro no momento em que o valor é informado.
+    cards_ocupacao = "".join(
+        card(rotulo, valor, nota, "#b07d00")
+        for rotulo, valor, nota in (
+            ("Área de venda estimada", av, av_nota),
+            ("Aluguel comercial", alu, alu_nota),
+            ("Custo de ocupação estimado", occ, occ_nota),
+        )
+        if valor != "—"
+    )
 
     veredito = zon.get("veredito", "—")
     cor_gate = {"liberado": "#0f7b45", "alerta": "#b07d00", "impedimento": "#b4503c"}.get(veredito, "#444")
@@ -917,9 +935,7 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     {card("Renda média por habitante", brl(setores.get("renda_media_por_habitante_R$")), "setores do raio", "#0f7b45")}
     {card("Renda média domiciliar", brl(setores.get("renda_media_domiciliar_R$")), "setores do raio", "#0f7b45")}
     {card("Verticalização", pct(setores.get("verticalizacao_pct")), "domicílios em apartamento — casas x apartamentos", "#6b2fb5")}
-    {card("Área de venda estimada", av, av_nota, "#b07d00")}
-    {card("Aluguel comercial", alu, alu_nota, "#b07d00")}
-    {card("Custo de ocupação estimado", occ, occ_nota, "#b07d00")}
+    {cards_ocupacao}
   </div>
   {bloco_influencia(ctx)}
 </section>""")

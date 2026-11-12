@@ -24,12 +24,13 @@ o que NÃO sabe (**bloco recolhido**, com a contagem no título) → para confir
 em campo (seção própria, visível) → **Fontes** (tabela numerada + procedência
 geral) → rodapé.
 
-**Dois blocos são condicionais, e a condição é de confiança, não de espaço:**
+**Três blocos são condicionais, e a condição é de confiança, não de espaço:**
 
 | Bloco | Entra quando | Quando não entra |
 |---|---|---|
 | Preço médio no brick | houve casamento de brick para o ponto | **o card some.** Um card de destaque mostrando "—" com o preço da UF ao lado convida a ler o agregado estadual como se fosse o do ponto |
 | Implantação (esquina, meio de quadra) | a geometria viária sustenta a classificação com confiança alta | **o assunto some do relatório inteiro** — não vira lacuna, não vira "não foi possível determinar". Saber que não se sabe a posição na quadra não muda decisão, e a linha rouba atenção das lacunas reais |
+| Área de venda, aluguel comercial e custo de ocupação | o analista informou a régua de cada um — R$/m² de faturamento e aluguel pesquisado | **o card some, um a um.** Card de destaque existe para carregar número; três deles em sequência dizendo "—" gastam a faixa de maior atenção do relatório para informar que não há informação. Cada um volta inteiro no momento em que o valor é informado |
 
 Isso é exceção deliberada à regra de declarar toda lacuna. A regra existe
 porque lacuna silenciada vira conclusão errada — e nenhuma conclusão se apoia
@@ -206,7 +207,11 @@ rodapé.
 - (mesma anatomia)
 
 ## Oportunidades
-- (mesma anatomia)
+- **<Alavanca disponível>** — <quem está deixando o espaço aberto, nomeado e
+  contado> <+ o tamanho do espaço, com comparação>. Fonte: `<base>`.
+  <Vantagem competitiva em aberto, nunca panorama favorável: se a frase continua
+  verdadeira sem ninguém fazer nada, o item é Força. E nunca escrita como falta
+  da rede — a lente é "a favor".>
 
 ## Dificuldades
 - (mesma anatomia)
@@ -234,6 +239,12 @@ rodapé.
 - **Abre pelo que o analista não sabia.** Se as Forças forem óbvias para quem
   conhece a cidade, elas não abrem o dossiê.
 - **Número sem comparação não entra.** "R$ 453,17" não; "percentil 38" sim.
+- **A ressalva obrigatória vai no substantivo, não em frase ao fim.** "A faixa
+  mediana ocupada é R$ 330.312", "a loja média do canal independente fatura
+  R$ 69.439". A explicação da base — que o campo é rótulo de faixa, que a régua
+  é média da UF, que o potencial não é venda realizada — já sai por extenso no
+  bloco do relatório onde o número aparece; repetida na lente, só empurra o
+  achado para o fim do parágrafo.
 - **A palavra "confiança" não aparece na leitura da região.** Nem o rótulo, nem
   o motivo dele, nem a versão disfarçada ("o dado é robusto", "com alguma
   ressalva", "nem todas as lojas têm o campo preenchido"). Se é preciso

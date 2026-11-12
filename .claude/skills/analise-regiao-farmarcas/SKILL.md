@@ -90,11 +90,14 @@ Referências (ler quando indicado):
   — nunca quanto a farmácia da esquina vende. A base não traz dispersão dentro
   do canal: não há mínimo, máximo nem quartil por loja. Serve para dimensionar
   mercado e para situar um concorrente; não serve para afirmar o faturamento de
-  um endereço, e o texto precisa dizer isso onde o número aparece.
+  um endereço. **Isso o relatório já declara por extenso** no bloco embaixo da
+  tabela de canais — na lente, o que se faz é chamar o número pelo nome certo
+  ("a loja média do canal independente em Minas"), nunca anexar a explicação.
 - **A régua de canal mistura duas janelas.** A receita é acumulado de 12 meses
   e a contagem de PDVs é do ano corrente. Canal que abriu ou fechou muita loja
   no período sai enviesado. O viés é de segunda ordem para canal estável, e vai
-  declarado junto do número.
+  declarado no bloco que o gerador escreve embaixo da tabela de canais — não na
+  lente, que já o herda ao dizer "loja média do canal".
 - **Loja sem canal reconhecido vira faixa, não zero nem média.** Rede local que
   o mapeamento não conhece entra como intervalo entre o canal mais barato e o
   mais caro da UF, com a contagem declarada. Preencher com a média do raio
@@ -198,8 +201,13 @@ Referências (ler quando indicado):
   nenhuma — ele aparece nas referências apenas como caso de erro de dado.
 - **População flutuante não existe** em fonte alguma — nem nas 57 bases, nem no
   código, nem em API pública. Entra como lacuna, nunca como estimativa.
-- **Área de venda só com régua informada.** Sem um R$/m² que o analista forneça,
-  o campo fica vazio, como no relatório do produto.
+- **Área de venda, aluguel e custo de ocupação só com régua informada** — e, sem
+  ela, o card **não aparece**. Nenhum dos três tem fonte: área de venda depende
+  de um R$/m² de faturamento que o analista forneça, e aluguel comercial por
+  município não existe em fonte pública. Vazios, eles saíam como três cards de
+  destaque em sequência dizendo "—", gastando a faixa de maior atenção do
+  relatório para informar que não há informação. Cada um volta inteiro no
+  momento em que o valor é informado.
 - **O dossiê NÃO pontua.** Nada de score, nota, percentual de viabilidade,
   "recomendado" ou "aprovado". A régua 0–20 tem dono (os executivos da
   Farmarcas) e vive no produto; duplicá-la cria dois números divergentes para a
@@ -216,15 +224,24 @@ Referências (ler quando indicado):
   disfarçado ("o dado é robusto", "com alguma ressalva"). O corte é por
   **afirmação**, não por item: no mesmo parágrafo, a parte cadastral fica e o
   palpite sai. Nada é silenciado — muda de endereço, e o endereço já existe.
-- **O que o número É fica na lente; o quanto confiar nele sai.** A linha é fina
-  e não é opcional, porque esta skill **obriga** certas ressalvas a andarem
-  junto do número: que a régua de canal é a média da UF e não a venda daquela
-  loja, que MAT é acumulado de 12 meses, que potencial e captura são municipais,
-  que a periodicidade do potencial não é declarada pela base. Essas descrevem **o
-  indicador** — sem elas o leitor lê outro número — e continuam na lente. O que
-  descreve a **qualidade** do indicador ("a base não traz a dispersão", "o
-  casamento foi por nome") vai para a lacuna, onde se diz o que destravaria.
+- **O que o número É fica na lente; o quanto confiar nele sai.** O que descreve
+  a **qualidade** do indicador ("a base não traz a dispersão", "o casamento foi
+  por nome") vai para a lacuna, onde se diz o que destravaria. O que descreve **o
+  indicador** fica — e fica na forma da regra seguinte.
   Ver a tabela em `references/lentes-do-dossie.md`.
+- **A ressalva obrigatória entra no SUBSTANTIVO, nunca em frase ao fim do
+  parágrafo.** "A **faixa mediana ocupada** é de R$ 330.312", "a **loja média**
+  do canal independente em Minas fatura R$ 69.439", "o **potencial de consumo**
+  no raio é de R$ 3,06 milhões" — nomeado assim, o número já não é lido como
+  outro número, que era o motivo inteiro de a ressalva existir. O que **não**
+  entra é a oração que explica a base depois do número: "são médias do canal no
+  estado, nunca o faturamento de nenhuma dessas lojas", "o campo registra em que
+  faixa a loja caiu, não quanto cada uma vende, e a distância entre dois desses
+  valores é distância entre faixas", "é demanda potencial, não venda realizada",
+  "é receita medida de loja da rede, não do concorrente". **O relatório já
+  escreve cada uma dessas frases**, por extenso, no bloco onde o número aparece —
+  repeti-las na lente não declara nada: dobra o parágrafo e empurra o achado para
+  o fim. O gerador avisa quando uma delas escapa para dentro da lente.
 - **A lente não explica o método: o relatório já explica.** O gerador escreve
   sozinho o card "Método de rateio" — com a cobertura do círculo e a contagem de
   setores — e os parágrafos explicativos da renda, do potencial e dos geradores
@@ -236,6 +253,69 @@ Referências (ler quando indicado):
   coberto por setor com geometria" ou "o casamento do brick foi por nome" dentro
   das lentes. A ressalva que muda **qual número se está lendo** fica; a que
   descreve **como a conta foi feita** já tem bloco próprio, e ele vem preenchido.
+- **A lente fala da REGIÃO, nunca da própria medição.** É a regra que engloba as
+  outras, e o teste é o sujeito da frase. Sujeito é a região, o ponto, a
+  concorrência, a cidade ou o grupo → lente. Sujeito é *a base*, *o campo*, *a
+  medida*, *as duas leituras*, *a divergência* ou *este relatório* → não é lente:
+  é bloco do gerador, ou é lacuna. Nada de "nenhuma das duas mede loja nenhuma, e
+  a divergência entre elas é o próprio achado", "o grupo é apurado pelo nome do
+  responsável e não pelo CNPJ", "o encerramento do ponto de origem é premissa
+  deste relatório", "quantas pessoas eles movem, nenhuma base responde". Todas
+  essas frases já estão escritas, por extenso, nas lacunas ou nos blocos — e
+  dentro da lente ocupam o lugar do número.
+- **Divergência entre fontes se mostra com os DOIS NÚMEROS, não com uma frase
+  sobre a divergência.** A regra da casa sempre pediu os dois valores à vista,
+  cada um com o nome certo; nunca pediu o comentário. Quem lê é analista: vendo
+  "a loja média do canal independente fatura R$ 69.439" e, no item seguinte, "a
+  faixa mais alta ocupada da cidade está dentro do raio de 300 m", ele enxerga a
+  tensão sem que o dossiê a anuncie. O anúncio não traz número nem comparação —
+  traz só a constatação de que o dossiê percebeu algo.
+- **Oportunidade é vantagem competitiva em aberto, não panorama favorável.** A
+  lente responde o que este ponto — ou este grupo — passa a ter aqui que hoje não
+  tem e que a concorrência da região não tem. Duas famílias e nenhuma terceira:
+  **vantagem do ponto** (o que este endereço permite fazer que as farmácias do
+  raio não fazem) e **jogada de praça do grupo** (o que a abertura trava para o
+  outro lado). Cada item responde três coisas: **qual é a alavanca**, escrita
+  como ação disponível; **quem está deixando o espaço aberto**, nomeado e
+  contado; e **qual é o tamanho do espaço**, com número e comparação.
+- **Dificuldade é o que o negócio vai ter de atravessar**, não registro de gate.
+  A lente responde o que, daqui para a frente, vai dificultar a operação dar
+  certo neste ponto: obstáculo, custo, atrito, conflito ou risco de execução —
+  coisa que alguém terá de resolver. Cada item responde **o que vai dar
+  trabalho**, **quem ou o que impõe** e **o que custa se não for tratado**.
+- **Teste do "e daí?": se a resposta a "o que isso dificulta?" for "nada", o item
+  não é dificuldade.** É resultado do gate, é premissa ou é lacuna, e os três já
+  têm lugar próprio. O item costuma se denunciar na última oração: quem termina
+  em "não restringe este pedido", "não barra", "não há o que barrar", "sem
+  veredito para este endereço", "não se aplica" ou "é premissa deste relatório"
+  está dizendo que nada ali dificulta nada — e gasta uma caixa do quadrante para
+  informar que não há o que informar. Loja desativada perto e distância mínima
+  não avaliada são os dois casos que mais reincidem: viram **lacuna**, com a
+  pergunta de campo junto.
+- **Fragilidade é hoje; dificuldade é o caminho.** A divisa entre as duas lentes
+  da direita é de tempo, não de intensidade. Três concorrentes a 23 m **são** o
+  que o ponto é: Fragilidade. Reescrever isso como "vai ser difícil disputar com
+  eles" é a mesma frase duas vezes, a segunda sem número. Só vira Dificuldade o
+  que acrescenta o obstáculo adiante — o contrato, o custo de reforma, o período
+  com duas lojas abertas, a regra que vai pesar na aprovação.
+- **Teste do status quo: se a frase continua verdadeira sem ninguém fazer nada,
+  não é oportunidade.** É Força, ou é contexto que já está num card. "O grupo já
+  movimenta R$ 16,90 milhões no brick", "a mediana medida da bandeira no estado é
+  R$ 370 mil", "o entorno é verticalizado" descrevem o estado atual favorável —
+  servem a qualquer dossiê de qualquer praça onde a rede já opera, e é exatamente
+  daí que vem a **sensação de genérico**. Oportunidade é específica por
+  construção: noutro endereço a frase seria falsa.
+- **Oportunidade não se escreve como falta nossa.** "Apenas uma loja da rede
+  credenciada ao Farmácia Popular" é o mesmo fato que "o credenciamento é alavanca
+  disponível: 16 das 24 farmácias da cidade já operam por ele, num município que
+  gasta R$ 75,41 milhões em medicamentos" — e só a segunda redação pertence à
+  lente **a favor**. A primeira põe a rede no banco dos réus dentro do quadrante
+  positivo, e é de onde vem a impressão de que as lentes se contradizem. Se,
+  reescrito, o item só souber falar do buraco, ele era Fragilidade.
+- **O mesmo número não aparece em duas lentes.** Fato que corta para os dois
+  lados fica onde ele muda mais a decisão, e a segunda leitura entra como oração
+  do mesmo parágrafo. Repetido em duas caixas, o leitor não lê nuance: lê
+  contradição, e passa a desconfiar das quatro.
 - **A leitura da região é um QUADRANTE SWOT**, em ordem fixa: Forças e
   Fragilidades em cima, Oportunidades e Dificuldades embaixo; a favor à
   esquerda, contra à direita. Numa matriz quem informa é a posição, não o
@@ -508,6 +588,24 @@ lente ficar vazia por falta de fonte.
 | "Declaro a cobertura do círculo na lente, senão ela some do relatório" | ela não some: sai no card **Método de rateio**, com a contagem de setores ao lado |
 | "Explico a ponderação das taxas para o leitor não somar errado" | o parágrafo explicativo da renda já explica, e com mais espaço do que a lente tem |
 | "Tirei a mecânica do rateio e tirei junto que o potencial não tem periodicidade" | são coisas diferentes: a periodicidade muda QUAL número se lê (12×), a fração de área descreve como a conta foi feita |
+| "As duas fontes divergem, então escrevo que a divergência é o achado" | a regra pede os dois NÚMEROS à vista, não a frase sobre eles; o analista enxerga a tensão sozinho |
+| "Digo que nenhuma das duas mede loja nenhuma, senão o leitor confunde" | o nome certo do número já diz isso — faixa ocupada, loja média do canal — e o bloco do relatório diz por extenso |
+| "Declaro na lente que o grupo é apurado por nome e não por CNPJ" | é critério de apuração e já está na lacuna sobre grupos do cadastro; na lente é duplicação |
+| "Escrevo na lente que o encerramento do ponto de origem é premissa" | premissa é lacuna, e essa lacuna já existe |
+| "Fecho o parágrafo lembrando que nenhuma base mede fluxo" | fluxo é lacuna obrigatória e está nela; repetido na lente, come o lugar do número |
+| "Escrevo depois do número que são médias do canal, não o faturamento das lojas" | a frase já está no relatório, embaixo da tabela de canais; na lente diga "a loja média do canal", que é a mesma ressalva em uma palavra |
+| "Explico que o campo de faturamento é faixa, senão leem como venda medida" | o bloco de faixas já explica em três frases; na lente, "a faixa mediana ocupada" resolve |
+| "Tiro a ressalva do fim mas apago também a palavra 'faixa'" | aí sim o leitor lê outro número: a ressalva saiu do parágrafo para entrar no substantivo, não para sumir |
+| "Loja desativada perto é dificuldade, é fato cadastral e é negativo" | ela não ocupa vaga no teto e não restringe nada; o que decidiria algo é POR QUE fechou, e isso é lacuna |
+| "A distância mínima não foi avaliada, registro isso em Dificuldades" | não avaliar uma regra não dificulta nada; é lacuna — o dossiê declara o que não avaliou |
+| "A premissa do encerramento do ponto de origem é um risco, então é Dificuldade" | premissa declarada é lacuna, sempre; na lente ela ocupa o lugar de um obstáculo real |
+| "O gate não barrou, mas registro o teto em Dificuldades para dar contexto" | o resultado do gate tem bloco próprio no topo; e para associado já presente ele costuma ser Oportunidade |
+| "Ponto em meio de quadra vai dificultar a operação, então é Dificuldade" | é o que o ponto JÁ É: Fragilidade. Dificuldade é o obstáculo adiante |
+| "A oportunidade é o grupo já faturar bem na praça" | isso é verdade sem ninguém fazer nada; é Força. Oportunidade é o que ainda não foi tomado |
+| "Ponho a mediana da bandeira no estado como oportunidade" | é régua de referência, e os cards de receita medida já a imprimem |
+| "Escrevo que só uma loja nossa está credenciada ao Farmácia Popular" | é o mesmo fato escrito como falta nossa, dentro da lente a favor — escreva a alavanca: o credenciamento está disponível e 16 das 24 da cidade já o usam |
+| "O entorno ser de loja pequena é fragilidade e oportunidade, ponho nas duas" | o mesmo número em duas caixas o leitor lê como contradição; escolha a caixa e diga as duas leituras lá |
+| "O solicitante já ocupa o teto, então é oportunidade de fechar a praça" | só se disser o que de fato trava: a entrada de outro GRUPO pela rede, nunca a de concorrente de fora dela |
 | "Fecho o item com 'muda a leitura se'" | o rótulo foi removido; se é preciso ressalvar, a ressalva é lacuna |
 | "Escrevo 'Confiança alta' para o leitor saber que o número é firme" | ela é critério de ENTRADA: o item estar na lente já diz isso. Escrita, repetia-se em todo parágrafo e ensinava a pular a frase |
 | "O item é de confiança baixa, mas é importante demais para ficar de fora" | é por ser importante que ele vai para as lacunas, onde se diz o que destravaria — na lente ele seria lido como coisa sabida |
@@ -585,7 +683,8 @@ lente ficar vazia por falta de fonte.
       carrega código de brick, nome de campo, de script ou de arquivo de base
 - [ ] Venda por loja nas TRÊS fontes: **faixa** ocupada pelos concorrentes (rótulo, nunca medida), régua medida por canal e receita medida do grupo
 - [ ] Mercado do raio dimensionado pela régua de canal, com a contagem de lojas sem canal declarada
-- [ ] Dito, onde a régua de canal aparece, que ela é a média do canal na UF e não o faturamento daquela loja
+- [ ] Dito, no bloco que o gerador escreve sob a tabela de canais, que a régua é a
+      média do canal na UF e não o faturamento daquela loja — e **não repetido** na lente
 - [ ] Receita medida filtrada pela bandeira pretendida, com o recorte nacional ao lado
 - [ ] Seção Fontes com a tabela numerada e a procedência geral
 - [ ] Nenhum nome de script, flag ou arquivo de base no corpo do relatório
@@ -610,6 +709,23 @@ lente ficar vazia por falta de fonte.
 - [ ] Nenhuma lente explicando o método de cálculo — fração de área, ponderação
       das taxas, cobertura do círculo e critério de casamento do brick vivem nos
       blocos que o gerador escreve, não no texto das lentes
+- [ ] Nenhuma frase de lente cujo sujeito seja a base, o campo, a medida, as duas
+      leituras, a divergência ou o próprio relatório — o sujeito é a região
+- [ ] Divergência entre fontes mostrada pelos dois números, não anunciada em frase
+- [ ] Nenhuma lente explicando a BASE depois do número — "são médias do canal",
+      "o campo registra em que faixa a loja caiu", "é demanda potencial, não venda
+      realizada", "é receita medida da rede, não do concorrente". A ressalva está
+      no substantivo (faixa ocupada, loja média do canal, potencial de consumo) e
+      por extenso no bloco do relatório
+- [ ] Cada item de Dificuldades com o que vai dar trabalho, quem impõe e o que custa
+      — e nenhum que termine em "não restringe", "não barra", "sem veredito" ou
+      "é premissa"
+- [ ] Loja desativada perto e distância mínima não avaliada tratadas como lacuna,
+      não como item de Dificuldades
+- [ ] Cada item de Oportunidades com alavanca, quem deixa o espaço aberto e tamanho
+      — e nenhum que continue verdadeiro sem ninguém fazer nada
+- [ ] Nenhuma oportunidade escrita como falta da rede
+- [ ] Nenhum número repetido em duas lentes do quadrante
 - [ ] Nenhum "muda a leitura se" no relatório
 - [ ] Cada lacuna e cada item de campo explicado: o que falta, por que importa aqui, o que destrava
 - [ ] Nenhum score, nota ou "recomendado"

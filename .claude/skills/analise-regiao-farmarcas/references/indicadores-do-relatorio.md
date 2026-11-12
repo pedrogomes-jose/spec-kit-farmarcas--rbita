@@ -217,7 +217,11 @@ quartis e a mesma estatística para o raio.
 > índice de mercado mais usado cobre **dez capitais**, é publicado em PDF mensal
 > e não tem interface de consulta — para a maioria das praças da rede não há
 > número a buscar. Média de portal de anúncio não é fonte verificável e não
-> entra. Sem o valor informado, os três campos ficam vazios **com o motivo**.
+> entra. Sem o valor informado, **o card não aparece** — card de destaque existe
+> para carregar número, e três deles em sequência dizendo "—" gastam a faixa de
+> maior atenção do relatório para informar que não há informação. O que
+> destravaria continua escrito aqui e no formato do config: informe
+> `receita_por_m2` e `aluguel_m2`, e os três cards voltam inteiros.
 
 ## Bloco: Potencial de consumo da região
 
