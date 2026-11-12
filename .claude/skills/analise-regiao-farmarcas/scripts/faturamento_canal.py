@@ -153,6 +153,31 @@ def canal_do_rotulo(rotulo: str) -> tuple:
 # ---------------------------------------------------------------------------
 # A régua: receita por loja/mês, por canal, na UF — com queda para o nacional.
 # ---------------------------------------------------------------------------
+# Ressalvas que acompanham QUALQUER leitura da régua de canal — saia ela por
+# este script ou pelo bloco `mercado_por_canal` de `raio_concorrencia.py`, que é
+# por onde o relatório a lê. Ficam num lugar só porque, declaradas apenas aqui,
+# nunca chegavam ao dossiê: o gerador não roda este script, e a segunda ressalva
+# é justamente a que mais muda a leitura de uma lente — o porte da vizinha de
+# rede depende inteiramente de em que canal ela foi enquadrada.
+#
+# Texto em linguagem de negócio, sem "script" nem nome de arquivo: ele é
+# copiado tal e qual para o corpo do relatório, que analista e executivo leem.
+LACUNAS_DA_REGUA = {
+    "dispersão dentro do canal": (
+        "a base traz a média do canal e não a distribuição dentro dele: não há "
+        "mínimo, máximo nem quartil por loja. Duas farmácias independentes no "
+        "mesmo quarteirão podem diferir várias vezes entre si, e isso não aparece. "
+        "Destrava com faturamento por CNPJ da região"
+    ),
+    "enquadramento das redes nomeadas": (
+        "em que canal cada rede corporativa nomeada se encaixa é critério do "
+        "método desta análise, não campo da base. Ler a mesma rede como ABRAFARMA "
+        "ou como outra rede corporativa muda a referência de porte dela em mais de "
+        "duas vezes. Destrava com a classificação de canal por CNPJ na própria "
+        "base do instituto"
+    ),
+}
+
 
 def _ultimo_label(linhas: list) -> str:
     return sorted({r["label"] for r in linhas})[-1]
@@ -321,13 +346,7 @@ def main() -> int:
         resultado["mercado_no_raio"] = estimar_mercado(concorrentes, bench)
 
     resultado["lacunas"] = [
-        "A base de canal não traz dispersão dentro do canal: não há mínimo, "
-        "máximo nem quartil por loja, só a média. Duas farmácias independentes "
-        "no mesmo quarteirão podem diferir várias vezes entre si, e isso não "
-        "aparece aqui.",
-        "A atribuição de canal das redes corporativas nomeadas é julgamento "
-        "declarado no script, não campo da base. Trocar uma rede de ABRAFARMA "
-        "para OUTRAS REDES muda a referência dela em mais de duas vezes.",
+        f"{alvo[0].upper()}{alvo[1:]}: {motivo}." for alvo, motivo in LACUNAS_DA_REGUA.items()
     ]
     B.emitir(resultado)
     return 0

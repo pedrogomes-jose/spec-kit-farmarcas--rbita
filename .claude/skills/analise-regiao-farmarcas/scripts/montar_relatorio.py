@@ -108,6 +108,9 @@ NOMES_HUMANOS = {
     "analysis_data": "histórico de análises do Órbita",
     "mat_anterior_x_atual_utc_sem_cobertura": "base de cobertura de PDVs por UTC (IQVIA)",
     "mat_anterior_x_atual_utc_crescimento": "base de crescimento por UTC (IQVIA)",
+    "mat_anterior_x_atual_utc_mix_categorias": "base de mix de categorias por UTC (IQVIA)",
+    "mat_atual_utc_bandeira": "base de bandeiras por UTC (IQVIA)",
+    "mat_atual_utc_grupo": "base de grupos por UTC (IQVIA)",
     "mat_atual_utc_market_share": "base de market share por UTC (IQVIA)",
     "potencial_de_consumo_setor_censitario": "camada Potencial de Consumo por setor censitário",
     "densidade_demografica_do_setor_habkm": "camada Densidade Demográfica do Setor",
@@ -578,6 +581,20 @@ def bloco_lentes(lentes: dict, fontes: list) -> str:
     return f'{eixo}<div class="swot">{"".join(celulas)}</div>'
 
 
+def _idade_do_cadastro(dump: str) -> str:
+    """Relação entre a data do cadastro e a do acervo, derivada das duas datas.
+
+    Era literal fixo ("mais antiga que o acervo"). Na primeira reexportação do
+    cadastro a frase passou a afirmar o contrário do que as datas ao lado dela
+    diziam — num relatório cuja tese é rastreabilidade.
+    """
+    if B.DATA_DO_CADASTRO < dump:
+        return "mais antiga"
+    if B.DATA_DO_CADASTRO > dump:
+        return "mais recente"
+    return "da mesma data"
+
+
 def bloco_fontes(fontes: list, dump: str, origem_coord: str = "") -> str:
     """Seção única no fim: todas as fontes citadas, numeradas, mais a procedência.
 
@@ -606,7 +623,7 @@ def bloco_fontes(fontes: list, dump: str, origem_coord: str = "") -> str:
   <ul class="proc">
     <li><b>Coordenada do ponto</b> — {origem_coord}</li>
     <li><b>Acervo de camadas do Órbita</b> — extração de {e(dump)}, sem atualização automática.</li>
-    <li><b>Cadastro de lojas Farmarcas</b> — extração de {e(B.DATA_DO_CADASTRO)}, mais antiga que o acervo.</li>
+    <li><b>Cadastro de lojas Farmarcas</b> — extração de {e(B.DATA_DO_CADASTRO)}, {e(_idade_do_cadastro(dump))} que o acervo de camadas.</li>
     <li><b>Geometria dos setores censitários</b> — acervo cartográfico do Órbita.</li>
     <li><b>População do Censo 2022</b> — API pública do IBGE, extração de {e(data_censo())}.</li>
     <li><b>Faturamento, unidades e preço por brick e por UTC</b> — IQVIA e CloseUp.</li>
@@ -1169,12 +1186,51 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     # A narrativa explica a lacuna melhor que o script. Quando o tema já está
     # na seção escrita pelo modelo, o item automático só repetiria pior — então
     # o filtro vale SÓ para as automáticas, nunca para as escritas.
-    escritas = " ".join(escritas_lista).lower()
+    #
+    # A comparação é contra CADA lacuna escrita, uma por vez, e nunca contra a
+    # emenda de todas. Emendadas, as palavras do tema podiam vir de lacunas
+    # DIFERENTES e a coincidência de vocabulário bastava para suprimir um tema
+    # que ninguém tinha escrito. Caso real, em 2026-11-12: a lacuna dos
+    # registros da camada de concorrentes sem coordenada — a que diz que a
+    # contagem de farmácias do raio é um piso e não um total — sumiu do
+    # relatório porque "registros", "camada" e "concorrentes" apareciam, cada
+    # uma, numa lacuna escrita sobre outro assunto. O número que ela ressalva
+    # sustentava a lente inteira de Fragilidades.
+    # A segunda metade do mesmo conserto: o tema é comparado por INTEIRO, pela
+    # fração das palavras longas dele que reaparecem numa lacuna escrita, e não
+    # pelas três primeiras. Prefixo curto decidia o destino do item por acaso de
+    # ordem das palavras: errava para os dois lados — suprimia tema que ninguém
+    # escrevera e deixava passar duplicata de tema já escrito. Medido sobre as
+    # linhas automáticas deste dossiê, a fração separa os dois grupos com folga
+    # (0,64 para o tema de fato escrito, 0,27 para o vizinho mais próximo).
+    escritas_itens = [re.sub(r"<[^>]+>", "", str(x)).lower() for x in escritas_lista]
+    FRACAO_DE_TEMA_JA_ESCRITO = 0.6
+    # "camada" abre o nome de quase toda lacuna de camada sem coordenada e
+    # aparece solta em qualquer prosa sobre base — contada como termo do tema,
+    # ela entrega de graça um terco da fracao. Foi o que derrubou a lacuna das
+    # Farmácias Populares 2025 na primeira versão desta regra: "camada" e
+    # "farmácias" bastavam, e o que distinguia o tema ("populares") nunca era
+    # cobrado. Palavra de estrutura não identifica tema.
+    _VAZIAS = {"camada", "camadas"}
 
     def ja_explicada(linha: str) -> bool:
         depois = linha.split("—", 1)[-1].split(":", 1)[0].strip().lower()
-        termos = [p for p in depois.replace("(", " ").replace(")", " ").split() if len(p) > 5]
-        return bool(termos) and all(p in escritas for p in termos[:3])
+        # Pontuacao colada ("total.", "registros.") nunca casava com a mesma
+        # palavra escrita solta na narrativa: o termo entrava no denominador e
+        # jamais no numerador, e o tema ficava artificialmente abaixo do corte.
+        palavras = re.findall(r"[0-9a-zà-ÿ]+", depois)
+        termos = list(dict.fromkeys(p for p in palavras if len(p) > 5 and p not in _VAZIAS))
+        # Tema de uma palavra só se decide por uma coincidência: "camada Setor
+        # Censitário" sumia porque uma lacuna escrita sobre a distribuição da
+        # população DENTRO do setor usava a mesma palavra, e os dois assuntos
+        # não têm relação. Entre duplicar e silenciar, esta skill duplica:
+        # lacuna silenciada vira conclusão errada, lacuna repetida só cansa.
+        if len(termos) < 2:
+            return False
+        return any(
+            sum(p in escrita for p in termos) / len(termos) >= FRACAO_DE_TEMA_JA_ESCRITO
+            for escrita in escritas_itens
+        )
 
     automaticas = [limpar_tecnico(x) for x in lacunas]
     automaticas = [x for x in automaticas if not ja_explicada(x)]
@@ -1939,6 +1995,153 @@ def main() -> int:
             "metodo e nos paragrafos explicativos: na lente e duplicacao, e empurra o "
             "numero para o fim do paragrafo. Itens: {}".format(
                 len(dict.fromkeys(metodo)), " | ".join(dict.fromkeys(metodo))
+            ),
+            file=sys.stderr,
+        )
+
+    # Terceira familia do mesmo defeito: a lente explicando a BASE depois do
+    # numero. Sao as ressalvas que a casa OBRIGA a declarar — regua de canal e
+    # media da UF, o campo de faturamento e rotulo de faixa, potencial e demanda
+    # e nao venda — e justamente por serem obrigatorias vinham sendo escritas na
+    # lente como se nao houvesse outro lugar. Ha: o gerador escreve cada uma por
+    # extenso no bloco onde o numero aparece. Na lente a ressalva vive no
+    # SUBSTANTIVO ("a faixa mediana ocupada", "a loja media do canal"), que diz a
+    # mesma coisa em uma palavra; escrita como oracao final, ela duplica o bloco,
+    # dobra o paragrafo e empurra o achado para longe do comeco.
+    _BASE_NA_LENTE = (
+        # O que se quer pegar e a ORACAO explicativa ("sao medias do canal no
+        # estado, nunca o faturamento de nenhuma dessas lojas"), nunca o
+        # SUBSTANTIVO que esta mesma regra manda escrever ("a loja media do
+        # canal independente"). Sem o lookbehind o detector reprovava a forma
+        # correta — inclusive o exemplo "Escrever" de lentes-do-dossie.md — e
+        # mandava o autor estragar a frase para calar o aviso.
+        (r"(?<!loja )m[ée]dias? do canal", "o bloco sob a tabela de canais já diz isso"),
+        (r"nunca o faturamento de", "o bloco sob a tabela de canais já diz isso"),
+        (r"em que faixa (a|cada) loja caiu", "o bloco das faixas já diz isso"),
+        (r"n[ãa]o quanto cada uma vende", "o bloco das faixas já diz isso"),
+        (r"dist[âa]ncia entre faixas", "o bloco das faixas já diz isso"),
+        (r"n[ãa]o (é|e) (o )?faturamento de nenhum", "o bloco das faixas já diz isso"),
+        (r"n[ãa]o venda realizada", "o parágrafo do potencial já diz isso"),
+        (r"n[ãa]o declara a periodicidade", "o parágrafo do potencial já diz isso"),
+        (r"n[ãa]o do concorrente", "o bloco de receita medida já diz isso"),
+        (r"contagem de PDVs (é|e) do ano corrente", "o bloco sob a tabela de canais já diz isso"),
+    )
+    base = {}
+    for conteudo in (cfg.get("lentes") or {}).values():
+        for i in (conteudo.get("itens", []) if isinstance(conteudo, dict) else conteudo or []):
+            alvo = f"{i.get('titulo', '')} {i.get('texto', '')}"
+            for padrao, onde in _BASE_NA_LENTE:
+                if re.search(padrao, alvo, re.I):
+                    base.setdefault(i.get("titulo", "(sem titulo)")[:60], onde)
+    if base:
+        print(
+            "AVISO: {} item(ns) da leitura da regiao explicam a BASE depois do "
+            "numero, e o relatorio ja declara isso por extenso. Leve a ressalva "
+            "para o substantivo (\"a faixa mediana ocupada\", \"a loja media do "
+            "canal\") e corte a oracao final. Itens: {}".format(
+                len(base), " | ".join(f"{t} ({o})" for t, o in base.items())
+            ),
+            file=sys.stderr,
+        )
+
+    # Dificuldades e a lente do que o negocio vai ter de ATRAVESSAR: obstaculo,
+    # custo, atrito, conflito, risco de execucao. Item que declara nao restringir
+    # nada gasta uma caixa do quadrante para informar que nao ha o que informar —
+    # e o defeito se denuncia na ultima oracao. Loja desativada perto e distancia
+    # minima nao avaliada sao os dois reincidentes: nao impoem nada ao pedido, e
+    # o que decidiria algo (o motivo do fechamento, o veredito que nao houve) e
+    # lacuna, com a pergunta de campo junto.
+    _NAO_DIFICULTA = (
+        r"n[ãa]o restringe",
+        r"n[ãa]o barra",
+        r"n[ãa]o h[áa] o que barrar",
+        r"sem veredito",
+        r"n[ãa]o se aplica",
+        r"n[ãa]o (é|e) avaliada",
+        r"[ée] premissa deste relat[óo]rio",
+        r"n[ãa]o ocupa vaga",
+    )
+    dif = (cfg.get("lentes") or {}).get("Dificuldades") or {}
+    itens_dif = dif.get("itens", []) if isinstance(dif, dict) else dif or []
+    inocuos = []
+    for i in itens_dif:
+        alvo = f"{i.get('titulo', '')} {i.get('texto', '')}"
+        for padrao in _NAO_DIFICULTA:
+            if re.search(padrao, alvo, re.I):
+                inocuos.append(i.get("titulo", "(sem titulo)")[:60])
+                break
+    if inocuos:
+        print(
+            "AVISO: {} item(ns) de Dificuldades declaram nao dificultar nada "
+            "(\"nao restringe\", \"nao barra\", \"sem veredito\", \"e premissa\"). "
+            "Dificuldade e o que o negocio vai ter de ATRAVESSAR: obstaculo, "
+            "custo, atrito, conflito, risco de execucao. Resultado de gate tem "
+            "bloco proprio no topo; premissa e loja desativada perto sao lacuna, "
+            "com a pergunta de campo junto. Itens: {}".format(
+                len(inocuos), " | ".join(dict.fromkeys(inocuos))
+            ),
+            file=sys.stderr,
+        )
+
+    # Familia guarda-chuva das duas anteriores: a lente falando da propria
+    # MEDICAO em vez da regiao. O teste e o sujeito da frase — se o sujeito e a
+    # base, o campo, a medida, as duas leituras ou o proprio relatorio, a frase
+    # nao e da lente: ou o gerador ja a escreve num bloco, ou ela e lacuna. O
+    # defeito e teimoso porque parece honestidade; nao e. E o dossie falando de
+    # si dentro da caixa reservada para falar do lugar, e ocupando o espaco do
+    # numero. Divergencia entre fontes continua sendo achado — mostrada pelos
+    # DOIS NUMEROS a vista, nunca por uma frase anunciando que ela existe.
+    _META_NA_LENTE = (
+        (r"a diverg[êe]ncia entre elas", "mostre os dois números e pare"),
+        (r"(nenhuma|nem uma) das duas mede", "o nome certo do número já diz isso"),
+        (r"diverg[êe]ncia .{0,30}[ée] o pr[óo]prio achado", "mostre os dois números e pare"),
+        (r"as duas leituras .{0,20}(discordam|divergem)", "mostre os dois números e pare"),
+        (r"n[ãa]o pelo CNPJ", "já está na lacuna sobre grupos do cadastro"),
+        (r"[ée] premissa deste relat[óo]rio", "premissa é lacuna, e ela já existe"),
+        (r"nenhuma base responde", "fluxo de passantes é lacuna obrigatória"),
+        (r"n[ãa]o consta de base nenhuma", "é lacuna, e ela já existe"),
+        (r"nos dois cortes", "comenta a robustez do cálculo, não a cidade"),
+    )
+    meta = {}
+    for conteudo in (cfg.get("lentes") or {}).values():
+        itens = conteudo.get("itens", []) if isinstance(conteudo, dict) else conteudo or []
+        textos = [(conteudo.get("abertura", ""), "(abertura)")] if isinstance(conteudo, dict) else []
+        textos += [(f"{i.get('titulo', '')} {i.get('texto', '')}", i.get("titulo", "(sem titulo)")[:60])
+                   for i in itens]
+        for alvo, rotulo in textos:
+            for padrao, onde in _META_NA_LENTE:
+                if re.search(padrao, alvo, re.I):
+                    meta.setdefault(rotulo, onde)
+    if meta:
+        print(
+            "AVISO: {} trecho(s) da leitura da regiao falam da MEDICAO, nao da "
+            "regiao. O sujeito da frase tem de ser a regiao, o ponto, a "
+            "concorrencia ou o grupo — nunca a base, a medida, as duas leituras "
+            "ou este relatorio. Trechos: {}".format(
+                len(meta), " | ".join(f"{t} ({o})" for t, o in meta.items())
+            ),
+            file=sys.stderr,
+        )
+
+    # O mesmo numero em duas lentes do quadrante nao le como nuance: le como
+    # contradicao, e contamina a confianca nas outras duas caixas. Fato que corta
+    # para os dois lados fica na lente onde muda mais a decisao, com a segunda
+    # leitura como oracao do mesmo paragrafo.
+    _VALOR = re.compile(r"R\$\s?[\d.,]+(?:\s(?:milh[õo]es|milh[ãa]o|mil))?|\b\d[\d.]*,\d+%")
+    onde_aparece = {}
+    for lente, conteudo in (cfg.get("lentes") or {}).items():
+        for i in (conteudo.get("itens", []) if isinstance(conteudo, dict) else conteudo or []):
+            for v in set(_VALOR.findall(f"{i.get('titulo', '')} {i.get('texto', '')}")):
+                onde_aparece.setdefault(v.strip(), set()).add(lente)
+    repetidos = {v: ls for v, ls in onde_aparece.items() if len(ls) > 1}
+    if repetidos:
+        print(
+            "AVISO: {} valor(es) aparecem em mais de uma lente do quadrante. O "
+            "leitor le isso como contradicao, nao como nuance: escolha a lente "
+            "onde o fato muda mais a decisao e diga as duas leituras la. "
+            "Valores: {}".format(
+                len(repetidos),
+                " | ".join(f"{v} → {', '.join(sorted(ls))}" for v, ls in repetidos.items()),
             ),
             file=sys.stderr,
         )

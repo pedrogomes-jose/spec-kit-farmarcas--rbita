@@ -376,6 +376,11 @@ def main() -> int:
                 "itens": suspeitos,
             },
             "lacunas": {
+                # A régua de canal entra no relatório por AQUI, não pelo script
+                # que a calcula — o gerador lê as lacunas deste bloco e nunca as
+                # daquele. Sem esta linha, o número que dimensiona o mercado do
+                # raio saía sem nenhuma das duas ressalvas que o acompanham.
+                **({"regua_de_canal": dict(FC.LACUNAS_DA_REGUA)} if mercado_canal else {}),
                 "registros_sem_coordenada_em_concorrentes": sem_coord,
                 "lojas_do_cadastro_sem_coordenada_preenchida": lojas_vazias,
                 "lojas_do_cadastro_com_coordenada_fora_do_brasil": lojas_invalidas,
