@@ -1,0 +1,149 @@
+{
+  "endereco": "R. Dr. Laudelino Freire, 154 — Centro, Lagarto/SE · CEP 49400-000",
+  "lat": -10.915569,
+  "lng": -37.670549,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "2803500",
+  "municipio": "Lagarto",
+  "uf": "SE",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "novo",
+  "ge": "",
+  "metodo_setores": "area",
+  "receita_por_m2": null,
+  "aluguel_m2": null,
+  "aluguel_fonte": "",
+  "origem_da_coordenada": "informada na solicitação em 29/10/2026, junto com o endereço completo. Toda distância deste relatório é medida a partir dela.",
+  "resumo": "Praça de porte médio e renda baixa, com um centro comercial denso e um mercado farmacêutico de cem milhões de reais crescendo treze por cento ao ano — e onde a rede não tem nenhuma loja nem nenhuma receita, de modo que a disputa aqui não é por espaço entre associados, e sim contra treze concorrentes instalados em trezentos metros.",
+  "lentes": {
+    "Forças": {
+      "abertura": "O que sustenta esta praça é volume, não poder aquisitivo. A cidade é pobre na comparação nacional, mas tem gente suficiente e um centro comercial adensado para mover um mercado farmacêutico de cem milhões de reais por ano — inteiramente nas mãos de terceiros hoje.",
+      "itens": [
+        {
+          "titulo": "Mercado de R$ 104,01 milhões ao ano, crescendo 13%, e zero de receita da rede",
+          "texto": "No acumulado de doze meses a praça movimentou R$ 104,01 milhões contra R$ 92,12 milhões no período anterior, um crescimento de 13%. A receita da rede nesse total é de R$ 0,00, tanto no período atual quanto no anterior, e a composição por bandeira registra 100% em concorrentes. Não é share baixo: é ausência. Confiança alta, porque o município tem uma única unidade de mercado e o número descreve exatamente esta praça, sem agregação com cidades vizinhas. A ressalva é que mercado grande não é mercado fácil — o mesmo dado diz que treze concorrentes já operam dentro de trezentos metros deste endereço.",
+          "fonte": "base de crescimento por UTC e base de bandeiras por UTC da IQVIA"
+        },
+        {
+          "titulo": "Índice de potencial de consumo no percentil 92 dos municípios brasileiros",
+          "texto": "O município marca 0,03272 no índice de potencial de consumo, posição 92 entre cem na distribuição de 5.571 municípios. É a métrica de volume absoluto: mede quanto a cidade inteira consome, não quanto cada morador pode gastar. O gasto anual em medicamentos registrado para o município é de R$ 91,39 milhões. Esse é o descompasso que define a praça — alto no volume, baixo no poder aquisitivo individual, como a lente seguinte detalha.",
+          "fonte": "Ranking de Consumo e base do Farmácia Popular"
+        },
+        {
+          "titulo": "Centro comercial adensado: 236 estabelecimentos de comércio e serviços em 500 metros",
+          "texto": "No entorno de 500 metros o levantamento encontra 236 pontos de comércio e serviços, o mais próximo a 9 metros, mais 15 agências bancárias e lotéricas com a primeira a 18 metros, 17 equipamentos de saúde a partir de 38 metros e 11 creches ou escolas a partir de 35 metros. Densidade comercial é o que faz uma rua ter movimento ao longo do dia; fila de banco prende gente no quarteirão, e idoso em fila é público de medicamento contínuo. Confiança média: a contagem é de equipamentos mapeados colaborativamente, que subconta fora dos grandes centros, e contagem de equipamento não é medida de gente passando.",
+          "fonte": "OpenStreetMap"
+        },
+        {
+          "titulo": "7.604 habitantes por quilômetro quadrado dentro do raio curto",
+          "texto": "O rateio proporcional dos onze setores censitários que tocam o círculo de 300 metros devolve 2.141 moradores em 723 domicílios, com densidade de 7.604 habitantes por quilômetro quadrado e 11,7% dos domicílios em apartamento. No raio de 5 quilômetros a densidade cai para 680 por quilômetro quadrado — o núcleo é muito mais adensado que o entorno, o que para farmácia de rua significa clientela a pé. A cobertura cartográfica do círculo é de 100% no raio curto e 99,99% no amplo; o que o método assume é distribuição uniforme dentro de cada setor, premissa que erra em setor meio vazio e meio verticalizado.",
+          "fonte": "malha de setores censitários do IBGE e camadas setoriais do acervo"
+        },
+        {
+          "titulo": "As duas maiores categorias do mix estão crescendo",
+          "texto": "Prescrição responde por 55% da receita da praça e cresceu 16% no período; medicamentos isentos de prescrição são 21% e cresceram 14%. Juntas são mais de três quartos do mercado, e as duas sobem. Conveniência cresce 16% sobre 5% do mix e cuidados 12% sobre 2%. A única categoria em queda é higiene, com −8% sobre 4%. Num mercado que já cresce 13% no total, o crescimento concentrado no carro-chefe é sinal de demanda, não de recomposição de mix.",
+          "fonte": "base de mix de categorias por UTC da IQVIA"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "A contrapartida do volume é o poder de compra. Na comparação nacional esta é uma cidade de renda baixa e base de domicílios concentrada nas classes mais baixas — e o centro onde o ponto está é uma ilha de renda dentro dela, não o retrato do município.",
+      "itens": [
+        {
+          "titulo": "Renda domiciliar per capita no percentil 25 nacional, com 44% dos domicílios em D/E",
+          "texto": "O município registra R$ 275,29 de renda domiciliar per capita contra uma mediana nacional de R$ 456,30 — posição 25 entre cem numa distribuição de 5.565 municípios. A distribuição de classe acompanha: 44,0% dos domicílios em D/E e 27,3% em C2, contra 0,7% em A e 2,2% em B1. O percentil compara o município contra os outros 5.564 da mesma camada, então ele continua de pé mesmo que o valor absoluto esteja deslocado — é posição relativa, não nível. Para o balcão isso empurra o mix para genérico, similar e preço, que é exatamente onde o posicionamento popular compete.",
+          "fonte": "camada Renda Média por município e base do Farmácia Popular"
+        },
+        {
+          "titulo": "Treze concorrentes dentro de 300 metros, o mais próximo a 14 metros",
+          "texto": "O raio curto tem treze farmácias concorrentes, e a primeira delas está a 14 metros deste endereço. No raio de 5 quilômetros são 42. Nenhuma é da rede, e nenhuma aparece sequer como suspeita por nome de bandeira — a praça é inteiramente de terceiros. Seis das treze trazem faixa de faturamento declarada; a mais alta cai na faixa de R$ 847 mil a R$ 1,34 milhão por mês, e o campo assume apenas oito valores em toda a base, um por faixa, de modo que ele classifica a loja e não mede o que ela vende. Entrar aqui é disputar vizinhança imediata, não ocupar vazio.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "Uma rede de grande porte opera dentro do raio de 5 quilômetros",
+          "texto": "Entre as 42 farmácias do raio amplo, uma está classificada no canal das grandes redes nacionais. Pela régua medida, a loja média desse canal em Sergipe fatura R$ 1,09 milhão por mês, contra R$ 445,8 mil das outras redes corporativas, R$ 109,6 mil das associações e franquias e R$ 29,8 mil das independentes, que são 24 das 42. Essa régua diz quanto fatura uma loja média de cada canal no estado, nunca quanto vende um endereço específico — serve para dimensionar o entorno e situar um concorrente pelo porte do grupo a que pertence.",
+          "fonte": "camada Concorrentes 2025 e base de receita e PDVs por canal da IQVIA"
+        },
+        {
+          "titulo": "O preço praticado na praça está abaixo da média do estado",
+          "texto": "O preço médio por unidade vendida no recorte de mercado de Lagarto é de R$ 29,02, contra R$ 30,27 no agregado de Sergipe. O casamento foi feito pelo nome do município, que é o critério forte — o recorte é da cidade, não de um bairro dela. Esse recorte registra apenas concorrentes, nenhuma venda da rede, o que é coerente com a ausência de receita nossa na praça. Preço abaixo da média estadual significa mercado que já compete por preço: a vantagem de posicionamento que a bandeira traz existe, mas encontra um patamar local mais apertado do que o do estado.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        },
+        {
+          "titulo": "O centro é ilha de renda: R$ 1.427,59 por habitante no raio curto contra R$ 750,63 no de 5 quilômetros",
+          "texto": "As duas medidas saem da mesma camada setorial e são diretamente comparáveis: dentro de 300 metros a renda por habitante é quase o dobro da do raio de 5 quilômetros, e a renda domiciliar acompanha, R$ 2.285,55 contra R$ 1.266,97. O ponto está no pedaço mais rico de uma cidade pobre. Isso corta nos dois sentidos — a clientela de proximidade tem mais poder de compra do que o município sugere, e ao mesmo tempo o raio curto tem só 2.141 moradores, de modo que o volume depende de quem vem de fora dele.",
+          "fonte": "camadas setoriais do acervo sobre a malha de setores do IBGE"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "A praça não tem presença da rede em nenhuma frente mensurável: nem loja, nem receita, nem credenciamento em programa público. E o zoneamento deixa duas vagas abertas, das quais este pedido ocuparia a primeira.",
+      "itens": [
+        {
+          "titulo": "O teto da faixa comporta dois grupos econômicos e nenhum está ocupado",
+          "texto": "Com 101.579 habitantes no Censo 2022, o município cai na faixa de 60 a 120 mil, dimensionada para dois grupos econômicos, com a exigência de que o segundo entre com bandeira popular. Não há nenhuma loja Farmarcas cadastrada na cidade, então o pedido traz o primeiro grupo e passa com folga — e deixa a segunda vaga aberta. O modelo de negócio não foi informado na solicitação: ele é premissa derivada do cadastro, onde as 1.868 lojas desta bandeira são todas de modelo popular, sem exceção — o que importa porque a faixa exige bandeira popular do segundo grupo a entrar, e não deste. A contagem de grupos sai do responsável registrado no cadastro, comparado por nome e não por CNPJ; aqui isso não muda nada, porque não há loja alguma a classificar, mas é a mesma apuração que decide em praças ocupadas.",
+          "fonte": "regras de zoneamento e expansão, Censo 2022 do IBGE e cadastro de lojas"
+        },
+        {
+          "titulo": "Nenhuma das 76 farmácias da cidade credenciadas ao Farmácia Popular é da rede",
+          "texto": "O município tem 76 farmácias, das quais 7 constam como credenciadas ao programa, e nenhuma delas é da rede — o que é consequência direta de não haver loja da rede aqui. Numa cidade com 44% dos domicílios em D/E e gasto anual em medicamentos de R$ 91,39 milhões, o credenciamento é porta de entrada recorrente para o público de medicamento contínuo. Vale notar que apenas 7 das 76 são credenciadas: a frente está pouco ocupada por qualquer operador, não só por nós.",
+          "fonte": "base do Farmácia Popular"
+        },
+        {
+          "titulo": "A rede pratica R$ 20,22 por unidade no estado, contra R$ 30,56 dos concorrentes",
+          "texto": "No agregado de Sergipe, o preço médio por unidade vendida é de R$ 20,22 nas lojas da rede e R$ 30,56 nas concorrentes. Numa praça cuja base de domicílios é 44% D/E e 27% C2, esse posicionamento é o ativo competitivo mais direto que a bandeira traz. Duas ressalvas que andam juntas: o recorte é do estado inteiro e não desta cidade, então descreve como a rede se posiciona em Sergipe e não o preço que esta loja praticaria; e o mercado local já opera abaixo da média estadual, de modo que a distância a percorrer até o preço do concorrente daqui é menor do que a do estado sugere.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        },
+        {
+          "titulo": "A cidade é polo de Riachão do Dantas, com 18.482 habitantes",
+          "texto": "Na hierarquia da rede urbana o município é classificado como Centro Sub-Regional B, e um município o registra como seu polo: Riachão do Dantas, com 18.482 habitantes. Isso importa porque todos os números de população, renda e potencial deste relatório contam apenas quem reside dentro do raio — esse público some das contas e aparece no balcão. A lista sai invertendo a relação de polo registrada na camada de rede urbana, e bate com a contagem que ela declara; o número de habitantes vem da camada de população do acervo, a mesma cujo ano de referência este dossiê declara como lacuna. A classificação é de 2018, então descreve o papel regional que a cidade tinha naquele ano.",
+          "fonte": "REGIC 2018 do IBGE, para a relação de polo e a contagem; camada de população do acervo, de ano de referência não declarado, para os habitantes"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "Nenhuma dificuldade aqui é de conflito entre associados — não há associado na praça. São três de natureza operacional: o que exatamente está sendo convertido, a exposição física do ponto, e o fato de a bandeira render menos neste estado do que na rede.",
+      "itens": [
+        {
+          "titulo": "Há uma farmácia a 14 metros do endereço, e o dado não diz se é a loja a converter",
+          "texto": "O pedido é de conversão, o que significa que já existe uma farmácia em operação no endereço. A camada de concorrentes registra um estabelecimento a 14 metros daqui e outro a 31 metros. Nenhum deles carrega informação que permita afirmar qual corresponde ao imóvel do pedido — a camada identifica razão social e coordenada, não a relação com uma solicitação. Isso importa porque o concorrente mais próximo é, possivelmente, o próprio ponto: contá-lo como concorrência superestima a disputa imediata, e ignorá-lo subestima. A conferência é de campo e está no roteiro.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "O ponto está em meio de quadra, com uma única face de exposição",
+          "texto": "A geometria viária situa o endereço sobre a Rua Doutor Laudelino Freire, classificada como via de porte de avenida, a 45 metros do cruzamento nomeado mais próximo. Meio de quadra tem uma face de exposição e depende do fluxo que a própria via carrega, em vez de somar o de duas. Numa rua com treze concorrentes em trezentos metros, a posição relativa na quadra é parte do que separa um ponto do vizinho. A classificação vem de mapeamento colaborativo da malha viária e descreve o traçado, não a visibilidade real do imóvel.",
+          "fonte": "OpenStreetMap"
+        },
+        {
+          "titulo": "A bandeira fatura em Sergipe pouco mais da metade da mediana que tem na rede",
+          "texto": "A receita medida das lojas da bandeira em Sergipe tem mediana de R$ 246.962,32 por mês entre sete lojas, variando de R$ 58.755,11 a R$ 342.557,28. Na rede inteira, a mesma bandeira tem mediana de R$ 441.996,28 entre 893 lojas. O recorte estadual é pequeno, com sete lojas, então a mediana é instável e um único caso a desloca — mas a diferença de patamar é consistente com o que as demais camadas mostram sobre renda no estado. É o número mais próximo de uma expectativa de faturamento que este dossiê tem, e ainda assim descreve lojas existentes, não esta.",
+          "fonte": "base de faturamento da IQVIA cruzada por CNPJ com o cadastro de lojas"
+        },
+        {
+          "titulo": "Um registro da camada aparece a 141 metros, cadastrado em município que nenhum raio alcança",
+          "texto": "A checagem de cadastro devolve um estabelecimento a 141 metros deste endereço registrado no município vizinho de Salgado — e o classifica como implausível, não como cidade vizinha: divisa produz muitos registros na borda do raio, enquanto erro de cadastro produz um ou dois soltos, e este aparece no meio do raio de 300 metros. Enquanto não for corrigido, ele entra na contagem de concorrentes dos dois raios e desloca a soma das faixas declaradas. É por isso que a soma do raio de 5 quilômetros, R$ 4,39 milhões mensais, não fecha com a do município, R$ 4,35 milhões, embora os dois recortes tenham quinze lojas classificadas: as duas listas não contêm exatamente as mesmas lojas, e esta é uma delas.",
+          "fonte": "camada Concorrentes 2025"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "Fluxo de passantes. Não existe no acervo, no produto nem em fonte pública consultável, e é a variável que mais distorce avaliação de ponto de rua comercial. Aqui pesa mais que o usual: o raio de 300 metros tem só 2.141 moradores, mas o entorno de 500 metros concentra 236 pontos de comércio e serviços, 15 agências bancárias e lotéricas e 17 equipamentos de saúde — o movimento de passagem pode ser muitas vezes maior que a população residente, ou não ser, e nada no dado distingue os dois casos. Destrava com contagem de fluxo em campo, em dias e horários distintos, ou com contratação de base de mobilidade.",
+    "Qual das farmácias próximas é o imóvel do pedido. O pedido é de conversão, e há estabelecimentos registrados a 14 e a 31 metros deste endereço. A camada não relaciona registro com solicitação, então não dá para separar o ponto que será convertido da concorrência que permanecerá. Sem isso a contagem de treze concorrentes no raio curto é um teto, não uma medida. Destrava com o CNPJ do imóvel do pedido, conferido contra a camada.",
+    "A participação da rede nesta praça, medida pela base de share. A unidade de mercado do município não consta na base de participação por UTC. A ausência não impediu a leitura, porque três fontes independentes concordam: a receita medida da rede é zero nos dois períodos, a composição por bandeira registra 100% em concorrentes, e o cadastro de lojas não traz nenhuma loja da rede no município. Mas o indicador de share não está disponível aqui, e qualquer acompanhamento futuro da entrada na praça precisará dele. Destrava quando a base passar a cobrir esta unidade.",
+    "Quantos pontos de venda abriram ou fecharam na praça no período. A base de cobertura cobre esta unidade de mercado e devolve a receita dos dois períodos, mas os campos de contagem de pontos de venda vêm zerados — zero antes e zero agora, numa cidade com 76 farmácias registradas. Não é base ausente, é campo não preenchido, e a diferença importa: num mercado que cresceu 13%, não saber se o crescimento veio de lojas vendendo mais ou de lojas novas muda a leitura, porque no primeiro caso há demanda sobrando e no segundo a oferta já está respondendo. Destrava com o preenchimento do campo na base de origem.",
+    "A periodicidade do potencial de consumo. O campo não declara se o valor é mensal ou anual: o teste de ordem de grandeza aponta valor anual, enquanto o relatório do produto rotula o mesmo campo como mensal. Sem isso o potencial de R$ 2,10 milhões no raio curto não se compara com a receita medida da praça, que é acumulado de doze meses — e comparar os dois na unidade errada erra por um fator de doze. Destrava com a declaração da periodicidade na base.",
+    "A área de venda e o custo de ocupação do imóvel. Nenhuma régua de receita por metro quadrado e nenhum valor de aluguel foram informados, e não há fonte verificável para estimá-los. Sem isso o relatório não dimensiona o ponto fisicamente nem calcula o peso do aluguel sobre a venda — e numa conversão esses dois números já existem, porque o imóvel está em operação. Destrava com os valores do imóvel e a régua que a área de Expansão utiliza.",
+    "O ano de referência da população do acervo interno. O relatório usa 101.579 habitantes do Censo 2022 para cortar a faixa de zoneamento, e o acervo de camadas registra 106.237, sem declarar a que ano se refere. Aqui a diferença não muda nada, porque os dois números caem na mesma faixa de 60 a 120 mil — mas a cidade está a menos de vinte mil habitantes do corte superior, e a próxima atualização pode trocar a faixa e o teto. Destrava com a declaração do ano de referência na base.",
+    "Quanto do movimento vem do município vizinho de que esta cidade é polo. A camada registra a relação e a população de Riachão do Dantas, mas não existe medida de quanto do faturamento local vem de fora do município. Num centro comercial que concentra o comércio de rua da região, essa parcela pode ser relevante. Destrava com pesquisa de origem de clientes feita no próprio ponto, que numa conversão é possível desde já."
+  ],
+  "campo": [
+    "Confirmar qual estabelecimento do entorno imediato é o imóvel do pedido. Há farmácias registradas a 14 e a 31 metros; se uma delas for o ponto a converter, a concorrência imediata é menor do que a contagem sugere, e o histórico de venda do próprio imóvel passa a estar disponível.",
+    "Levantar o faturamento atual da farmácia a ser convertida. É uma conversão: o ponto já vende, e esse número é melhor que qualquer estimativa deste relatório — inclusive melhor que a mediana estadual da bandeira, que descreve outras lojas.",
+    "Medir fluxo de passantes na calçada, em pelo menos dois dias e três faixas de horário. O raio curto tem 2.141 moradores e 236 pontos de comércio em 500 metros: é exatamente o perfil em que o dado residencial subestima a praça, ou não, e só a contagem distingue.",
+    "Verificar a visibilidade e a frente do imóvel. O ponto está em meio de quadra numa rua com treze concorrentes em trezentos metros; frente estreita ou recuada pesa mais aqui do que pesaria numa via sem disputa imediata.",
+    "Obter área de venda e valor de aluguel do imóvel. Sem os dois nenhuma conta de retorno fecha, e numa conversão eles já existem — área insuficiente não comporta o sortimento da bandeira, e aluguel alto consome a margem de preço que é a vantagem competitiva aqui."
+  ]
+}

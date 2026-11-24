@@ -1,0 +1,139 @@
+{
+  "endereco": "R. Paschoal Conte, 107 - Centro, Lontras/SC, 89182-000",
+  "lat": -27.169427,
+  "lng": -49.541454,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "4209904",
+  "municipio": "Lontras",
+  "uf": "SC",
+  "bandeira": "AC Farma",
+  "modelo": "convencional",
+  "perfil": "existente",
+  "ge": "",
+  "receita_por_m2": null,
+  "resumo": "Praça de renda alta e baixa saturação onde a rede não tem receita nenhuma, com o zoneamento liberando a única vaga de grupo econômico — e o solicitante já operando duas lojas da mesma bandeira no polo para onde a cidade se desloca.",
+  "lentes": {
+    "Forças": {
+      "abertura": "A praça é pequena e rica, e está subatendida em farmácia na comparação nacional. O endereço fica no Centro, que concentra tanto o atendimento farmacêutico quanto os equipamentos que trazem gente ao quarteirão.",
+      "itens": [
+        {
+          "titulo": "Lontras tem 2.009,4 habitantes por farmácia, contra mediana nacional de 1.492,6",
+          "texto": "São 5.541 municípios comparados, e a cidade fica no percentil 78 — quanto maior o percentil, mais gente para a mesma quantidade de farmácia. Com a população do Censo 2022 no numerador, são 1.839,0 habitantes por farmácia e percentil 71.",
+          "fonte": "base do Farmácia Popular, cadastro de municípios e Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "A renda da cidade está acima de 96% dos municípios brasileiros",
+          "texto": "A renda domiciliar per capita de Lontras é de R$ 933,61, contra mediana nacional de R$ 456,30 entre 5.565 municípios comparados. O índice Firjan de desenvolvimento municipal é 0,7555, percentil 88 contra mediana nacional de 0,61, e o PIB per capita de R$ 45.054,55 fica no percentil 70.",
+          "fonte": "camada Renda Média por município, índice Firjan (IFDM) e base de PIB municipal"
+        },
+        {
+          "titulo": "Praticamente toda a farmácia da cidade está neste quarteirão",
+          "texto": "A camada de concorrentes encontra 4 farmácias dentro de 300 m — a 122 m, 188 m, 193 m e 250 m do ponto — e um raio de 5 km em volta dele alcança apenas uma quinta. O Centro concentra o atendimento farmacêutico de uma cidade de 12.873 habitantes.",
+          "fonte": "camada Concorrentes 2025 e Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "O entorno de 500 m concentra banco, supermercado e saúde — e o ponto fica na borda dele",
+          "texto": "São 4 agências bancárias, a mais próxima a 202 m, 2 supermercados, o mais próximo a 195 m, a unidade básica de saúde a 337 m, uma escola a 298 m e a igreja matriz a 279 m, num trecho onde o mapa colaborativo registra 580 objetos e 18 equipamentos etiquetados. O endereço não está dentro desse núcleo: a via dele é classificada como rua residencial, e o ponto fica a 9,5 m dela.",
+          "fonte": "equipamentos mapeados e malha viária do OpenStreetMap"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "O que joga contra é o tamanho e o comportamento da praça: um mercado que cresce no ritmo da população, pouquíssima gente dentro do raio e uma cidade que a própria fonte descreve como sem centralidade, cujos moradores compram no polo vizinho.",
+      "itens": [
+        {
+          "titulo": "O mercado da praça cresce 1,94%, quase o mesmo ritmo da população",
+          "texto": "O acumulado de 12 meses anterior era de R$ 10,72 milhões, e o atual cresceu 1,94% sobre ele. A população da cidade cresce 1,92% ao ano.",
+          "fonte": "base de crescimento por UTC (IQVIA) e camada de Densidade Demográfica por município"
+        },
+        {
+          "titulo": "Menos de 500 pessoas moram no raio de 300 m",
+          "texto": "São 413,16 moradores em 138,33 domicílios, com densidade de 1.463,80 habitantes por km² contra 71,19 no município inteiro, e verticalização de 10,66%. O potencial de consumo em drogarias no raio é de R$ 720.768,28, repartido em 52,7% medicamentos e 47,3% higiene, beleza e nutrição.",
+          "fonte": "camada Setor Censitário, camada Potencial de Consumo por setor censitário e camada de Densidade Demográfica por município"
+        },
+        {
+          "titulo": "A cidade não retém o próprio consumo",
+          "texto": "Lontras é classificada como Centro Sub-Regional A, e a mesma fonte descreve o alcance dela como restrito aos próprios limites, sem atrair fluxo relevante de municípios vizinhos, registrando que os moradores se deslocam a Rio do Sul para trabalho, compras e serviços, com retorno no fim do dia. A base declara 14 municípios influenciados, e a inversão da relação encontra nenhum.",
+          "fonte": "REGIC 2018, do IBGE"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "As alavancas aqui são de ocupação: uma praça inteira sem receita da rede, a única vaga de zoneamento dela em aberto, e um quarteirão disputado só por loja sem retaguarda de rede.",
+      "itens": [
+        {
+          "titulo": "A rede não tem receita nenhuma numa praça de R$ 10,93 milhões",
+          "texto": "As 14 bandeiras do grupo aparecem com receita zero na unidade territorial de Lontras, e 'Concorrentes' responde pela totalidade do mercado. O cadastro não registra nenhuma loja da rede na cidade, ativa ou desativada. Abrir aqui é disputar um mercado que hoje a rede não disputa.",
+          "fonte": "base de bandeiras por UTC (IQVIA), base de crescimento por UTC (IQVIA) e cadastro de lojas"
+        },
+        {
+          "titulo": "Esta abertura ocupa a única vaga de zoneamento da praça",
+          "texto": "A faixa de até 60 mil habitantes dá teto de 1 grupo econômico, e a cidade tem zero grupos instalados. Com a loja aberta, nenhum outro grupo econômico entra em Lontras pela rede Farmarcas enquanto a vaga estiver ocupada. O que a regra de expansão não alcança é a entrada de concorrente de fora dela.",
+          "fonte": "regras de zoneamento (Confluence 4.5 e 6.1), Censo 2022 do IBGE e cadastro de lojas"
+        },
+        {
+          "titulo": "Três das quatro farmácias do quarteirão são de canal sem retaguarda de rede",
+          "texto": "São 3 independentes, canal cuja loja média em Santa Catarina fatura R$ 90.626,52 por mês, e 1 de associação ou franquia, cuja loja média no estado fatura R$ 149.630,03. A loja média do Grupo Farmarcas no mesmo estado fatura R$ 291.488,10 por mês.",
+          "fonte": "receita e PDVs por canal (IQVIA) e camada Concorrentes 2025"
+        },
+        {
+          "titulo": "Credenciar ao Farmácia Popular é ação da própria loja, num município que gasta R$ 16,65 milhões em medicamentos",
+          "texto": "A cidade tem 3 das suas 7 farmácias credenciadas ao programa, e o credenciamento se resolve no ato de abertura.",
+          "fonte": "base do Farmácia Popular"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "O zoneamento não barra nem alerta. O que vai ter de ser atravessado é econômico: a praça pode estar dividindo público com a operação que o próprio solicitante já tem no polo vizinho, e o patamar de receita da bandeira é da mesma ordem do que o quarteirão inteiro movimenta.",
+      "itens": [
+        {
+          "titulo": "O solicitante já opera duas lojas da mesma bandeira no polo para onde Lontras se desloca",
+          "texto": "São duas AC Farma em Rio do Sul, cidade que a classificação da rede urbana aponta como destino de compras dos moradores de Lontras, e cujo brick tem o centroide a 11,4 km do ponto, com R$ 9,05 milhões de receita do Grupo Farmarcas registrados nele. Abrir em Lontras pode somar mercado novo ou transferir movimento que já é dele, e dividir o mesmo público entre mais pontos do mesmo dono continua sendo custo mesmo quando é estratégia deliberada.",
+          "fonte": "cadastro de lojas, REGIC 2018 do IBGE e base de faturamento por brick (IQVIA)"
+        },
+        {
+          "titulo": "O patamar da bandeira e o tamanho do quarteirão são da mesma ordem",
+          "texto": "A receita medida das 31 lojas AC Farma convencionais de Santa Catarina tem mediana de R$ 245.372,42 por mês e primeiro quartil de R$ 169.604,24. Somadas pela régua de canal, as 4 farmácias do anel de 300 m movimentam R$ 421.509,59 por mês.",
+          "fonte": "receita medida por CNPJ (IQVIA) cruzada com o cadastro de lojas e receita e PDVs por canal (IQVIA)"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "Quanta gente passa em frente ao ponto. Fluxo de passantes não existe em fonte nenhuma — nem nas bases do Órbita, nem no produto, nem em API pública. Aqui isso pesa porque só 413,16 pessoas moram dentro de 300 m e a via do endereço é residencial: quem sustenta a loja não mora no raio nem passa por uma avenida. Destrava com contagem de passantes em campo, em dia útil e em sábado.",
+    "Quanto do movimento das lojas de Rio do Sul vem de Lontras. O solicitante opera duas AC Farma no polo que a classificação da rede urbana aponta como destino de compras dos moradores daqui, e não soube dizer que parcela do movimento de lá é lontrense. Nenhuma base liga comprador a município de origem. É a diferença entre abrir e somar mercado novo ou abrir e transferir receita da própria casa. Destrava com o cadastro de clientes ou o CEP de entrega das lojas de Rio do Sul.",
+    "Quantas farmácias operam de fato em Lontras. A base do Farmácia Popular registra 7 farmácias na cidade e a camada de concorrentes encontra 3 no município inteiro. O solicitante não soube dizer qual número bate com a praça. É a contagem que decide a leitura de saturação e o tamanho do espaço em aberto. Destrava com consulta ao CNES por município ou com levantamento em campo.",
+    "Em qual brick este endereço cai. Nenhum brick leva o nome de Lontras, então não há preço por unidade desta praça. O que existe é vizinhança: Rio do Sul a 11,4 km com R$ 34,10 por unidade, Ibirama a 12,3 km com R$ 30,22 e Ituporanga a 28,1 km com R$ 31,60, contra R$ 32,75 na UF inteira. Preço por unidade mais baixo também pode refletir mix diferente, e não política de preço. Destrava com a malha geográfica de bricks.",
+    "Se o share da rede na praça é zero ou apenas ausente. A receita da rede na unidade territorial é zero e o cadastro não registra loja na cidade, o que sustenta a leitura de ausência — mas a unidade territorial de Lontras não existe na base de market share, de modo que o share não é medido e sim inferido da receita. Share ausente e share zero são coisas diferentes. Destrava com a base de market share cobrindo a unidade territorial.",
+    "Como o ponto se implanta na quadra. O cruzamento mais próximo está a 27,7 m, dentro da faixa entre os cortes de 20 m e 40 m em que não há classificação defensável entre esquina e meio de quadra. Duas faces de exposição mudam a decisão sobre onde fica a entrada e a vitrine. Destrava com verificação do alinhamento do imóvel em campo.",
+    "Em que unidade e em que ano estão os campos de renda. Os setores censitários do raio devolvem R$ 1.605,45 por habitante e R$ 2.750,73 por domicílio; a camada municipal devolve R$ 933,61 de renda domiciliar per capita. As duas descrevem coisas diferentes, em bases diferentes e sem ano de referência declarado, e não se comparam entre si — e é essa comparação que diria se o entorno do ponto é mais rico ou mais pobre que a cidade. Destrava com a documentação de origem das camadas de renda do acervo.",
+    "O índice de coleta de lixo dos setores do raio está corrompido na base. A camada devolve 231,7 para um campo que guarda fração de 0 a 1, enquanto água e esgoto vêm coerentes, em 0,9667 e 1,0. O valor não entra no documento — a apuração o registra como fora de faixa e o declara em vez de publicá-lo. Saneamento não sustenta nenhuma afirmação deste dossiê, mas o mesmo defeito pode estar em outros municípios e no mesmo bloco de campos. Destrava com conferência da coluna na origem do acervo.",
+    "Quanto custa ocupar este imóvel. Não há valor de aluguel pretendido nem régua de faturamento por metro quadrado para a bandeira, e não existe fonte pública de aluguel comercial por município. Sem os dois, área de venda, aluguel e custo de ocupação ficam fora do relatório, e não há como dizer se o ponto se paga no patamar medido da bandeira no estado. Destrava com a proposta de locação e a régua de R$/m² usada pela Expansão.",
+    "Quanto varia o faturamento dentro de cada canal. A régua traz a loja média de cada canal no estado e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Três independentes do mesmo quarteirão podem diferir várias vezes entre si, e é exatamente esse o perfil do concorrente aqui. Destrava com faturamento por CNPJ da região.",
+    "Onde está, de fato, o ponto analisado. A coordenada que ancora este dossiê veio com a solicitação e sua origem não é declarada na apuração. Toda distância do documento parte dela, incluindo os 122 m da farmácia mais próxima e os 202 m da primeira agência bancária. Destrava com conferência da coordenada contra o número do imóvel na rua."
+  ],
+  "campo": [
+    "Contar passantes em frente ao ponto, em dia útil e em sábado. É a verificação mais importante deste dossiê: a via é residencial, moram 413,16 pessoas no raio e nenhuma base mede passagem. Contagem alta sustenta o ponto apesar do raio pequeno; contagem baixa deixa a loja dependendo de quem vem ao Centro resolver banco e supermercado, e aí a distância de 202 m até a primeira agência passa a importar.",
+    "Levantar nas duas lojas de Rio do Sul quantos clientes vêm de Lontras, pelo cadastro de clientes ou pelo CEP. Se a parcela for relevante, a abertura transfere receita da própria operação e o ganho líquido é menor do que o mercado da praça sugere; se for pequena, a abertura captura um vazamento que hoje vai para concorrente.",
+    "Conferir quantas farmácias operam hoje em Lontras e sob que bandeira, incluindo a que fica a 250 m do ponto. Se forem 7, como diz a base do Farmácia Popular, a praça está mais dividida do que a camada de concorrentes mostra; se forem 3 ou 4, a leitura de baixa saturação se confirma no quarteirão e não só na estatística municipal.",
+    "Verificar o alinhamento do imóvel na quadra — se tem uma ou duas faces para a rua. O cruzamento está a 27,7 m, dentro da faixa entre 20 m e 40 m em que a classificação automática não tem veredito, e duas faces de exposição mudam onde ficam entrada e vitrine.",
+    "Levantar a proposta de aluguel do imóvel e a régua de faturamento por metro quadrado da bandeira. Com as duas, o custo de ocupação volta ao relatório; se o aluguel couber no primeiro quartil medido da bandeira no estado, R$ 169.604,24 por mês, o ponto se discute pelo fluxo, e se não couber, a discussão de fluxo fica em segundo plano.",
+    "Conferir a coordenada do ponto contra o número do imóvel na rua, antes de usar qualquer distância deste relatório em decisão."
+  ],
+  "resumo_gate": "Liberado, sem alertas — a faixa de até 60 mil habitantes dá teto de 1 grupo econômico, a cidade tem zero grupos instalados, e o pedido entra como o 1º.",
+  "resumo_perguntas": [
+    {
+      "titulo": "Rio do Sul é a decisão deste dossiê, e está sem resposta.",
+      "texto": "Você respondeu \"não sei dizer\" sobre quanta gente de Lontras já compra nas duas AC Farma que você opera lá, e nenhuma base liga comprador a município de origem. Isso separa dois cenários opostos com o mesmo mercado de R$ 10,93 milhões na frente: abrir e somar praça nova, ou abrir e redistribuir movimento que já é seu. Se alguém puder olhar o CEP de entrega ou o cadastro de clientes das lojas de Rio do Sul antes de decidir, essa é a pergunta que mais muda o documento."
+    },
+    {
+      "titulo": "A contagem de farmácias da cidade não fecha, e ela é o número de capa.",
+      "texto": "A base do Farmácia Popular diz 7 farmácias na cidade e a camada de concorrentes acha 4 dentro de 300 m e 5 num raio de 5 km. A leitura de baixa saturação, hoje a força mais forte do dossiê, depende de qual número vale."
+    },
+    {
+      "titulo": "A loja vai depender de quem vem ao Centro, e o ponto está na borda dele.",
+      "texto": "A via é residencial, moram 413,16 pessoas no raio e a primeira agência bancária está a 202 m. Se você já tem leitura de campo sobre por onde o pedestre de Lontras circula no Centro, ela entra como premissa declarada — hoje o dossiê não tem nada sobre isso além da posição dos equipamentos no mapa."
+    }
+  ]
+}

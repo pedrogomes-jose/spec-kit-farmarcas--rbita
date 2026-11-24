@@ -1,0 +1,151 @@
+{
+  "endereco": "R. Dr. Miguel Gontijo, 266 - sl 2 - Centro, Bom Despacho/MG, 35600-000",
+  "lat": -19.740169,
+  "lng": -45.254079,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "3107406",
+  "municipio": "Bom Despacho",
+  "uf": "MG",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "existente",
+  "ge": "",
+  "receita_por_m2": null,
+  "origem_da_coordenada": "informada no pedido de análise, não geocodificada nesta geração",
+  "resumo": "Mudança de ponto de uma loja Ultra Popular que o solicitante já opera no Centro de Bom Despacho, num raio de 300 m com 1.521 moradores, seis farmácias concorrentes e R$ 3,06 milhões de potencial de consumo em drogarias.",
+  "lentes": {
+    "Forças": {
+      "abertura": "O endereço está no trecho mais adensado e de maior renda de Bom Despacho, numa cidade cujo mercado farmacêutico é menos disputado por habitante do que o da maioria dos municípios brasileiros.",
+      "itens": [
+        {
+          "titulo": "O raio de 300 m tem nove vezes a densidade do raio de 5 km",
+          "texto": "Dentro de 300 m moram 1.521 pessoas em 524 domicílios, a 5.396 habitantes por km², contra 596 habitantes por km² no raio de 5 km. A renda mensal por habitante é de R$ 2.125 no raio curto e R$ 1.348 no amplo; a renda domiciliar, de R$ 3.443 contra R$ 2.272. O ponto está no miolo caro e cheio da cidade, não numa média dela.",
+          "fonte": "Censo 2022 do IBGE, pelas camadas de renda, população e densidade por setor censitário"
+        },
+        {
+          "titulo": "Potencial de consumo em drogarias de R$ 3,06 milhões no raio de 300 m",
+          "texto": "São R$ 3,06 milhões no raio de 300 m e R$ 83,89 milhões no de 5 km, repartidos nos dois recortes em 53,7% de medicamentos e 46,3% de higiene, beleza e nutrição. É demanda potencial de quem mora na área, não venda realizada, e a base não declara a periodicidade do valor.",
+          "fonte": "camada Potencial de Consumo por setor censitário"
+        },
+        {
+          "titulo": "Mercado farmacêutico menos saturado que o de 86% dos municípios",
+          "texto": "Bom Despacho tem 2.281 habitantes por farmácia pela população do acervo interno, no percentil 86 de 5.541 municípios comparados, contra uma mediana nacional de 1.493 habitantes por farmácia. Recalculado com a população do Censo 2022, são 2.156 habitantes por farmácia e o percentil 83 — a posição se mantém alta nos dois cortes.",
+          "fonte": "base do Farmácia Popular e camada de População por município, com a população do Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "Preço médio por unidade acima do praticado no estado",
+          "texto": "No brick de Bom Despacho o preço médio por unidade vendida é de R$ 29,69, contra R$ 27,50 em Minas Gerais. Dentro do próprio brick, os concorrentes praticam R$ 30,00 e as lojas do grupo, R$ 28,11. Preço acima do estadual indica mix mais caro ou menos pressão de desconto na praça.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "A concorrência está colada ao endereço, e o dinheiro que circula nela vem de lojas pequenas.",
+      "itens": [
+        {
+          "titulo": "Três farmácias concorrentes a menos de 40 m, na mesma rua",
+          "texto": "O raio de 300 m tem seis farmácias concorrentes, e as três mais próximas estão a 23 m, 32 m e 39 m, todas na própria Rua Doutor Miguel Gontijo. A mais distante do raio, uma franquia a 281 m, é a que ocupa a faixa de faturamento mais alta de toda a vizinhança. No raio de 5 km são 26 farmácias.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "O entorno é dominado pelo canal mais barato do estado",
+          "texto": "Das 26 farmácias no raio de 5 km, 18 são independentes — canal cuja loja média em Minas Gerais fatura R$ 69.439 por mês, contra R$ 161.216 em associações e franquias e R$ 1.010.930 na Abrafarma. Somadas as lojas por canal, o entorno de 300 m movimenta R$ 5,27 milhões ao ano, com cinco das seis lojas classificadas, e o de 5 km, R$ 24,67 milhões, com 23 das 26. São médias do canal no estado, nunca o faturamento de nenhuma dessas lojas em particular.",
+          "fonte": "base de receita e quantidade de PDVs por canal da IQVIA"
+        },
+        {
+          "titulo": "A faixa mediana de faturamento da cidade é de R$ 330 mil por mês",
+          "texto": "Entre as 11 farmácias de Bom Despacho com faturamento registrado, a faixa mediana ocupada é a de R$ 330.312 por mês, com extremos em R$ 126.121 e R$ 1.336.854. No raio de 300 m, onde três das seis lojas têm o campo preenchido, a faixa mediana ocupada sobe para R$ 1.091.755. O campo registra em que faixa a loja caiu, não quanto cada uma vende, e a distância entre dois desses valores é distância entre faixas.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "Ponto em meio de quadra, com uma única face de exposição",
+          "texto": "O cruzamento nomeado mais próximo fica a 66 m, no encontro da Avenida Primeiro de Junho com a Rua Doutor Miguel Gontijo, e o endereço está a 14 m do eixo de uma via de porte de avenida. A vitrine se oferece a uma direção de passagem só.",
+          "fonte": "malha viária do OpenStreetMap"
+        },
+        {
+          "titulo": "Metade dos domicílios da cidade nas duas faixas mais baixas de renda",
+          "texto": "Em Bom Despacho, 28,4% dos domicílios são classe C2 e 21,5% D/E, contra 1,9% na classe A. A renda domiciliar per capita do município, de R$ 453,98 por mês, fica no percentil 50 de 5.565 municípios, ao lado de uma mediana nacional de R$ 456,30 — a cidade é exatamente mediana em renda, enquanto é alta em consumo e desenvolvimento.",
+          "fonte": "base do Farmácia Popular e camada de Renda Média por município"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "A praça já tem receita medida do grupo e um programa público que a concorrência capturou mais do que nós.",
+      "itens": [
+        {
+          "titulo": "Uma só loja da rede credenciada ao Farmácia Popular na cidade",
+          "texto": "Bom Despacho tem 24 farmácias, 16 delas credenciadas ao Farmácia Popular — 66,7% do total —, e apenas uma loja Farmarcas entre as credenciadas. O gasto com medicamentos no município é de R$ 75,41 milhões.",
+          "fonte": "base do Farmácia Popular"
+        },
+        {
+          "titulo": "O grupo já movimenta R$ 16,90 milhões no brick",
+          "texto": "No brick de Bom Despacho o Grupo Farmarcas responde por R$ 16,90 milhões de receita e 601 mil unidades, ao lado de R$ 89,75 milhões e 2,99 milhões de unidades dos concorrentes. Os quatro valores são acumulados de doze meses, não de um mês. A praça já é conhecida pela rede, e não uma entrada do zero.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        },
+        {
+          "titulo": "A mediana medida da bandeira em Minas é de R$ 370 mil por mês",
+          "texto": "Entre as 96 lojas Ultra Popular de modelo popular em Minas Gerais, a receita acumulada de 12 meses tem mediana de R$ 4,44 milhões — R$ 370.255 por mês —, com quartis em R$ 3,38 milhões e R$ 7,15 milhões e extremos em R$ 0,98 milhão e R$ 19,74 milhões. Nas 890 lojas da bandeira em todo o país a mediana é de R$ 5,31 milhões no mesmo acumulado de doze meses. É receita medida de loja da rede, não do concorrente.",
+          "fonte": "receita medida da IQVIA por CNPJ, cruzada com o cadastro de lojas"
+        },
+        {
+          "titulo": "Entorno verticalizado, com rotina a pé no quarteirão",
+          "texto": "No raio de 300 m, 30,2% dos domicílios estão em edificação vertical, contra 6,2% no raio de 5 km. Em 500 m há 49 edificações residenciais coletivas, a mais próxima a 24 m, oito supermercados a partir de 178 m, duas agências bancárias e uma lotérica a partir de 285 m e um ponto de ônibus a 34 m. É público que passa pela calçada por motivo de rotina, não por deslocamento até a loja.",
+          "fonte": "camada Índice de Verticalização e OpenStreetMap"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "O pedido é mudança de ponto de uma loja que já existe, e é exatamente isso que o gate de zoneamento não enxerga.",
+      "itens": [
+        {
+          "titulo": "O teto da cidade é de um grupo econômico, e o solicitante já o ocupa",
+          "texto": "Com 51.737 habitantes no Censo 2022, Bom Despacho cai na faixa de até 60 mil, cujo teto é de um grupo econômico sem expansão adicional. A cidade tem hoje uma loja ativa da rede, de um único grupo, que é o do solicitante: o pedido não traz grupo novo e não há conflito entre associados a arbitrar. O grupo é apurado pelo nome do responsável registrado no cadastro, e não pelo CNPJ.",
+          "fonte": "regras de expansão da Farmarcas e cadastro de lojas, com a população do Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "O alerta de densidade só se materializa se as duas lojas operarem juntas",
+          "texto": "A checagem de zoneamento soma sempre uma loja ao pedido e registra a cidade com duas lojas para uma faixa dimensionada em uma, o que dispara o alerta de densidade. Ela não distingue ponto novo de mudança de ponto: se a loja de origem encerrar ao abrir a nova, a contagem efetiva permanece em uma loja e um grupo econômico; se as duas operarem ao mesmo tempo, ainda que por um período, o alerta descreve a cidade como ela vai ficar. O que ele sinaliza é a praça dividir o mesmo mercado entre mais pontos, efeito econômico do próprio grupo e não conflito entre associados. O encerramento do ponto de origem é premissa deste relatório, e não consta de base nenhuma.",
+          "fonte": "regras de expansão da Farmarcas e cadastro de lojas"
+        },
+        {
+          "titulo": "A distância mínima entre lojas não é avaliada nesta faixa de população",
+          "texto": "A regra vigente exige 300 m entre lojas de mesma bandeira e 500 m entre bandeiras diferentes, e essa checagem não roda abaixo de 60 mil habitantes. Fica registrada como regra, sem veredito para este endereço: a única loja da bandeira na cidade está a 7 m, e é a própria loja que muda de ponto.",
+          "fonte": "regras de expansão da Farmarcas e cadastro de lojas"
+        },
+        {
+          "titulo": "Loja do mesmo grupo desativada na cidade em setembro",
+          "texto": "Uma segunda loja Ultra Popular do mesmo grupo, no bairro São Vicente, a 10,5 km do ponto, consta como desativada no cadastro. Loja desativada não ocupa vaga no teto de zoneamento, de modo que ela não restringe este pedido.",
+          "fonte": "cadastro de lojas"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "**Fluxo de passantes.** Quantas pessoas passam pela calçada da Rua Doutor Miguel Gontijo, em que horários e em que dias, não existe em nenhuma das bases do Órbita, no produto nem em API pública. Importa muito neste ponto: o endereço fica num trecho comercial de centro, com um ponto de ônibus a 34 m e oito supermercados em 500 m, e é justamente o ponto de rua comercial que a ausência de fluxo mais subestima — a população residente de 1.521 pessoas no raio descreve quem mora, não quem passa. Destrava com contagem de passantes em campo, em dois ou três horários típicos, ou com a contratação de uma fonte de mobilidade com cobertura na cidade.",
+    "**Share, crescimento e mix de categorias da praça.** Bom Despacho tem uma única unidade territorial de varejo, e ela está ausente de todas as seis bases de acompanhamento mensal por unidade territorial — market share, crescimento, mix de categorias, mix por grupo de produto, bandeiras presentes e cobertura de PDVs. Importa neste ponto porque é a única leitura disponível de se o mercado farmacêutico local cresce ou encolhe, e de se a rede ganha ou perde participação aqui: sem ela, todo o dimensionamento do relatório é de estoque de mercado, nenhum é de tendência. Destrava com a inclusão da unidade territorial de Bom Despacho na próxima extração dessas bases.",
+    "**Em qual brick o ponto cai de fato.** O preço médio por unidade de R$ 29,69 vem do brick casado pelo nome do município, porque o acervo não traz a geometria dos bricks para dizer em qual deles este endereço está. Importa porque o preço médio é um dos poucos indicadores de mix e de pressão de desconto disponíveis para a praça, e um brick vizinho pode praticar outro patamar. Destrava com a malha de bricks com polígono, que permitiria localizar o ponto em vez de casar por nome.",
+    "**Periodicidade do potencial de consumo.** A camada não declara se os R$ 3,06 milhões do raio de 300 m e os R$ 83,89 milhões do raio de 5 km são valores mensais ou anuais; o teste de ordem de grandeza aponta valor anual, sem confirmação na própria base. Importa porque a diferença entre as duas leituras é de doze vezes justamente sobre o número que dimensiona a demanda da área, e é esse número que se põe ao lado do faturamento das lojas do entorno. Destrava com a documentação da camada de potencial de consumo, ou com a confirmação da janela junto a quem a fornece.",
+    "**O que há na borda do raio de 5 km.** A malha de setores do município veio com 83 dos 84 setores, e o círculo de 5 km é coberto por setor com geometria em 89,3% da sua área. Importa porque população, renda, densidade e potencial de consumo do raio amplo saem subestimados na proporção do que ficou de fora — o raio de 300 m não é afetado, com cobertura integral. Destrava com a publicação do setor faltante na malha oficial.",
+    "**Como a população se distribui dentro de cada setor censitário.** O rateio dos setores supõe densidade uniforme dentro de cada um, e num setor meio vazio e meio verticalizado isso erra. Importa neste ponto porque o raio de 300 m cai no Centro, onde 30,2% dos domicílios estão em edificação vertical contra 6,2% no raio de 5 km — exatamente a heterogeneidade que a premissa não captura, e que afeta os 1.521 moradores e os R$ 3,06 milhões de potencial. Destrava com rateio ponderado por área construída, que o acervo não tem.",
+    "**Quanto cada farmácia do entorno realmente vende.** A régua por canal diz o que a loja média de cada canal fatura em Minas Gerais, e a base não traz dispersão dentro do canal: não há mínimo, máximo nem quartil por loja. Importa porque duas independentes no mesmo quarteirão podem diferir várias vezes entre si, e são 18 independentes no raio de 5 km. Soma-se a isso que o campo de faturamento da camada de concorrentes está preenchido em apenas três das seis lojas do raio de 300 m e em 12 das 26 do raio de 5 km, e que mesmo preenchido ele indica a faixa ocupada, não o valor da loja. Destrava com dado de faturamento por CNPJ dos concorrentes, que a casa não tem, ou com pesquisa de campo loja a loja.",
+    "**A que canal pertence cada rede do entorno.** O dimensionamento do mercado do raio — R$ 5,27 milhões ao ano em 300 m e R$ 24,67 milhões em 5 km — depende de classificar cada loja num canal, e a classificação das redes corporativas nomeadas é julgamento de quem montou a apuração, não campo da base. Importa porque mudar uma rede de um canal para outro altera a referência dela em mais de duas vezes, e porque uma das seis lojas do raio curto e três das 26 do raio amplo não têm canal reconhecido, entrando como faixa entre o canal mais barato e o mais caro do estado. Destrava com a classificação de canal declarada por CNPJ pelo próprio instituto que mede a receita.",
+    "**Por que a loja de São Vicente fechou.** O cadastro registra a loja como desativada, a 10,5 km do ponto, mas o motivo do fechamento não está em base nenhuma, e a data da desativação não é exposta por nenhuma das apurações que alimentam este relatório. Importa porque, sendo do mesmo grupo e da mesma bandeira, a causa — ponto, contrato, operação ou mercado — é a informação mais barata disponível sobre o que funciona e o que não funciona nesta cidade. Destrava perguntando ao próprio solicitante, que é quem operava a loja.",
+    "**Se a loja de origem da mudança de fato encerra.** Toda a leitura de zoneamento deste relatório supõe que a mudança de ponto substitui a operação atual, em vez de somar uma loja. A checagem de zoneamento não distingue ponto novo de mudança de ponto, e por isso contou duas lojas na cidade. Importa porque, se as duas operarem ao mesmo tempo, a cidade passa a ter duas lojas da rede numa faixa dimensionada em uma, e o alerta de densidade passa a descrever a situação real. Destrava com a confirmação do encerramento do ponto de origem, com data, no processo de expansão.",
+    "**Se dois grupos do cadastro são o mesmo dono.** O teto de zoneamento conta grupos econômicos, e o grupo é apurado pelo nome do responsável registrado no cadastro, deduplicado por nome normalizado e não por CNPJ. Importa porque duas lojas do mesmo dono com grafia divergente do nome viram dois grupos e barram um pedido que caberia — e o inverso também vale. Em Bom Despacho as duas lojas registram o mesmo responsável, de modo que a contagem de um grupo não depende de desempate; a fragilidade fica declarada porque é estrutural, não porque pesou aqui. Destrava com o vínculo societário por CNPJ entre lojas, que o cadastro tem por loja mas não relaciona entre elas.",
+    "**Dois registros do entorno estão cadastrados em cidades que o raio não alcança.** No raio de 5 km, uma farmácia aparece cadastrada em Morada Nova de Minas e outra em Sarzedo, a 384 m e a 697 m do ponto — distâncias incompatíveis com a localização declarada dessas cidades. Importa porque esses registros entram nas contagens de concorrência e no dimensionamento do mercado do raio, e os dois carregam faixa de faturamento — um deles justamente a faixa mais baixa ocupada no município. Destrava com a correção da coordenada ou da cidade no cadastro da camada de concorrentes.",
+    "**Quantos e quais municípios Bom Despacho puxa.** A classificação na rede urbana descreve a cidade como centro de alcance intermediário que atende demanda de rotina do entorno em comércio e serviços básicos, mas a base registra zero municípios que a tomam como polo. Importa porque público de fora não aparece em nenhum indicador de população residente, e é ele que sustenta comércio de centro em cidade deste porte. Destrava com a lista de municípios influenciados preenchida na base de rede urbana, ou com dado de origem de clientes da própria loja.",
+    "**Área de venda e custo de ocupação.** O relatório não estima área de venda nem aluguel: sem uma régua de receita por metro quadrado informada pelo analista, e sem valor de locação verificável, qualquer número aqui seria arbitrado. Importa porque, numa mudança de ponto, a diferença de aluguel e de área entre origem e destino costuma ser a variável econômica que decide. Destrava com a régua de receita por metro quadrado da rede e com o valor de locação negociado para a sala 2.",
+    "**Equipamentos de saúde no entorno.** Nenhuma clínica, consultório ou unidade de saúde aparece mapeada no raio de 500 m. Importa porque receita na mão de quem sai de consulta é um dos geradores de fluxo mais diretos para farmácia, e aqui ele é o único que não aparece. A base de equipamentos é colaborativa e ausência nela não é ausência no mundo real. Destrava com a checagem em campo ou com a camada de estabelecimentos de saúde do cadastro nacional.",
+    "**Sobre qual população a saturação é comparada.** Os 2.281 habitantes por farmácia e o percentil 86 saem da população do acervo interno, de 54.750, e não da do Censo 2022, de 51.737, que é a que corta a faixa de zoneamento. O recálculo com o Censo está declarado — 2.156 habitantes por farmácia e percentil 83 —, mas nele o numerador vem do Censo contra uma distribuição nacional montada com o acervo, o que é aproximação. Importa porque é o indicador que posiciona Bom Despacho contra os outros 5.541 municípios comparados. Destrava com a distribuição nacional recalculada inteiramente sobre o Censo 2022."
+  ],
+  "campo": [
+    "**Confirmar o encerramento do ponto de origem, com data.** Se a loja atual encerra ao abrir a nova, a cidade continua com uma loja e um grupo, e o alerta de densidade deste relatório não se aplica. Se as duas operarem juntas, ainda que por um período, a cidade passa a ter duas lojas numa faixa dimensionada em uma e o alerta passa a valer — além de dividir entre dois pontos o mesmo potencial de R$ 3,06 milhões do raio de 300 m.",
+    "**Medir o fluxo de passantes na calçada, em dois ou três horários típicos.** É a variável que mais distorce ponto de rua comercial e a única de peso que nenhuma base responde. Fluxo alto sustenta o ponto mesmo com seis concorrentes no raio; fluxo baixo transforma a proximidade das três farmácias a menos de 40 m em disputa pelo mesmo morador.",
+    "**Ver qual é a face de exposição da sala 2 e o que se enxerga dela.** A classificação de meio de quadra vem da geometria das vias, com o cruzamento mais próximo a 66 m, e não descreve a vitrine. Sala interna ou recuada muda a leitura do ponto mesmo com todos os números de entorno iguais; fachada corrida para a avenida reduz o peso dessa fragilidade.",
+    "**Checar em campo as três farmácias a 23 m, 32 m e 39 m.** O cadastro não diz porte, horário de funcionamento nem se seguem operando. Três lojas ativas de porte equivalente no mesmo quarteirão significam disputa direta pelo mesmo passante; lojas pequenas ou com horário reduzido mudam a leitura da concorrência colada.",
+    "**Esclarecer a farmácia que opera a 39 m com nome igual ao da razão social da loja do solicitante.** A camada de concorrentes registra, nesse endereço, um estabelecimento com inscrição federal diferente da loja do solicitante. Se for terceiro de fato, é concorrente direto na mesma rua; se for erro de cadastro ou operação relacionada, a contagem de seis concorrentes no raio de 300 m está superestimada em um.",
+    "**Levantar aluguel da sala 2 e a área de venda disponível, e trazer a régua de receita por metro quadrado.** Sem esses três valores o relatório não estima ocupação nem produtividade. Numa mudança de ponto, é a diferença entre origem e destino que decide, e nenhum indicador de região compensa um custo de ocupação fora da régua.",
+    "**Perguntar ao solicitante por que a loja de São Vicente fechou em setembro.** Causa de ponto ou de contrato não diz nada sobre este endereço; causa de mercado ou de operação diz, porque é a mesma cidade, a mesma bandeira e o mesmo dono."
+  ]
+}

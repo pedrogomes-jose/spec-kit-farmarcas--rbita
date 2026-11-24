@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossiê de Região</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. */
+@media print{details.lacunas>.corpo-lac{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split{grid-template-columns:1fr}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Impedimento de Zoneamento</div>
+  <div class="sub">Checagem de regra de expansão — <b>sem score e sem análise de
+    mercado</b> · acervo de camadas de 2026-10-26 · cadastro de lojas de 2026-10-23 ·
+    população do Censo extraída em 2026-11-05</div>
+</header>
+<div class="faixa-end">Av. Antônio Scodeller, 1597 — Pouso Alegre/MG, 37550-000</div>
+<section class="topo">
+  <div class="gate" style="border-color:#b4503c">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#b4503c">Impedimento</div>
+    <div class="nota">120–200 mil → até 3 grupos econômicos, alternância de bandeiras, distância mínima</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Pouso Alegre já tem três grupos econômicos com loja Farmarcas e o teto da sua faixa de população é três — o solicitante não responde por nenhuma das lojas da cidade, então o pedido traz um quarto grupo para a praça e é isso que a regra barra.</p>
+    <div class="meta">Solicitante: <b>já associado</b> ·
+      Bandeira pretendida: <b>Ultra Popular</b> (popular) ·
+      População do município (Censo 2022): <b>152.217</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">■</span> O ponto não passa no zoneamento</h2>
+  <p class="explica"><b>Por que o relatório termina aqui.</b> O zoneamento é
+  <b>gate</b>, não indicador: a consulta acontece antes de prosseguir com a análise.
+  Um estudo de mercado completo sobre um ponto que a regra barra sugere ao leitor que
+  há número a negociar — e o que existe para resolver aqui não é número, é decisão de
+  quem é dono da regra. Por isso nenhuma camada de mercado foi levantada.</p>
+  <table><thead><tr><th>Regra</th><th>Constatado</th></tr></thead>
+  <tbody><tr><td>120–200 mil → até 3 grupos econômicos, alternância de bandeiras, distância mínima</td><td>com o pedido a praça passa a ter 4 grupo(s) econômico(s) distinto(s); o teto da faixa é 3</td></tr></tbody></table>
+  <div class="cards" style="margin-top:12px">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População do município</div><div class="val">152.217 habitantes</div><div class="nota">Censo 2022 — é ela que corta a faixa do teto</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População no acervo interno</div><div class="val">163.492 habitantes</div><div class="nota">ano de referência não declarado na base; a faixa é cortada pelo Censo</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Faixa aplicada</div><div class="val">120–200 mil → até 3 grupos econômicos, alternância de bandeiras, distância mínima</div><div class="nota">regra de zoneamento vigente</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Lojas ativas na cidade hoje</div><div class="val">3</div><div class="nota">ativas, montando ou em transição — quem ocupa vaga no teto é o grupo, não a loja</div></div>
+  </div>
+  <h3>O teto da praça</h3>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Teto da faixa</div><div class="val">3 grupo(s) econômico(s)</div><div class="nota">definido pela população do município</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Grupos econômicos</div><div class="val">3 hoje &rarr; 4 com o pedido</div><div class="nota">excede o teto — é o que barra</div></div>
+    <div class="card" style="border-left-color:#b07d00"><div class="rot">Lojas na cidade</div><div class="val">3 hoje &rarr; 4 com o pedido</div><div class="nota">acima do que a faixa dimensiona — alerta, não impedimento</div></div>
+  </div>
+  <p class="explica"><b>O pedido traz um grupo econômico novo para uma praça que já está no teto.</b> É isso que a regra barra: o que ela protege é a convivência entre associados, e cada grupo a mais é um associado a mais disputando o mesmo mercado. O teto conta <b>grupos econômicos</b>: o pedido sempre
+  acrescenta uma loja, mas só acrescenta um grupo quando o solicitante ainda não responde por
+  loja nesta cidade. Os grupos são apurados pelo responsável registrado no cadastro, comparado
+  por nome e não por CNPJ — duas lojas do mesmo dono com grafia divergente contariam como dois
+  grupos, e um grupo a mais aqui barra um pedido que caberia. Na rede inteira, 207 das 830
+  cidades com loja ativa ficam acima do teto contando lojas, contra 34 contando grupos
+  econômicos.</p>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura do impedimento</h2>
+  <div class="lente" style="border-color:#b4503c;background:#fdeee9"><p><b>O que barra é a entrada de um grupo econômico novo na praça, e o pedido traz um.</b> Com 152.217 habitantes no Censo 2022, Pouso Alegre cai na faixa de 120 a 200 mil, cujo teto é de três grupos econômicos, com alternância de bandeiras e distância mínima entre lojas. As três lojas ativas da cidade — duas Entrefarma convencionais e uma Ultra Popular popular — respondem a três grupos distintos, e o solicitante não é nenhum deles: a operação dele está cadastrada em outro município. Com o pedido a praça passaria a quatro grupos, acima do teto.</p><p><b>O número de lojas também sobe acima do que a faixa dimensiona, mas não é isso que barra.</b> A cidade ficaria com quatro lojas para uma faixa dimensionada em três. Essa contagem entra como alerta de densidade e não como impedimento, porque o que a regra protege é a convivência entre associados — mais lojas de um mesmo grupo seria risco econômico desse grupo, decisão dele. Aqui, porém, as duas contagens apontam para o mesmo lado: cada loja a mais é também um associado a mais disputando o mesmo mercado.</p><p><b>A contagem de grupos é feita por nome, não por CNPJ, e é ela que decide.</b> Os grupos saem do responsável registrado no cadastro de cada loja, deduplicado por nome normalizado, e aparecem na tabela com rótulo anônimo — duas linhas com o mesmo rótulo seriam um grupo só. A comparação por nome falha nos dois sentidos, e os dois invertem o resultado. Se duas das três lojas estiverem sob o mesmo dono com grafia divergente, a praça tem dois grupos e o pedido cabe. Se o solicitante responder por uma das três e o nome dele não casar, ele é contado como grupo novo quando não é. Essa é a fragilidade mais relevante deste documento, porque desde o refinamento da regra em 29/10/2026 é essa contagem que barra, e não mais uma leitura secundária.</p><p><b>A distância mínima entre lojas foi checada e não é o obstáculo.</b> Nesta faixa de população a regra exige distância, e todas as lojas da cidade têm coordenada no cadastro, então nenhuma ficou fora da medição. A loja Farmarcas mais próxima deste endereço é uma Entrefarma a 2.280 metros, no Nossa Senhora Aparecida — bandeira diferente da pretendida, cujo mínimo é de 500 metros. A Ultra Popular ativa, mesma bandeira pretendida e por isso com o mínimo mais apertado, de 300 metros, está a 5.343 metros, no Aristeu Costa Rios. A terceira, outra Entrefarma, está a 6.033 metros, no São João. A folga é larga em todas, o que torna a conclusão robusta a um erro de algumas centenas de metros na localização do ponto — e isso importa, porque a coordenada foi informada na solicitação e não resolvida por fonte pública. Vale o registro de que esses mínimos por bandeira são a regra vigente confirmada em 27/10/2026, enquanto a página de zoneamento ainda escreve apenas 300 metros sem distinguir bandeira.</p><p><b>A bandeira pretendida é justamente a que a faixa pede para alternar.</b> A regra dessa população prevê alternância de bandeiras, e a cidade já tem uma loja ativa da bandeira pretendida. A página não diz se a alternância é obrigatória ou apenas desejável, então isso entra como alerta e não como um segundo impedimento — mas, se a área dona da regra entender que é obrigatória, a Ultra Popular passa a ser a bandeira que menos cabe nesta praça, e não apenas mais uma.</p><p><b>Há uma Ultra Popular desativada no Centro, a 3.904 metros deste endereço.</b> Ela não ocupa vaga, pela premissa de que só contam lojas ativas, montando ou em transição. De quem ela era também não se sabe: o cadastro não registra responsável para essa loja, então ela não entra na contagem de grupos nem permite dizer se era do solicitante ou de terceiro. O registro também não traz o motivo do fechamento — e, tratando-se da mesma bandeira que se pretende abrir, saber por que aquela loja fechou vale mais do que qualquer indicador de mercado que este documento deixou de levantar. Parecer e desfecho não se preveem um ao outro, então isso é memória institucional a consultar, não sinal a extrapolar.</p></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Lojas Farmarcas no município</h2>
+  <p class="explica"><b>Esta tabela sai do cadastro de lojas da rede.</b>
+  Nome de bandeira encontrado na camada de concorrentes não prova que a loja é da rede —
+  é suspeita a confirmar, e não entra aqui. O vínculo com o solicitante é apurado pelo
+  responsável registrado no cadastro, comparado por nome e não por CNPJ: grafia divergente
+  ou homônimo inverteria de quem é cada loja. Loja do próprio solicitante aparece separada
+  de loja de outro associado: sobreposição com a própria operação é efeito econômico a
+  dimensionar, enquanto sobreposição com a de outro associado é o conflito entre
+  associados que a regra existe para evitar. <b>Para o teto, é esta distinção que vale: ele
+  conta grupos econômicos, e o pedido só acrescenta um quando o solicitante ainda não
+  responde por loja nesta cidade.</b> A coluna de grupo usa rótulo anônimo e serve para
+  conferir a contagem: duas linhas com o mesmo rótulo são um grupo só.</p>
+  <table><thead><tr><th>Bandeira</th><th>Modelo</th><th>Status</th><th>Bairro</th><th>Distância até o ponto</th><th>Grupo</th><th>Vínculo</th><th>No teto</th></tr></thead><tbody><tr class="tem"><td>Entrefarma</td><td>Convencional</td><td>Ativado</td><td>NOSSA SENHORA APARECIDA</td><td>2.280 m</td><td>Grupo A</td><td>de outro associado</td><td>grupo ocupa vaga</td></tr><tr class="tem"><td>Ultra Popular</td><td>Popular</td><td>Ativado</td><td>ARISTEU COSTA RIOS</td><td>5.343 m</td><td>Grupo B</td><td>de outro associado</td><td>grupo ocupa vaga</td></tr><tr class="tem"><td>Entrefarma</td><td>Convencional</td><td>Ativado</td><td>SAO JOAO</td><td>6.033 m</td><td>Grupo C</td><td>de outro associado</td><td>grupo ocupa vaga</td></tr><tr><td>Ultra Popular</td><td>Popular</td><td>Desativado</td><td>CENTRO</td><td>3.904 m</td><td>não informado no cadastro</td><td><b>não apurado</b> <span class="nota">o cadastro não registra responsável para esta loja</span></td><td>não ocupa vaga</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">↻</span> O que mudaria o resultado</h2>
+  <ul class="proc"><li><b>Duas das três lojas responderem ao mesmo grupo econômico.</b> É o caminho mais imediato de verificar, porque não depende de ninguém decidir nada: basta que a contagem esteja errada. Os grupos foram apurados por comparação de nomes de responsável, e nome diverge. Confirmar por CNPJ se são mesmo três donos distintos é a checagem que pode derrubar o impedimento sem mudar nada no mundo.</li><li><b>Um dos três grupos deixar de operar na cidade.</b> O teto conta grupos com loja ativa, montando ou em transição, então a saída de um deles abre a vaga. Não é algo que o solicitante controle — as três lojas são de outros associados —, mas é o que muda o número.</li><li><b>Uma exceção concedida por quem é dono da regra.</b> É hipótese: nenhuma fonte consultada descreve um instrumento formal de dispensa. O que se sabe é que 34 das 830 cidades da rede com loja ativa estão acima do teto contando grupos econômicos, o que sugere ou um critério de exceção não documentado, ou que a contagem praticada admite casos que a regra escrita não prevê.</li><li><b>A população passar de 200 mil habitantes.</b> Acima desse corte a faixa deixa de ter teto e a ocupação passa a ser decidida por participação de mercado. Pouso Alegre está abaixo dele, então é caminho de prazo longo, não de decisão desta análise.</li></ul>
+</section>
+<section>
+  <h2><span class="ic">→</span> Onde mais olhar — praças onde a regra não barra</h2>
+  <p class="explica"><b>Isto não é análise de mercado deste ponto.</b> Levantar renda,
+  concorrência e potencial do endereço reprovado sugeriria que há número a negociar ali, e
+  não há — o que existe para resolver é decisão de quem é dono da regra. A lista abaixo não
+  afirma nada sobre o endereço pedido: são praças da mesma UF onde a entrada de um grupo
+  novo <b>cabe no teto</b>, ordenadas pelo mercado que hoje circula sem passar pela rede.
+  Cada linha é uma unidade de mercado, por isso a mesma cidade pode aparecer mais de uma vez,
+  sempre com a localidade nomeada. A lista já considera que a bandeira pretendida é <b>popular</b>.</p>
+  <p class="explica"><b>A lista está limitada a 150 km do endereço analisado</b>, medidos até o centro aproximado de cada município. Esse raio é premissa desta análise, não regra da casa: nenhuma fonte diz a que distância um empresário aceita operar. Sem ele, a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p>
+  <table><thead><tr><th>Praça</th><th>Distância</th><th>Mercado não atendido</th>
+  <th>Grupos / teto</th><th>Cresc.</th></tr></thead><tbody><tr><td><b>POÇOS DE CALDAS/MG</b><div class="nota">CENTRO-4</div></td><td>82 km</td><td>R$ 237,0 milhões</td><td>1 de 3<div class="nota">cabe grupo novo — 1 de 3, 2 vaga(s)</div></td><td>16,0%</td></tr><tr><td><b>VARGINHA/MG</b></td><td>87 km</td><td>R$ 229,1 milhões</td><td>2 de 3<div class="nota">cabe grupo novo — 2 de 3, 1 vaga(s)</div></td><td>26,0%</td></tr><tr><td><b>LAVRAS/MG</b></td><td>142 km</td><td>R$ 201,1 milhões</td><td>0 de 2<div class="nota">cabe grupo novo — 0 de 2, 2 vaga(s)</div></td><td>13,0%</td></tr><tr><td><b>TRÊS CORAÇÕES/MG</b></td><td>87 km</td><td>R$ 168,5 milhões</td><td>0 de 2<div class="nota">cabe grupo novo — 0 de 2, 2 vaga(s)</div></td><td>5,0%</td></tr><tr><td><b>ALFENAS/MG</b></td><td>87 km</td><td>R$ 152,5 milhões</td><td>0 de 2<div class="nota">cabe grupo novo — 0 de 2, 2 vaga(s)</div></td><td>16,0%</td></tr><tr><td><b>POÇOS DE CALDAS/MG</b><div class="nota">BORTOLAN</div></td><td>82 km</td><td>R$ 106,2 milhões</td><td>1 de 3<div class="nota">cabe grupo novo — 1 de 3, 2 vaga(s)</div></td><td>26,0%</td></tr><tr><td><b>ANDRADAS/MG</b></td><td>70 km</td><td>R$ 65,8 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>18,0%</td></tr><tr><td><b>MACHADO/MG</b></td><td>59 km</td><td>R$ 52,2 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>9,0%</td></tr><tr><td><b>CAXAMBU/MG</b></td><td>103 km</td><td>R$ 42,4 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>-24,0%</td></tr><tr><td><b>JACUTINGA/MG</b></td><td>73 km</td><td>R$ 38,8 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>32,0%</td></tr><tr><td><b>LAMBARI/MG</b></td><td>63 km</td><td>R$ 35,1 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>16,0%</td></tr><tr><td><b>CAMPOS GERAIS/MG</b></td><td>109 km</td><td>R$ 35,0 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>15,0%</td></tr><tr><td><b>PARAGUAÇU/MG</b></td><td>75 km</td><td>R$ 34,0 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>13,0%</td></tr><tr><td><b>SÃO GONÇALO DO SAPUCAÍ/MG</b></td><td>47 km</td><td>R$ 32,0 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>33,0%</td></tr><tr><td><b>MUZAMBINHO/MG</b></td><td>113 km</td><td>R$ 30,6 milhões</td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>15,0%</td></tr></tbody></table>
+  <p class="vazio"><b>Como a disponibilidade é apurada.</b> cabe grupo novo quando os grupos econômicos com loja ativa na cidade são MENOS que o teto da faixa — e, na faixa de 60 a 120 mil, o 2º grupo só entra com bandeira popular
+  responsável pelo GE no cadastro, deduplicado por NOME normalizado e não por CNPJ. Grafia divergente entre duas lojas do mesmo dono inventa um grupo e esconde uma praça que está disponível — ou seja, uma praça pode aparecer como indisponível
+  por grafia divergente no cadastro, e o caminho para confirmar é o CNPJ. Esta lista escolhe
+  a <b>praça</b>, não o ponto: cada uma ainda precisa do seu próprio dossiê.</p>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Alertas de cadastro</h2>
+  <ul class="proc"><li><b>Todas as lojas de Pouso Alegre têm coordenada no cadastro</b>, o que é o oposto da situação comum: no cadastro inteiro, apenas 1.841 das 2.804 lojas têm coordenada utilizável. Aqui isso significa que a checagem de distância rodou sobre o conjunto completo da cidade, sem loja invisível.</li><li><b>Nenhuma loja da rede cadastrada em outro município aparece a menos de 1.000 metros deste endereço</b>, que é o erro de cadastro capaz de contaminar a contagem do teto perto de divisa. A varredura só enxerga lojas com coordenada válida, e um terço do cadastro não tem — portanto é ausência de evidência dentro desse raio, não evidência de ausência.</li><li><b>A operação atual do solicitante está cadastrada em outro município e não aparece nessa varredura.</b> É o que decide o impedimento: para o teto de Pouso Alegre ele conta como grupo novo, porque ser associado em outra cidade não dá vaga nesta. Toda sobreposição com loja em operação é com loja de outro associado — o conflito entre associados que a regra existe para evitar, e não um custo de estratégia que ele escolheria pagar.</li><li><b>A população do acervo interno diverge da do Censo</b>, como é esperado: o acervo não guarda o Censo e não declara o ano de referência do número que guarda. As duas caem na mesma faixa de 120 a 200 mil, então o teto de três não muda com a escolha — mas numa cidade próxima de um dos cortes essa diferença trocaria a faixa, e por isso a faixa é sempre cortada pelo Censo.</li><li>quantidade de lojas acima do que a faixa de população dimensiona — com o pedido a cidade fica com 4 loja(s) Farmarcas para uma faixa dimensionada em 3, distribuídas entre 4 grupo(s) econômico(s). não barra: o teto conta grupos econômicos. É sinal de que a praça pode ficar densa demais em loja por habitante, o que divide o mesmo mercado entre mais pontos — efeito econômico a dimensionar, não conflito entre associados</li><li>120–200 mil → alternância de bandeiras — a cidade já tem 1 loja(s) da bandeira pretendida. a página não diz se a alternância é obrigatória — tratado como ALERTA</li></ul>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que esta checagem NÃO sabe
+    <span class="qtd">12 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li><b>Se os três grupos econômicos da cidade são mesmo três donos distintos.</b> A contagem vem do responsável registrado no cadastro, comparado por nome normalizado e não por CNPJ. É o número que barra este pedido: se dois deles forem o mesmo dono com grafia diferente, a praça tem dois grupos e o pedido cabe. Destrava com deduplicação por CNPJ no cadastro, ou com conferência manual dos três responsáveis.</li><li><b>Se o solicitante realmente não responde por nenhuma das três lojas da cidade.</b> O vínculo é apurado comparando o nome do responsável dele com o registrado em cada loja, não por CNPJ. Se ele responder por uma delas e a grafia não casar, a análise o trata como grupo novo e o pedido vira impedimento — quando, de fato, não acrescentaria grupo nenhum e restaria apenas o alerta de densidade. É o modo de falha que inverte o veredito, e nada no dado distingue "conferimos e ele não tem loja aqui" de "o nome não casou". Destrava com vínculo por CNPJ no cadastro, ou conferindo à mão o responsável dele contra os três registros.</li><li><b>A coordenada exata do número 1597.</b> Ela foi informada na solicitação e não pôde ser resolvida por geocodificação pública nesta análise: a busca localizou a avenida, mas não a numeração dela. Toda a seção de distância mínima é medida a partir desse ponto, e com ela a conclusão de que a distância não é o obstáculo. A folga é larga o bastante para absorver erro de algumas centenas de metros, mas não é verificada. Destrava confirmando o ponto em campo ou por base de endereçamento com numeração.</li><li><b>Por que a Ultra Popular do Centro foi desativada.</b> O cadastro registra o status, não o motivo. É a mesma bandeira que se pretende abrir, na mesma cidade, então a diferença entre fechamento por ponto, por operação ou por mercado muda inteiramente o que esse registro significa para este pedido. Destrava com o histórico da operação junto à área de Expansão.</li><li><b>Se a alternância de bandeiras é obrigatória nesta faixa.</b> A regra prevê alternância sem dizer se ela barra ou apenas orienta, e a cidade já tem uma loja ativa da bandeira pretendida. Sem essa definição não dá para saber se a Ultra Popular é impossível aqui ou apenas a menos indicada. Destrava com a definição escrita na regra.</li><li><b>Se os três grupos econômicos continuam operando na cidade.</b> O status vem de um cadastro estático, sem rotina de atualização, e é ele que sustenta a contagem de grupos. Uma saída não registrada abriria vaga sem que este documento soubesse. Destrava com confirmação junto à operação.</li><li><b>Até onde vai o conflito entre associados fora da cidade.</b> O teto vigente conta grupos econômicos por cidade cadastrada e, por ele, a operação do solicitante em outro município não entra nesta contagem — isso a regra resolve. O que ela não delimita é o alcance geográfico do conflito entre associados, nem como um associado já presente na região contaria numa leitura regional. Destrava com a definição escrita na regra.</li><li>cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa (1.841 de 2.804 lojas (66%) têm coordenada utilizável; 931 vazias e 32 fora do Brasil (cadastro de 2026-10-23)).</li><li>quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra (ocupam vaga: Ativado, Montando, Transição — desativada não ocupa (premissa, não está na regra)).</li><li>a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página (a página escreve faixas sobrepostas (60, 120 e 200 mil habitantes); aqui os cortes são tratados como fechados em 60.000, 120.000 e 200.000).</li><li>a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página (a página diz que as regras diferem entre loja popular e convencional, sem detalhar a diferença).</li><li>Fluxo de passantes não existe no acervo nem no produto, e nenhuma camada de mercado foi levantada para este ponto — população no raio, renda, concorrência e potencial de consumo seguem desconhecidos aqui. Destrava se o impedimento for resolvido por quem é dono da regra e o pedido voltar para análise.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li><b>Confirmar por CNPJ se as três lojas respondem a três donos diferentes.</b> É a checagem de maior valor: se dois forem o mesmo grupo, o pedido deixa de estourar o teto e o impedimento cai sem depender de decisão de ninguém.</li><li><b>Conferir se o solicitante não é o responsável por nenhuma das três lojas da cidade.</b> Se for por uma delas, o pedido deixa de trazer grupo novo e o impedimento cai, sobrando o alerta de densidade — é a mesma checagem de CNPJ do item acima, olhada pelo outro lado.</li><li><b>Confirmar se as três lojas Farmarcas de Pouso Alegre continuam ativas.</b> Se alguma tiver encerrado sem baixa no cadastro, e for a única do seu grupo, a vaga existe.</li><li><b>Levantar por que a Ultra Popular do Centro fechou.</b> Se o motivo for de ponto, não se aplica a este endereço; se for de operação, não se aplica a este empresário; se for de mercado, aplica-se a qualquer Ultra Popular da cidade — e aí a bandeira pretendida é o problema, não só o teto.</li><li><b>Obter da área dona da regra se a alternância de bandeiras barra ou apenas orienta.</b> A resposta decide se vale discutir outra bandeira para o mesmo ponto ou se o caminho é outro município.</li><li><b>Conferir a localização do número 1597 em campo.</b> A coordenada veio da solicitação e nenhuma distância deste relatório foi verificada contra fonte independente.</li></ul>
+</section>
+<section>
+  <h2><span class="ic">§</span> Fontes</h2>
+  <ul class="proc">
+    <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas,
+      páginas 4.5 e 6.1, versões de 24/02/2026. A contagem do teto por <b>grupos
+      econômicos</b>, confirmada com a área dona da regra em 29/10/2026, <b>substitui a
+      contagem por lojas</b> que vigorou até então e <b>aproxima a regra do que a página
+      escreve</b>, já que a página fala em empresários. O mínimo de distância por bandeira,
+      confirmado em 27/10/2026, é o que <b>diverge</b> da página, que escreve apenas 300 m
+      sem distinguir bandeira.</li>
+    <li><b>Coordenada do ponto</b> — informada na solicitação em 29/10/2026 e não resolvida por geocodificação pública nesta análise — a busca no OpenStreetMap, feita na mesma data, localizou a avenida mas não a numeração. Toda distância deste relatório é medida a partir dela.</li>
+    <li><b>População do município</b> — Censo 2022 do IBGE, pela API pública, extração de
+      2026-11-05. Não vem do acervo de camadas. A data é a da gravação local da
+      resposta: copiar esse arquivo entre máquinas a reescreve.</li>
+    <li><b>Lojas da rede, status, bandeira, modelo e vínculo com o solicitante</b> —
+      cadastro de lojas Farmarcas, extração de 2026-10-23. O vínculo de cada loja com o solicitante é apurado pelo responsável informado na geração deste relatório, comparado por nome contra o cadastro, não por CNPJ.</li>
+    <li><b>Contexto do município</b> — acervo de camadas do Órbita, extração de 2026-10-26,
+      sem atualização automática.</li>
+    <li><b>Praças onde a regra não barra</b> — receita por unidade de mercado da IQVIA para
+      ordenar, e cadastro de lojas mais Censo 2022 para a disponibilidade de zoneamento.</li>
+  </ul>
+  <p class="vazio">Este documento não pontua o ponto e não analisa o mercado dele: não há
+  score, nota nem status de recomendação. A régua de viabilidade pertence ao produto.</p>
+</section>
+<footer>
+  Órbita · Impedimento de Zoneamento · Av. Antônio Scodeller, 1597 — Pouso Alegre/MG, 37550-000 ·
+  insumo para o comentário da análise, não substitui o parecer do analista
+</footer></div></body></html>

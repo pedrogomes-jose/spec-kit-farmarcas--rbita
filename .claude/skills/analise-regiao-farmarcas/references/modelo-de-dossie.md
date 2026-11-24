@@ -63,6 +63,20 @@ numerada ao fim da frase e resolve todas na seção **Fontes**, que fecha o
 documento com duas partes: a tabela numerada (referência → lente → afirmação →
 fonte do dado) e a **procedência geral** (extrações, datas, instituições).
 
+**A seção Fontes sai RECOLHIDA por padrão**, com a contagem de referências no
+título e um clique para abrir — aberta por inteiro na impressão, como a de
+lacunas. Ela é o lastro do dossiê: é por ela que alguém confere de onde veio
+cada número. O que muda é o peso visual — quem lê para decidir não percorre uma
+tabela de catorze referências e uma lista de procedência no fim do documento, e
+aberta ela empurrava o resto para longe da vista.
+
+O botão `--detalhes` tem um terceiro modo, `ocultos`, que tira a seção do
+documento e, com ela, os marcadores de referência do texto — número órfão no
+meio da frase seria pior que nenhum. Nesse modo o rodapé passa a carregar a
+origem da coordenada e a data do acervo, que são o mínimo que não pode sumir.
+**O dossiê gerado assim não permite conferir número nenhum**, então a cópia que
+for para o auditor de evidência é gerada com `--detalhes abertos`.
+
 O mesmo vale para os blocos que não são lentes: nota de card, parágrafo
 explicativo e tabela não citam fonte no corpo — a origem deles está na
 procedência geral.
@@ -99,6 +113,17 @@ mora, e renda por habitante não é renda domiciliar), o potencial de consumo
 (é demanda potencial, não venda; soma setor inteiro; periodicidade não
 declarada) e os geradores de fluxo (por que cada categoria traz gente, e o que
 a contagem não diz).
+
+**Todo parágrafo explicativo sai RECOLHIDO por padrão**, com a primeira frase
+dele como rótulo à vista e o texto a um clique — aberto na impressão, e fora do
+documento com `--detalhes ocultos`. No relatório de impedimento eles nunca são
+recolhidos: lá o parágrafo é o conteúdo, não o acompanhamento de um número. O
+parágrafo
+continua obrigatório: o que muda é que, somados, eles eram mais texto que os
+números que explicam, e quem já conhece o indicador relia tudo a cada dossiê. O
+rótulo que fica à vista carrega a ressalva em uma linha ("Estes três números
+são rótulos de faixa, não faturamento de loja"), de modo que o leitor apressado
+não perde o aviso que o parágrafo existe para dar.
 
 Esses parágrafos são escritos **pelo gerador**, e é por isso que a lente não
 explica método: o card "Método de rateio" já traz a cobertura do círculo e a

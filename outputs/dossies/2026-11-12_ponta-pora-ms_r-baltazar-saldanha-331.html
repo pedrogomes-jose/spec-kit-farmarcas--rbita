@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossiê de Região</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Impedimento de Zoneamento</div>
+  <div class="sub">Checagem de regra de expansão — <b>sem score e sem análise de
+    mercado</b> · acervo de camadas de 2026-10-26 · cadastro de lojas de 2026-11-10 ·
+    população do Censo extraída em 2026-11-12</div>
+</header>
+<div class="faixa-end">R. Baltazar Saldanha, 331 - Centro, Ponta Porã/MS, 79904-602</div>
+<section class="topo">
+  <div class="gate" style="border-color:#b4503c">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#b4503c">Impedimento</div>
+    <div class="nota">60–120 mil → até 2 grupos econômicos, o 2º grupo de bandeira popular, distância mínima</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>O ponto não passa na regra de distância mínima: uma loja Maxi Popular do próprio solicitante fica a 444 m, contra o mínimo de 500 m exigido entre bandeiras diferentes.</p>
+    <div class="meta">Solicitante: <b>já associado</b> ·
+      Bandeira pretendida: <b>Ultra Popular</b> (popular) ·
+      População do município (Censo 2022): <b>92.017</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">■</span> O ponto não passa no zoneamento</h2>
+  <p class="explica"><b>Por que o relatório termina aqui.</b> O zoneamento é
+  <b>gate</b>, não indicador: a consulta acontece antes de prosseguir com a análise.
+  Um estudo de mercado completo sobre um ponto que a regra barra sugere ao leitor que
+  há número a negociar — e o que existe para resolver aqui não é número, é decisão de
+  quem é dono da regra. Por isso nenhuma camada de mercado foi levantada.</p>
+  <table><thead><tr><th>Regra</th><th>Constatado</th></tr></thead>
+  <tbody><tr><td>distância mínima 500 m (outra bandeira)</td><td>loja Maxi Popular a 444 m</td></tr></tbody></table>
+  <div class="cards" style="margin-top:12px">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População do município</div><div class="val">92.017 habitantes</div><div class="nota">Censo 2022 — é ela que corta a faixa do teto</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População no acervo interno</div><div class="val">99.586 habitantes</div><div class="nota">ano de referência não declarado na base; a faixa é cortada pelo Censo</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Faixa aplicada</div><div class="val">60–120 mil → até 2 grupos econômicos, o 2º grupo de bandeira popular, distância mínima</div><div class="nota">regra de zoneamento vigente</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Lojas ativas na cidade hoje</div><div class="val">4</div><div class="nota">ativas, montando ou em transição — quem ocupa vaga no teto é o grupo, não a loja</div></div>
+  </div>
+  <h3>O teto da praça</h3>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Teto da faixa</div><div class="val">2 grupo(s) econômico(s)</div><div class="nota">definido pela população do município</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Grupos econômicos</div><div class="val">1 hoje &rarr; 1 com o pedido</div><div class="nota">dentro do teto</div></div>
+    <div class="card" style="border-left-color:#b07d00"><div class="rot">Lojas na cidade</div><div class="val">4 hoje &rarr; 5 com o pedido</div><div class="nota">acima do que a faixa dimensiona — alerta, não impedimento</div></div>
+  </div>
+  <p class="explica"><b>A praça fica com mais lojas do que a faixa dimensiona, mas sem grupo econômico novo — e isso não barra.</b> A regra existe para evitar conflito e concorrência desleal entre associados, e não há conflito entre associados onde as lojas respondem ao mesmo grupo. O que sobra é risco econômico do próprio grupo: mais pontos dividindo o mesmo mercado, decisão que é dele. O teto conta <b>grupos econômicos</b>: o pedido sempre
+  acrescenta uma loja, mas só acrescenta um grupo quando o solicitante ainda não responde por
+  loja nesta cidade. Os grupos são apurados pelo responsável registrado no cadastro, comparado
+  por nome e não por CNPJ — duas lojas do mesmo dono com grafia divergente contariam como dois
+  grupos, e um grupo a mais aqui barra um pedido que caberia. Na rede inteira, 207 das 830
+  cidades com loja ativa ficam acima do teto contando lojas, contra 34 contando grupos
+  econômicos.</p>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura do impedimento</h2>
+  <div class="lente" style="border-color:#b4503c;background:#fdeee9"><p>O que barra este endereço é a distância, e ela barra o solicitante contra ele mesmo. A loja mais próxima da rede é uma Maxi Popular a 444 m, do próprio grupo que faz o pedido. Como a bandeira pretendida é Ultra Popular, o mínimo que se aplica é o de bandeiras diferentes, de 500 m — e não o de 300 m, que valeria entre lojas de mesma bandeira.</p><p>Não há conflito entre associados a arbitrar aqui. As quatro lojas Farmarcas de Ponta Porã são todas do mesmo grupo econômico e todas no Centro, a 444 m, 628 m, 936 m e 1.213 m do ponto pedido. Nenhum outro associado opera na praça, e o pedido não traz grupo novo para a cidade.</p><p>A contagem de grupos também não barra. A faixa de população do município comporta dois grupos econômicos e a cidade tem um; com o pedido continua tendo um. O que muda é a quantidade de lojas: a praça passa a ter cinco pontos da rede para uma faixa dimensionada em dois. Isso é alerta de densidade, que é risco econômico do próprio grupo e decisão dele — nunca impedimento.</p><p>Nenhuma camada de mercado foi levantada para este endereço. Não há aqui população no raio, renda, concorrência, potencial de consumo nem preço por unidade, e a ausência desses números não significa que sejam favoráveis ou desfavoráveis: significa que não foram apurados, porque levantá-los sugeriria que existe número a negociar num ponto que a regra barra. O que existe para resolver é decisão de quem é dono da regra.</p></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Lojas Farmarcas no município</h2>
+  <p class="explica"><b>Esta tabela sai do cadastro de lojas da rede.</b>
+  Nome de bandeira encontrado na camada de concorrentes não prova que a loja é da rede —
+  é suspeita a confirmar, e não entra aqui. O vínculo com o solicitante é apurado pelo
+  responsável registrado no cadastro, comparado por nome e não por CNPJ: grafia divergente
+  ou homônimo inverteria de quem é cada loja. Loja do próprio solicitante aparece separada
+  de loja de outro associado: sobreposição com a própria operação é efeito econômico a
+  dimensionar, enquanto sobreposição com a de outro associado é o conflito entre
+  associados que a regra existe para evitar. <b>Para o teto, é esta distinção que vale: ele
+  conta grupos econômicos, e o pedido só acrescenta um quando o solicitante ainda não
+  responde por loja nesta cidade.</b> A coluna de grupo usa rótulo anônimo e serve para
+  conferir a contagem: duas linhas com o mesmo rótulo são um grupo só.</p>
+  <table><thead><tr><th>Bandeira</th><th>Modelo</th><th>Status</th><th>Bairro</th><th>Distância até o ponto</th><th>Grupo</th><th>Vínculo</th><th>No teto</th></tr></thead><tbody><tr class="tem"><td>Maxi Popular</td><td>Popular</td><td>Ativado</td><td>CENTRO</td><td>444 m</td><td>Grupo A</td><td>do próprio solicitante</td><td>grupo ocupa vaga</td></tr><tr class="tem"><td>Ultra Popular</td><td>Popular</td><td>Ativado</td><td>CENTRO</td><td>628 m</td><td>Grupo A</td><td>do próprio solicitante</td><td>grupo ocupa vaga</td></tr><tr class="tem"><td>Ultra Popular</td><td>Popular</td><td>Ativado</td><td>CENTRO</td><td>936 m</td><td>Grupo A</td><td>do próprio solicitante</td><td>grupo ocupa vaga</td></tr><tr class="tem"><td>Maxi Popular</td><td>Popular</td><td>Ativado</td><td>CENTRO</td><td>1.213 m</td><td>Grupo A</td><td>do próprio solicitante</td><td>grupo ocupa vaga</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">↻</span> O que mudaria o resultado</h2>
+  <ul class="proc"><li><b>Regra — abrir com a bandeira Maxi Popular.</b> Verificado na própria checagem de zoneamento: com Maxi Popular como bandeira pretendida o veredito deixa de ser impedimento e passa a alerta. A vizinha de 444 m passaria a ser de mesma bandeira, com mínimo de 300 m, e a Ultra Popular mais próxima fica a 628 m, acima dos 500 m exigidos entre bandeiras diferentes. É a mudança mais barata, e é de escopo do solicitante.</li><li><b>Regra — outro endereço, mantida a bandeira Ultra Popular.</b> Ele precisa ficar a pelo menos 500 m das duas Maxi Popular e a pelo menos 300 m das duas Ultra Popular do Centro: num endereço novo a checagem recomeça contra as quatro lojas, e não só contra a que barra hoje.</li><li><b>Hipótese — a distância real ser diferente de 444 m.</b> O número é medido em linha reta entre a coordenada informada para o ponto e a coordenada do endereço de Receita registrada no cadastro de lojas. Nenhuma das duas foi levantada em campo, e o endereço de Receita é onde a empresa está registrada, não necessariamente onde a porta da loja está. Medição em campo confirma ou derruba o impedimento.</li><li><b>Hipótese — a loja de 444 m deixar de operar.</b> Encerramento ou mudança de ponto dela retiraria a referência que barra a distância. Não há nada no acervo indicando que isso esteja previsto, e se a regra de distância considera loja desativada é questão em aberto — a checagem aplica a premissa de que só contam lojas ativadas, em montagem ou em transição.</li></ul>
+</section>
+<section>
+  <h2><span class="ic">→</span> Onde mais olhar — praças onde a regra não barra</h2>
+  <p class="explica"><b>Isto não é análise de mercado deste ponto.</b> Levantar renda,
+  concorrência e potencial do endereço reprovado sugeriria que há número a negociar ali, e
+  não há — o que existe para resolver é decisão de quem é dono da regra. A lista abaixo não
+  afirma nada sobre o endereço pedido: são praças da mesma UF onde a entrada de um grupo
+  novo <b>cabe no teto</b>, ordenadas pelo mercado que hoje circula sem passar pela rede.
+  Cada linha é uma unidade de mercado, por isso a mesma cidade pode aparecer mais de uma vez,
+  sempre nomeando a localidade — ou dizendo "município inteiro", quando a unidade cobre a
+  cidade toda. A lista já considera que a bandeira pretendida é <b>popular</b>. Praça com mercado abaixo de R$ 5.000.000,00 não entra na lista — piso desta busca, premissa e não regra da casa.</p>
+  <p class="explica"><b>A lista está limitada a 150 km do endereço analisado</b>, medidos até o centro aproximado de cada município. Esse raio é premissa desta análise, não regra da casa: nenhuma fonte diz a que distância um empresário aceita operar. Sem ele, a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p>
+  <table><thead><tr><th>Praça</th><th>Distância</th><th>Mercado não atendido</th>
+  <th>Grupos / teto</th><th>Cresc.</th></tr></thead><tbody><tr><td><b>DOURADOS/MS</b><div class="nota">CENTRO</div></td><td>101 km</td><td>R$ 134,5 milhões<div class="nota">20 loja(s) da rede na cidade · receita da rede caiu 1,0% — praça possivelmente já testada</div></td><td>2 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>9,0%</td></tr><tr><td><b>DOURADOS/MS</b><div class="nota">JARDIM COLIBRI</div></td><td>101 km</td><td>R$ 99,0 milhões<div class="nota">20 loja(s) da rede na cidade</div></td><td>2 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>7,0%</td></tr><tr><td><b>MARACAJU/MS</b><div class="nota">município inteiro</div></td><td>117 km</td><td>R$ 69,3 milhões<div class="nota">0 loja(s) da rede na cidade</div></td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>7,0%</td></tr><tr><td><b>RIO BRILHANTE/MS</b><div class="nota">município inteiro</div></td><td>147 km</td><td>R$ 21,5 milhões<div class="nota">0 loja(s) da rede na cidade</div></td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>16,0%</td></tr><tr><td><b>JARDIM/MS</b><div class="nota">município inteiro</div></td><td>124 km</td><td>R$ 17,4 milhões<div class="nota">0 loja(s) da rede na cidade</div></td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>-1,0%</td></tr><tr><td><b>BELA VISTA/MS</b><div class="nota">município inteiro</div></td><td>95 km</td><td>R$ 10,9 milhões<div class="nota">0 loja(s) da rede na cidade</div></td><td>0 de 1<div class="nota">cabe grupo novo — 0 de 1, 1 vaga(s)</div></td><td>22,0%</td></tr></tbody></table>
+  <p class="vazio"><b>Como a disponibilidade é apurada.</b> cabe grupo novo quando os grupos econômicos com loja ativa na cidade são MENOS que o teto da faixa — e, na faixa de 60 a 120 mil, o 2º grupo só entra com bandeira popular.
+  O grupo sai do responsável pelo GE no cadastro, deduplicado por NOME normalizado e não por CNPJ. Grafia divergente entre duas lojas do mesmo dono inventa um grupo e esconde uma praça que está disponível — ou seja, uma praça pode aparecer como indisponível
+  por grafia divergente no cadastro, e o caminho para confirmar é o CNPJ. Esta lista escolhe
+  a <b>praça</b>, não o ponto: cada uma ainda precisa do seu próprio dossiê.</p>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Alertas de cadastro</h2>
+  <ul class="proc"><li><b>A decisão se apoia numa distância que não é medida de campo.</b> Os 444 m saem, em linha reta, da coordenada do endereço de Receita no cadastro de lojas contra a coordenada informada para o ponto — e o mínimo da regra é 500 m. Nenhuma das duas pontas foi conferida no local.</li><li><b>As quatro lojas da cidade têm coordenada preenchida</b>, então nenhuma ficou fora da checagem de distância — num cadastro em que 1.844 das 2.808 lojas (66%) têm coordenada utilizável, 932 estão vazias e 32 caem fora do Brasil.</li><li><b>Nenhuma loja cadastrada em outra cidade foi encontrada perto do ponto</b>, e não há loja desativada em Ponta Porã. Os dois casos que costumam distorcer a contagem do teto não se aplicam aqui.</li><li>quantidade de lojas acima do que a faixa de população dimensiona — com o pedido a cidade fica com 5 loja(s) Farmarcas para uma faixa dimensionada em 2, distribuídas entre 1 grupo(s) econômico(s). não barra: o teto conta grupos econômicos. É sinal de que a praça pode ficar densa demais em loja por habitante, o que divide o mesmo mercado entre mais pontos — efeito econômico a dimensionar, não conflito entre associados</li></ul>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que esta checagem NÃO sabe
+    <span class="qtd">11 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li><b>Nenhuma camada de mercado foi levantada para este endereço.</b> População no raio, renda, densidade, concorrência, potencial de consumo, preço por unidade e geradores de fluxo não foram apurados, por decisão de método: dossiê de mercado sobre ponto barrado sugere que há número a negociar, e não há. Importa dizer isto por extenso porque o silêncio sobre essas camadas é lido como ausência de problema nelas. Destrava quando o impedimento for resolvido — aí o ponto, ou o endereço que o substituir, recebe o dossiê completo.</li><li><b>Fluxo de passantes.</b> Nenhuma base do acervo e nenhuma camada do produto mede quantas pessoas passam pela calçada, e isso vale para qualquer endereço desta praça, não só para este. Importa porque é a variável que mais pesa num ponto de centro comercial, e é a que nenhuma análise da casa responde hoje. Destrava com contagem de passantes em campo ou com dado de telefonia celular.</li><li><b>A que distância fica, de fato, a loja de 444 m.</b> O cadastro traz a coordenada do endereço de Receita, que é onde a empresa está registrada e não necessariamente onde a porta da loja está. Importa porque é essa medida que decide o pedido: 444 m contra um mínimo de 500 m. Destrava com medição em campo entre as duas portas, ou com a geocodificação revisada do cadastro.</li><li><b>Se a regra de distância vale contra loja do próprio solicitante.</b> A regra de expansão foi escrita para evitar conflito entre associados, e aqui não há dois associados: o solicitante está sendo barrado pela própria loja. A página não distingue os dois casos, e a checagem aplica a distância sem olhar de quem é a loja vizinha. Importa porque é o que decide este pedido. Destrava com a definição escrita de quem é dono da regra.</li><li><b>Se os quatro pontos da cidade são mesmo um único grupo econômico.</b> A contagem sai do responsável registrado no cadastro, comparado por nome normalizado e não por CNPJ. Aqui as quatro lojas trazem exatamente o mesmo nome, o que torna a leitura firme — mas é a mesma apuração que, com grafias divergentes, separaria um dono em dois grupos. Importa porque é essa contagem que diz que o pedido não traz grupo novo. Destrava com o vínculo por CNPJ no cadastro de lojas.</li><li><b>Se a regra de distância considera loja desativada.</b> A checagem aplica a premissa de que só ocupam vaga as lojas em situação ativada, em montagem ou em transição, e essa premissa não está escrita na regra. Importa menos aqui, porque Ponta Porã não tem loja desativada — mas é a premissa que sustentaria o destravamento por encerramento. Destrava com a definição escrita na regra.</li><li>cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa (1.844 de 2.808 lojas (66%) têm coordenada utilizável; 932 vazias e 32 fora do Brasil (cadastro de 2026-11-10)).</li><li>quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra (ocupam vaga: Ativado, Montando, Transição — desativada não ocupa (premissa, não está na regra)).</li><li>a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página (a página escreve faixas sobrepostas (60, 120 e 200 mil habitantes); aqui os cortes são tratados como fechados em 60.000, 120.000 e 200.000).</li><li>a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página (a página diz que as regras diferem entre loja popular e convencional, sem detalhar a diferença).</li><li>Fluxo de passantes não existe no acervo nem no produto, e nenhuma camada de mercado foi levantada para este ponto — população no raio, renda, concorrência e potencial de consumo seguem desconhecidos aqui. Destrava se o impedimento for resolvido por quem é dono da regra e o pedido voltar para análise.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li><b>Medir a distância em linha reta entre a porta do ponto e a porta da Maxi Popular do Centro.</b> É assim que a regra mede — caminhada a pé dá sempre mais que a reta e derrubaria um impedimento que não caiu. Se a reta der 500 m ou mais, o impedimento cai e o endereço segue para o dossiê completo; se confirmar abaixo, o caminho é trocar a bandeira ou o endereço.</li><li><b>Confirmar se a bandeira pretendida pode ser Maxi Popular.</b> É o destravamento mais barato e já verificado: com ela o veredito passa a alerta sem mudar de endereço. Se a escolha da Ultra Popular for inegociável, o endereço é que precisa mudar.</li><li><b>Confirmar que a loja de 444 m está operando.</b> O cadastro a registra como ativa; se estiver fechada ou em mudança de ponto sem baixa no cadastro, a referência que barra deixa de existir — e o cadastro precisa ser corrigido de todo modo.</li><li><b>Levar o alerta de densidade para a mesa junto com a decisão de endereço.</b> Mesmo resolvido o impedimento, a praça fica com cinco lojas da rede para uma faixa dimensionada em duas, todas do mesmo dono. Isso não barra, mas é a conta que o solicitante está fazendo quando decide abrir mais um ponto no mesmo centro.</li></ul>
+</section>
+<section>
+  <h2><span class="ic">§</span> Fontes</h2>
+  <ul class="proc">
+    <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas,
+      páginas 4.5 e 6.1, versões de 24/02/2026. A contagem do teto por <b>grupos
+      econômicos</b>, confirmada com a área dona da regra em 29/10/2026, <b>substitui a
+      contagem por lojas</b> que vigorou até então e <b>aproxima a regra do que a página
+      escreve</b>, já que a página fala em empresários. O mínimo de distância por bandeira,
+      confirmado em 27/10/2026, é o que <b>diverge</b> da página, que escreve apenas 300 m
+      sem distinguir bandeira.</li>
+    <li><b>Coordenada do ponto</b> — informada pelo solicitante</li>
+    <li><b>População do município</b> — Censo 2022 do IBGE, pela API pública, extração de
+      2026-11-12. Não vem do acervo de camadas. A data é a da gravação local da
+      resposta: copiar esse arquivo entre máquinas a reescreve.</li>
+    <li><b>Lojas da rede, status, bandeira, modelo e vínculo com o solicitante</b> —
+      cadastro de lojas Farmarcas, extração de 2026-11-10. O vínculo de cada loja com o solicitante é apurado pelo responsável informado na geração deste relatório, comparado por nome contra o cadastro, não por CNPJ.</li>
+    <li><b>Contexto do município</b> — acervo de camadas do Órbita, extração de 2026-10-26,
+      sem atualização automática.</li>
+    <li><b>Praças onde a regra não barra</b> — receita por unidade de mercado da IQVIA para
+      ordenar, e cadastro de lojas mais Censo 2022 para a disponibilidade de zoneamento.</li>
+  </ul>
+  <p class="vazio">Este documento não pontua o ponto e não analisa o mercado dele: não há
+  score, nota nem status de recomendação. A régua de viabilidade pertence ao produto.</p>
+</section>
+<footer>
+  Órbita · Impedimento de Zoneamento · R. Baltazar Saldanha, 331 - Centro, Ponta Porã/MS, 79904-602 ·
+  insumo para o comentário da análise, não substitui o parecer do analista
+</footer></div></body></html>

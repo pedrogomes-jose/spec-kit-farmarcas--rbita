@@ -50,9 +50,26 @@ seria trocar um defeito de leitura por um erro de conteúdo.
 | Fica na lente, junto do número | Sai para as lacunas |
 |---|---|
 | **unidade e recorte** — "é mensal", "é do município, não do quarteirão", "é acumulado de 12 meses" | a nota de confiança e o motivo dela |
-| **a que o número se refere** — "é a média do canal na UF, nunca a venda daquela loja" | o que faria o número estar errado |
+| **a que o número se refere** — "a faixa mediana ocupada", "a loja média do canal" | o que faria o número estar errado |
 | **viés declarado por regra da casa** — a janela dupla da régua de canal, a divergência entre fontes | o que falta para resolver o viés |
 | **o que o número não distingue** — "a série é de receita, não separa volume de preço" | o que destravaria a distinção |
+
+#### E a ressalva obrigatória vai no SUBSTANTIVO, nunca numa frase ao fim
+
+Esta é a forma, e ela não é estilo: a ressalva que a casa obriga entra no **nome
+do número dentro da frase**, não como oração explicativa fechando o parágrafo.
+
+| Não escrever | Escrever |
+|---|---|
+| "A mediana de faturamento da cidade é R$ 330.312. O campo registra em que faixa a loja caiu, não quanto cada uma vende, e a distância entre dois desses valores é distância entre faixas." | "A **faixa mediana ocupada** pelas 11 farmácias da cidade é a de R$ 330.312 por mês." |
+| "O entorno movimenta R$ 5,27 milhões ao ano. São médias do canal no estado, nunca o faturamento de nenhuma dessas lojas em particular." | "Somadas as lojas pela **régua de canal** — a **loja média** de cada canal em Minas —, o entorno de 300 m movimenta R$ 5,27 milhões ao ano." |
+| "São R$ 3,06 milhões de potencial. É demanda potencial de quem mora na área, não venda realizada, e a base não declara a periodicidade." | "O **potencial de consumo** em drogarias no raio de 300 m é de R$ 3,06 milhões." |
+
+Nomeado certo, o número já não é lido como outro número — que era todo o motivo
+da ressalva existir. Escrita depois, em frase própria, ela faz três estragos de
+uma vez: repete o que o relatório **já declara em bloco próprio**, dobra o
+parágrafo e empurra o achado para longe do começo. A regra da casa continua
+valendo; mudou o lugar onde ela se cumpre.
 
 ### E há um terceiro destino: o que o relatório já declara sozinho
 
@@ -68,6 +85,19 @@ ponderada. **Repetir isso na lente não declara nada: duplica.**
 | "as taxas entram como média ponderada — a renda por habitante pela população" | parágrafo explicativo da renda |
 | "100% da área do círculo é coberta por setor com geometria" | card **Método de rateio**, com a contagem de setores ao lado |
 | "o casamento do brick foi por nome de município" | nota do card de preço no brick |
+| "o campo registra em que faixa a loja caiu, não quanto cada uma vende" | bloco **Concorrentes da praça — em que faixa de faturamento eles caem**, que já diz isso em três frases |
+| "a distância entre dois desses valores é distância entre faixas" | o mesmo bloco, na última frase dele |
+| "são médias do canal no estado, nunca o faturamento de nenhuma dessas lojas" | bloco **O que este número é e o que não é**, embaixo da tabela de canais |
+| "a receita é acumulada de 12 meses e a contagem de PDVs é do ano corrente" | o mesmo bloco |
+| "é demanda potencial, não venda realizada" · "a base não declara a periodicidade" | parágrafo explicativo do potencial de consumo |
+| "é receita medida de loja da rede, não do concorrente" | título e notas do bloco **Lojas do grupo — receita medida** |
+
+As quatro últimas linhas entraram depois das outras, e por um motivo que vale
+registrar: elas são ressalvas que esta skill **obriga** a declarar, e por isso
+vinham sendo escritas na lente como se não houvesse outro lugar. Há: o gerador
+escreve cada uma delas, por extenso, no bloco onde o número aparece. A obrigação
+se cumpre lá. Na lente, o que resta a fazer é **chamar o número pelo nome
+certo** — faixa ocupada, loja média do canal, potencial de consumo — e seguir.
 
 O efeito de escrever assim mesmo é concreto: o parágrafo da lente dobra de
 tamanho, o número — que é o que o analista procura — vai para o meio ou para o
@@ -150,29 +180,179 @@ A ordem veio do que os analistas de fato abrem (`benchmark_historico.py
 | Cidade encolhendo | `densidade_demografica.TaxadeCrescimentoDemografico(%aa)` |
 | Farmarcas perdendo para o mercado na UTC | `crescimento_farmarcas` < `crescimento_sem_farmarcas` |
 
-## Oportunidades — o que ainda não foi tomado
+## Oportunidades — a vantagem que ainda está em aberto
 
-| Sinal | Vem de |
+A lente responde **uma** pergunta: o que este ponto, ou este grupo, passa a ter
+aqui que hoje não tem — e que a concorrência da região não tem. É **vantagem
+competitiva**, não panorama favorável. Panorama favorável é Força.
+
+Duas famílias, e não há terceira:
+
+| Família | A pergunta que ela responde |
 |---|---|
-| **Share Farmarcas zero ou baixo numa UTC de receita alta** | `mat_atual_utc_market_share` + `receita_atual_total` |
-| Nenhuma loja Farmarcas credenciada ao Farmácia Popular na cidade | `dados_farmacia_popular.lojasFARMARCAScredenciadas` = 0 |
-| Categoria crescendo acima do mercado | `mat_anterior_x_atual_utc_mix_categorias.*_crescimento` |
-| Bairro com IPC alto e pouca concorrência no raio | cruzamento `ranking_bairros` × `raio_concorrencia` |
-| Mercado cresce e o nº de PDVs não | `..._sem_cobertura.delta_pdvs` ≈ 0 com `crescimento` > 0 |
+| **Vantagem do ponto** | o que este endereço permite fazer que as farmácias do raio não fazem |
+| **Jogada de praça do grupo** | o que esta abertura trava para o outro lado — ocupar a praça, fechar a vaga, tirar o espaço que outra rede ocuparia |
 
-## Dificuldades — o que vai dar trabalho
+**Anatomia — três respostas, e sem qualquer uma delas o item não entra:**
+
+1. **Qual é a alavanca**, escrita como ação disponível: credenciar, ocupar,
+   converter, montar o mix, abrir onde ninguém abre.
+2. **Quem está deixando o espaço aberto** — o concorrente, o canal, a praça ou
+   o programa que ninguém da rede usa ali —, nomeado e contado.
+3. **Qual é o tamanho do espaço**, com o número e a comparação de sempre.
+
+### O teste do status quo
+
+**Se a frase continua verdadeira sem ninguém fazer nada, não é oportunidade.**
+É Força — o que o ponto já é — ou contexto, e aí normalmente já está num card.
+
+| Escrito assim, não é oportunidade | Onde pertence |
+|---|---|
+| "O grupo já movimenta R$ 16,90 milhões no brick" | Forças: é o que a praça já é |
+| "A mediana medida da bandeira no estado é de R$ 370 mil por mês" | lente nenhuma — é régua de referência, e o relatório já imprime os cards de receita medida |
+| "O entorno é verticalizado e tem supermercado a 178 m" | Forças: descreve o entorno de hoje |
+
+O sintoma de ter errado aqui é a **sensação de genérico**. Item que descreve o
+estado atual favorável serviria a qualquer dossiê de qualquer praça onde a rede
+já opera — e o leitor sente isso antes de saber nomear. Oportunidade é
+específica por construção: ela nomeia o que **não está** ocupado, e num outro
+endereço a frase seria falsa.
+
+### Oportunidade não se escreve como falta nossa
+
+O mesmo fato muda de lente conforme a redação, e uma das duas contradiz o
+quadrante em que está:
+
+| Lido como deficit — não entra | Lido como alavanca — entra |
+|---|---|
+| "Uma só loja da rede credenciada ao Farmácia Popular na cidade. Bom Despacho tem 24 farmácias, 16 delas credenciadas, e apenas uma loja Farmarcas entre as credenciadas." | "O credenciamento ao Farmácia Popular é alavanca disponível para este ponto: 16 das 24 farmácias da cidade já operam por ele, num município que gasta R$ 75,41 milhões em medicamentos. É a norma da praça, e o endereço entra nela no ato do credenciamento." |
+
+A primeira redação põe a rede no banco dos réus dentro da lente **a favor** — e
+é daí que vem a impressão de que o quadrante se contradiz. O fato é o mesmo; o
+que muda é se a frase aponta para o buraco ou para a ação que o preenche. Se,
+depois de reescrito, o item só souber falar do buraco, ele era Fragilidade.
+
+### A lente fala da REGIÃO, nunca da própria medição
+
+A regra que engloba todas as anteriores, e o teste é de uma linha: **qual é o
+sujeito da frase?** Se for a região, o ponto, a concorrência, a cidade ou o
+grupo, a frase é da lente. Se for *a base*, *o campo*, *o dado*, *a medida*,
+*as duas leituras*, *a divergência* ou *este relatório*, a frase é sobre o
+dossiê — e o dossiê tem outros lugares para falar de si.
+
+| Sujeito da frase | Para onde vai |
+|---|---|
+| a região, o ponto, a concorrência, a cidade, o grupo | **lente** |
+| a base, o campo, a camada, o dado | bloco do relatório, que já o escreve |
+| a divergência, as duas leituras, a medida | **lugar nenhum** — mostre os dois números e pare |
+| este relatório, esta análise, a premissa adotada | lacuna |
+
+| Não escrever | Por quê |
+|---|---|
+| "Nenhuma das duas mede loja nenhuma, e a divergência entre elas é o próprio achado." | não acrescenta número nem comparação; só anuncia que o dossiê percebeu algo |
+| "O grupo é apurado pelo nome do responsável no cadastro, e não pelo CNPJ." | é critério de apuração, e já está escrito por extenso na lacuna sobre grupos do cadastro |
+| "O encerramento do ponto de origem é premissa deste relatório, e não consta de base nenhuma." | premissa é lacuna, e esta já existe lá |
+| "quantas pessoas eles movem, nenhuma base responde" | fluxo de passantes é lacuna obrigatória, e está nela |
+| "a posição se mantém alta nos dois cortes" | comenta a robustez do cálculo, não a cidade |
+
+**Divergência entre fontes continua sendo achado — e o jeito de mostrá-la é pôr
+os dois números à vista**, cada um com o nome certo. Quem lê o dossiê é analista:
+vendo "a loja média do canal independente fatura R$ 69.439" e, no item seguinte,
+"a faixa mais alta ocupada da cidade está dentro do raio de 300 m", ele enxerga a
+tensão sozinho. Escrever "as duas discordam" rouba o espaço do número e não
+acrescenta nada que o leitor já não tenha na frente.
+
+O defeito é teimoso porque parece honestidade. Não é: é o dossiê falando de si
+mesmo dentro da caixa reservada para falar do lugar.
+
+### O mesmo número não aparece em duas lentes
+
+Fato que corta para os dois lados fica na lente onde ele **muda mais a decisão**,
+e a segunda leitura entra como oração do mesmo parágrafo. Repetido em duas
+caixas do quadrante, o leitor não lê nuance: lê contradição, e passa a
+desconfiar das quatro.
+
+"18 das 26 lojas do raio são independentes" é fragilidade — o dinheiro que
+circula no entorno é de loja pequena — **e** é vantagem — o concorrente típico
+não tem escala de compra. Escolha a caixa e diga as duas coisas dentro dela.
+
+### Sinais que costumam virar oportunidade legítima
+
+| Sinal | Vem de | Por que é alavanca |
+|---|---|---|
+| Programa público disponível, já dominante entre os concorrentes | `dados_farmacia_popular` | credenciar é ação da loja, e o gasto do município dimensiona o espaço |
+| **Share Farmarcas zero ou baixo numa UTC de receita alta** | `mat_atual_utc_market_share` + `receita_atual_total` | há receita que a rede não disputa |
+| Categoria crescendo acima do mercado | `mat_anterior_x_atual_utc_mix_categorias.*_crescimento` | mix a montar que o entorno não montou |
+| Bairro com IPC alto e pouca concorrência no raio | `ranking_bairros` × `raio_concorrencia` | demanda sem quem a atenda perto |
+| Mercado cresce e o nº de PDVs não | `..._sem_cobertura.delta_pdvs` ≈ 0 com `crescimento` > 0 | espaço que ninguém está abrindo |
+| Entorno concentrado no canal de menor escala | `faturamento_canal` + `raio_concorrencia` | retaguarda de rede compra e precifica onde o vizinho não alcança |
+| **Teto de zoneamento ocupado pelo próprio solicitante** | `zoneamento.py`, perfil `existente` | enquanto ele ocupa a vaga, nenhum **outro grupo** entra na praça pela rede |
+
+A última só existe para solicitante já associado, e precisa dizer exatamente o
+que trava: a entrada de **outro grupo econômico pela rede Farmarcas** — nunca a
+de concorrente de fora dela, que a regra de expansão não alcança. Escrita sem
+esse recorte, ela promete um fechamento de praça que não existe.
+
+## Dificuldades — o que o negócio vai ter de atravessar
+
+A lente responde **uma** pergunta: o que, daqui para a frente, vai dificultar a
+operação dar certo neste ponto. Obstáculo, custo, atrito, conflito ou risco de
+execução — coisa que alguém vai ter de resolver para o negócio andar bem.
 
 > **Antes desta lente, saber quem pede.** Loja Farmarcas vizinha significa
 > coisas opostas conforme o solicitante — ver `zoneamento-e-perfil.md`.
 
-| Sinal | Vem de |
+**Anatomia — três respostas, e sem qualquer uma delas o item não entra:**
+
+1. **O que vai dar trabalho**, nomeado como coisa a atravessar.
+2. **Quem ou o que impõe** — a regra, o vizinho, o concorrente, o custo.
+3. **O que custa se não for tratado**, com número quando houver.
+
+### O teste do "e daí?"
+
+**Se a resposta a "o que isso dificulta?" for "nada", não é dificuldade.** É
+resultado de gate, é premissa ou é lacuna — e cada um desses já tem lugar
+próprio no relatório.
+
+O item costuma denunciar-se sozinho, na última oração. Quem **termina** em "não
+restringe este pedido", "não barra", "não há o que barrar", "sem veredito para
+este endereço", "não se aplica" ou "é premissa deste relatório" está dizendo,
+com todas as letras, que nada ali dificulta nada — e ocupa uma caixa do
+quadrante para informar que não há o que informar.
+
+| Escrito assim, não é dificuldade | Onde pertence |
 |---|---|
-| **Canibalização com loja de OUTRO associado** — é o conflito que a regra de expansão existe para evitar | `zoneamento.py`, lojas com `do_solicitante: false` |
-| **Sobreposição com loja DO PRÓPRIO solicitante** — pode ser estratégia (fechar mercado, share, poder de negociação), não defeito do ponto | `zoneamento.py`, lojas com `do_solicitante: true` |
-| **Alerta de zoneamento** que não barrou mas pesa: alternância de bandeiras, distância acima de 200 mil hab, cadastro divergente | `zoneamento.py`, bloco `alertas` |
-| Loja Farmarcas desativada perto — **existência, bandeira e distância**, que são cadastrais | `raio_concorrencia.lojas_farmarcas_no_raio`, status `Desativado`. O **motivo** do fechamento não está em base nenhuma: fica de fora da lente e vira lacuna |
-| Cidade pequena, UTC única, mercado concentrado | `mercado_utc` + `populacao_municipios` |
-| Ponto em meio de quadra, com uma só face de exposição | `implantacao.py` — só quando a classificação sai com confiança alta |
+| "Loja do mesmo grupo desativada a 10,5 km… não ocupa vaga no teto, de modo que não restringe este pedido" | lacuna — o que decide alguma coisa é **por que** ela fechou, e isso não está em base nenhuma |
+| "A distância mínima não é avaliada nesta faixa de população. Fica registrada como regra, sem veredito" | lacuna — o dossiê não avalia essa regra aqui, e é isso que se declara |
+| "O encerramento do ponto de origem é premissa deste relatório" | lacuna — premissa declarada é lacuna, sempre |
+| "O teto é de um grupo e o solicitante já o ocupa, então não há conflito a arbitrar" | é o resultado do gate, que tem bloco próprio no topo — e, para associado já presente, costuma ser Oportunidade |
+
+### Fragilidade é hoje; dificuldade é o caminho
+
+A divisa entre as duas lentes da direita não é de intensidade, é de tempo. Três
+concorrentes a 23 m **são** o que o ponto é: Fragilidade. Reescrever isso como
+"vai ser difícil disputar o passante com eles" é a mesma frase duas vezes, e a
+segunda sem número. Só vira Dificuldade o que acrescenta **o obstáculo adiante**
+— o contrato, o custo de reforma, o período com duas lojas abertas, a regra que
+vai pesar na mesa de aprovação.
+
+### Sinais que costumam virar dificuldade legítima
+
+| Sinal | Vem de | O que, concretamente, dificulta |
+|---|---|---|
+| **Canibalização com loja de OUTRO associado** | `zoneamento.py`, lojas com `do_solicitante: false` | é o conflito que a regra de expansão existe para evitar, e ele vai ter de ser arbitrado por alguém |
+| **Sobreposição com loja DO PRÓPRIO solicitante** | `zoneamento.py`, `do_solicitante: true` | divide o mesmo mercado entre mais pontos do mesmo dono — pode ser estratégia e continua sendo custo |
+| **Alerta de zoneamento que não barrou mas pesa** | `zoneamento.py`, bloco `alertas` | entra na mesa de aprovação e precisa de resposta antes de o ponto andar |
+| Cidade pequena, UTC única, mercado concentrado | `mercado_utc` + `populacao_municipios` | sobra pouco espaço para errar mix ou preço e corrigir depois |
+| Período de transição com dois pontos abertos | `zoneamento.py` + perfil do solicitante | durante ele, a praça divide o mesmo mercado entre mais lojas da própria rede |
+
+**Loja Farmarcas desativada perto saiu desta tabela.** A existência, a bandeira e
+a distância são cadastrais e verdadeiras, mas não impõem nada ao pedido — loja
+desativada não ocupa vaga no teto. O que mudaria uma decisão é o **motivo** do
+fechamento, que não está em base nenhuma. Então o assunto inteiro é lacuna, com
+a pergunta de campo junto, e não item de lente.
+
+**Ponto em meio de quadra também saiu**: é o que o ponto já é, logo Fragilidade.
 
 **Dois assuntos NÃO entram nesta lente**, por confiança nenhuma — e por isso
 mesmo são lacuna obrigatória, não item: o **fluxo de passantes**, que não existe

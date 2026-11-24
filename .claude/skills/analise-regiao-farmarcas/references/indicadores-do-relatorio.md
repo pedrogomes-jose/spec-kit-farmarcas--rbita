@@ -282,6 +282,24 @@ afirmação sobre o ponto: nenhum número sai daí.
 Equipamento **sem nome** no OSM entra na contagem e fica **fora** da coluna de
 exemplos — "(sem nome)" repetido polui a leitura sem informar nada.
 
+**Quando o raio volta quase vazio, a tabela ganha uma coluna — nunca uma segunda
+tabela.** Com menos de cinco equipamentos etiquetados no raio pedido, o script
+consulta também um círculo de 1.500 m e o relatório acrescenta a coluna "Em
+1.500 m". O círculo largo é concêntrico e **contém** o pedido: as duas colunas
+são aninhadas, não paralelas, e por isso não se somam. "Mais próximo" e
+"Exemplos nomeados" saem sempre do maior círculo disponível, que é onde a
+resposta é completa.
+
+Duas tabelas foi como isso nasceu, e estava errado: as mesmas nove categorias
+apareciam duas vezes, a primeira quase toda zerada, e o único equipamento do
+raio curto reaparecia na segunda tabela, onde se lia como se fosse outro. A
+tabela única também mostra a categoria **zerada nos dois círculos** — a de
+cima a omitia, e "não há transporte nem a 1.500 m" é informação que o leitor
+precisa ter.
+
+O corte de cinco equipamentos e o raio de 1.500 m são **premissa da análise,
+não medida**, e o relatório diz isso onde a coluna aparece.
+
 > Contagem de equipamentos é **proxy fraco** de fluxo: diz que há geradores,
 > não quanta gente passa. **Não substitui** o dado de passantes, que continua
 > sendo lacuna obrigatória. Cobertura do OSM é colaborativa e irregular —

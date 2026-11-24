@@ -1,0 +1,132 @@
+{
+  "endereco": "R. Betânia, 199 - Benguí, Belém/PA, 66630-140",
+  "lat": -1.375345,
+  "lng": -48.450785,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "1501402",
+  "municipio": "Belém",
+  "uf": "PA",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "existente",
+  "ge": "",
+  "receita_por_m2": null,
+  "resumo": "Bairro residencial denso e de renda baixa no norte de Belém, com oito estabelecimentos farmacêuticos cadastrados dentro de 300 m — sete deles na mesma rua do ponto — e a bandeira mais presente no raio de 5 km a 55 m.",
+  "lentes": {
+    "Forças": {
+      "abertura": "O que sustenta o endereço não é a rua, é o bairro: o raio de 300 m concentra moradores em cima do ponto, numa cidade cujo mercado farmacêutico cresce e que tem menos farmácia por habitante do que a mediana do país.",
+      "itens": [
+        {
+          "titulo": "O raio de 300 m reúne 4.830 moradores, a uma densidade de 17.161 hab/km²",
+          "texto": "No município inteiro a densidade é de 1.317 hab/km². São 1.236 domicílios com 3,9 moradores cada, num entorno horizontal: a verticalização no raio é de 0%, de modo que essa concentração vem de casa, e não de prédio.",
+          "fonte": "Censo 2022 do IBGE, camada Densidade Demográfica do Setor e camada Índice de Verticalização"
+        },
+        {
+          "titulo": "Belém tem 1.658 habitantes por farmácia, no percentil 62 entre 5.541 municípios",
+          "texto": "A mediana nacional é de 1.492,6 habitantes por farmácia, e a cidade fica acima dela: são 786 farmácias para os 1.303.403 habitantes do Censo 2022. Pelo acervo interno, que traz população maior, a razão sobe para 1.775,7 e a posição para o percentil 68.",
+          "fonte": "camada Farmácia Popular e Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "O mercado farmacêutico de Belém cresceu 12,89% entre os dois períodos",
+          "texto": "A receita somada das nove unidades de mercado da cidade passou de R$ 1,85 bilhão para R$ 2,09 bilhões no acumulado de doze meses, dos quais R$ 324,25 milhões são de lojas da rede.",
+          "fonte": "base de crescimento por UTC da IQVIA"
+        },
+        {
+          "titulo": "Belém é metrópole regional e polo declarado de 67 municípios",
+          "texto": "A classificação na rede urbana é 1C, e o índice de potencial de consumo da cidade está no percentil 100 entre 5.571 municípios. A renda domiciliar per capita de R$ 812,43 fica no percentil 91, contra mediana nacional de R$ 456,30.",
+          "fonte": "REGIC 2018 do IBGE, camada Ranking de Consumo e camada Renda Média do Município"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "O bairro é denso e já está servido: a concentração de farmácias no entorno imediato é de outra ordem que a do resto da cidade, o dinheiro que circula no quarteirão está concentrado numa única vizinha, e a renda de quem mora ali é bem menor que a da região em volta.",
+      "itens": [
+        {
+          "titulo": "São oito estabelecimentos cadastrados dentro de 300 m, sete deles na própria Rua Betânia",
+          "texto": "No raio de 5 km são 192 farmácias para 435.779 moradores; dentro de 300 m são oito. Os endereços são os números 152, 220, 449, 563 e 660 da mesma rua do ponto, que é o 199 — e três desses registros, de CNPJ distinto entre si, estão cadastrados no mesmo número 563.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "A farmácia mais próxima fica a 55 m e é da bandeira mais presente no raio de 5 km",
+          "texto": "É uma unidade Extrafarma, no número 152 da Rua Betânia, e 19 das 192 farmácias do raio de 5 km são dessa mesma bandeira. A loja média do canal ABRAFARMA no Pará fatura R$ 780.588 por mês, contra R$ 1,16 milhão somados pelas sete lojas do raio de 300 m com canal reconhecido.",
+          "fonte": "camada Concorrentes 2025 e base de receita e PDVs por canal da IQVIA"
+        },
+        {
+          "titulo": "A renda por habitante no raio de 300 m é de R$ 675,51",
+          "texto": "No raio de 5 km ela é de R$ 1.171,42, e a renda domiciliar do entorno imediato fica em R$ 1.369,57 por mês. Na cidade, 30,4% dos domicílios são de classe D/E e 26,4% de C2.",
+          "fonte": "camada Renda Média por setor censitário e camada Classe Econômica dos Domicílios"
+        },
+        {
+          "titulo": "Quatro das cinco vizinhas com faixa preenchida caem na faixa mais baixa da régua",
+          "texto": "A faixa 8 vai até R$ 89.997 por mês e concentra quatro lojas do raio; uma quinta está na faixa de R$ 271.181 a R$ 388.443. Na cidade inteira, a faixa mediana ocupada é a de R$ 216.713 e o terceiro quartil, a de R$ 469.259.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "Belém perde população a 0,55% ao ano",
+          "texto": "O crescimento demográfico do município é negativo, e 99,5% da população é urbana. O mercado que cresce na cidade não está sendo empurrado por gente nova chegando.",
+          "fonte": "camada Densidade Demográfica e camada Situação do Território"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "O que este endereço passa a permitir, e as farmácias do raio não fazem, está em duas alavancas: o preço de retaguarda de rede num quarteirão de loja independente, e um programa público que a maioria das farmácias da cidade não usa.",
+      "itens": [
+        {
+          "titulo": "Entrar com preço de rede num raio dominado por farmácia independente",
+          "texto": "Cinco das oito lojas do raio são do canal independente, cuja loja média no Pará fatura R$ 46.064 por mês, contra R$ 855.251 da loja média do Grupo Farmarcas no estado. Nos bricks de Belém a rede vende a R$ 24,33 por unidade e os concorrentes a R$ 31,21. Somadas pela régua de canal, essas cinco independentes movimentam R$ 230.322 por mês.",
+          "fonte": "camada Concorrentes 2025, base de receita e PDVs por canal da IQVIA e base de faturamento por brick da IQVIA"
+        },
+        {
+          "titulo": "Credenciar ao Farmácia Popular, numa cidade em que 77 das 786 farmácias operam pelo programa",
+          "texto": "Belém gasta R$ 1,02 bilhão em medicamentos e tem 9,8% das suas farmácias credenciadas. Credenciar é ato da própria loja, e na praça ele ainda é exceção, não norma.",
+          "fonte": "camada Farmácia Popular"
+        },
+        {
+          "titulo": "Ocupar, com a bandeira do solicitante, as três unidades de mercado de Belém em que ela não registra receita",
+          "texto": "É jogada de praça do grupo, e não vantagem deste endereço. Em Tenoné, Maracangalha e Pratinha a Ultra Popular aparece com 0% da receita, enquanto a Maxi Popular, do outro grupo econômico da praça, detém 16%, 11% e 11%. As três movimentaram, no acumulado de doze meses, R$ 114,48 milhões, R$ 158,80 milhões e R$ 257,38 milhões.",
+          "fonte": "base de bandeiras por UTC e base de crescimento por UTC da IQVIA"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "O que vai ter de ser atravessado não está no mercado, está na mesa de aprovação e na retaguarda: há loja de outro associado cadastrada no mesmo bairro, e a operação entra sem nenhuma loja do próprio grupo por perto.",
+      "itens": [
+        {
+          "titulo": "Há uma loja Maxi Popular, de outro grupo econômico, cadastrada no próprio Benguí",
+          "texto": "A regra de expansão exige 500 m entre lojas de bandeiras diferentes, e o pedido chega à aprovação com esse ponto em aberto. Dentro do raio de 5 km há outras duas lojas desse mesmo grupo, a 3.141 m e a 4.781 m. Enquanto o endereço da loja do bairro não for resolvido, o que está sobre a mesa é um conflito entre associados, que alguém terá de arbitrar antes de o ponto andar.",
+          "fonte": "cadastro de lojas da rede e regras oficiais de expansão da Farmarcas"
+        },
+        {
+          "titulo": "A loja do próprio solicitante mais próxima com coordenada no cadastro fica a 6.354 m",
+          "texto": "O grupo tem dez lojas em Belém, e as duas lojas da rede localizáveis dentro de 5 km são do outro grupo econômico. No entorno medido não há loja irmã para apoiar reposição de estoque, cobertura de equipe e supervisão no período de maturação, e cada uma dessas rotinas passa a depender de deslocamento pela cidade.",
+          "fonte": "cadastro de lojas da rede"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "<b>Fluxo de passantes.</b> Nenhuma base do acervo e nenhuma camada do produto mede quantas pessoas passam pela calçada. Importa neste endereço porque ele fica numa rua com sete farmácias cadastradas, e o movimento de passagem é justamente o que separa um ponto de rua de um ponto de bairro. Destrava com contagem de passantes em campo, em dia útil e em sábado, ou com dado de telefonia celular.",
+    "<b>A que distância fica a loja Maxi Popular cadastrada no Benguí.</b> Vinte e uma lojas cadastradas em Belém estão sem coordenada, dezessete delas entre as 32 ativas, e a do Benguí é uma delas; pelo centroide do bairro a aproximação é de 667 m, que é o centro do bairro e não o endereço da loja. Importa porque a regra para bandeiras diferentes é de 500 m, e é essa medida que decide se o caso é de distância mínima. Destrava geocodificando os endereços do cadastro de lojas.",
+    "<b>Se os três registros no número 563 da Rua Betânia são três lojas ou uma.</b> São três CNPJs distintos no mesmo número, e dois deles têm nomes próximos entre si. Importa porque muda de oito para seis o número de concorrentes dentro de 300 m, e com ele a leitura de saturação do quarteirão. Destrava com visita ao endereço ou com consulta da situação cadastral de cada CNPJ.",
+    "<b>Em qual brick o ponto cai.</b> O casamento foi pelo nome do município e trouxe os quinze bricks de Belém, de modo que o preço médio por unidade apresentado é o da cidade inteira. Importa porque preço de brick é o que mais varia de uma região para outra dentro de uma metrópole. Destrava com a malha geográfica de bricks.",
+    "<b>Em qual unidade de mercado o ponto cai.</b> Belém tem nove, e o acervo não localiza o ponto dentro delas; share, crescimento e mix de categorias usados aqui são municipais. Importa porque a leitura de ocupação por bandeira foi feita sobre unidades inteiras da cidade, não sobre o entorno do endereço. Destrava com a malha geográfica dessas unidades.",
+    "<b>Quanto do raio de 5 km ficou fora da conta.</b> Apenas 80,27% da área desse círculo é coberta por setor censitário com geometria, contra 99,99% no raio de 300 m. Importa porque população, renda e potencial de consumo do raio amplo foram calculados sobre a parte coberta, e o número sai menor do que a área real comporta. Destrava com a malha de setores completa para a região metropolitana.",
+    "<b>Por que as dez lojas Farmarcas desativadas em Belém fecharam.</b> Cinco delas eram Ultra Popular, quatro Maxi Popular e uma Bigfort. O motivo do encerramento não consta de base nenhuma do acervo. Importa porque é a informação que mais mudaria a leitura de uma praça onde a rede já teve mais pontos do que tem hoje. Destrava com o histórico de encerramento mantido pelo time de Expansão.",
+    "<b>Quais equipamentos existem no entorno do ponto.</b> A consulta ao mapa colaborativo devolveu uma escola a 403 m e mais nada dentro de 500 m, o que num bairro consolidado indica falta de mapeamento e não ausência de equipamento. Importa porque geradores de fluxo são o que mais se aproxima da variável de passantes que o dossiê não tem. Destrava com levantamento em campo ou com base comercial de pontos de interesse.",
+    "<b>Quanto cada farmácia do entorno vende de fato.</b> A régua de canal devolve a loja média de cada canal no Pará e não traz a dispersão dentro do canal: não há mínimo, máximo nem quartil por loja. E a faixa de faturamento está preenchida em cinco das oito lojas do raio de 300 m e em 66 das 192 do raio de 5 km. Importa porque a leitura do entorno é de faixa e de média de canal, nunca de loja. Destrava com dado de faturamento por CNPJ da região.",
+    "<b>Quais são os 67 municípios que a base declara influenciados por Belém.</b> A camada guarda apenas a contagem; invertendo a relação, nenhum município registra Belém como polo, e as duas leituras ficam declaradas sem que uma resolva a outra. Importa porque é o que dimensionaria o público que vem de fora da cidade. Destrava com a tabela de polos do REGIC.",
+    "<b>Se a população se distribui por igual dentro de cada setor censitário.</b> O cálculo do raio supõe que sim, e num setor meio vazio e meio ocupado isso erra. Importa porque os dez setores do raio de 300 m entram todos por fração de área, e o entorno mistura quadras adensadas com lotes grandes. Destrava com rateio ponderado por área construída, que o acervo não tem.",
+    "<b>Em que canal cada rede nomeada do entorno se encaixa.</b> O enquadramento das redes nomeadas é critério do método, não campo da base. Importa porque a vizinha de 55 m é a referência de porte do raio: lida como ABRAFARMA, a loja média do canal no Pará fatura R$ 780.588 por mês; lida como outra rede corporativa, R$ 542.938. Destrava com a classificação de canal por CNPJ na própria base do instituto.",
+    "<b>Quantas farmácias do entorno ficaram fora da contagem por falta de coordenada.</b> São 18 registros sem coordenada na camada de concorrentes, que não entram em contagem por raio nenhuma. Importa porque as oito lojas de 300 m e as 192 de 5 km são um piso, não um total, e é sobre elas que a leitura de saturação do quarteirão se apoia. Destrava com a geocodificação dos endereços da camada.",
+    "<b>Cinco dos 425 setores do raio de 5 km não têm registro nas bases de atributo.</b> Ficam sem renda, classe econômica, potencial de consumo, verticalização, saneamento e gênero. Importa porque esses seis indicadores do raio amplo são calculados sobre 420 setores e não sobre os 425 que a área alcança. Destrava com o preenchimento desses setores nas camadas de atributo."
+  ],
+  "campo": [
+    "<b>Endereço exato da loja Maxi Popular cadastrada no Benguí.</b> Se estiver a menos de 500 m, o pedido vira caso de distância mínima entre bandeiras diferentes e precisa de arbitragem antes de qualquer conta de mercado; se estiver além, o que resta é a densidade de lojas da praça.",
+    "<b>Quantos estabelecimentos operam de fato no número 563 da Rua Betânia.</b> Se for um, o raio de 300 m tem seis concorrentes e não oito, e a leitura de saturação do quarteirão muda junto.",
+    "<b>Contagem de passantes na Rua Betânia</b>, em dia útil e em sábado, nas faixas de maior movimento. Movimento alto desloca a leitura do ponto de bairro residencial para ponto de rua, e com ela o horário, o mix de conveniência e o tamanho da equipe de balcão; movimento baixo confirma a leitura residencial que o dossiê faz.",
+    "<b>Como opera a Extrafarma a 55 m</b> — horário, serviços e se é unidade de bairro ou unidade de rede com aplicação e entrega. Define o que este ponto precisa oferecer para tirar volume dela, em vez de disputar o resto do quarteirão.",
+    "<b>Motivo do encerramento das lojas da rede em Belém.</b> Se foi ponto, se foi operação ou se foi sociedade, muda o que precisa ser diferente nesta abertura."
+  ],
+  "origem_da_coordenada": "informada pelo solicitante"
+}

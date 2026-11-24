@@ -1,0 +1,139 @@
+{
+  "endereco": "R. Dezenove de Dezembro, 5 - Centro, Irati/PR, 84500-016",
+  "lat": -25.468162,
+  "lng": -50.650895,
+  "origem_da_coordenada": "coordenada informada pelo solicitante junto com o endereço, não geocodificada nesta análise",
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "4110706",
+  "municipio": "Irati",
+  "uf": "PR",
+  "bandeira": "AC Farma",
+  "modelo": "convencional",
+  "perfil": "existente",
+  "ge": "",
+  "receita_por_m2": null,
+  "resumo": "Esquina do centro de uma cidade-polo de 59.250 habitantes onde a rede não tem nenhuma loja, com renda no miolo de 300 m 2,3 vezes maior que a do entorno de 5 km, duas farmácias independentes coladas e um mercado municipal de R$ 111,8 milhões ao ano crescendo 15,9%.",
+  "lentes": {
+    "Forças": {
+      "abertura": "O que este ponto já é aparece em quatro camadas que se reforçam: a posição na quadra, a renda do miolo central, a rarefação da concorrência colada e o papel de Irati na rede urbana da região.",
+      "itens": [
+        {
+          "titulo": "Esquina de duas vias nomeadas, a 13,9 m do cruzamento",
+          "texto": "O endereço fica no encontro da Rua Dezenove de Dezembro com a Rua Coronel Gracia, o que dá duas faces de exposição e circulação vinda de duas vias. A classificação só é afirmada quando o cruzamento está a até 20 m e o próprio ponto a menos de 20 m de via mapeada: aqui são 13,9 m até o cruzamento e 12,3 m até o eixo da via. O segundo cruzamento mais próximo está a 56,3 m.",
+          "fonte": "geometria viária do OpenStreetMap"
+        },
+        {
+          "titulo": "A renda do miolo de 300 m é 2,3 vezes a do entorno de 5 km",
+          "texto": "Nos setores censitários que caem no raio de 300 m, a renda média mensal por habitante é de R$ 2.727,44 e a domiciliar, de R$ 4.126,84; no raio de 5 km os mesmos dois indicadores caem para R$ 1.182,67 e R$ 1.979,94. A densidade acompanha: 1.785 hab/km² no miolo contra 537 hab/km² em 5 km. É a renda de quem mora ali, não a de quem compra na loja.",
+          "fonte": "Censo 2022 do IBGE, pelas camadas setoriais de renda e densidade do acervo"
+        },
+        {
+          "titulo": "Duas farmácias dentro de 300 m, as duas independentes",
+          "texto": "O raio imediato tem apenas dois concorrentes, ambos classificados como independentes. Dimensionado pela régua de canal, esse entorno movimenta R$ 137,8 mil por mês — valor que é a média de uma loja independente no Paraná aplicada às duas, e não a venda de nenhuma delas. Em 5 km o quadro muda de escala: 26 concorrentes e um mercado entre R$ 2,87 milhões e R$ 6,04 milhões por mês, conforme o canal atribuído às cinco lojas cuja rede o mapeamento não reconhece.",
+          "fonte": "camada Concorrentes 2025 e régua de receita e pontos de venda por canal e UF da IQVIA"
+        },
+        {
+          "titulo": "Irati é polo de seis municípios que somam 68.098 habitantes",
+          "texto": "A cidade é classificada como Centro Sub-Regional B e atende à demanda de rotina de seis municípios do entorno: Rebouças (14.890), Rio Azul (14.128), Mallet (13.701), Teixeira Soares (9.495), Inácio Martins (9.474) e Fernandes Pinheiro (6.410). A soma supera a população do próprio município, 59.250 pelo Censo 2022 — é público que não mora em nenhum raio deste dossiê e que nenhum indicador de área captura. A contagem declarada na base e a lista reconstruída coincidem em seis.",
+          "fonte": "REGIC 2018, do IBGE, com população do cadastro municipal do acervo"
+        },
+        {
+          "titulo": "Rua de comércio dentro de bairro residencial: 161 estabelecimentos em 500 m",
+          "texto": "Em 500 m de caminhada há 161 pontos de comércio e serviço, o mais próximo a 6 m, contra 663 edificações residenciais individuais no mesmo recorte — a ocupação é mista, com comércio na via e moradia atrás. Completam o entorno 14 equipamentos de lazer e culto a partir de 49 m, seis agências bancárias a partir de 350 m, quatro mercados a partir de 138 m e três escolas a partir de 66 m. Este recorte é de 500 m, maior que o raio principal de 300 m.",
+          "fonte": "OpenStreetMap"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "Contra o ponto pesam a cobertura de farmácias já instalada, o porte de quem opera no raio largo, o tamanho da base residencial imediata e o ticket da praça.",
+      "itens": [
+        {
+          "titulo": "1.519 habitantes por farmácia — percentil 52 do país",
+          "texto": "A cidade tem 39 farmácias para os 59.250 habitantes do Censo 2022, o que dá 1.519 habitantes por estabelecimento, contra uma mediana nacional de 1.492,6 em 5.541 municípios comparados — o numerador vem do Censo e a distribuição que dá o percentil é montada com a população do acervo. A praça não tem folga de cobertura: há praticamente tanta farmácia por habitante quanto na cidade mediana brasileira.",
+          "fonte": "base do Farmácia Popular e Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "Uma rede de grande porte e oito lojas de associações no raio de 5 km",
+          "texto": "Das 26 farmácias em 5 km, 21 têm canal reconhecido — vinte pelo próprio rótulo de classificação e uma atribuída pelo porte da rede a que pertence: uma de rede de grande porte, oito de associações e franquias e doze independentes; outras cinco pertencem a redes que o mapeamento não classifica. A referência de canal no Paraná separa esses mundos — R$ 701,5 mil por loja/mês na rede de grande porte, R$ 125,0 mil nas associações e franquias e R$ 68,9 mil nas independentes. Cada um desses valores é o que uma loja média daquele canal fatura no estado, não o que a loja vizinha vende: a base não traz a dispersão entre lojas do mesmo canal.",
+          "fonte": "camada Concorrentes 2025 e régua de receita e pontos de venda por canal e UF da IQVIA"
+        },
+        {
+          "titulo": "503,8 moradores em 300 m — 1,2% do potencial que o raio de 5 km reúne",
+          "texto": "O raio imediato tem 503,8 residentes e 187,7 domicílios, com potencial de consumo em drogarias de R$ 780,2 mil — periodicidade que a base não declara e que o teste de ordem de grandeza aponta como anual —, dividido em 51,5% de medicamentos e 48,5% de higiene, beleza e nutrição. Em 5 km são 42.084,7 residentes e R$ 65,2 milhões de potencial, no mesmo recorte de tempo. A base de moradores colada ao ponto é pequena em termos absolutos, e a verticalização de 26,1% no miolo — contra 2,0% em 5 km — mostra que o adensamento vertical do centro ainda é modesto.",
+          "fonte": "Censo 2022 do IBGE, pelas camadas setoriais de população, domicílios e potencial de consumo do acervo"
+        },
+        {
+          "titulo": "Preço por unidade abaixo do estado, e a posição de preço da rede se inverte entre praça e UF",
+          "texto": "No brick que cobre o município, o preço médio por unidade vendida é de R$ 29,29, contra R$ 29,89 no Paraná inteiro. Dentro desse recorte as lojas da rede registram R$ 27,62 por unidade e os concorrentes, R$ 29,52 — mas no estado a relação se inverte: R$ 31,02 nas lojas da rede contra R$ 29,86 nos concorrentes. A praça é de ticket um pouco mais baixo que o estado, e a posição de preço da rede nela não é a mesma que ela tem no Paraná.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "O que ainda não foi tomado nesta praça tem nome: a rede não está nela, o Farmácia Popular não tem nenhuma loja nossa credenciada, e o grupo que pede já opera em duas das cidades que têm Irati como centro de comércio e serviços de rotina.",
+      "itens": [
+        {
+          "titulo": "Mercado de R$ 111,8 milhões ao ano crescendo 15,9%, sem receita da rede dentro",
+          "texto": "Irati tem uma única unidade territorial de mercado, o que faz o número ser exatamente o da cidade: o faturamento farmacêutico passou de R$ 96,5 milhões para R$ 111,8 milhões no acumulado de 12 meses, alta de 15,9%, e a receita registrada para a rede é zero. Nenhuma bandeira do grupo aparece na praça.",
+          "fonte": "base de crescimento por unidade territorial de mercado da IQVIA"
+        },
+        {
+          "titulo": "Nenhuma loja da rede credenciada ao Farmácia Popular na cidade",
+          "texto": "Das 39 farmácias do município, 14 são credenciadas ao Farmácia Popular — 35,9% — e nenhuma delas é da rede. O gasto municipal em medicamentos é de R$ 61,5 milhões, e o credenciamento é a porta de entrada desse volume.",
+          "fonte": "base do Farmácia Popular"
+        },
+        {
+          "titulo": "O grupo já opera quatro lojas da mesma bandeira nas duas cidades que têm Irati como polo",
+          "texto": "O cadastro registra quatro lojas AC Farma convencionais ativas do mesmo grupo econômico do solicitante, duas em Rio Azul e duas em Rebouças — dois dos seis municípios que têm Irati como centro de rotina em comércio e serviços. A receita medida dessas praças, convertida em equivalente mensal, vai de R$ 219,1 mil a R$ 700,3 mil em Rio Azul e de R$ 54,5 mil a R$ 330,6 mil em Rebouças; no estado, as 13 lojas da bandeira têm mediana de R$ 330,6 mil por mês. Abrir no polo coloca a bandeira na cidade para onde essas duas praças já se deslocam. Esses valores são receita acumulada de 12 meses dividida por 12, e loja que não operou os doze meses aparece baixa sem ser pequena.",
+          "fonte": "cadastro de lojas e receita medida por CNPJ da IQVIA"
+        },
+        {
+          "titulo": "Nutrição cresce 50% e cuidados 32% na praça, contra 16% do mercado",
+          "texto": "No mix da cidade, prescrição responde por 55% do faturamento e cresce 16%, em linha com o mercado; as categorias que correm na frente são nutrição e suplementos, com alta de 50% sobre 3% do mix, cuidados, com 32% sobre 2%, e infantil, com 15% sobre 4%. Genéricos são 22% do mix de produto e propagados, 40%.",
+          "fonte": "base de mix de categorias por unidade territorial de mercado da IQVIA"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "O trabalho aqui é de régua, não de mercado: a cidade está no limite de uma faixa de zoneamento e a loja pedida ocupa sozinha a vaga que essa faixa abre.",
+      "itens": [
+        {
+          "titulo": "A loja entra como primeiro grupo econômico e fecha a faixa",
+          "texto": "Com 59.250 habitantes, Irati cai na faixa de até 60 mil, cujo teto é de um grupo econômico por cidade. Hoje não há nenhum grupo instalado: o pedido entra como o primeiro e o teto passa a estar ocupado. Lojas adicionais do mesmo grupo continuariam cabendo como alerta de densidade, mas nenhum outro grupo entra depois. A contagem é apurada pelo nome do responsável pelo grupo no cadastro, não por CNPJ — duas grafias diferentes do mesmo dono contariam como dois grupos.",
+          "fonte": "regras oficiais de zoneamento e expansão, com população do Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "A cidade está 750 habitantes abaixo do corte de 60 mil, e as duas fontes de população discordam em 1.938",
+          "texto": "O Censo 2022 registra 59.250 habitantes e o acervo interno, 61.188 — as duas fontes caem em faixas diferentes do zoneamento. Pelo Censo o teto é de um grupo; pelo número do acervo seriam dois, com exigência de bandeira popular para o segundo. O gate aplica o Censo. Como a cidade não tem nenhum grupo instalado hoje, o pedido passa nas duas leituras; a divergência decide o pedido seguinte, não este.",
+          "fonte": "Censo 2022 do IBGE e camada de População por município do acervo"
+        },
+        {
+          "titulo": "A distância mínima entre lojas da rede não é avaliada nesta faixa de população",
+          "texto": "A regra prevê 300 m entre lojas da mesma bandeira e 500 m entre bandeiras diferentes, mas a checagem só roda acima de 60 mil habitantes — abaixo disso, o teto da faixa barrava antes e a distância ficava irrelevante. Aqui ela fica declarada sem veredito. O efeito prático é nulo neste endereço: o cadastro não traz nenhuma loja da rede em Irati, ativa ou desativada, e as quatro lojas do grupo ficam em outros municípios, uma delas a 32,3 km do ponto.",
+          "fonte": "regras oficiais de zoneamento e expansão, e cadastro de lojas"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "<b>Fluxo de passantes.</b> Quantas pessoas passam por esta esquina, em que horários e em que dias, não existe em nenhuma das bases do acervo, no produto nem em fonte pública consultável — e é a variável que mais separa dois pontos da mesma rua. Importa especialmente aqui: o raio de 300 m tem 503,8 moradores, de modo que boa parte do público deste endereço é gente que passa, não que mora. Sem essa medida, este dossiê subestima um ponto de rua comercial e superestima um ponto residencial, e não há como saber de qual caso se trata. Destrava com contagem em campo, com dado de operadora de telefonia ou com fornecedor de mobilidade — nenhum deles disponível hoje.",
+    "<b>O share da rede na praça é inferido, não medido.</b> A base de participação de mercado por unidade territorial não contém a unidade de Irati, então o zero que aparece vem da receita registrada, não de uma medição de share. Share ausente e share zero são coisas diferentes: o primeiro significa que ninguém mediu. Importa porque é justamente esse zero que sustenta a leitura de praça aberta. Destrava quando a unidade de Irati passar a constar na base de participação de mercado.",
+    "<b>Se o potencial de consumo é mensal ou anual.</b> A camada não declara a periodicidade do campo: o relatório do produto rotula o mesmo campo como mensal e o teste de ordem de grandeza aponta valor anual. Importa porque a diferença entre as duas leituras é de doze vezes sobre o número que dimensiona a demanda do raio — R$ 780,2 mil em 300 m e R$ 65,2 milhões em 5 km. Destrava com a declaração da periodicidade pelo fornecedor da camada.",
+    "<b>O que o recorte de brick cobre, e onde o ponto cai dentro dele.</b> O recorte de faturamento por brick casou por nome de município, porque a base veio sem polígono: não há como dizer em qual brick este endereço cai. E o recorte não coincide com o município — a base registra receita do grupo dentro dele, enquanto a base de unidades territoriais registra receita nula da rede em Irati e o cadastro não traz nenhuma loja da rede no município. Os dois números estão certos sobre recortes diferentes, e isso limita o preço por unidade a ordem de grandeza. Destrava com a malha geográfica de bricks.",
+    "<b>De quem é cada loja, apurado por nome.</b> O vínculo das quatro lojas da bandeira com o grupo do solicitante vem do nome do responsável pelo grupo no cadastro, normalizado, e não de vínculo societário por CNPJ. Importa porque é esse vínculo que separa sobreposição com loja própria — efeito econômico a dimensionar — de conflito com outro associado, e porque é a mesma contagem que decide o teto da faixa. Destrava com a vinculação societária por CNPJ no cadastro.",
+    "<b>Quais das lojas do grupo operaram os doze meses do acumulado.</b> A receita medida sai do acumulado de 12 meses dividido por 12, e os artefatos deste dossiê não dizem quando cada loja abriu: loja que operou parte do período aparece baixa sem ser pequena e puxa o piso da faixa para baixo — o piso medido para a bandeira no estado é de R$ 54,5 mil por mês, contra uma mediana de R$ 330,6 mil. É por isso que a leitura usa quartis e não média. Importa porque essas lojas são o referente mais próximo do que esta loja nova faria. Destrava com a receita mês a mês por CNPJ, ou com o tempo de operação declarado junto da receita.",
+    "<b>O mercado da cidade medido por duas vias dá números distantes.</b> A base de unidades territoriais registra R$ 111,8 milhões ao ano, equivalentes a R$ 9,3 milhões por mês; a soma dos rótulos de faixa dos concorrentes da cidade dá R$ 3,0 milhões por mês, com apenas 10 das 39 farmácias do município trazendo o campo preenchido. A segunda via não mede faturamento de loja nenhuma — é o rótulo da faixa em que cada uma caiu, com oito valores possíveis em toda a base. Importa porque uma leitura desatenta dividiria o mercado errado entre os concorrentes. Destrava com a cobertura do campo de faixa ou com receita medida por concorrente, que o acervo não tem.",
+    "<b>Um registro de farmácia cadastrado em cidade que o raio não alcança.</b> No raio de 5 km há um estabelecimento cadastrado em Iporã, a 1.304 m do ponto — cidade distante demais para o raio tocar, o que indica erro de cadastro e não vizinhança real. Importa porque a contagem de concorrentes e o mercado do raio somam esse registro. Destrava com a correção do município na camada de concorrentes.",
+    "<b>Se o crescimento de 15,9% veio das mesmas lojas ou de novas lojas.</b> A base de cobertura de pontos de venda da unidade de Irati volta zerada em aberturas, fechamentos e total de pontos, então não dá para separar crescimento por loja de crescimento por expansão do varejo. Importa porque mercado que cresce com o mesmo número de lojas é demanda represada, e mercado que cresce abrindo lojas já está sendo atendido. Destrava com a contagem de pontos de venda por unidade territorial preenchida na base.",
+    "<b>O que diferencia loja popular de convencional na regra oficial.</b> A página de expansão afirma que as regras diferem entre os dois modelos, sem detalhar a diferença fora da exigência da faixa de 60 a 120 mil habitantes. Importa porque o modelo pretendido aqui é convencional, e o recorte de receita medida da bandeira no modelo popular volta sem nenhuma loja, enquanto a bandeira inteira tem 44 lojas com receita medida — o que sugere que esta bandeira só existe num dos dois modelos, sem que a regra diga o que isso implica. Destrava com a área de Expansão documentando a diferença entre os dois modelos.",
+    "<b>Aluguel comercial, área do imóvel e custo de ocupação.</b> Não existe fonte pública de aluguel comercial por metro quadrado para municípios deste porte, e média de portal de anúncio não é fonte verificável. Sem o valor informado pelo analista, a área de venda estimada e o custo de ocupação ficam vazios. Importa porque é o maior custo fixo da operação e porque o ponto é uma esquina central, onde o metro quadrado costuma ser o mais caro da cidade. Destrava com o valor pedido pelo proprietário e a área do imóvel."
+  ],
+  "campo": [
+    "<b>Contar passantes na esquina</b>, em pelo menos dois momentos — manhã de dia útil e manhã de sábado —, separando quem vem pela Rua Dezenove de Dezembro de quem vem pela Rua Coronel Gracia. É a medida que este dossiê não tem. Volume alto e equilibrado entre as duas vias confirma a vantagem das duas faces; volume concentrado numa via transforma a esquina em meio de quadra na prática, e a vitrine precisa ser redesenhada.",
+    "<b>Visitar as duas farmácias dentro de 300 m</b> e anotar porte, horário de funcionamento, se fazem manipulação e se são credenciadas ao Farmácia Popular. As duas estão classificadas como independentes, e é essa classificação que as dimensiona em R$ 68,9 mil por mês cada na régua de canal. Se alguma delas for maior do que o rótulo sugere, o mercado colado é mais disputado do que o número indica.",
+    "<b>Levantar o aluguel pedido e a área do imóvel, em metros quadrados.</b> Enquanto não houver um valor por metro quadrado informado, o custo de ocupação e a área de venda ficam em branco no relatório. Com o número, os dois campos passam a existir e a comparação com a receita medida das lojas do grupo nas cidades vizinhas vira conta de viabilidade.",
+    "<b>Conferir se o imóvel aproveita as duas faces da esquina</b> — vitrine para as duas ruas e porta no chanfro ou próxima dele. A vantagem da esquina é geométrica, não jurídica: imóvel de esquina com fachada cega para uma das vias entrega a exposição de um meio de quadra.",
+    "<b>Confirmar no cadastro, por CNPJ, se existe loja da rede em Irati sem coordenada preenchida.</b> A checagem de proximidade depende da coordenada, e quase um terço das lojas do cadastro está sem ela. Se aparecer alguma loja nossa no município, a contagem de grupos da faixa muda e o gate precisa rodar de novo."
+  ]
+}

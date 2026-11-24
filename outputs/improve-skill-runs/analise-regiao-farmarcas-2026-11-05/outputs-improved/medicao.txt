@@ -1,0 +1,25 @@
+centroides municipais disponiveis: 6207
+
+Pouso Alegre/MG  (15 pracas, 0 sem centroide)
+   distancia ate o ponto: mediana     83 km | min   48 | max  143
+   dentro de 150 km: 15 de 15
+   3 primeiras: POÇOS DE CALDAS — CENTRO-4, VARGINHA, LAVRAS
+
+Ipatinga/MG  (15 pracas, 0 sem centroide)
+   distancia ate o ponto: mediana     92 km | min   11 | max  150
+   dentro de 150 km: 15 de 15
+   3 primeiras: GOVERNADOR VALADARES — NOSSA S GRA, CORONEL FABRICIANO, ITABIRA
+
+Araputanga/MT  (15 pracas, 0 sem centroide)
+   distancia ate o ponto: mediana    245 km | min  238 | max  506
+   dentro de 150 km: 0 de 15
+   3 primeiras: CUIABÁ — JARDIM DAS AMERICAS, CUIABÁ — CENTRO SUL, SINOP — SETOR COMERCIAL
+
+Santarém/PA  (5 pracas, 0 sem centroide)
+   distancia ate o ponto: mediana     55 km | min   27 | max  149
+   dentro de 150 km: 5 de 5
+   3 primeiras: MONTE ALEGRE, ORIXIMINÁ, ALENQUER
+
+DISCRIMINACAO entre os dois pontos de MG (Pouso Alegre x Ipatinga):
+   sobreposicao de Jaccard: 0%  (0 pracas iguais de 30)
+   quanto MENOR, mais a lista responde ao ponto e nao so a UF

@@ -1,0 +1,174 @@
+{
+  "endereco": "Av. Muiraquitã, 900 - Interventória, Santarém/PA - 68015-420",
+  "lat": -2.444308,
+  "lng": -54.710837,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "1506807",
+  "municipio": "Santarém",
+  "uf": "PA",
+  "bandeira": "Maxi Popular",
+  "modelo": "popular",
+  "perfil": "existente",
+  "ge": "",
+  "receita_por_m2": null,
+  "aluguel_m2": null,
+  "aluguel_fonte": "não informado pelo solicitante nesta análise; sem um valor de aluguel e a metragem do imóvel, o campo fica vazio em vez de receber estimativa de portal de anúncio",
+  "origem_da_coordenada": "informada pelo solicitante junto com o endereço; não foi geocodificada nesta sessão",
+
+  "resumo": "Avenida em Santarém, cidade de 331.942 habitantes e sem teto de grupos econômicos, onde as 15 lojas que ocupam vaga respondem todas ao grupo do próprio solicitante — e a loja mais próxima dele aparece a 311 m numa base e a 1.385 m em outra, o que decide se a regra de distância mínima está em jogo.",
+
+  "lentes": {
+    "Forças": {
+      "abertura": "O mercado farmacêutico da cidade cresceu um quarto em doze meses, o entorno imediato do ponto é mais rico que a média do raio largo, e a bandeira pretendida rende no Pará bem acima da mediana nacional dela. Os três sinais apontam na mesma direção, e nenhum deles depende da coordenada em disputa.",
+      "itens": [
+        {
+          "titulo": "O mercado farmacêutico de Santarém cresceu 25,9% em doze meses.",
+          "texto": "A receita somada dos quatro microterritórios do município passou de R$ 262,68 milhões para R$ 330,83 milhões entre os dois períodos acumulados de doze meses. O referente aqui é o próprio indicador no período anterior, que é a comparação mais limpa disponível: não depende de casar a cidade com nenhuma distribuição externa. Confiança alta, porque é receita medida e não estimada, e porque os quatro microterritórios do município estão todos presentes na base — não é extrapolação de um recorte parcial. A ressalva é de recorte, não de qualidade: esse é o mercado da cidade inteira, e não há como descer dele até o quarteirão do ponto.",
+          "fonte": "base de faturamento por microterritório da IQVIA, períodos acumulados de 12 meses"
+        },
+        {
+          "titulo": "O potencial de consumo em drogarias chega a R$ 2,39 milhões dentro de 300 metros.",
+          "texto": "Desse total, R$ 748,4 mil são medicamentos (31,3%) e R$ 1,64 milhão é higiene, beleza e nutrição (68,7%) — ou seja, dois terços do potencial do entorno imediato estão fora do medicamento. No raio de 5 quilômetros o potencial sobe para R$ 248,05 milhões, com a mesma divisão percentual. Um cuidado antes de usar o número: a base não declara se o valor é mensal ou anual, o teste de ordem de grandeza aponta para anual e o relatório do produto rotula o mesmo campo como mensal — a dúvida está declarada entre as lacunas e muda a conta por um fator de doze, então a divisão entre medicamento e não medicamento é mais confiável aqui do que o valor absoluto. Confiança alta no método geográfico, porque cada setor censitário entrou pela fração da área dele que cai dentro do círculo e a cobertura do círculo por setor com geometria ficou em 99,99% nos dois raios. O limite do rateio é assumir densidade uniforme dentro de cada setor: num setor que mistura quarteirão adensado com vazio, isso erra para dentro ou para fora sem avisar.",
+          "fonte": "camada de potencial de consumo e malha de setores censitários do Censo 2022 do IBGE, rateados por área"
+        },
+        {
+          "titulo": "O entorno imediato é 28% mais rico que o raio largo.",
+          "texto": "A renda por habitante dentro de 300 metros é de R$ 1.242,10, contra R$ 968,19 na média dos 5 quilômetros; na comparação domiciliar são R$ 2.113,46 contra R$ 1.706,56. O referente é o próprio ponto em duas escalas, que é o que separa micro-área de entorno: a vizinhança colada no endereço tem perfil melhor que a região que ele enxerga. São 1.897 moradores e 480 domicílios no raio curto, a 6.741 habitantes por quilômetro quadrado — densidade urbana consolidada, contra 2.554 no raio largo. Confiança alta, porque renda é taxa e entrou como média ponderada pelas pessoas e pelos domicílios de cada setor, não rateada como se fosse um total. A ressalva está no raio largo: três dos 250 setores dele não têm registro nas bases de atributo, então os números de 5 quilômetros descrevem 98,8% dos setores e não a totalidade.",
+          "fonte": "Censo 2022 do IBGE, setores censitários rateados por área dentro de cada raio"
+        },
+        {
+          "titulo": "A bandeira pretendida rende no Pará 47% acima da mediana dela no país, e o canal da rede lidera o estado.",
+          "texto": "As 51 lojas Maxi Popular do Pará têm mediana medida de R$ 954,7 mil por mês, contra R$ 650,1 mil nas 106 lojas da mesma bandeira no país inteiro e R$ 419,1 mil nas 1.295 lojas de toda a rede. A base não permite ordenar bandeiras dentro do estado — o recorte estadual da bandeira e o do estado inteiro trazem a mesma mediana —, então o que se afirma é a diferença contra o país e contra a rede, não uma posição de primeiro lugar no Pará. No recorte por canal essa ordenação existe: o canal da rede fatura R$ 855,3 mil por mês por ponto de venda no estado, à frente das redes de grande porte, que ficam em R$ 780,6 mil. Dois cuidados que os números exigem: o valor anual é acumulado de doze meses, e dividi-lo por doze só descreve loja que operou o período inteiro — quem abriu no meio aparece pequena sem ser; e o número por canal é o que uma loja média daquele canal fatura no estado, nunca o que um endereço específico vende, porque a base não traz dispersão dentro do canal. Confiança alta para dimensionar, baixa para projetar este ponto.",
+          "fonte": "receita medida da IQVIA por CNPJ cruzada com o cadastro de lojas, e receita por canal e por UF da IQVIA"
+        }
+      ]
+    },
+
+    "Fragilidades": {
+      "abertura": "A cidade tem mais farmácia por habitante que a mediana do país, a base da pirâmide de renda concentra quase dois terços dos domicílios, e a rede vem perdendo terreno para o mercado em dois dos quatro microterritórios. O concorrente mais próximo é de rede nacional e está na mesma avenida.",
+      "itens": [
+        {
+          "titulo": "A cidade está no percentil 26 de saturação: muita farmácia para pouca gente.",
+          "texto": "São 1.168,8 habitantes por farmácia usando a população do Censo, contra mediana nacional de 1.492,6 numa distribuição de 5.541 municípios — percentil baixo significa mercado mais disputado, não menos. A cidade tem 284 farmácias registradas. Confiança média, e o motivo é de método: o numerador vem do Censo enquanto a distribuição nacional foi montada com a população do acervo interno, então a posição é aproximada e não deve ser lida como percentil exato. Pela população do acervo o indicador ficaria em 1.282,9 habitantes por farmácia e percentil 34 — a leitura de mercado disputado não muda, a casa decimal sim.",
+          "fonte": "camada de farmácias por município e população do Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "Quase dois terços dos domicílios da cidade estão em C2, D e E.",
+          "texto": "D e E somam 35,7% e C2 outros 26,2%, totalizando 61,9%; no topo, A responde por 1,0% e B1 por 3,4%. É perfil coerente com bandeira popular, e nesse sentido não contradiz o pedido — mas limita o tíquete e empurra o resultado para volume e preço, não para margem por item. O referente é a própria cidade, porque a classificação vem da base municipal e não há recorte dela por raio. Confiança média: a divisão por classe é do acervo de camadas, com data de extração própria, e descreve o município inteiro, não o entorno do endereço, que a renda por setor mostra ser mais rico que a média.",
+          "fonte": "camada de classes econômicas e farmácias por município"
+        },
+        {
+          "titulo": "A rede cresce abaixo do mercado na cidade, e a diferença entre territórios é grande demais para ignorar.",
+          "texto": "No município, a receita da rede subiu 23,4% contra 25,9% do mercado total. Dentro disso, os quatro microterritórios contam histórias opostas: em Santarenzinho a rede tem 37,8% de participação e cresce 31% contra 27% do mercado sem ela; em Prainha são 25,9% e crescimento de 26% contra 14%; mas em Aeroporto Velho a rede cresce 21% enquanto o mercado sem ela cresce 45%, e em Aldeia cresce 4% contra 22%. Ou seja, nos dois territórios em que a rede perde terreno ela perde muito. Confiança alta nos números, porque são receita medida nos dois períodos — e baixa na aplicação ao endereço, porque o acervo não permite dizer em qual dos quatro territórios este ponto cai, e a resposta muda a leitura de 37,8% de participação para 5,6%.",
+          "fonte": "base de faturamento por microterritório da IQVIA, períodos acumulados de 12 meses"
+        },
+        {
+          "titulo": "O único concorrente com coordenada dentro de 300 metros é de rede nacional e fica na mesma avenida, a 247 metros.",
+          "texto": "É uma unidade de rede de grande porte, registrada na Av. Muiraquitã, 1736, contra o número 900 do ponto. A contagem é um piso e não um total: 18 registros da camada de concorrência não têm coordenada e por isso não entram em contagem por raio nenhuma. O campo de faturamento estimado dessa unidade está vazio no acervo, então o que dimensiona o entorno é a régua por canal: uma loja média desse canal fatura R$ 780,6 mil por mês no Pará, o que coloca o mercado medido do raio de 300 metros em R$ 9,37 milhões por ano. Esse número descreve o canal no estado e não aquela loja — a base não traz mínimo, máximo nem quartil dentro do canal, então uma unidade específica pode estar muito acima ou muito abaixo disso. Confiança alta na existência e na distância do concorrente, que vêm de registro com coordenada; baixa no porte dele e média na contagem total do raio.",
+          "fonte": "camada Concorrentes 2025 e receita por canal e por UF da IQVIA"
+        }
+      ]
+    },
+
+    "Oportunidades": {
+      "abertura": "Nenhuma loja da rede na cidade está credenciada ao programa federal, a categoria que mais pesa no mercado local cresce nos quatro territórios, e o grosso da concorrência do raio largo é de farmácia independente, cujo faturamento médio no estado é uma fração do da rede.",
+      "itens": [
+        {
+          "titulo": "Nenhuma das lojas da rede na cidade está credenciada ao programa federal de medicamentos.",
+          "texto": "A cidade tem 284 farmácias, das quais 5 são credenciadas, e nenhuma delas é da rede. Como prescrição responde por cerca de metade da receita dos microterritórios locais, o credenciamento é porta de entrada para público de uso contínuo que hoje precisa procurar outra bandeira. O referente é a própria cidade, que é o recorte em que o dado existe. Confiança média: a camada registra o credenciamento mas não a data em que foi apurado, e credenciamento é processo administrativo que pode ter mudado desde a extração — o que o número sustenta é que a rede não aparece credenciada aqui, não que nunca tenha tentado.",
+          "fonte": "camada de farmácias e do programa federal de medicamentos por município"
+        },
+        {
+          "titulo": "Prescrição é cerca de metade do mercado nos quatro territórios e cresce em todos.",
+          "texto": "A participação vai de 45% a 51% da receita, com crescimento entre 19% e 44% conforme o território — é a categoria que se comporta de forma parecida em toda a cidade, o que a torna a aposta mais segura de sortimento. Medicamento isento de prescrição fica entre 17% e 23%, crescendo de 12% a 37%. Nutrição e suplementos ainda são pequenos, de 1% a 3%, mas crescem de 19% a 41%, o que os torna aposta de margem e não de volume. Confiança alta na medição e média na transposição para o ponto, porque o mix é do território e não da loja: uma unidade com público diferente do território vende diferente dele.",
+          "fonte": "base de mix de categorias por microterritório da IQVIA"
+        },
+        {
+          "titulo": "A rede já vende 29% mais barato por unidade que os concorrentes locais e responde por 28% das unidades da cidade.",
+          "texto": "Nos quatro territórios de preço que cobrem Santarém, o preço médio por unidade da rede é de R$ 21,69 contra R$ 30,49 dos concorrentes, num conjunto cujo preço médio é R$ 28,00 — acima dos R$ 26,77 do Pará inteiro. Em volume isso dá 3,93 milhões de unidades da rede contra 9,99 milhões dos demais, ou 28,2% das unidades e 21,9% da receita. Preço médio por unidade é receita dividida por unidades vendidas: um valor mais baixo pode significar desconto, mas também mix mais barato, e a base não separa as duas coisas. Confiança média, porque o casamento desses territórios de preço com o município foi feito por nome e não por geometria — o acervo não diz em qual deles o endereço cai.",
+          "fonte": "base de faturamento por território de preço da IQVIA"
+        },
+        {
+          "titulo": "Das 176 unidades classificadas no raio de 5 quilômetros, 130 são independentes, cuja loja média no estado fatura 5% do que fatura a loja média do canal da rede.",
+          "texto": "São R$ 46,1 mil por mês contra R$ 855,3 mil — a diferença não mede aquelas lojas específicas, mede o canal no Pará, e é justamente aí que ela informa: o grosso da concorrência do entorno largo opera num patamar estrutural muito abaixo do da rede. O mercado do raio dimensionado por essa régua é de R$ 28,89 milhões por mês nas 176 unidades com canal reconhecido; somando as 31 que o mapeamento não reconhece, a conta vira uma faixa de R$ 30,32 a R$ 55,41 milhões, porque essas 31 podem pertencer ao canal mais barato ou ao mais caro do estado. Confiança média: a classificação de canal de redes nomeadas é julgamento declarado no cálculo e não campo da base, e mover uma rede de um canal para outro muda a referência dela em mais de duas vezes.",
+          "fonte": "camada Concorrentes 2025 e receita e pontos de venda por canal e por UF da IQVIA"
+        }
+      ]
+    },
+
+    "Dificuldades": {
+      "abertura": "A dificuldade principal não é de mercado, é de cadastro: o número que decide se a regra de distância mínima está em jogo aparece de duas formas incompatíveis em duas bases da casa. Em volta disso, sete lojas da cidade sequer têm coordenada, e a concentração de toda a operação ativa num único grupo é escolha de risco do próprio solicitante.",
+      "itens": [
+        {
+          "titulo": "A loja mais próxima aparece a 311 metros numa base e a 1.385 metros em outra — e o mínimo da regra é 300.",
+          "texto": "O mesmo CNPJ é registrado pelo cadastro de lojas em área a 311 metros do ponto e, pela camada de concorrência, num endereço a 1.385 metros, na Av. Curuá-Una, 3347. Pela primeira leitura o ponto cumpre o mínimo de 300 metros para mesma bandeira por 11 metros de folga; pela segunda, a questão nem se coloca. Há um teste que separa as duas hipóteses: dos três registros da rede que aparecem nas duas bases, os outros dois batem com diferença de 1 metro e de zero metro — a divergência é isolada, o que a torna mais compatível com erro de um registro do que com defeito sistemático de uma das bases. Confiança alta na divergência, que é verificável nas duas bases; nenhuma conclusão sobre qual está certa, porque isso só se resolve no endereço.",
+          "fonte": "cadastro de lojas Farmarcas e camada Concorrentes 2025"
+        },
+        {
+          "titulo": "As 15 lojas que ocupam vaga são todas do grupo do solicitante, e o cadastro registra outras 4, desativadas, de dois outros grupos.",
+          "texto": "Das 15 que ocupam vaga, 14 constam como ativas e uma como em montagem — a premissa de que esses dois status ocupam vaga é da análise e não da regra escrita. No raio de 5 quilômetros o cadastro registra 11 lojas da rede: 7 ocupam vaga e são do grupo do solicitante; as outras 4 constam como desativadas e pertencem a dois outros grupos econômicos, a mais próxima delas a 644 metros. Com o pedido a cidade passa a 16 lojas e continua com um grupo. Pela regra não há nada a barrar, porque o teto conta grupos econômicos e não existe conflito entre associados onde só há um — e, como a cidade está acima de 200 mil habitantes, nem teto existe. Mas a sobreposição é inteiramente com a própria operação: não é conflito, é concentração de risco e divisão do mesmo mercado entre pontos do mesmo dono. As quatro desativadas não sustentam prognóstico algum para este endereço, porque o cadastro registra o status e não o motivo. Confiança média, porque grupo econômico é apurado pelo nome do responsável no cadastro e não por CNPJ — duas grafias diferentes do mesmo dono inventariam dois grupos, e neste caso a grafia do solicitante chegou invertida em relação à do cadastro, o que precisou ser conciliado à mão.",
+          "fonte": "cadastro de lojas Farmarcas e regras de zoneamento e expansão da Farmarcas"
+        },
+        {
+          "titulo": "A distância mínima não pôde ser checada para 7 das 15 lojas que ocupam vaga na cidade.",
+          "texto": "Elas estão sem coordenada preenchida no cadastro, então não entram no cálculo que a regra exige. Usando o centroide da área em que estão registradas, a mais próxima dessas sete ficaria por volta de 2.873 metros — mas centroide de área não é endereço de loja, e serve para ordem de grandeza e não para aplicar uma regra que se mede em centenas de metros. O problema não é local: no cadastro inteiro, 1.841 de 2.804 lojas têm coordenada utilizável, ou 66%. Confiança alta no diagnóstico, nenhuma na distância aproximada.",
+          "fonte": "cadastro de lojas Farmarcas"
+        },
+        {
+          "titulo": "Fluxo de passantes não é medido em nenhuma fonte disponível.",
+          "texto": "Não existe no acervo de camadas, não existe no produto e não foi localizado em fonte pública — e é a variável que mais distorce ponto de avenida. Aqui ela pesa mais que o normal: o entorno de 300 metros tem apenas 1.897 moradores, e o que o endereço tem a mais são cinco pontos de ônibus a partir de 161 metros e três equipamentos de ensino, o mais distante deles um campus de instituto federal a 478 metros. Nenhum deles é fluxo medido: são equipamentos contados num mapa colaborativo, que indicam onde pode haver passagem, não quanta. Confiança nenhuma no volume, alta apenas na existência dos equipamentos. Contar POI e chamar de fluxo seria trocar a lacuna por um número falso.",
+          "fonte": "camadas de pontos de interesse do OpenStreetMap e Censo 2022 do IBGE"
+        }
+      ]
+    }
+  },
+
+  "nao_sabe": [
+    "Quanta gente passa na calçada. Fluxo de passantes não existe no acervo de camadas, não existe no produto e não foi localizado em fonte pública consultada nesta sessão. Neste endereço a ausência pesa acima do normal, porque o raio de 300 metros tem só 1.897 moradores e o ponto fica numa avenida com cinco pontos de ônibus a partir de 161 metros — ou seja, a hipótese de que a loja viva de passagem é plausível e não é testável com o que existe. Destrava com contagem manual na calçada em dois dias úteis e um sábado, ou com compra de dado de movimentação de operadora de telefonia para a área.",
+
+    "Se o potencial de consumo em drogarias é valor mensal ou anual. A base não declara a periodicidade do campo: o teste de ordem de grandeza aponta para valor anual, que é como este dossiê o trata, mas o relatório do produto rotula o mesmo campo como mensal. A diferença é de doze vezes, e atinge os R$ 2,39 milhões do raio de 300 metros e os R$ 248,05 milhões do raio de 5 quilômetros — a divisão entre medicamento e não medicamento não muda, só a escala. Destrava com a definição do campo junto a quem monta o acervo de camadas.",
+
+    "Em qual dos quatro microterritórios o ponto cai. O acervo registra o mercado por microterritório mas não traz a geometria deles, então não dá para localizar o endereço dentro de um. Isso importa muito aqui porque os quatro são muito diferentes entre si: a participação da rede vai de 5,6% em um deles a 37,8% em outro, e o crescimento da rede vai de 4% a 31% — a mesma decisão parece ótima ou péssima conforme a resposta. Destrava se a base de microterritórios passar a trazer polígono, ou com o mapa de territórios do instituto de pesquisa que os define.",
+
+    "Por que a participação medida da rede é zero nos quatro microterritórios enquanto a receita dela é positiva. O campo de participação de mercado marca 0,0 nos quatro, e ao mesmo tempo as mesmas linhas registram R$ 67,69 milhões de receita da rede contra R$ 330,83 milhões de mercado total — o que daria 20,5%. As duas coisas não podem valer juntas: ou o campo não foi preenchido, ou mede algo diferente do que o nome diz. O dossiê usou a razão entre as receitas e declara que o campo direto discorda. Destrava com a definição do campo junto a quem monta a base.",
+
+    "Os quatro microterritórios de Santarém estão ausentes da base que mede cobertura de pontos de venda. Nenhum dos quatro tem linha nessa base, então não dá para saber se o mercado da cidade cresceu abrindo lojas novas ou vendendo mais nas que já existiam — e essa é a diferença entre praça que comporta mais um ponto e praça que já se adensou. Destrava quando a base de cobertura passar a incluir os microterritórios do município.",
+
+    "Dezoito registros da camada de concorrência não têm coordenada. Sem coordenada eles não entram em contagem por raio nenhuma, então tanto a contagem de 1 concorrente em 300 metros quanto a de 207 em 5 quilômetros são piso e não total — a concorrência real do entorno é igual ou maior. Importa sobretudo no raio curto, onde um único registro ausente dobraria a contagem. Destrava com a geocodificação desses registros na origem da camada.",
+
+    "Três dos 250 setores censitários do raio de 5 quilômetros não têm registro nas bases de atributo. Faltam em seis delas ao mesmo tempo: renda, classe econômica dos domicílios, potencial de consumo, verticalização, saneamento e população por gênero. Na prática, todos os indicadores do raio largo deste dossiê — a renda de R$ 968,19, os R$ 1.706,56 domiciliares, os 2.554 habitantes por quilômetro quadrado e os R$ 248,05 milhões de potencial — descrevem 98,8% dos setores e não a totalidade. O raio de 300 metros não é afetado. Destrava quando essas bases cobrirem os três setores faltantes.",
+
+    "Seis dos 370 setores censitários do município não têm geometria no acervo. A malha carregada cobre 364 deles, ou 98,4%, e essa falta é de desenho do setor, diferente da falta de atributo descrita acima. Para os dois raios deste ponto isso não mordeu — a cobertura do círculo por setor com geometria ficou em 99,99% tanto em 300 metros quanto em 5 quilômetros —, mas qualquer leitura municipal montada sobre essa malha fica 1,6% incompleta. Destrava quando o acervo publicar a geometria dos setores faltantes.",
+
+    "Nove cidades aparecem dentro de um raio de 5 quilômetros, e oito delas não poderiam estar. A camada de concorrência registra no raio unidades cadastradas em Alter do Chão, Barcarena, Boa Esperança, Itaituba, Oriximiná, Prainha, Trairão e numa nona grafia que repete Barcarena com sufixo, além de Santarém — e várias dessas ficam a centenas de quilômetros. São 8 registros com cidade divergente do município do ponto. Perto de divisa cidade diferente é esperado e não é defeito; aqui não há divisa que justifique, então é erro de coordenada ou de município nesses registros. Importa porque esses registros entram na contagem de concorrentes do raio e podem estar inflando o mercado dimensionado. Destrava com correção da origem desses cadastros.",
+
+    "Uma loja da rede registrada em Santarém fica a 288 quilômetros do ponto. A coordenada cadastrada para ela cai bem fora do município, o que a torna registro implausível e não loja distante. Ela não altera o resultado do zoneamento, porque a cidade está acima de 200 mil habitantes e não tem teto, mas contaria como loja da praça em qualquer leitura que use a contagem por município. Destrava com conferência do endereço dessa unidade no cadastro.",
+
+    "Aluguel e metragem do imóvel. Não foram informados nesta solicitação, então os campos de valor por metro quadrado e de área de venda ficam vazios, como no relatório do produto. Sem eles não há como relacionar o custo fixo ao potencial de consumo levantado nem dimensionar a loja. Destrava quando o solicitante informar o valor mensal, a área total e a área de venda — e o divisor usado precisa vir declarado, porque o mesmo aluguel sobre área total e sobre área de venda dá dois números bem diferentes.",
+
+    "As duas bases de renda do município discordam em cinco vezes. A camada de renda municipal registra R$ 196,34 de renda domiciliar per capita, enquanto o Censo rateado por setor dá R$ 968,19 por habitante no raio de 5 quilômetros e R$ 1.242,10 em 300 metros. A diferença é grande demais para ser recorte geográfico. O dossiê usou a leitura por setor, que é a que permite comparar os dois raios, e declara que a camada municipal diverge. Destrava com a definição e a data de referência do campo municipal junto a quem monta o acervo.",
+
+    "Trinta e uma das 207 unidades do raio de 5 quilômetros não têm canal reconhecido. Sem canal elas não recebem faturamento de referência, e por isso o mercado do raio sai como faixa de R$ 30,32 a R$ 55,41 milhões por mês em vez de um valor único — a largura da faixa é o tamanho da dúvida, porque o canal mais barato e o mais caro do estado diferem em mais de dez vezes. Preencher com a média das outras inventaria precisão que a base não tem. Destrava ampliando o mapeamento de rótulo para canal, ou classificando essas 31 à mão.",
+
+    "O faturamento estimado da camada de concorrência assume apenas oito valores distintos. Das 207 unidades do raio largo, 54 têm o campo preenchido, e os valores observados são rótulos de faixa, não medições por loja — sete deles são o ponto médio exato da faixa. Por isso mediana e quartis desse campo descrevem em que faixa as lojas foram classificadas, não quanto elas vendem. É também por isso que o dossiê dimensiona o mercado pela régua de canal, que é medida. Destrava se a camada passar a trazer faturamento por unidade em vez de faixa.",
+
+    "Os territórios de preço foram casados com a cidade pelo nome, não pela geometria. O acervo não diz em qual território de preço o endereço cai, então o preço médio por unidade apresentado é o conjunto dos quatro que levam o nome do município. Se o ponto cair num território com mix diferente, o preço muda. Destrava quando a base de territórios de preço trouxer polígono."
+  ],
+
+  "campo": [
+    "Ir ao endereço do registro que gera a divergência de distância e confirmar onde a loja opera de fato: na área a 311 metros do ponto ou na Av. Curuá-Una, 3347, a 1.385 metros. Se for a primeira, a regra de distância mínima para mesma bandeira é cumprida por 11 metros e a decisão passa a ser de risco comercial, não de regra; se for a segunda, o assunto distância desaparece do caso e sobra a análise de mercado.",
+
+    "Contar passantes na calçada da Av. Muiraquitã, na altura do número 900, em dois dias úteis e um sábado, nas faixas de 8h–10h, 12h–14h e 17h–19h. Se o fluxo de passagem for alto, os 1.897 moradores do raio de 300 metros deixam de ser o denominador relevante e o ponto se parece com loja de avenida; se for baixo, o tíquete terá de vir da vizinhança, e aí a renda de R$ 1.242,10 por habitante do entorno imediato é o número que decide.",
+
+    "Confirmar o endereço das sete lojas da cidade que estão sem coordenada no cadastro, começando pelas registradas nas áreas cujo centroide fica entre 2,8 e 2,9 quilômetros do ponto. Se alguma delas estiver bem mais perto do que o centroide sugere, entra na checagem de distância mínima e pode mudar o quadro — hoje ela simplesmente não é avaliada.",
+
+    "Percorrer o raio de 300 metros a pé e contar as farmácias existentes. O acervo registra apenas uma com coordenada, mas dezoito registros da camada estão sem coordenada e não entram em contagem alguma: se houver uma segunda farmácia no raio curto, a leitura de concorrência imediata dobra e o dimensionamento do mercado do entorno muda junto.",
+
+    "Medir o movimento de entrada e saída do campus do instituto federal a 478 metros e dos dois equipamentos de ensino a 311 e 327 metros, nos horários de troca de turno. Público de ensino técnico e superior muda o mix esperado: mais medicamento isento de prescrição e conveniência, menos uso contínuo — e isso altera o sortimento, não o tamanho do mercado.",
+
+    "Verificar na unidade de rede nacional a 247 metros o horário de funcionamento, o número de frentes de caixa e se ela tem serviço de aplicação ou atendimento farmacêutico. O acervo não traz o faturamento estimado dela, e esses três sinais são o que permite situá-la entre as faixas do canal dela sem depender da média estadual.",
+
+    "Levantar o valor do aluguel, a área total e a área de venda do imóvel, e declarar qual divisor foi usado. Sem isso o relatório sai sem custo fixo e sem área de venda, e não há como confrontar o potencial de consumo do raio curto com o que a operação custa no endereço."
+  ]
+}

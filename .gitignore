@@ -10,3 +10,8 @@ __pycache__/
 
 # cache gerado pela skill analise-regiao-farmarcas
 .claude/skills/analise-regiao-farmarcas/scripts/cache/
+
+# Apuracao gravada ao lado de cada dossie: e o despejo cru das saidas de
+# script (CNPJ, receita por loja, cadastro). Serve para conferir o dossie na
+# maquina de quem gerou e nao tem por que entrar no historico do repositorio.
+outputs/dossies/*.apuracao.json

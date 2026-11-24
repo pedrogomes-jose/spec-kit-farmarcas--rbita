@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Órbita · BR-242 (Avenida Goiás), 1997 - Setor União I, Gurupi/TO, 77440-070</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+/* Ressalva de qualidade do dado: fica do lado do numero que ela ressalva, e
+   nao na secao recolhida de lacunas — e defeito conhecido do registro, nao
+   coisa que o dossie deixou de saber. */
+.alerta-dado{margin:14px 0 0;padding:12px 14px;border-radius:9px;
+ background:#fdf3e8;border:1px solid #e3b887;font-size:13px;line-height:1.5}
+.alerta-dado ul{margin:7px 0 0;padding-left:19px}
+.alerta-dado li{margin:3px 0}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Dossiê de Região</div>
+  <div class="sub">Leitura de região para análise de ponto — <b>sem score</b> ·
+    dump de 2026-10-26 · cadastro de lojas de 2026-11-10</div>
+</header>
+<div class="faixa-end">BR-242 (Avenida Goiás), 1997 - Setor União I, Gurupi/TO, 77440-070</div>
+<section class="topo">
+  <div class="gate" style="border-color:#b07d00">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#b07d00">Alerta</div>
+    <div class="nota">60–120 mil → até 2 grupos econômicos, o 2º grupo de bandeira popular, distância mínima</div>
+    <div class="nota" style="margin-top:6px;color:#b07d00">com o pedido a cidade fica com 4 loja(s) Farmarcas, distribuídas entre 2 grupo(s) econômico(s), numa faixa cujo teto é de 2 grupo(s) econômico(s)</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Esquina de avenida principal numa cidade de alto potencial de consumo e alta saturação de farmácias, com 13 concorrentes dentro de 300 m e o zoneamento liberando com alerta de densidade.</p>
+    <div class="meta">Solicitante: <b>empresário novo</b> ·
+      Bandeira: <b>Ultra Popular</b> (popular) ·
+      População do município (Censo 2022): <b>85.125</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da região</h2>
+  <div class="swot-eixo"><span>A favor</span><span>Contra</span></div><div class="swot"><div class="lente" style="border-color:#0f7b45;background:#e8f6ee"><div class="lente-tit" style="color:#0f7b45">Forças</div><p class="abertura">O que joga a favor deste endereço está mais na cidade e na posição da esquina do que em quem mora em volta dela: Gurupi é polo de uma rede de 14 municípios, tem potencial de consumo acima de nove em cada dez municípios comparados, e um mercado farmacêutico em crescimento.</p><p><b>O ponto está em esquina de avenida principal, com duas faces de exposição</b> É o encontro da Avenida Goiás com a Rua Presidente Juscelino Kubitschek, a 10,6 m do cruzamento e a 4,4 m da via. A Avenida Goiás é classificada como avenida principal na malha viária, o maior porte que a classificação distingue.<sup class="ref">1</sup></p><p><b>Gurupi puxa público de 14 municípios que somam quase outra Gurupi</b> A cidade é classificada como Centro Sub-Regional A e atende a demanda de rotina de 14 municípios do entorno, que somam 87.206 habitantes — contra 90.819 moradores da própria cidade na mesma base de população. Na rede urbana ela se vincula a Palmas.<sup class="ref">2</sup></p><p><b>O mercado farmacêutico da cidade cresce 11,68%, e a rede cresce mais que ele</b> São R$ 129,90 milhões no acumulado de 12 meses atual, contra R$ 116,32 milhões no anterior. Dentro desse total a Farmarcas fez R$ 20,10 milhões, crescendo 23% enquanto o restante do mercado cresceu 10%. A Ultra Popular é a única bandeira da rede presente na praça e responde por 16% dela.<sup class="ref">3</sup></p><p><b>O potencial de consumo da cidade está acima de 93% dos municípios brasileiros</b> O índice de potencial de consumo de Gurupi é 0,04221, terceiro do Tocantins e no percentil 93 entre 5.571 municípios comparados. O índice Firjan de desenvolvimento municipal é 0,7497, segundo do estado e no percentil 87, contra mediana nacional de 0,61.<sup class="ref">4</sup></p><p><b>O entorno imediato concentra escolas e comércio de destino</b> Dentro de 500 m há 4 escolas, a mais próxima a 111 m, uma agência bancária a 148 m e uma Lojas Americanas a 357 m. O mapa colaborativo registra 579 objetos e 9 equipamentos etiquetados na área, e nenhum deles é de saúde, mercado ou transporte.<sup class="ref">5</sup></p><p><b>Os domicílios da cidade se concentram nas classes C e D/E</b> C2 responde por 28,6%, D/E por 25,3% e C1 por 21,4%. A classe A responde por 2,3% e a B1 por 5,8%.<sup class="ref">6</sup></p></div><div class="lente" style="border-color:#b4503c;background:#fdeee9"><div class="lente-tit" style="color:#b4503c">Fragilidades</div><p class="abertura">A praça é disputada e o quarteirão é o mais disputado dela. A cidade já tem mais farmácia por habitante que a maioria do país, e o mercado do anel de 300 m é explicado sobretudo por lojas de rede nacional, num trecho onde quase ninguém mora.</p><p><b>Gurupi tem 1.121,2 habitantes por farmácia, contra mediana nacional de 1.492,6</b> São 5.541 municípios comparados, e Gurupi fica no percentil 23 — quanto menor o percentil, mais farmácia para a mesma gente. Com a população do Censo 2022 no numerador, são 1.050,9 habitantes por farmácia e percentil 18. A cidade tem 81 farmácias.<sup class="ref">7</sup></p><p><b>Treze farmácias dentro de 300 m, e a mais próxima está a 17 m</b> A vizinha imediata é uma Pague Menos, a 17 m. Depois vêm lojas a 39 m, 60 m, 87 m, 115 m, 115 m, 116 m, 135 m, 140 m e 144 m — quase todas na própria Avenida Goiás. Num raio de 5 km em volta do mesmo ponto são 67 farmácias.<sup class="ref">8</sup></p><p><b>O mercado do anel é explicado sobretudo por três lojas de canal nacional</b> Das 13 farmácias do anel de 300 m, 3 são do canal ABRAFARMA, cuja loja média no Tocantins fatura R$ 1.049.209,93 por mês, e 6 são independentes, cuja loja média no estado fatura R$ 47.772,91. Somadas pela régua de canal, as lojas do anel movimentam R$ 3,96 milhões por mês. Por outra medida, a da faixa de faturamento que cada loja declara no cadastro, uma única das 13 ocupa a faixa mais alta do anel, a de R$ 846.655,41 a R$ 1.336.854,11 — e ela está a 60 m, operando como franquia.<sup class="ref">9</sup></p><p><b>Menos de mil pessoas moram no raio que concentra as treze farmácias</b> São 943,64 moradores em 336 domicílios dentro de 300 m, com densidade de 3.350,73 habitantes por km² contra 49,25 no município inteiro, e verticalização de 8,62%. O potencial de consumo em drogarias no raio é de R$ 1,71 milhão, repartido em 48% medicamentos e 52% higiene, beleza e nutrição. É um trecho de comércio, não de moradia: quem sustenta a loja não mora nela.<sup class="ref">10</sup></p></div><div class="lente" style="border-color:#1a5fb4;background:#e9f0fb"><div class="lente-tit" style="color:#1a5fb4">Oportunidades</div><p class="abertura">As duas alavancas em aberto aqui não dependem do endereço, e sim do que a rede consegue fazer que o concorrente típico do quarteirão não faz: credenciar-se a um programa que move quase cem milhões na cidade, e comprar com retaguarda que seis vizinhos independentes não têm.</p><p><b>Credenciar ao Farmácia Popular é ação da própria loja, num município que gasta R$ 98,39 milhões em medicamentos</b> O credenciamento se resolve no ato de abertura e já é praticado por 14 das 81 farmácias da cidade. O solicitante confirmou que pretende credenciar este ponto, o que o põe desde o primeiro dia na parcela da praça que opera pelo programa.<sup class="ref">11</sup></p><p><b>A retaguarda da rede alcança um patamar de preço que o vizinho independente não alcança</b> Seis das 13 farmácias do anel de 300 m são independentes, cuja loja média no Tocantins fatura R$ 47.772,91 por mês. Na região de Gurupi, as lojas do Grupo Farmarcas registram R$ 23,17 por unidade e os concorrentes R$ 35,10, num patamar regional de R$ 32,71 por unidade, acima dos R$ 30,61 da UF.<sup class="ref">12</sup></p><p><b>As categorias que mais crescem na praça respondem hoje por fatias pequenas dela</b> Nutrição e suplementos crescem 17% e respondem por 2% da receita da praça; conveniência cresce 16% com 5%; infantil cresce 14% com 6%. A prescrição, que sozinha é 56% do mix, cresce 14%. Montar o mix com peso nas três primeiras é decisão de sortimento disponível na abertura.<sup class="ref">13</sup></p></div><div class="lente" style="border-color:#8b3a62;background:#fbeaf2"><div class="lente-tit" style="color:#8b3a62">Dificuldades</div><p class="abertura">O zoneamento não barra, e chega à mesa de aprovação com duas ressalvas do próprio gate — a densidade de lojas e uma distância mínima que não pôde ser checada —, somadas à convivência com o associado que já opera a praça.</p><p><b>A praça passa a ter 4 lojas da rede para uma faixa que dimensiona 2</b> Com esta loja, Gurupi fica com 4 lojas Farmarcas distribuídas entre 2 grupos econômicos, numa faixa de população cujo teto é de 2 grupos. O teto é respeitado, e ainda assim são mais pontos da rede dividindo a mesma cidade: o alerta de densidade precisa de resposta na mesa de aprovação antes de o ponto andar.<sup class="ref">14</sup></p><p><b>As três lojas Farmarcas ativas da cidade são de outro associado, e a mais próxima está a 619 m</b> Todas respondem ao mesmo grupo econômico, que não é o do solicitante, e todas operam a bandeira Ultra Popular. Para empresário novo, nenhuma sobreposição é escolha estratégica: toda loja da rede próxima é de terceiro, e a disputa pelo mesmo público entre associados é o que a regra de expansão existe para evitar. Alguém vai ter de arbitrar essa convivência antes de o ponto andar.<sup class="ref">15</sup></p></div></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Detalhes da região analisada</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População na área</div><div class="val">944 habitantes</div><div class="nota">7 setores censitários no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Raio de estudo</div><div class="val">300 m</div><div class="nota">comparado também a 5.000 m</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Domicílios</div><div class="val">336</div><div class="nota">2,82 moradores por domicílio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo</div><div class="val">R$ 1.713.181,13</div><div class="nota">drogarias, rateado pela fração de cada setor no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Método de rateio</div><div class="val">proporcional por área</div><div class="nota">cobertura do círculo: 100,0% · 7 setores</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Contexto macroeconômico</h2>
+  <p class="explica"><b>Como ler a renda.</b> São valores <b>mensais aproximados</b>,
+  média dos setores censitários <b>ponderada pela população e pelos domicílios que
+  cada setor tem dentro do raio</b> — setor que só encosta na borda pesa pouco — não a renda de quem compra na
+  loja, e sim a de quem <b>mora</b> ali. Renda por habitante divide o rendimento do
+  domicílio por todos os moradores, inclusive quem não tem renda; por isso fica bem
+  abaixo da renda domiciliar. Num ponto de passagem, as duas descrevem a vizinhança
+  residencial, não a clientela — que pode ser outra.</p>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Densidade demográfica</div><div class="val">3.351 hab/km²</div><div class="nota">média dos setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média por habitante</div><div class="val">R$ 2.634,26</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média domiciliar</div><div class="val">R$ 4.139,96</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Verticalização</div><div class="val">8,6%</div><div class="nota">domicílios em apartamento — casas x apartamentos</div></div>
+    
+  </div>
+  <h3>Cidades que têm este município como polo</h3>
+  <p class="explica"><b>Por que isto entra.</b> Toda medida de população, renda e
+  potencial deste relatório conta apenas quem <b>mora</b> dentro do raio. Quando a
+  cidade é polo de outras, parte do movimento do comércio vem de fora e não aparece
+  em nenhum desses números. A lista abaixo dimensiona esse público: é a relação de
+  polo invertida — municípios que registram este como seu centro.</p>
+  <table><thead><tr><th>Município</th><th>População</th><th>Papel na rede urbana</th></tr></thead>
+  <tbody><tr><td>Formoso do Araguaia/TO</td><td>19.512</td><td>Centro Local</td></tr><tr><td>Peixe/TO</td><td>9.327</td><td>Centro Local</td></tr><tr><td>Alvorada/TO</td><td>9.159</td><td>Centro Local</td></tr><tr><td>Araguaçu/TO</td><td>8.208</td><td>Centro Local</td></tr><tr><td>Palmeirópolis/TO</td><td>7.087</td><td>Centro de Zona B</td></tr><tr><td>Figueirópolis/TO</td><td>5.330</td><td>Centro Local</td></tr><tr><td>Aliança do Tocantins/TO</td><td>5.168</td><td>Centro Local</td></tr><tr><td>São Valério/TO</td><td>4.560</td><td>Centro Local</td></tr><tr><td>Dueré/TO</td><td>4.286</td><td>Centro Local</td></tr><tr><td>Cariri do Tocantins/TO</td><td>4.184</td><td>Centro Local</td></tr><tr><td>Sandolândia/TO</td><td>3.926</td><td>Centro Local</td></tr><tr><td>Jaú do Tocantins/TO</td><td>3.388</td><td>Centro Local</td></tr><tr><td>Sucupira/TO</td><td>1.582</td><td>Centro Local</td></tr><tr><td>Crixás do Tocantins/TO</td><td>1.489</td><td>Centro Local</td></tr></tbody></table>
+  <p class='vazio'>Somadas, essas cidades têm <b>87.206 habitantes</b>. É público que não mora no raio e que nenhum indicador de área deste relatório conta.</p>
+</section>
+<section>
+  <h2><span class="ic">$</span> Microterritório e concorrência</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais na cidade</div><div class="val">R$ 5.602.193,22</div><div class="nota">22 lojas com faixa declarada no município · soma de rótulos de faixa — o campo tem 8 valores, um por faixa, e classifica a loja em vez de medir a venda</div></div>
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Média da faixa por loja</div><div class="val">R$ 350.039,76</div><div class="nota">média mensal dos rótulos de faixa das lojas do raio — não é faturamento medido</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais no raio</div><div class="val">R$ 2.450.278,30</div><div class="nota">soma das faixas de 7 lojas classificadas · o campo tem 8 valores, um por faixa — classifica a loja, não mede a venda</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Concorrentes em 300 m</div><div class="val">13</div><div class="nota">67 em 5.000 m</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Lojas Farmarcas no raio</div><div class="val">2</div><div class="nota">2 desativadas — pelo cadastro de lojas (CNPJ + coordenada) · 0 ocupa(m) vaga de zoneamento — atenção: 1 loja(s) do município estão sem coordenada e não entram nesta conta</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Preço médio no brick</div><div class="val">R$ 32,71</div><div class="nota">UF: R$ 30,61 · receita a preço de consumidor ÷ unidades vendidas · fonte: base de faturamento por brick da IQVIA</div></div>
+  </div>
+  <div class='alerta-dado'><b>Erro provável de cadastro nos números acima.</b> A checagem de qualidade do dado encontrou registro de concorrente cadastrado em cidade que o raio não alcança. Ele <b>entra</b> na contagem de concorrentes, na soma por régua de canal e na faixa de faturamento desta seção — o número pode estar um a mais por registro listado. Conferir o endereço do CNPJ antes de usar a contagem como definitiva.<ul><li><b>1</b> registro(s) no raio de 300 m: Ibotirama a 178 m (independente)</li><li><b>5</b> registro(s) no raio de 5.000 m: Araguaina a 1.375 m (independente); Ibotirama a 178 m (independente); Miracema do Tocantins a 584 m (independente); Cariri do Tocantins a 1.440 m (independente); Porto Nacional a 584 m (franquia)</li></ul></div>
+  <h3>Quanto vende uma loja — três fontes independentes</h3>
+  <p class="explica"><b>Elas não medem a mesma coisa.</b> A primeira é a
+  <b>faixa de faturamento dos concorrentes</b> da praça: classifica cada loja numa de
+  oito faixas, está preenchida em menos da metade dos cadastros e — importante — não
+  traz valor por loja, só o rótulo da faixa. A segunda é a <b>régua medida por canal</b>: receita e
+  número de pontos de venda por canal e por estado, apurados por instituto, aplicados
+  ao canal em que cada concorrente está classificado. É ela que <b>dimensiona o
+  mercado do raio</b>, porque cobre também as lojas de campo vazio. A terceira é a
+  <b>receita medida das lojas do grupo</b>, cruzada loja a loja pelo CNPJ — responde
+  quanto <b>a nossa bandeira</b> fatura numa praça assim. Em varejo farmacêutico a
+  distribuição tem cauda longa, então mínimo, mediana e máximo dizem mais que média: a
+  distância entre os extremos mede o quanto o resultado depende de execução e de
+  ponto, não da região.</p>
+  <h4>Concorrentes da praça — em que faixa de faturamento eles caem</h4>
+  <p class="explica"><b>Estes três números são rótulos de faixa, não faturamento de
+  loja.</b> O campo da camada de concorrentes assume <b>oito valores em toda a base</b>,
+  um para cada faixa da régua que aparece no fim desta seção — sete deles são o ponto
+  médio exato da faixa, e o mais baixo é o teto da faixa aberta embaixo. Então o que
+  está abaixo é a faixa mais baixa ocupada, a faixa mediana e a mais alta ocupada
+  entre as lojas da cidade: descrevem <b>como as lojas se distribuem entre as
+  faixas</b>. A distância entre dois deles é a distância entre faixas, não entre duas
+  lojas, e nenhum deles é o faturamento de nenhum estabelecimento.</p>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Faixa mais baixa ocupada</div><div class="val">R$ 89.997,73</div><div class="nota">faixa, entre as 22 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Faixa mediana</div><div class="val">R$ 126.120,99</div><div class="nota">faixa, entre as 22 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Faixa mais alta ocupada</div><div class="val">R$ 1.091.754,77</div><div class="nota">faixa, entre as 22 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+  </div>
+  <h4>Mercado do raio — régua medida por canal</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mercado em 300 m</div><div class="val">R$ 3.963.678,60</div><div class="nota">12 de 13 lojas em 300 m · 1 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Mercado em 5.000 m</div><div class="val">R$ 7.673.550,30</div><div class="nota">66 de 67 lojas em 5.000 m · 1 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+  </div>
+  <table><thead><tr><th>Canal</th><th>Por loja/mês</th><th>Lojas em 300 m</th><th>Lojas em 5.000 m</th></tr></thead><tbody><tr class="tem"><td>ABRAFARMA</td><td>R$ 1.049.209,93</td><td>3</td><td>4</td></tr><tr><td>Outras redes corporativas</td><td>R$ 569.650,90</td><td>—</td><td>—</td></tr><tr><td>Grupo Farmarcas</td><td>R$ 483.005,44</td><td>—</td><td>—</td></tr><tr class="tem"><td>Associações e franquias</td><td>R$ 176.470,45</td><td>3</td><td>4</td></tr><tr><td>FEBRAFAR</td><td>R$ 143.875,48</td><td>—</td><td>—</td></tr><tr class="tem"><td>Independentes</td><td>R$ 47.772,91</td><td>6</td><td>58</td></tr></tbody></table>
+  <p class="explica"><b>O que este número é e o que não é.</b> Cada valor da coluna
+  por loja é o que uma loja <b>média</b> daquele canal fatura neste estado — não o
+  faturamento da farmácia observada, que nenhuma base traz. A fonte não registra a
+  dispersão dentro do canal: duas independentes no mesmo quarteirão podem diferir
+  várias vezes entre si, e isso não aparece aqui. Some-se a isso que a receita é
+  acumulada de doze meses enquanto a contagem de pontos de venda é do ano corrente,
+  o que enviesa canal que abriu ou fechou muita loja no período. Serve para
+  dimensionar o mercado do entorno e para situar um concorrente pelo porte da rede a
+  que ele pertence; não serve para afirmar quanto um endereço vende.</p>
+
+  <h4>Lojas do grupo — receita medida · Ultra Popular em TO</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Menor receita medida</div><div class="val">R$ 190.886,49</div><div class="nota">18 loja(s) do grupo em TO, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Receita mediana medida</div><div class="val">R$ 611.118,64</div><div class="nota">18 loja(s) do grupo em TO, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Maior receita medida</div><div class="val">R$ 1.010.487,47</div><div class="nota">18 loja(s) do grupo em TO, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mesma bandeira, rede inteira</div><div class="val">R$ 442.847,15</div><div class="nota">mediana de 890 loja(s) · mesma fonte, recorte nacional</div></div>
+  </div>
+
+  <h3>Venda mensal aproximada — raio de estudo</h3>
+  <table><thead><tr><th>Máxima</th><th>Mínima</th><th>Classificação</th><th>Concorrentes no raio</th></tr></thead><tbody><tr><td>Acima</td><td>R$ 1.336.854,12</td><td><span class="faixa f1">1</span></td><td>—</td></tr><tr class="tem"><td>R$ 1.336.854,11</td><td>R$ 846.655,41</td><td><span class="faixa f2">2</span></td><td>1</td></tr><tr><td>R$ 846.655,40</td><td>R$ 549.075,62</td><td><span class="faixa f3">3</span></td><td>—</td></tr><tr class="tem"><td>R$ 549.075,61</td><td>R$ 388.442,64</td><td><span class="faixa f4">4</span></td><td>1</td></tr><tr class="tem"><td>R$ 388.442,63</td><td>R$ 271.181,25</td><td><span class="faixa f5">5</span></td><td>1</td></tr><tr class="tem"><td>R$ 271.181,24</td><td>R$ 162.244,26</td><td><span class="faixa f6">6</span></td><td>1</td></tr><tr class="tem"><td>R$ 162.244,25</td><td>R$ 89.997,74</td><td><span class="faixa f7">7</span></td><td>2</td></tr><tr class="tem"><td>R$ 89.997,74</td><td>Abaixo</td><td><span class="faixa f8">8</span></td><td>1</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">◷</span> Potencial de consumo da região analisada</h2>
+  <p class="explica"><b>O que este número é.</b> É quanto os moradores dos setores do
+  raio <b>poderiam</b> gastar em itens de drogaria — demanda potencial estimada, não
+  venda realizada. Cada setor censitário entra pela <b>fração que de fato cai dentro
+  do círculo</b>, não inteiro: um setor que só encosta na borda contribui com a parte
+  dele que está dentro. <b>A base não declara a periodicidade</b>: o teste de ordem de
+  grandeza aponta valor anual (ver as lacunas), embora o relatório do produto rotule o
+  mesmo campo como mensal. Nenhuma loja captura o potencial inteiro — ele se divide
+  entre todos os concorrentes do entorno e o que vaza para fora da região.</p>
+  <div class="split">
+    <div class="split-cards">
+      <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo total</div><div class="val">R$ 1.713.181,13</div><div class="nota">médio potencial de captura</div></div>
+      <div class="card" style="border-left-color:#3b7ddd"><div class="rot">Medicamentos</div><div class="val">R$ 821.651,95</div><div class="nota">48,0% do total</div></div>
+      <div class="card" style="border-left-color:#e8558f"><div class="rot">Higiene, Beleza &amp; Nutrição</div><div class="val">R$ 891.529,18</div><div class="nota">52,0% do total</div></div>
+    </div>
+    <div class="split-graf">
+      <svg viewBox="0 0 180 180" width="190" height="190" role="img"
+  aria-label="Medicamentos 48%, Higiene, Beleza &amp; Nutrição 52%">
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#e8558f" stroke-width="34"/>
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#3b7ddd" stroke-width="34"
+     stroke-dasharray="211.12 228.71" transform="rotate(-90 90 90)"/>
+</svg>
+      <div class="legenda"><span class="p azul"></span>Medicamentos
+        <span class="p rosa"></span>Higiene, Beleza &amp; Nutrição</div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Geradores de fluxo em 500 m</h2>
+  <p class="explica"><b>O ponto está em esquina</b>, no encontro de Avenida Goiás e Rua Presidente Juscelino Kubitschek, a 10,6 m do cruzamento. Esquina tem duas faces de exposição e recebe quem circula pelas duas vias — é a implantação que mais separa um ponto de rua de outro na mesma quadra. A via é classificada como avenida principal.</p>
+  <p class='explica'><b>Recorte diferente do resto do dossiê.</b> Os números desta seção são de um raio de 500 m, e não dos 300 m do raio de estudo: 300 metros é curto demais para descrever o que atrai gente para a calçada, e uma caminhada de cinco minutos é o recorte que o pedestre de fato percorre. Não some estas contagens com a população do raio de estudo.</p>
+  <p class='explica'><b>Por que isto importa.</b> Farmácia de rua vive de quem passa, e quem passa é atraído por outra coisa — consulta, escola, banco, ônibus, compra do dia. Cada categoria abaixo é um motivo para alguém estar nesta calçada. A contagem diz que os geradores existem e a que distância; <b>não diz quanta gente passa</b>, que continua sendo o dado ausente.</p><table><thead><tr><th>Categoria e por que gera fluxo</th><th>Em 500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b><div class='nota'>consulta e exame trazem paciente e acompanhante, muitos com receita na mão ao sair</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Creche Escola</b><div class='nota'>entrada e saída concentram pais e responsáveis em horário fixo, todo dia útil</div></td><td>4</td><td>111 m</td><td>Grupo Educacional Moderno, Escola Estadual Presbiteriano Araguaia, Colégio Bernardo Sayão de Gurupi</td></tr><tr><td><b>Mercado Supermercado</b><div class='nota'>compra de rotina puxa a mesma pessoa várias vezes por semana</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Banco Loteria</b><div class='nota'>fila e pagamento prendem a pessoa no quarteirão, e o idoso é público de medicamento contínuo</div></td><td>1</td><td>148 m</td><td>Itaú</td></tr><tr><td><b>Transporte</b><div class='nota'>ponto e terminal despejam fluxo de passagem — o passante que não mora nem trabalha aqui</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Coletiva</b><div class='nota'>prédio concentra muita gente em pouca área, com compra de conveniência a pé</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Individual</b><div class='nota'>casa indica bairro residencial, de compra planejada e menos passagem</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Comercio Servicos</b><div class='nota'>densidade comercial é o que faz a rua ter movimento ao longo do dia</div></td><td>2</td><td>284 m</td><td>A Fazendeira, Lojas Americanas</td></tr><tr><td><b>Lazer Culto</b><div class='nota'>igreja, praça e academia concentram fluxo em horários e dias específicos</div></td><td>1</td><td>375 m</td><td></td></tr></tbody></table><p class='vazio'>Equipamento sem nome no mapa entra na contagem e fica fora da coluna de exemplos. Cobertura é colaborativa: ausência aqui não é ausência no mundo.</p><p class='explica'><b>O que o mapa tem nesta área.</b> São <b>579 objetos</b> mapeados dentro do raio — traçado de rua, edificação, ponto solto —, dos quais <b>9</b> carregam etiqueta de equipamento. A área está mapeada e os equipamentos estão etiquetados, de modo que a contagem acima descreve o que existe.</p>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Onde mais olhar — mesma UF</h2>
+  <p class='explica'><b>Como ler.</b> <b>Mercado não atendido</b> é a receita medida na praça menos a receita Farmarcas — o que circula hoje sem passar por nós. Cada linha é uma <b>UTC</b>, a unidade de mercado do varejo, por isso a mesma cidade pode aparecer mais de uma vez — sempre com a localidade nomeada para distinguir uma da outra. <b>Potencial e captura são do município inteiro</b> e repetem nas linhas da mesma cidade, porque não existe potencial por UTC nas bases. <b>Captura</b> é quanto desse potencial o mercado já realiza: captura baixa com mercado grande é demanda represada; captura alta é praça madura, onde entrar significa tirar de alguém. <b>Preço médio por unidade</b> mostra se a praça é de ticket alto ou de volume — e a bandeira popular conversa melhor com preço baixo.</p><table><thead><tr><th>Praça (município — localidade) e por que olhar</th><th>Mercado não atendido</th><th>Potencial e captura do município</th><th>Preço médio</th><th>Cresc.</th><th>Lojas</th><th>Zoneamento</th></tr></thead><tbody><tr><td><b>PORTO NACIONAL/TO</b><div class='nota'>a 134 km do ponto pedido; mercado de R$ 134,3 milhões sem receita nossa dentro, no município; 2 loja(s) Farmarcas já na cidade; mercado crescendo 16%; 109% do potencial anual do município já capturado; preço médio de R$ 28,11 por unidade; ATENÇÃO: a receita Farmarcas caiu aqui — praça possivelmente já testada.</div></td><td><b>R$ 134,3 milhões</b><div class='nota'>R$ 134.325.217</div></td><td>R$ 139.887.204<div class='nota'>potencial anual do município · captura de 108,6% pelo município</div></td><td>R$ 28,11<div class='nota'>por unidade</div></td><td>16,0%</td><td>2</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 1 de 2, 1 vaga(s)</td></tr><tr><td><b>LAGOA DA CONFUSÃO/TO</b><div class='nota'>a 121 km do ponto pedido; mercado de R$ 14,4 milhões sem receita nossa dentro, no município; 1 loja(s) Farmarcas já na cidade; mercado crescendo 68%; 49% do potencial anual do município já capturado; ATENÇÃO: a receita Farmarcas caiu aqui — praça possivelmente já testada.</div></td><td><b>R$ 14,4 milhões</b><div class='nota'>R$ 14.376.127</div></td><td>R$ 30.589.553<div class='nota'>potencial anual do município · captura de 49,0% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>68,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem vaga — 1 grupo(s) para um teto de 1</td></tr><tr><td><b>FORMOSO DO ARAGUAIA/TO</b><div class='nota'>a 51 km do ponto pedido; mercado de R$ 13,4 milhões sem receita nossa dentro, no município; nenhuma loja Farmarcas na cidade; mercado crescendo 12%; 44% do potencial anual do município já capturado.</div></td><td><b>R$ 13,4 milhões</b><div class='nota'>R$ 13.405.868</div></td><td>R$ 30.514.821<div class='nota'>potencial anual do município · captura de 43,9% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>12,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 0 de 1, 1 vaga(s)</td></tr><tr><td><b>ALVORADA/TO</b><div class='nota'>a 84 km do ponto pedido; mercado de R$ 8,0 milhões sem receita nossa dentro, no município; nenhuma loja Farmarcas na cidade; mercado crescendo 7%; 39% do potencial anual do município já capturado; preço médio de R$ 27,04 por unidade.</div></td><td><b>R$ 8,0 milhões</b><div class='nota'>R$ 8.012.495</div></td><td>R$ 20.786.132<div class='nota'>potencial anual do município · captura de 38,6% pelo município</div></td><td>R$ 27,04<div class='nota'>por unidade</div></td><td>7,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 0 de 1, 1 vaga(s)</td></tr><tr><td><b>NATIVIDADE/TO</b><div class='nota'>a 146 km do ponto pedido; mercado de R$ 5,6 milhões sem receita nossa dentro, no município; nenhuma loja Farmarcas na cidade; mercado crescendo 7%; 38% do potencial anual do município já capturado.</div></td><td><b>R$ 5,6 milhões</b><div class='nota'>R$ 5.620.109</div></td><td>R$ 14.692.039<div class='nota'>potencial anual do município · captura de 38,2% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>7,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 0 de 1, 1 vaga(s)</td></tr></tbody></table><p class='vazio'>Lista de onde vale rodar um dossiê, não recomendação de abertura. Mercado grande sem a rede dentro pode ser praça aberta ou praça já testada e perdida — crescimento Farmarcas negativo é o segundo caso. UTC não é raio nem bairro: serve para escolher a praça, não o ponto.</p><p class='vazio'><b>A lista está limitada a 150 km deste endereço</b>, medidos até o centro aproximado de cada município — premissa desta análise, não regra da casa. Sem esse limite a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p><p class='vazio'>Preço médio em branco quando o nome do município aparece abreviado na base de preço e o casamento por nome falha — é ausência da chave, não do dado. Atinge sobretudo as capitais.</p>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que este dossiê NÃO sabe
+    <span class="qtd">31 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li>Quanta gente passa em frente ao ponto. O solicitante confirmou que a tese deste endereço se apoia no fluxo de passagem da rodovia que cruza a cidade, e fluxo de passantes não existe em fonte nenhuma — nem nas bases do Órbita, nem no produto, nem em API pública. Isso importa mais aqui do que em ponto de bairro: só 943,64 pessoas moram dentro de 300 m, de modo que a premissa central do pedido é justamente a que não tem medida. Destrava com contagem de passantes em campo, em dia útil e em sábado, nos horários de pico da avenida.</li><li>Por que as duas lojas Ultra Popular do quarteirão fecharam. O cadastro registra duas lojas da mesma bandeira pretendida, de um grupo econômico diferente do instalado, desativadas a 121 m e a 154 m do ponto. O motivo do fechamento não está em base nenhuma, e ele é a diferença entre um endereço que já derrubou duas operações iguais à pretendida e uma saída da rede por razão alheia ao ponto. O solicitante não sabe dizer. Destrava com o histórico de encerramento dessas duas lojas junto à área de Expansão.</li><li>Qual das duas bases está certa sobre essas lojas. O cadastro, que é a fonte de verdade, diz que as duas estão desativadas, e o solicitante confirmou essa leitura. A camada Concorrentes 2025 registra os mesmos dois CNPJs com faturamento cadastrado, e situa um deles a 33 m do ponto, contra 154 m no cadastro. Enquanto as duas divergirem, a contagem de grupos econômicos da cidade depende de qual se acredita — e é ela que decide o teto. Destrava com conferência de situação cadastral dos dois CNPJs na Receita e com atualização da camada.</li><li>Que o pedido caiba no teto depende de uma premissa, não da regra escrita. A página de zoneamento não diz se loja desativada ocupa vaga; a apuração adota que não ocupa. É essa adoção que mantém Gurupi com 1 grupo econômico instalado e o solicitante como 2º numa faixa de teto 2. Se loja desativada passasse a ocupar vaga, as duas do quarteirão trariam um segundo grupo e o pedido seria o terceiro. Destrava com a definição oficial de quais situações cadastrais ocupam vaga.</li><li>Onde fica a terceira loja ativa do associado instalado. Ela está sem coordenada no cadastro, registrada no Setor Central, e por isso não entrou na checagem de distância mínima — se estiver a menos de 300 m, a regra entre lojas de mesma bandeira passa a incidir sobre este pedido. No cadastro inteiro, 932 das 2.808 lojas estão sem coordenada preenchida e 32 caem fora do Brasil. Destrava com geocodificação do endereço dessa loja.</li><li>Se a renda do entorno é maior ou menor que a da cidade. Os setores censitários do raio devolvem R$ 2.634,26 por habitante e R$ 4.139,96 por domicílio; a camada municipal devolve R$ 284,64 de renda domiciliar per capita para Gurupi. As duas descrevem coisas diferentes, em bases diferentes e sem ano de referência declarado, e não se comparam entre si — e é essa comparação que diria se o ponto puxa para perfumaria ou para genérico. Destrava com a documentação de origem das camadas de renda do acervo.</li><li>A que período se refere o potencial de consumo. A base não declara se os R$ 1,71 milhão do raio são de um mês ou de um ano, e o relatório do produto rotula o mesmo campo como mensal enquanto o teste de ordem de grandeza aponta valor anual. A diferença é de doze vezes, e ela decide se o potencial do raio é maior ou menor que os R$ 3,96 milhões por mês que o anel movimenta pela régua de canal. Destrava com a documentação da camada de potencial de consumo.</li><li>O que existe de saúde num raio de 500 m. O mapa colaborativo não encontrou nenhum posto, clínica, laboratório ou consultório, num trecho em que encontrou 579 objetos e 9 equipamentos etiquetados. Ausência no mapa não é ausência no mundo, e saúde é a categoria que mais traz gente com receita na mão. O solicitante preferiu tratar o assunto depois. Destrava com levantamento em campo ou consulta ao CNES por coordenada.</li><li>Quanto custa ocupar este imóvel. O solicitante não tem o valor de aluguel pretendido nem uma régua de faturamento por metro quadrado para a bandeira, e não existe fonte pública de aluguel comercial por município. Sem os dois, área de venda, aluguel e custo de ocupação ficam fora do relatório, e não há como dizer se o ponto se paga no patamar de receita da bandeira no estado. Destrava com a proposta de locação e a régua de R$/m² usada pela Expansão.</li><li>Em qual brick este endereço cai. O casamento foi pelo nome do município e dois bricks de Gurupi entraram na conta, de modo que o preço médio por unidade é o patamar da região e não o deste quarteirão. Preço por unidade mais baixo também pode refletir mix diferente, e não política de preço. Destrava com a malha geográfica de bricks.</li><li>Se são 13 ou 12 farmácias no anel. Um dos 13 registros, a 178 m do ponto, está cadastrado em Ibotirama — cidade que um raio de 300 m não alcança —, e a checagem de qualidade do dado o marca como erro provável de cadastro. Ele entra também entre as 6 independentes e na soma de R$ 3,96 milhões por mês pela régua de canal, de modo que o número de capa deste dossiê pode ser um a menos. Destrava com conferência do endereço desse CNPJ.</li><li>Onde está, de fato, o ponto analisado. A coordenada que ancora este dossiê veio com a solicitação e sua origem não é declarada na apuração. Toda distância do documento parte dela: os 17 m da farmácia mais próxima, os 619 m da loja do associado, a classificação de esquina. Um erro de dezenas de metros muda a vizinhança imediata, e um de centenas muda o raio inteiro. Destrava com conferência da coordenada contra o número do imóvel na Avenida Goiás.</li><li>O que o cadastro da Receita diria sobre as farmácias do entorno. A camada de farmácias do cadastro da Receita traz só endereço, sem coordenada, e por isso não entrou na contagem do raio. Ela é uma das fontes que permitiria conferir quantas das 13 estão de fato ativas e cruzar com os equipamentos de saúde que faltam no mapa. Destrava com consulta ao CNES por coordenada, que tem CNPJ e geolocalização.</li><li>Quanto varia o faturamento dentro de cada canal. A régua traz a loja média de cada canal no estado e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Duas independentes do mesmo quarteirão podem diferir várias vezes entre si, e aqui são seis delas no anel de 300 m. Destrava com faturamento por CNPJ da região.</li><li>Por que este endereço e não outro em Gurupi. O solicitante respondeu que o ponto ficou livre, de modo que a escolha é disponibilidade de imóvel e não leitura competitiva. Fica como premissa declarada: o dossiê descreve o endereço apresentado e não o compara com outros imóveis da cidade que poderiam estar disponíveis. Destrava com uma lista de imóveis candidatos para análise comparativa.</li><li>Zoneamento — 1 loja(s) Farmarcas do município sem coordenada no cadastro — a distância mínima até o ponto não pode ser checada nessas, e isso é lacuna, não ausência de risco. Destrava com a coordenada no cadastro ou com conferência do endereço em campo.</li><li>Zoneamento — cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa.</li><li>Zoneamento — quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra.</li><li>Zoneamento — a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página.</li><li>Zoneamento — a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página.</li><li>Concorrência — dispersão dentro do canal: a base traz a média do canal e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Duas farmácias independentes no mesmo quarteirão podem diferir várias vezes entre si, e isso não aparece. Destrava com faturamento por CNPJ da região.</li><li>Concorrência — enquadramento das redes nomeadas: em que canal cada rede corporativa nomeada se encaixa é critério do método desta análise, não campo da base. Ler a mesma rede como ABRAFARMA ou como outra rede corporativa muda a referência de porte dela em mais de duas vezes. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li>Concorrência — 18 registros da camada de concorrentes existem na base sem coordenada e por isso não entram em contagem por raio nenhuma — a concorrência medida aqui é um piso, não um total. Destrava com a geocodificação desses registros.</li><li>Concorrência — 32 lojas da rede, no cadastro inteiro, têm coordenada fora do território brasileiro e são descartadas para não medir distância errada. Destrava com a correção do cadastro.</li><li>Concorrência — 3.700 registros da camada, em todo o país, foram descartados por coordenada fora do território brasileiro — parte deles pode ser desta região e está fora da contagem. Destrava com a correção da coordenada na origem.</li><li>Concorrência — camada Farmácias Populares 2025: só endereço. Sem ela não dá para localizar no raio quem já é credenciado ao Farmácia Popular. Destrava geocodificando os endereços da camada.</li><li>Concorrência — camada Bancos: só endereço. Sem ela falta um gerador de fluxo relevante — fila de banco prende a pessoa no quarteirão. Destrava geocodificando os endereços.</li><li>Concorrência — camada Clínicas Oftalmológicas: só endereço. Sem ela falta um gerador de fluxo de saúde no entorno. Destrava geocodificando os endereços.</li><li>Concorrência — camada Barreiras Geográficas: polígono/linha ficou no asset, não no CSV. Num ponto de passagem é o que diria se a via corta ou conecta os dois lados da área de influência. Destrava recuperando os polígonos da camada.</li><li>Concorrência — camada Setor Censitário: polígono ficou no asset — habilita na Fase 2 com a malha do IBGE. A geometria dos setores vem do asset do Órbita, não do próprio arquivo; é ela que sustenta população, renda e potencial no raio.</li><li>Mercado por UTC — base de cobertura de PDVs por UTC (IQVIA): UTC ausente nesta base. Sem ela não se sabe se o crescimento da receita veio da mesma loja ou de abertura e fechamento de PDV. Destrava com a cobertura de PDVs da UTC na base da IQVIA.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li>Contar passantes em frente ao ponto, em dia útil e em sábado, nos horários de pico da Avenida Goiás. É a verificação mais importante deste dossiê: o pedido se apoia no fluxo de passagem e nenhuma base o mede. Contagem alta sustenta a tese apesar dos 943,64 moradores do raio; contagem baixa deixa o ponto dependendo de quem mora em volta, e aí as 13 farmácias do anel passam a dividir uma base pequena.</li><li>Verificar no local se os imóveis das duas Ultra Popular desativadas, a 121 m e a 154 m, estão fechados, e o que ocupa cada um hoje. Se alguma estiver operando, há um segundo grupo econômico instalado na cidade e o pedido deixa de ser o 2º grupo numa faixa de teto 2 — o zoneamento precisa ser rodado de novo.</li><li>Obter o endereço da terceira loja Ultra Popular do associado instalado, registrada no Setor Central. Se ela estiver a menos de 300 m, a regra de distância mínima entre lojas de mesma bandeira incide sobre este pedido e o veredito do zoneamento muda.</li><li>Levantar os equipamentos de saúde num raio de 500 m — posto, clínica, laboratório, consultório. Se houver, entram como gerador de fluxo a favor do ponto; se de fato não houver, confirma-se um entorno de comércio puro, que depende inteiramente da passagem.</li><li>Conferir quantas das 13 farmácias do anel de 300 m estão efetivamente abertas. A camada é de 2025: se várias já fecharam, o quarteirão está menos dividido do que o dossiê descreve; se todas operam, o mercado do anel se reparte entre mais lojas do que a régua de canal supõe.</li><li>Levantar a proposta de aluguel do imóvel e a régua de faturamento por metro quadrado da bandeira. Com as duas, o custo de ocupação volta ao relatório. Se o aluguel couber no patamar de receita das 18 lojas Ultra Popular do Tocantins, cuja mediana é de R$ 611.118,64 por mês, o ponto se discute pelo fluxo; se não couber, a discussão de fluxo fica em segundo plano.</li></ul>
+</section>
+
+<section>
+  <h2><span class="ic">§</span> Fontes</h2>
+  <div>
+  <table class="fontes"><thead><tr><th>#</th><th>Lente</th><th>Afirmação</th><th>Fonte do dado</th></tr></thead><tbody><tr><td class="n">1</td><td>Forças</td><td>O ponto está em esquina de avenida principal, com duas faces de exposição</td><td>malha viária do OpenStreetMap</td></tr><tr><td class="n">2</td><td>Forças</td><td>Gurupi puxa público de 14 municípios que somam quase outra Gurupi</td><td>REGIC 2018, do IBGE, e camada de População por município</td></tr><tr><td class="n">3</td><td>Forças</td><td>O mercado farmacêutico da cidade cresce 11,68%, e a rede cresce mais que ele</td><td>base de crescimento por UTC e base de bandeiras por UTC (IQVIA)</td></tr><tr><td class="n">4</td><td>Forças</td><td>O potencial de consumo da cidade está acima de 93% dos municípios brasileiros</td><td>Ranking de Consumo e índice Firjan (IFDM)</td></tr><tr><td class="n">5</td><td>Forças</td><td>O entorno imediato concentra escolas e comércio de destino</td><td>equipamentos mapeados no OpenStreetMap</td></tr><tr><td class="n">6</td><td>Forças</td><td>Os domicílios da cidade se concentram nas classes C e D/E</td><td>base do Farmácia Popular</td></tr><tr><td class="n">7</td><td>Fragilidades</td><td>Gurupi tem 1.121,2 habitantes por farmácia, contra mediana nacional de 1.492,6</td><td>base do Farmácia Popular, cadastro de municípios e Censo 2022 do IBGE</td></tr><tr><td class="n">8</td><td>Fragilidades</td><td>Treze farmácias dentro de 300 m, e a mais próxima está a 17 m</td><td>camada Concorrentes 2025</td></tr><tr><td class="n">9</td><td>Fragilidades</td><td>O mercado do anel é explicado sobretudo por três lojas de canal nacional</td><td>receita e PDVs por canal (IQVIA) e camada Concorrentes 2025</td></tr><tr><td class="n">10</td><td>Fragilidades</td><td>Menos de mil pessoas moram no raio que concentra as treze farmácias</td><td>camada Setor Censitário, camada Potencial de Consumo por setor censitário e camada de Densidade Demográfica por município</td></tr><tr><td class="n">11</td><td>Oportunidades</td><td>Credenciar ao Farmácia Popular é ação da própria loja, num município que gasta R$ 98,39 milhões em medicamentos</td><td>base do Farmácia Popular</td></tr><tr><td class="n">12</td><td>Oportunidades</td><td>A retaguarda da rede alcança um patamar de preço que o vizinho independente não alcança</td><td>base de faturamento por brick (IQVIA) e receita e PDVs por canal (IQVIA)</td></tr><tr><td class="n">13</td><td>Oportunidades</td><td>As categorias que mais crescem na praça respondem hoje por fatias pequenas dela</td><td>base de mix de categorias por UTC (IQVIA)</td></tr><tr><td class="n">14</td><td>Dificuldades</td><td>A praça passa a ter 4 lojas da rede para uma faixa que dimensiona 2</td><td>regras de zoneamento (Confluence 4.5 e 6.1) e cadastro de lojas</td></tr><tr><td class="n">15</td><td>Dificuldades</td><td>As três lojas Farmarcas ativas da cidade são de outro associado, e a mais próxima está a 619 m</td><td>cadastro de lojas e regras de zoneamento (Confluence 4.5 e 6.1)</td></tr></tbody></table>
+  <h3>Procedência geral</h3>
+  <ul class="proc">
+    <li><b>Coordenada do ponto</b> — origem não declarada nesta geração — toda distância deste relatório é medida a partir dela</li>
+    <li><b>Acervo de camadas do Órbita</b> — extração de 2026-10-26, sem atualização automática.</li>
+    <li><b>Cadastro de lojas Farmarcas</b> — extração de 2026-11-10, mais recente que o acervo de camadas.</li>
+    <li><b>Geometria dos setores censitários</b> — acervo cartográfico do Órbita.</li>
+    <li><b>População do Censo 2022</b> — API pública do IBGE, extração de 2026-11-24.</li>
+    <li><b>Faturamento, unidades e preço por brick e por UTC</b> — IQVIA e CloseUp.</li>
+    <li><b>Receita e número de pontos de venda por canal e por estado</b> — IQVIA, receita acumulada de 12 meses (MAT 2026) sobre contagem de pontos de venda do ano corrente (YTD 2026).</li>
+    <li><b>Geradores de fluxo no entorno</b> — OpenStreetMap.</li>
+    <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas.</li>
+  </ul>
+  <p class="vazio">Este dossiê não pontua o ponto: não há score, nota nem status de
+  recomendação. A régua de viabilidade pertence ao produto.</p>
+  </div>
+</section>
+<footer>
+  Órbita · Dossiê de Região · BR-242 (Avenida Goiás), 1997 - Setor União I, Gurupi/TO, 77440-070
+</footer></div></body></html>

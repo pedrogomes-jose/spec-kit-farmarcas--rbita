@@ -219,6 +219,35 @@ def disponibilidade(pop, teto, n_grupos: int, modelo: str | None):
     return True, f"cabe grupo novo — {n_grupos} de {teto}, {sobra} vaga(s)"
 
 
+# Teto de chamadas a API por rodada quando a disponibilidade precisa ser apurada
+# dentro do raio. Sem teto seria uma chamada por candidato da UF; com ele, as
+# maiores pracas do raio entram apuradas e o resto espera a vez. B.populacao_
+# censo_2022 grava o que busca, entao da segunda rodada em diante sai do cache.
+LIMITE_APURACAO_NO_RAIO = 25
+
+
+def apurar_zoneamento(c: dict, modelo) -> None:
+    """Preenche população, teto e disponibilidade de uma praça, se faltarem.
+
+    Os dois campos de disponibilidade saem SEMPRE juntos e da mesma função. Foi
+    exatamente a atualização pela metade — `zoneamento` reescrito por contagem
+    de lojas e `disponivel_para_grupo_novo` deixado como estava — que fazia
+    praça disponível sumir da lista depois de ter sido apurada.
+    """
+    if c["populacao_censo_2022"] is not None or not c["codigo_ibge"]:
+        return
+    pop, _origem = B.populacao_censo_2022(c["codigo_ibge"])
+    if not pop:
+        return
+    c["populacao_censo_2022"] = pop
+    c["teto_de_lojas"] = teto_de_lojas(pop)
+    disp, motivo = disponibilidade(
+        pop, c["teto_de_lojas"], c["grupos_economicos_no_municipio"], modelo
+    )
+    c["zoneamento"] = motivo
+    c["disponivel_para_grupo_novo"] = disp
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--uf", help="limita a uma UF (recomendado)")
@@ -438,6 +467,15 @@ def main() -> int:
     if args.raio_km:
         dentro = [c for c in candidatos if c.get("distancia_km") is not None
                   and c["distancia_km"] <= args.raio_km]
+        # A contagem abaixo LE disponibilidade, entao a disponibilidade precisa
+        # estar apurada antes dela. Sem isto, praca sem Censo em cache entrava
+        # como indisponivel, a contagem nao alcancava o minimo e o raio caia:
+        # numa maquina de cache vazio a lista voltava a ser a da UF inteira, que
+        # ordenada por mercado absoluto e sempre a capital. Medido: com o cache
+        # local vazio, a busca a partir de Pouso Alegre devolvia Belo Horizonte,
+        # Juiz de Fora e Montes Claros.
+        for c in sorted(dentro, key=lambda x: -x["mercado_nao_atendido_R$"])[:LIMITE_APURACAO_NO_RAIO]:
+            apurar_zoneamento(c, args.modelo)
         # Contar o que SOBREVIVE ao filtro de disponibilidade, nao o que cai no
         # raio: medido em Araputanga/MT, havia 10 pracas a menos de 150 km e
         # NENHUMA disponivel — o raio era aplicado, a disponibilidade esvaziava
@@ -446,6 +484,12 @@ def main() -> int:
         disponiveis_no_raio = len(uteis)
         # Raio que nao devolve nada e pior que raio nenhum: o leitor fica sem
         # caminho e sem saber por que. Cai para a lista inteira e DECLARA.
+        #
+        # LIMITE RESIDUAL: a apuracao acima cobre as maiores do raio, nao todas.
+        # Praca pequena e sem cache ainda pode entrar na contagem como
+        # indisponivel. O desvio erra para o lado de MOSTRAR MAIS pracas, nunca
+        # de esconder — sem o raio a lista fica maior e _proximidade declara que
+        # ele nao foi aplicado — e se corrige entre rodadas pelo cache.
         raio_aplicado = disponiveis_no_raio >= 3
         if raio_aplicado:
             candidatos = dentro
@@ -463,16 +507,7 @@ def main() -> int:
     # Só os finalistas puxam o Censo da API — é uma chamada por município, e
     # sem ela a coluna de zoneamento fica inconclusiva justamente onde importa.
     for c in candidatos[: args.limite]:
-        if c["populacao_censo_2022"] is None and c["codigo_ibge"]:
-            pop, _origem = B.populacao_censo_2022(c["codigo_ibge"])
-            if pop:
-                c["populacao_censo_2022"] = pop
-                c["teto_de_lojas"] = teto_de_lojas(pop)
-                c["zoneamento"] = (
-                    "sem teto (acima de 200 mil)"
-                    if c["teto_de_lojas"] is None
-                    else ("COM VAGA" if c["lojas_farmarcas_no_municipio"] < c["teto_de_lojas"] else "SEM VAGA")
-                )
+        apurar_zoneamento(c, args.modelo)
 
     B.emitir(
         {
@@ -527,7 +562,7 @@ def main() -> int:
                 "a coluna crescimento_farmarcas negativa é o segundo caso"
             ),
             "_limites": {
-                "zoneamento": "só é conclusivo onde a população do Censo já está em cache; o resto pede zoneamento.py. A contagem é de GRUPOS econômicos, não de lojas",
+                "zoneamento": "conclusivo para as praças listadas, que puxam o Censo da API quando falta cache; praça fora do limite pode sair sem apuração. A contagem é de GRUPOS econômicos, não de lojas, e a vaga é calculada para um grupo NOVO — para quem já opera na praça a leitura é outra. Vaga aqui é ausência de impedimento na contagem, não liberação: o gate roda no ponto, por zoneamento.py",
                 "granularidade": "UTC não é raio nem bairro; serve para escolher a praça, não o ponto",
                 "carteira": "a base IQVIA é a carteira ATUAL da Farmarcas, com histórico retroagido",
             },

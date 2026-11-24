@@ -203,6 +203,54 @@ está declarado em lugar nenhum da base**.
 → No dossiê, population do dump se escreve como "estimativa IBGE, ano de
 referência não declarado no dump", nunca como "Censo 2022".
 
+### As camadas SETORIAIS são o Censo 2010 — identificado, não estimado
+
+Descoberto em 2026-11-11, em duas etapas. Primeiro apareceu como desvio: as
+camadas por setor censitário somavam menos gente que o Censo 2022. Depois a
+consulta à API pública do IBGE fechou a conta **na pessoa**, e o que era lacuna
+virou fato.
+
+| Fonte | Bom Despacho/MG |
+|---|---|
+| soma dos 84 setores em `densidade_demografica_do_setor_habkm.Residentes` | **45.624** |
+| **IBGE, Censo 2010** (agregado 1378, variável 93) | **45.624** |
+| IBGE, Censo 2022 (agregado 4714, variável 93) | 51.737 |
+| `populacao_municipios` (dump) | 54.750 |
+
+Bate exato. Não é extração parcial, não é supressão de dado, não é cobertura
+incompleta: as camadas setoriais do acervo são o **Censo 2010**, com os setores
+censitários de 2010 — que o IBGE recortou de novo em 2022 — e **sem declarar o
+ano em lugar nenhum da base**.
+
+Essas camadas são a origem de **moradores, domicílios, densidade, renda por
+habitante, renda domiciliar, verticalização, saneamento, gênero e potencial de
+consumo no raio** — ou seja, de quase todo o cabeçalho do relatório.
+
+→ Fonte de item que use camada setorial se escreve nomeando as camadas e
+dizendo **"Censo 2010"**. Nunca "Censo 2022", nunca "ano não declarado" — o ano
+agora é conhecido.
+
+→ A **defasagem vira lacuna obrigatória** no dossiê, com a direção do viés
+declarada: para população e densidade o número está **subestimado**, e o teto do
+erro é a diferença municipal entre os dois censos (em Bom Despacho, 13,4%).
+
+→ **Não reescalar por fator municipal.** Crescimento urbano não é uniforme entre
+2010 e 2022 — cidade média costuma crescer na borda, não no centro — e as
+fronteiras dos setores mudaram em 2022, então não há correspondência 1 para 1.
+Reescalar imporia precisão que o dado não tem. Declare a defasagem; não a
+corrija por conta própria.
+
+→ **Em aberto, e maior que a defasagem de população: a unidade dos campos de
+renda.** Se `renda_media.Rendimentomediohab` e
+`classe_economica_dos_domicilios.RendimentoMedioDomicilio` vierem nominais de
+2010, lê-los como reais de hoje é erro de ordem de grandeza, não de 13%. Isso
+**não foi investigado** e precisa de uma apuração própria antes que qualquer
+dossiê afirme renda de raio com confiança.
+
+→ O Censo 2022 continua valendo onde ele de fato é consultado: a população do
+município que **corta a faixa de zoneamento** vem do cache da API do IBGE, e
+essa sim se escreve "Censo 2022".
+
 ### 3,7% das coordenadas de `concorrentes_2025` são sujas
 
 **3.700 de 100.594** registros caem fora do bounding box do Brasil

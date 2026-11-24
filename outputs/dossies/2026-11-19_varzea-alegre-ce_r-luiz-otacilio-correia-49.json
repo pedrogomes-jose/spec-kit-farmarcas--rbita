@@ -1,0 +1,133 @@
+{
+  "endereco": "R. Luiz Otacílio Correia, 49 — Centro, Várzea Alegre/CE, 63540-000",
+  "lat": -6.791007,
+  "lng": -39.297704,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "2314003",
+  "municipio": "Várzea Alegre",
+  "uf": "CE",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "novo",
+  "ge": "",
+  "origem_da_coordenada": "informada pelo solicitante na abertura da análise; não geocodificada nesta sessão",
+  "resumo": "Cidade de 38.984 habitantes sem nenhuma loja da rede e com a vaga única do teto em aberto, onde a farmácia mais próxima está a 16 m e quatro das seis portas do raio pertencem a dois donos.",
+  "lentes": {
+    "Forças": {
+      "abertura": "O que sustenta este ponto não é o raio de 300 m: é a cidade inteira estar desocupada pela rede, com mercado grande para o porte dela e pouca farmácia por habitante.",
+      "itens": [
+        {
+          "titulo": "Nenhuma loja da rede na cidade, e R$ 29.878.340,00 por ano circulando sem ela",
+          "texto": "O cadastro não registra loja da rede em Várzea Alegre, e a receita Farmarcas na unidade territorial do município é de R$ 0,00, com as bandeiras da rede em 0% e a linha de concorrentes em 100%. O mercado do município avançou 4% desde o período anterior, quando somava R$ 28.615.269,64.",
+          "fonte": "cadastro de lojas da rede e base de mercado farmacêutico do instituto, unidade territorial de varejo do município"
+        },
+        {
+          "titulo": "A cidade tem menos farmácia por habitante que nove em cada dez municípios do país",
+          "texto": "São 2.560,9 habitantes por farmácia, contra uma mediana nacional de 1.492,6 — percentil 91 entre 5.541 municípios comparados. Com a população do Censo 2022 no numerador, são 2.436,5 habitantes por farmácia, no percentil 89. Mais habitantes por farmácia significa mercado menos disputado por ponto instalado.",
+          "fonte": "camadas municipais de população e de mercado farmacêutico do acervo, com distribuição nacional calculada sobre elas"
+        },
+        {
+          "titulo": "Nenhum grupo econômico instalado na praça",
+          "texto": "A cidade tem zero lojas ocupando vaga de zoneamento e zero grupos econômicos registrados no cadastro. O pedido entraria como o primeiro grupo da praça, e a faixa de até 60 mil habitantes admite um.",
+          "fonte": "gate de zoneamento sobre o cadastro de lojas, com população do Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "A composição de classe da cidade é a do modelo pretendido",
+          "texto": "Várzea Alegre tem 52,99% dos domicílios em D/E e 26,39% em C2, contra 0,31% em A e 1,62% em B1. O preço por unidade praticado pelo Grupo Farmarcas no Ceará é de R$ 22,66, contra R$ 29,91 dos concorrentes no mesmo estado — o grupo opera abaixo do patamar de preço do estado, e não precisa esticar para alcançá-lo.",
+          "fonte": "camada de mercado farmacêutico municipal e base de preço por unidade do instituto, agregado do Ceará"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "A fragilidade deste ponto é de vizinhança imediata: o raio de 300 m já está ocupado, e por poucos donos.",
+      "itens": [
+        {
+          "titulo": "A farmácia mais próxima está a 16 m, na mesma rua",
+          "texto": "Dentro de 300 m há seis registros de farmácia, e o mais próximo fica a 16 m do endereço analisado, classificado como franquia. Em 5 km são quatorze, um deles cadastrado em outro estado e sinalizado como registro implausível. A faixa mediana ocupada pelos vizinhos do raio curto é a de R$ 162.244,26 a R$ 271.181,24 por mês, e a faixa mais alta ocupada vai de R$ 549.075,62 a R$ 846.655,40.",
+          "fonte": "camada de concorrentes do acervo, raios de 300 m e 5 km"
+        },
+        {
+          "titulo": "Seis portas, e dois donos respondem por quatro delas",
+          "texto": "Dos seis registros em 300 m, dois pares compartilham a mesma raiz de CNPJ, e o solicitante confirmou que são dois empresários com duas lojas cada. Os outros dois registros estão no mesmo endereço da Rua Deputado Otacílio Correia, com raízes diferentes entre si. Disputar esta praça é disputar com donos que já têm mais de uma porta.",
+          "fonte": "camada de concorrentes do acervo, raio de 300 m, com confirmação do solicitante"
+        },
+        {
+          "titulo": "O entorno imediato comporta entre R$ 681.939,06 e R$ 1.542.245,82 por mês",
+          "texto": "É a banda que a régua de canal devolve para as seis lojas de 300 m, e ela é larga por dois motivos declarados: uma das seis está sem canal reconhecido e entra como intervalo, e a base não traz a dispersão interna de cada canal. A loja média do canal de associações e franquias no Ceará fatura R$ 127.431,72 por mês.",
+          "fonte": "receita e pontos de venda por canal e por estado do instituto, aplicados às lojas do raio"
+        },
+        {
+          "titulo": "A renda do município está entre as mais baixas do país",
+          "texto": "A renda domiciliar per capita é de R$ 202,74, no percentil 6 entre 5.565 municípios, contra uma mediana nacional de R$ 456,30. O PIB per capita de R$ 14.755,13 fica no percentil 18, contra R$ 29.893,52 de mediana. No índice de desenvolvimento municipal, a dimensão de emprego e renda é a mais fraca das três, em 0,3719 contra 0,7778 em educação.",
+          "fonte": "camadas municipais de renda, PIB e desenvolvimento municipal do acervo, com distribuição nacional calculada sobre elas"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "As oportunidades aqui não estão no raio de 300 m, e sim no que a cidade consome fora dele e no que as farmácias instaladas deixaram de fazer.",
+      "itens": [
+        {
+          "titulo": "Quatorze das dezesseis farmácias da cidade não são credenciadas ao Farmácia Popular",
+          "texto": "A cidade tem 16 farmácias, das quais apenas 2 credenciadas ao programa, e nenhuma da rede. Os gastos em medicamentos do município somam R$ 20.254.225,00, e os domicílios de classe D/E são maioria absoluta na cidade. É a porta que a maioria dos concorrentes deixou fechada, justamente no público mais numeroso.",
+          "fonte": "camada de mercado farmacêutico municipal do acervo"
+        },
+        {
+          "titulo": "O anel de 5 km reúne 22.726 moradores, contra 1.884 no raio curto",
+          "texto": "A densidade cai de 6.690,71 habitantes por km² em 300 m para 310,76 em 5 km, e o município é 38,59% rural. A clientela da loja, se vier de fora da quadra, vem desse anel — e ele é a maior parte do município.",
+          "fonte": "camadas de setor censitário do acervo nos dois raios, e camada municipal de situação do território"
+        },
+        {
+          "titulo": "O mercado da cidade é mais pesado em prescrição do que em conveniência",
+          "texto": "Na unidade territorial do município, prescrição responde por 60% da receita e medicamentos isentos de prescrição por 17%, com genéricos em 27% do grupo de produtos e propagados em 37%. Sortimento de bandeira popular numa praça assim se decide no estoque de receita e de genérico, não no mix de conveniência, que soma 2%.",
+          "fonte": "base de mercado farmacêutico do instituto, unidade territorial de varejo do município"
+        },
+        {
+          "titulo": "Os bricks vizinhos praticam entre R$ 25,36 e R$ 32,86 por unidade",
+          "texto": "Os dois mais próximos ficam a 35,9 km e 36,8 km, com R$ 25,36 e R$ 27,11; os polos regionais a 47,7 km e 47,8 km vão de R$ 30,55 a R$ 32,86. O agregado do Ceará é R$ 29,35. É o patamar da região, e não o desta praça, que não tem brick identificado.",
+          "fonte": "base de preço por unidade do instituto, bricks vizinhos e agregado do Ceará"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "O que este ponto vai ter de atravessar é a distância entre onde ele está e onde está o dinheiro que o sustenta.",
+      "itens": [
+        {
+          "titulo": "A renda do anel externo é metade da do Centro",
+          "texto": "São R$ 1.023,82 por habitante em 300 m contra R$ 537,22 em 5 km, e R$ 1.590,74 de renda domiciliar contra R$ 912,59. A loja fica onde a renda é alta e a população é pequena, e o volume está onde a renda por habitante é a metade — atrair esse volume é custo de operação, não consequência do endereço.",
+          "fonte": "camadas de setor censitário do acervo nos dois raios"
+        },
+        {
+          "titulo": "A cidade não atrai consumo de fora, e perde consumo para o polo",
+          "texto": "O IBGE classifica Várzea Alegre como Centro Local, hierarquia 5, com 0 municípios influenciados, e registra que a demanda por serviços de maior complexidade é atendida em Juazeiro do Norte. A 350 km da capital, a praça depende do próprio município: qualquer plano que conte com clientela de cidades vizinhas contraria o que a base registra.",
+          "fonte": "camada de hierarquia urbana do acervo"
+        },
+        {
+          "titulo": "Via residencial e nenhum transporte público mapeado em 500 m",
+          "texto": "A via do endereço é classificada como rua residencial, e não há ponto de transporte público mapeado no entorno — quem chega, chega a pé do próprio Centro ou de carro. O ponto fica num trecho de centro com equipamentos de praça e calçadão a partir de 56 m e comércio a partir de 103 m, então o movimento depende de quem já está no Centro, não de quem desembarca nele.",
+          "fonte": "malha viária e pontos de interesse do OpenStreetMap, consultados nesta análise"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "Quanta gente passa em frente ao ponto. Fluxo de passantes não existe no acervo nem no produto, e os equipamentos mapeados em 500 m dizem que há geradores de fluxo, não quanta gente circula. Importa aqui porque a tese do ponto é captar quem vem de fora do raio curto, e isso se confirma ou se desmente na calçada. O solicitante tem vídeos do local, que confirmam movimento sem medi-lo: destrava com uma contagem por faixa de hora, num dia útil e num sábado, a partir do material que já existe.",
+    "Parte do anel de 5 km não foi medida. Dois dos 70 setores do raio amplo não têm registro em seis bases — renda, classe de domicílio, potencial de consumo, verticalização, saneamento e gênero — e apenas 94,37% do círculo é coberto por setor com geometria, contra 99,99% no raio de 300 m — o que falta para fechar o círculo é vazio cartográfico. Importa muito neste ponto porque é o anel de 5 km que carrega a tese de onde virá a clientela: população e renda do anel saem por baixo. Destrava com a malha e as tabelas por setor do Censo 2022.",
+    "Em qual brick o ponto cai. Nenhum dos 73 bricks do Ceará leva o nome de Várzea Alegre, e o acervo não traz o polígono do brick. Os valores dos vizinhos são o patamar da região, não o preço desta praça — e é possível que a cidade esteja dentro de um deles sem que a base diga qual. Importa porque preço por unidade é o que separa uma praça de giro barato de uma de giro caro. Destrava com a tabela de municípios por brick do próprio instituto.",
+    "A classe econômica dentro do raio. A composição D/E, C2 e C1 existe apenas por município, e cobre a cidade inteira, Centro incluído; as camadas por setor censitário trazem renda média e não faixa de classe. Então não se sabe qual é o perfil de classe de quem mora no raio da loja, nem no anel externo. Importa porque é a classe, e não a renda média, que define sortimento e política de preço. Destrava com a classe por setor censitário, que o acervo não cobre hoje.",
+    "Se os valores de renda do raio estão em moeda de hoje. As camadas por setor censitário são do Censo 2010 e a unidade dos campos de renda nunca foi apurada. Há um sinal concreto do problema neste dossiê: a renda por habitante do anel de 5 km, aplicada à população dele, supera a massa de renda que o per capita municipal produz para o município inteiro — os dois não podem ser ambos reais de hoje. Por isso a renda do raio entra como comparação entre os dois anéis, nunca como valor absoluto. Destrava com uma apuração da unidade desses campos contra a fonte original.",
+    "Quantos moradores há de fato no raio hoje. População, domicílios e densidade vêm do Censo 2010, com os setores de 2010, e saem subestimados: o município tinha 38.984 habitantes no Censo 2022 e aparece com 40.975 no acervo interno, cujo ano de referência não está declarado. Importa porque a demanda do raio é proporcional a quem mora nele. Destrava com as camadas por setor recalculadas sobre o Censo 2022.",
+    "Quantas farmácias existem na cidade. A camada de mercado farmacêutico municipal registra 16 farmácias; a camada de concorrentes encontra 14 em 5 km, e tem 18 registros sem coordenada que não entram em raio nenhum. A diferença é o tamanho da incerteza sobre a concorrência instalada, e ela também entra no cálculo de habitantes por farmácia. Destrava com o cruzamento por CNPJ entre as duas camadas.",
+    "Se um dos concorrentes de 300 m é uma loja contada duas vezes. Dois registros no mesmo endereço da Rua Deputado Otacílio Correia aparecem com raízes de CNPJ diferentes e rótulos de rede diferentes, e um deles está sem canal reconhecido. Se forem a mesma operação, são cinco concorrentes em 300 m e não seis. Destrava conferindo os dois CNPJs na Receita.",
+    "Quanto uma loja nova faturaria aqui. A régua de canal dimensiona o entorno com a loja média do canal no estado, e a receita medida das lojas da rede descreve praças onde a rede já opera, com a carteira atual e o histórico retroagido. Nenhuma das duas projeta esta loja, e o dossiê não faz essa conta. Destrava com o acompanhamento das primeiras praças virgens abertas pela rede no Ceará.",
+    "Se há loja da rede próxima que o cadastro não localiza. A checagem de distância mínima entre lojas não roda abaixo de 60 mil habitantes, e 932 das 2.808 lojas do cadastro estão sem coordenada preenchida. Neste ponto o efeito é nulo, porque não há loja da rede na cidade nem cadastrada em cidade vizinha aparecendo no raio — mas a regra ficou sem ser exercida. Destrava com a coordenada preenchida no cadastro."
+  ],
+  "campo": [
+    "Confirmar qual farmácia está efetivamente colada ao ponto. A numeração não acompanha as distâncias: o endereço analisado é o número 49, o registro do número 197 aparece a 16 m e o do número 90 a 192 m. Se a coordenada do vizinho mais próximo estiver trocada, a fragilidade central deste dossiê muda de tamanho.",
+    "Transformar os vídeos do local em contagem de passantes por faixa de hora, num dia útil e num sábado. Fluxo alto confirma a tese de captar quem vem de fora do raio curto; fluxo concentrado em uma faixa curta do dia muda o dimensionamento da equipe e do estoque.",
+    "Andar o trecho entre o ponto e o calçadão, que está a 56 m, e entre o ponto e o comércio, que começa a 103 m. Se a caminhada for contínua e movimentada, o endereço é parte do eixo comercial; se houver quebra de fluxo, ele é borda, e a conta de captação muda.",
+    "Conferir na Receita se os dois registros da Rua Deputado Otacílio Correia são uma operação ou duas. Se for uma, o raio de 300 m tem cinco concorrentes e não seis, e a concentração entre poucos donos é ainda maior.",
+    "Checar o registro de farmácia cadastrada em outro estado que aparece a 836 m deste ponto. Ou a coordenada está errada e há uma farmácia não identificada no raio de 5 km, ou o cadastro está errado e a contagem de concorrentes do anel amplo está inflada em um.",
+    "Levantar com a rede quanto o credenciamento ao Farmácia Popular movimenta em praça de perfil parecido. Se movimentar parcela relevante do faturamento em praças de maioria D/E, o credenciamento deixa de ser diferencial e passa a ser pré-requisito de abertura; se for marginal, a oportunidade identificada aqui sai da lista e o pedido perde um dos seus argumentos."
+  ]
+}

@@ -331,12 +331,34 @@ def main() -> int:
     }
 
     if args.lat is not None and args.lng is not None:
-        concorrentes = []
+        # MESMA definição de concorrente que `raio_concorrencia.py`: tudo no raio
+        # que o cadastro não confirma como loja nossa, por CNPJ. Sem este corte,
+        # os dois scripts respondem a mesma pergunta com números diferentes e
+        # nada no dossiê diz qual vale — medido em 2026-11-24, antes deste
+        # conserto: em Gurupi/TO o avulso dava R$ 4.316.619,50 com 15 lojas
+        # contra R$ 3.963.678,60 com 13 da régua embutida, e as duas de
+        # diferença eram lojas da própria rede, desativadas; em Lontras/SC os
+        # dois divergiam no sentido oposto, por um concorrente de nome parecido.
+        # Com o mesmo corte, as duas saídas coincidem nas duas praças.
+        try:
+            nossos_cnpjs = B.cnpjs_do_cadastro()
+            criterio = "CNPJ confirmado no cadastro de lojas"
+        except FileNotFoundError:
+            nossos_cnpjs = set()
+            criterio = (
+                "CADASTRO INDISPONÍVEL — nenhuma loja nossa foi excluída do raio, "
+                "então o mercado pode estar somando loja da própria rede"
+            )
+        concorrentes, nossas_no_raio = [], 0
         for r in B.ler("concorrentes_2025"):
             lat, lng = B.num(r.get("LAT")), B.num(r.get("LONG"))
             if not B.coordenada_valida(lat, lng):
                 continue
             if B.haversine_m(args.lat, args.lng, lat, lng) > args.raio:
+                continue
+            cnpj = B.so_digitos(r.get("CNPJ"))
+            if cnpj and cnpj in nossos_cnpjs:
+                nossas_no_raio += 1
                 continue
             concorrentes.append({
                 "classificacao": r.get("MDM-ClassifdoPDV", ""),
@@ -344,6 +366,10 @@ def main() -> int:
             })
         resultado["raio_m"] = args.raio
         resultado["mercado_no_raio"] = estimar_mercado(concorrentes, bench)
+        resultado["mercado_no_raio"]["_criterio_de_corte"] = (
+            f"tudo no raio que o cadastro NÃO confirma como loja nossa ({criterio})"
+        )
+        resultado["mercado_no_raio"]["lojas_nossas_excluidas_do_raio"] = nossas_no_raio
 
     resultado["lacunas"] = [
         f"{alvo[0].upper()}{alvo[1:]}: {motivo}." for alvo, motivo in LACUNAS_DA_REGUA.items()

@@ -47,7 +47,7 @@ FAIXAS = [
 def centroides_de_bairro(municipio: str) -> dict:
     """Centroide de cada bairro do município, da camada `bairros` (Lat_C/Lon_C).
 
-    Serve de FALLBACK quando a loja não tem coordenada — 931 das 2.804 não têm.
+    Serve de FALLBACK quando a loja não tem coordenada — 932 das 2.808 não têm.
     Centroide de bairro não é o endereço da loja: só diz a ordem de grandeza.
     Nunca derruba um impedimento sozinho; só evita que a checagem fique cega.
     """
@@ -261,10 +261,22 @@ def main() -> int:
                 # Identificador estavel: quem consome este alerta precisa
                 # reconhece-lo sem depender da redacao, que muda.
                 "id": "densidade_de_lojas",
-                "regra": "quantidade de lojas acima do que a faixa de população dimensiona",
+                # A faixa de população dimensiona GRUPOS ECONÔMICOS, não lojas
+                # — é o que a regra refinada com o PM em 2026-10-29 estabelece e
+                # o que `_aplicada` declara. Dizer que a faixa dimensiona lojas
+                # troca a unidade da regra no enunciado do alerta e contamina
+                # quem escreve a narrativa a partir dele. O gate não muda: o
+                # alerta continua disparando quando a contagem de LOJAS passa do
+                # teto, e continua sendo alerta justamente porque compara duas
+                # unidades diferentes.
+                "regra": (
+                    "quantidade de lojas acima do teto de GRUPOS ECONÔMICOS que a faixa de "
+                    "população dimensiona — unidades diferentes, por isso alerta e não impedimento"
+                ),
                 "constatado": (
-                    f"com o pedido a cidade fica com {lojas_depois} loja(s) Farmarcas para uma "
-                    f"faixa dimensionada em {teto}, distribuídas entre {ges_depois} grupo(s) econômico(s)"
+                    f"com o pedido a cidade fica com {lojas_depois} loja(s) Farmarcas, distribuídas "
+                    f"entre {ges_depois} grupo(s) econômico(s), numa faixa cujo teto é de {teto} "
+                    "grupo(s) econômico(s)"
                 ),
                 "ressalva": (
                     "não barra: o teto conta grupos econômicos. É sinal de que a praça pode ficar "
@@ -465,7 +477,7 @@ def main() -> int:
             "lacunas": {
                 "lojas_da_cidade_sem_coordenada": sem_coord,
                 "_impacto": "sem coordenada não dá para checar distância mínima dessas lojas",
-                "cobertura_de_coordenada_no_cadastro": f"1.841 de 2.804 lojas (66%) têm coordenada utilizável; 931 vazias e 32 fora do Brasil (cadastro de {B.DATA_DO_CADASTRO})",
+                "cobertura_de_coordenada_no_cadastro": f"1.844 de 2.808 lojas (66%) têm coordenada utilizável; 932 vazias e 32 fora do Brasil (cadastro de {B.DATA_DO_CADASTRO})",
                 # Premissa que so descreve a cidade pequena. Emitir sempre jogaria
                 # no relatorio de uma cidade de 150 mil uma ressalva sobre uma
                 # checagem que ali rodou normalmente — lacuna irrelevante vira ruido

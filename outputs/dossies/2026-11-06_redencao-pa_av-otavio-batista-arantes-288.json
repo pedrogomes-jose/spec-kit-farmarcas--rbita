@@ -1,0 +1,55 @@
+{
+  "endereco": "Av. Otávio Batista Arantes, 288 — Serrinha, Redenção/PA · 68553-130 (ref.: Vila Rica)",
+  "lat": -8.030017,
+  "lng": -50.022131,
+  "origem_da_coordenada": "informada pelo solicitante junto com o endereço, não geocodificada por fonte pública nesta geração — a precisão dela não foi verificada, e toda distância deste relatório parte daqui",
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "1506138",
+  "municipio": "Redenção",
+  "uf": "PA",
+  "bandeira": "Bigfort",
+  "modelo": "convencional",
+  "perfil": "novo",
+  "ge": "",
+  "receita_por_m2": null,
+
+  "resumo": "O ponto não passa no zoneamento: Redenção está na faixa de população em que o segundo grupo econômico só entra na praça com bandeira popular, e o pedido traz um grupo novo com bandeira convencional.",
+
+  "leitura": [
+    "<b>O que barra aqui não é falta de vaga.</b> A cidade tem hoje um único grupo econômico respondendo pelas lojas da rede, para uma faixa que admite dois — ou seja, a vaga do segundo grupo existe e está aberta. O que ela não admite é a <b>condição</b> que acompanha essa vaga nesta faixa de população: o segundo grupo a entrar na praça precisa trazer bandeira de modelo popular. O pedido é de um empresário que ainda não responde por loja em Redenção, portanto entra como grupo novo, e a bandeira pretendida é convencional. É esse encontro — vaga aberta, condição não atendida — que encerra a checagem.",
+
+    "<b>As duas formas de contar não dizem a mesma coisa, e a diferença importa para entender o impedimento.</b> Contando lojas, a cidade já opera acima do que a faixa dimensiona, e o pedido aumentaria essa distância. Contando grupos econômicos, que é a leitura aplicada, a cidade está dentro do teto e continuaria dentro dele mesmo com o pedido deferido. A primeira contagem descreve densidade comercial — mais pontos dividindo o mesmo mercado, que é risco econômico de quem opera. A segunda descreve o que a regra existe para proteger, que é a convivência entre associados. Por isso o impedimento aqui não se lê como «a cidade está cheia»: lê-se como «a bandeira pretendida não serve para a vaga que está aberta».",
+
+    "<b>As lojas já instaladas não foram o motivo da recusa, e vale dizer por quê.</b> A distância mínima entre lojas da rede foi avaliada neste pedido e não barrou: as três lojas com coordenada no cadastro estão a mais de um quilômetro do endereço, acima do mínimo de 500 m que vale para bandeira diferente da que já opera na cidade. A quarta não tem coordenada registrada e ficou sem checagem — o que é lacuna, não ausência de risco. O que encerra esta checagem é apenas a condição de bandeira da faixa de população; as distâncias aparecem na tabela abaixo como contexto, não como fundamento do impedimento.",
+
+    "<b>Nenhuma camada de mercado foi levantada para este endereço, e isso é decisão, não omissão.</b> Não há aqui população no raio, renda, concorrência, potencial de consumo nem faturamento de referência — porque medir o mercado de um ponto que a regra barra sugere que existe um número capaz de reverter a decisão, e não existe. O que pode mudar o resultado é decisão de quem é dono da regra, ou mudança no próprio pedido. A seção de praças mais adiante aponta onde a mesma regra não barra; ela não afirma nada sobre este endereço, e cada praça listada ainda precisa do seu próprio levantamento antes de virar decisão."
+  ],
+
+  "o_que_mudaria": [
+    "<b>Regra — bandeira de modelo popular no lugar da convencional.</b> É a mudança mais direta: a condição que barra é exatamente essa, e com ela atendida a vaga do segundo grupo está aberta. A distância mínima continua valendo nesse cenário, com o mesmo resultado de hoje, mas o valor aplicável depende da bandeira escolhida: 500 m se for diferente das que já operam na cidade, 300 m se for a mesma. As três lojas com coordenada estão acima dos dois limites; a quarta segue sem coordenada e sem checagem.",
+    "<b>Regra — o solicitante passar a responder por loja já instalada em Redenção</b>, por aquisição ou entrada societária. Quem já responde por loja na cidade não traz grupo novo, e a exigência de bandeira popular do segundo grupo deixa de se aplicar ao pedido — o que sobraria seria o alerta de densidade, que não barra.",
+    "<b>Hipótese — dispensa expressa da área dona da regra de expansão.</b> Nenhuma das páginas oficiais consultadas descreve mecanismo de dispensa, então este caminho é suposição sobre como a casa decide, e não regra escrita. A faixa e a condição estão escritas; a decisão de abrir exceção a elas não cabe a esta checagem.",
+    "<b>Constatação — uma revisão da população que mudasse a faixa não é caminho aqui.</b> A faixa foi cortada pela população do Censo, e o valor do acervo interno é maior que ele — mas os dois caem na mesma faixa, e o município está longe das bordas dela, não em cima de um corte. Atualizar a população não deslocaria o resultado."
+  ],
+
+  "alertas_cadastro": [
+    "<b>As quatro lojas da cidade foram atribuídas a um mesmo grupo econômico por comparação de nome do responsável, não por vínculo societário.</b> O erro corre nos dois sentidos e com consequências opostas: se duas delas forem na verdade de donos diferentes registrados sob grafia parecida, a cidade já estaria com o teto ocupado e o impedimento mudaria de motivo — passaria a ser teto, e aí nem a troca por bandeira popular destravaria. Se, ao contrário, um mesmo dono estivesse registrado com grafias divergentes, a contagem inventaria um grupo que não existe. Conferir o vínculo por CNPJ é o que fecha essa porta.",
+    "<b>O município de cada loja vem do endereço registrado na Receita, e o teto é contado por município.</b> Loja de Redenção registrada em cidade vizinha não entraria nesta contagem, e loja de outra cidade registrada em Redenção entraria indevidamente. Nenhum caso desse tipo apareceu até um quilômetro deste endereço, que é a janela em que essa varredura foi feita — e vale notar que três das quatro lojas conhecidas do próprio município estão além dela, ou seja, a varredura é mais estreita que a dispersão das lojas da cidade. Fora dessa janela, a checagem depende apenas do que está escrito no cadastro."
+  ],
+
+  "nao_sabe": [
+    "<b>Se a bandeira pretendida pode operar sob modelo popular.</b> O cadastro registra bandeira e modelo como dois campos distintos, mas não guarda a regra de qual bandeira admite qual modelo — e é precisamente esse par que decide o caso. Importa aqui porque o impedimento inteiro depende de uma única condição, e a saída mais curta para ela é de domínio de quem define o portfólio de bandeiras, não do dado. Destrava com a área dona do portfólio declarando se a combinação é possível.",
+    "<b>Como a regra oficial deve ser lida na unidade que importa.</b> A página escreve que a exigência de bandeira popular recai sobre «a 2ª loja», enquanto a contagem de teto foi refinada para grupos econômicos; esta checagem aplicou a exigência ao segundo <b>grupo</b>, para manter as duas partes da mesma regra na mesma unidade. Importa porque é a cláusula exata que barra este pedido: lida como «2ª loja», a cidade já passou dela há muito, e o impedimento teria outro fundamento. Destrava com a atualização da página oficial fixando a unidade.",
+    "<b>Se as quatro lojas respondem mesmo a um único grupo.</b> O cadastro traz CNPJ por loja, mas não liga os CNPJs entre si; a apuração de grupo foi feita por nome do responsável. Importa porque é a contagem de grupos que decide se existe vaga nesta praça — e se não existir, a saída pela bandeira popular deixa de existir também. Destrava com o vínculo societário por CNPJ no cadastro.",
+    "<b>A distância até uma das praças listadas é bem menos precisa que a das outras.</b> O acervo não traz a geometria dos municípios, então a distância até cada praça parte das coordenadas das farmácias registradas naquela cidade. Em Santa Maria das Barreiras esses registros estão espalhados, com dispersão de 41,7 km em torno do ponto de referência adotado, contra menos de um quilômetro nas outras quatro praças da lista. Importa porque a distância declarada para essa praça pode variar dezenas de quilômetros conforme qual registro serve de referência, enquanto as demais são estáveis — e distância é o critério que define quais praças o solicitante consegue operar. Destrava com a geometria oficial do município, que não está no acervo, ou com a conferência em campo do endereço das farmácias registradas lá.",
+    "<b>Se o endereço informado corresponde à coordenada usada.</b> A coordenada veio junto do pedido e não foi conferida contra fonte pública nesta geração. Importa porque todas as distâncias deste relatório partem dela, inclusive a que separaria o ponto das lojas já instaladas num cenário em que a distância mínima volte a valer. Destrava geocodificando o endereço por fonte pública e comparando com o que foi informado."
+  ],
+
+  "campo": [
+    "<b>Perguntar à área dona da regra se a exigência de bandeira popular do segundo grupo é dispensável nesta praça.</b> Se for, o pedido volta para análise de mercado e este endereço precisa de um levantamento completo, que não existe hoje. Se não for, o endereço está encerrado para a bandeira pretendida e a decisão passa a ser entre trocar de bandeira ou trocar de praça.",
+    "<b>Conferir por CNPJ se as quatro lojas da cidade têm mesmo um único dono.</b> Se tiverem, a vaga do segundo grupo existe e a troca por bandeira popular é o caminho que destrava o gate. Se forem dois donos ou mais, a cidade está no teto, e nenhuma troca de bandeira resolve — o caminho passa a ser outra praça.",
+    "<b>Levantar a coordenada da loja da rede que está sem geolocalização no cadastro.</b> A distância dela até o ponto é desconhecida nesta análise, e essa é a única das quatro que ficou sem checagem. Se estiver abaixo do mínimo — 500 m para bandeira diferente da instalada, 300 m se a bandeira escolhida for a mesma que já opera na cidade — ela barra tanto o pedido como está quanto o cenário de troca por bandeira popular, e a troca deixa de ser saída.",
+    "<b>Confirmar com o solicitante se operar modelo popular é possível para ele.</b> A resposta define qual dos dois caminhos seguir: ajustar a bandeira e voltar a análise para este endereço, ou levar o pedido para uma das praças onde a regra não barra — que, pela distância, exigem operar fora de Redenção."
+  ]
+}

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Órbita · R. Paschoal Conte, 107 - Centro, Lontras/SC, 89182-000</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+/* Ressalva de qualidade do dado: fica do lado do numero que ela ressalva, e
+   nao na secao recolhida de lacunas — e defeito conhecido do registro, nao
+   coisa que o dossie deixou de saber. */
+.alerta-dado{margin:14px 0 0;padding:12px 14px;border-radius:9px;
+ background:#fdf3e8;border:1px solid #e3b887;font-size:13px;line-height:1.5}
+.alerta-dado ul{margin:7px 0 0;padding-left:19px}
+.alerta-dado li{margin:3px 0}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Dossiê de Região</div>
+  <div class="sub">Leitura de região para análise de ponto — <b>sem score</b> ·
+    dump de 2026-10-26 · cadastro de lojas de 2026-11-10</div>
+</header>
+<div class="faixa-end">R. Paschoal Conte, 107 - Centro, Lontras/SC, 89182-000</div>
+<section class="topo">
+  <div class="gate" style="border-color:#0f7b45">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#0f7b45">Liberado</div>
+    <div class="nota">Até 60 mil → 1 grupo econômico, sem expansão adicional</div>
+    
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Praça de renda alta e baixa saturação onde a rede não tem receita nenhuma, com o zoneamento liberando a única vaga de grupo econômico — e o solicitante já operando duas lojas da mesma bandeira no polo para onde a cidade se desloca.</p>
+    <div class="meta">Solicitante: <b>já associado</b> ·
+      Bandeira: <b>AC Farma</b> (convencional) ·
+      População do município (Censo 2022): <b>12.873</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da região</h2>
+  <div class="swot-eixo"><span>A favor</span><span>Contra</span></div><div class="swot"><div class="lente" style="border-color:#0f7b45;background:#e8f6ee"><div class="lente-tit" style="color:#0f7b45">Forças</div><p class="abertura">A praça é pequena e rica, e está subatendida em farmácia na comparação nacional. O endereço fica no Centro, que concentra tanto o atendimento farmacêutico quanto os equipamentos que trazem gente ao quarteirão.</p><p><b>Lontras tem 2.009,4 habitantes por farmácia, contra mediana nacional de 1.492,6</b> São 5.541 municípios comparados, e a cidade fica no percentil 78 — quanto maior o percentil, mais gente para a mesma quantidade de farmácia. Com a população do Censo 2022 no numerador, são 1.839,0 habitantes por farmácia e percentil 71.<sup class="ref">1</sup></p><p><b>A renda da cidade está acima de 96% dos municípios brasileiros</b> A renda domiciliar per capita de Lontras é de R$ 933,61, contra mediana nacional de R$ 456,30 entre 5.565 municípios comparados. O índice Firjan de desenvolvimento municipal é 0,7555, percentil 88 contra mediana nacional de 0,61, e o PIB per capita de R$ 45.054,55 fica no percentil 70.<sup class="ref">2</sup></p><p><b>Praticamente toda a farmácia da cidade está neste quarteirão</b> A camada de concorrentes encontra 4 farmácias dentro de 300 m — a 122 m, 188 m, 193 m e 250 m do ponto — e um raio de 5 km em volta dele alcança apenas uma quinta. O Centro concentra o atendimento farmacêutico de uma cidade de 12.873 habitantes.<sup class="ref">3</sup></p><p><b>O entorno de 500 m concentra banco, supermercado e saúde — e o ponto fica na borda dele</b> São 4 agências bancárias, a mais próxima a 202 m, 2 supermercados, o mais próximo a 195 m, a unidade básica de saúde a 337 m, uma escola a 298 m e a igreja matriz a 279 m, num trecho onde o mapa colaborativo registra 580 objetos e 18 equipamentos etiquetados. O endereço não está dentro desse núcleo: a via dele é classificada como rua residencial, e o ponto fica a 9,5 m dela.<sup class="ref">4</sup></p></div><div class="lente" style="border-color:#b4503c;background:#fdeee9"><div class="lente-tit" style="color:#b4503c">Fragilidades</div><p class="abertura">O que joga contra é o tamanho e o comportamento da praça: um mercado que cresce no ritmo da população, pouquíssima gente dentro do raio e uma cidade que a própria fonte descreve como sem centralidade, cujos moradores compram no polo vizinho.</p><p><b>O mercado da praça cresce 1,94%, quase o mesmo ritmo da população</b> O acumulado de 12 meses anterior era de R$ 10,72 milhões, e o atual cresceu 1,94% sobre ele. A população da cidade cresce 1,92% ao ano.<sup class="ref">5</sup></p><p><b>Menos de 500 pessoas moram no raio de 300 m</b> São 413,16 moradores em 138,33 domicílios, com densidade de 1.463,80 habitantes por km² contra 71,19 no município inteiro, e verticalização de 10,66%. O potencial de consumo em drogarias no raio é de R$ 720.768,28, repartido em 52,7% medicamentos e 47,3% higiene, beleza e nutrição.<sup class="ref">6</sup></p><p><b>A cidade não retém o próprio consumo</b> Lontras é classificada como Centro Sub-Regional A, e a mesma fonte descreve o alcance dela como restrito aos próprios limites, sem atrair fluxo relevante de municípios vizinhos, registrando que os moradores se deslocam a Rio do Sul para trabalho, compras e serviços, com retorno no fim do dia. A base declara 14 municípios influenciados, e a inversão da relação encontra nenhum.<sup class="ref">7</sup></p></div><div class="lente" style="border-color:#1a5fb4;background:#e9f0fb"><div class="lente-tit" style="color:#1a5fb4">Oportunidades</div><p class="abertura">As alavancas aqui são de ocupação: uma praça inteira sem receita da rede, a única vaga de zoneamento dela em aberto, e um quarteirão disputado só por loja sem retaguarda de rede.</p><p><b>A rede não tem receita nenhuma numa praça de R$ 10,93 milhões</b> As 14 bandeiras do grupo aparecem com receita zero na unidade territorial de Lontras, e &#x27;Concorrentes&#x27; responde pela totalidade do mercado. O cadastro não registra nenhuma loja da rede na cidade, ativa ou desativada. Abrir aqui é disputar um mercado que hoje a rede não disputa.<sup class="ref">8</sup></p><p><b>Esta abertura ocupa a única vaga de zoneamento da praça</b> A faixa de até 60 mil habitantes dá teto de 1 grupo econômico, e a cidade tem zero grupos instalados. Com a loja aberta, nenhum outro grupo econômico entra em Lontras pela rede Farmarcas enquanto a vaga estiver ocupada. O que a regra de expansão não alcança é a entrada de concorrente de fora dela.<sup class="ref">9</sup></p><p><b>Três das quatro farmácias do quarteirão são de canal sem retaguarda de rede</b> São 3 independentes, canal cuja loja média em Santa Catarina fatura R$ 90.626,52 por mês, e 1 de associação ou franquia, cuja loja média no estado fatura R$ 149.630,03. A loja média do Grupo Farmarcas no mesmo estado fatura R$ 291.488,10 por mês.<sup class="ref">10</sup></p><p><b>Credenciar ao Farmácia Popular é ação da própria loja, num município que gasta R$ 16,65 milhões em medicamentos</b> A cidade tem 3 das suas 7 farmácias credenciadas ao programa, e o credenciamento se resolve no ato de abertura.<sup class="ref">11</sup></p></div><div class="lente" style="border-color:#8b3a62;background:#fbeaf2"><div class="lente-tit" style="color:#8b3a62">Dificuldades</div><p class="abertura">O zoneamento não barra nem alerta. O que vai ter de ser atravessado é econômico: a praça pode estar dividindo público com a operação que o próprio solicitante já tem no polo vizinho, e o patamar de receita da bandeira é da mesma ordem do que o quarteirão inteiro movimenta.</p><p><b>O solicitante já opera duas lojas da mesma bandeira no polo para onde Lontras se desloca</b> São duas AC Farma em Rio do Sul, cidade que a classificação da rede urbana aponta como destino de compras dos moradores de Lontras, e cujo brick tem o centroide a 11,4 km do ponto, com R$ 9,05 milhões de receita do Grupo Farmarcas registrados nele. Abrir em Lontras pode somar mercado novo ou transferir movimento que já é dele, e dividir o mesmo público entre mais pontos do mesmo dono continua sendo custo mesmo quando é estratégia deliberada.<sup class="ref">12</sup></p><p><b>O patamar da bandeira e o tamanho do quarteirão são da mesma ordem</b> A receita medida das 31 lojas AC Farma convencionais de Santa Catarina tem mediana de R$ 245.372,42 por mês e primeiro quartil de R$ 169.604,24. Somadas pela régua de canal, as 4 farmácias do anel de 300 m movimentam R$ 421.509,59 por mês.<sup class="ref">13</sup></p></div></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Detalhes da região analisada</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População na área</div><div class="val">413 habitantes</div><div class="nota">4 setores censitários no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Raio de estudo</div><div class="val">300 m</div><div class="nota">comparado também a 5.000 m</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Domicílios</div><div class="val">138</div><div class="nota">2,99 moradores por domicílio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo</div><div class="val">R$ 720.768,28</div><div class="nota">drogarias, rateado pela fração de cada setor no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Método de rateio</div><div class="val">proporcional por área</div><div class="nota">cobertura do círculo: 100,0% · 4 setores</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Contexto macroeconômico</h2>
+  <p class="explica"><b>Como ler a renda.</b> São valores <b>mensais aproximados</b>,
+  média dos setores censitários <b>ponderada pela população e pelos domicílios que
+  cada setor tem dentro do raio</b> — setor que só encosta na borda pesa pouco — não a renda de quem compra na
+  loja, e sim a de quem <b>mora</b> ali. Renda por habitante divide o rendimento do
+  domicílio por todos os moradores, inclusive quem não tem renda; por isso fica bem
+  abaixo da renda domiciliar. Num ponto de passagem, as duas descrevem a vizinhança
+  residencial, não a clientela — que pode ser outra.</p>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Densidade demográfica</div><div class="val">1.464 hab/km²</div><div class="nota">média dos setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média por habitante</div><div class="val">R$ 1.605,45</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média domiciliar</div><div class="val">R$ 2.750,73</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Verticalização</div><div class="val">10,7%</div><div class="nota">domicílios em apartamento — casas x apartamentos</div></div>
+    
+  </div>
+  
+</section>
+<section>
+  <h2><span class="ic">$</span> Microterritório e concorrência</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais na cidade</div><div class="val">R$ 378.362,98</div><div class="nota">3 lojas com faixa declarada no município · soma de rótulos de faixa — o campo tem 8 valores, um por faixa, e classifica a loja em vez de medir a venda</div></div>
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Média da faixa por loja</div><div class="val">R$ 126.120,99</div><div class="nota">média mensal dos rótulos de faixa das lojas do raio — não é faturamento medido</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais no raio</div><div class="val">R$ 378.362,98</div><div class="nota">soma das faixas de 3 lojas classificadas · o campo tem 8 valores, um por faixa — classifica a loja, não mede a venda</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Concorrentes em 300 m</div><div class="val">4</div><div class="nota">5 em 5.000 m</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Lojas Farmarcas no raio</div><div class="val">0</div><div class="nota">pelo cadastro de lojas (CNPJ + coordenada)</div></div>
+    
+  </div>
+  
+  <h3>Quanto vende uma loja — três fontes independentes</h3>
+  <p class="explica"><b>Elas não medem a mesma coisa.</b> A primeira é a
+  <b>faixa de faturamento dos concorrentes</b> da praça: classifica cada loja numa de
+  oito faixas, está preenchida em menos da metade dos cadastros e — importante — não
+  traz valor por loja, só o rótulo da faixa. A segunda é a <b>régua medida por canal</b>: receita e
+  número de pontos de venda por canal e por estado, apurados por instituto, aplicados
+  ao canal em que cada concorrente está classificado. É ela que <b>dimensiona o
+  mercado do raio</b>, porque cobre também as lojas de campo vazio. A terceira é a
+  <b>receita medida das lojas do grupo</b>, cruzada loja a loja pelo CNPJ — responde
+  quanto <b>a nossa bandeira</b> fatura numa praça assim. Em varejo farmacêutico a
+  distribuição tem cauda longa, então mínimo, mediana e máximo dizem mais que média: a
+  distância entre os extremos mede o quanto o resultado depende de execução e de
+  ponto, não da região.</p>
+  <h4>Concorrentes da praça — em que faixa de faturamento eles caem</h4>
+  <p class="explica"><b>Estes três números são rótulos de faixa, não faturamento de
+  loja.</b> O campo da camada de concorrentes assume <b>oito valores em toda a base</b>,
+  um para cada faixa da régua que aparece no fim desta seção — sete deles são o ponto
+  médio exato da faixa, e o mais baixo é o teto da faixa aberta embaixo. Então o que
+  está abaixo é a faixa mais baixa ocupada, a faixa mediana e a mais alta ocupada
+  entre as lojas da cidade: descrevem <b>como as lojas se distribuem entre as
+  faixas</b>. A distância entre dois deles é a distância entre faixas, não entre duas
+  lojas, e nenhum deles é o faturamento de nenhum estabelecimento.</p>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Faixa mais baixa ocupada</div><div class="val">R$ 126.120,99</div><div class="nota">faixa, entre as 3 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Faixa mediana</div><div class="val">R$ 126.120,99</div><div class="nota">faixa, entre as 3 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Faixa mais alta ocupada</div><div class="val">R$ 126.120,99</div><div class="nota">faixa, entre as 3 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+  </div>
+  <h4>Mercado do raio — régua medida por canal</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mercado em 300 m</div><div class="val">R$ 421.509,59</div><div class="nota">4 de 4 lojas em 300 m · fonte: receita e PDVs por canal da IQVIA</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Mercado em 5.000 m</div><div class="val">R$ 553.970,00</div><div class="nota">5 de 5 lojas em 5.000 m · fonte: receita e PDVs por canal da IQVIA</div></div>
+  </div>
+  <table><thead><tr><th>Canal</th><th>Por loja/mês</th><th>Lojas em 300 m</th><th>Lojas em 5.000 m</th></tr></thead><tbody><tr><td>ABRAFARMA</td><td>R$ 713.852,06</td><td>—</td><td>—</td></tr><tr><td>Outras redes corporativas</td><td>R$ 470.087,68</td><td>—</td><td>—</td></tr><tr><td>Grupo Farmarcas</td><td>R$ 291.488,10</td><td>—</td><td>—</td></tr><tr class="tem"><td>Associações e franquias</td><td>R$ 149.630,03</td><td>1</td><td>1</td></tr><tr class="tem"><td>FEBRAFAR</td><td>R$ 132.460,41</td><td>—</td><td>1</td></tr><tr class="tem"><td>Independentes</td><td>R$ 90.626,52</td><td>3</td><td>3</td></tr></tbody></table>
+  <p class="explica"><b>O que este número é e o que não é.</b> Cada valor da coluna
+  por loja é o que uma loja <b>média</b> daquele canal fatura neste estado — não o
+  faturamento da farmácia observada, que nenhuma base traz. A fonte não registra a
+  dispersão dentro do canal: duas independentes no mesmo quarteirão podem diferir
+  várias vezes entre si, e isso não aparece aqui. Some-se a isso que a receita é
+  acumulada de doze meses enquanto a contagem de pontos de venda é do ano corrente,
+  o que enviesa canal que abriu ou fechou muita loja no período. Serve para
+  dimensionar o mercado do entorno e para situar um concorrente pelo porte da rede a
+  que ele pertence; não serve para afirmar quanto um endereço vende.</p>
+
+  <h4>Lojas do grupo — receita medida · AC Farma em SC</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Menor receita medida</div><div class="val">R$ 70.122,55</div><div class="nota">31 loja(s) do grupo em SC, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Receita mediana medida</div><div class="val">R$ 245.372,42</div><div class="nota">31 loja(s) do grupo em SC, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Maior receita medida</div><div class="val">R$ 1.191.260,98</div><div class="nota">31 loja(s) do grupo em SC, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mesma bandeira, rede inteira</div><div class="val">R$ 247.413,58</div><div class="nota">mediana de 44 loja(s) · mesma fonte, recorte nacional</div></div>
+  </div>
+
+  <h3>Venda mensal aproximada — raio de estudo</h3>
+  <table><thead><tr><th>Máxima</th><th>Mínima</th><th>Classificação</th><th>Concorrentes no raio</th></tr></thead><tbody><tr><td>Acima</td><td>R$ 1.336.854,12</td><td><span class="faixa f1">1</span></td><td>—</td></tr><tr><td>R$ 1.336.854,11</td><td>R$ 846.655,41</td><td><span class="faixa f2">2</span></td><td>—</td></tr><tr><td>R$ 846.655,40</td><td>R$ 549.075,62</td><td><span class="faixa f3">3</span></td><td>—</td></tr><tr><td>R$ 549.075,61</td><td>R$ 388.442,64</td><td><span class="faixa f4">4</span></td><td>—</td></tr><tr><td>R$ 388.442,63</td><td>R$ 271.181,25</td><td><span class="faixa f5">5</span></td><td>—</td></tr><tr><td>R$ 271.181,24</td><td>R$ 162.244,26</td><td><span class="faixa f6">6</span></td><td>—</td></tr><tr class="tem"><td>R$ 162.244,25</td><td>R$ 89.997,74</td><td><span class="faixa f7">7</span></td><td>3</td></tr><tr><td>R$ 89.997,74</td><td>Abaixo</td><td><span class="faixa f8">8</span></td><td>—</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">◷</span> Potencial de consumo da região analisada</h2>
+  <p class="explica"><b>O que este número é.</b> É quanto os moradores dos setores do
+  raio <b>poderiam</b> gastar em itens de drogaria — demanda potencial estimada, não
+  venda realizada. Cada setor censitário entra pela <b>fração que de fato cai dentro
+  do círculo</b>, não inteiro: um setor que só encosta na borda contribui com a parte
+  dele que está dentro. <b>A base não declara a periodicidade</b>: o teste de ordem de
+  grandeza aponta valor anual (ver as lacunas), embora o relatório do produto rotule o
+  mesmo campo como mensal. Nenhuma loja captura o potencial inteiro — ele se divide
+  entre todos os concorrentes do entorno e o que vaza para fora da região.</p>
+  <div class="split">
+    <div class="split-cards">
+      <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo total</div><div class="val">R$ 720.768,28</div><div class="nota">médio potencial de captura</div></div>
+      <div class="card" style="border-left-color:#3b7ddd"><div class="rot">Medicamentos</div><div class="val">R$ 379.519,10</div><div class="nota">52,7% do total</div></div>
+      <div class="card" style="border-left-color:#e8558f"><div class="rot">Higiene, Beleza &amp; Nutrição</div><div class="val">R$ 341.249,18</div><div class="nota">47,3% do total</div></div>
+    </div>
+    <div class="split-graf">
+      <svg viewBox="0 0 180 180" width="190" height="190" role="img"
+  aria-label="Medicamentos 53%, Higiene, Beleza &amp; Nutrição 47%">
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#e8558f" stroke-width="34"/>
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#3b7ddd" stroke-width="34"
+     stroke-dasharray="231.79 208.04" transform="rotate(-90 90 90)"/>
+</svg>
+      <div class="legenda"><span class="p azul"></span>Medicamentos
+        <span class="p rosa"></span>Higiene, Beleza &amp; Nutrição</div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Geradores de fluxo em 500 m</h2>
+  
+  <p class='explica'><b>Recorte diferente do resto do dossiê.</b> Os números desta seção são de um raio de 500 m, e não dos 300 m do raio de estudo: 300 metros é curto demais para descrever o que atrai gente para a calçada, e uma caminhada de cinco minutos é o recorte que o pedestre de fato percorre. Não some estas contagens com a população do raio de estudo.</p>
+  <p class='explica'><b>Por que isto importa.</b> Farmácia de rua vive de quem passa, e quem passa é atraído por outra coisa — consulta, escola, banco, ônibus, compra do dia. Cada categoria abaixo é um motivo para alguém estar nesta calçada. A contagem diz que os geradores existem e a que distância; <b>não diz quanta gente passa</b>, que continua sendo o dado ausente.</p><table><thead><tr><th>Categoria e por que gera fluxo</th><th>Em 500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b><div class='nota'>consulta e exame trazem paciente e acompanhante, muitos com receita na mão ao sair</div></td><td>2</td><td>337 m</td><td>Unidade Básica de Saúde Antônia Tereza Zucatelli, Clínica de Fisioterapia</td></tr><tr><td><b>Creche Escola</b><div class='nota'>entrada e saída concentram pais e responsáveis em horário fixo, todo dia útil</div></td><td>1</td><td>298 m</td><td>Escola de Educação Básica Regente Feijó</td></tr><tr><td><b>Mercado Supermercado</b><div class='nota'>compra de rotina puxa a mesma pessoa várias vezes por semana</div></td><td>2</td><td>195 m</td><td>Cravil, Supermercado Hermann</td></tr><tr><td><b>Banco Loteria</b><div class='nota'>fila e pagamento prendem a pessoa no quarteirão, e o idoso é público de medicamento contínuo</div></td><td>4</td><td>202 m</td><td>Banco do Brasil, Bradesco, Viacredi Alto Vale</td></tr><tr><td><b>Transporte</b><div class='nota'>ponto e terminal despejam fluxo de passagem — o passante que não mora nem trabalha aqui</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Coletiva</b><div class='nota'>prédio concentra muita gente em pouca área, com compra de conveniência a pé</div></td><td>1</td><td>383 m</td><td></td></tr><tr><td><b>Moradia Individual</b><div class='nota'>casa indica bairro residencial, de compra planejada e menos passagem</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Comercio Servicos</b><div class='nota'>densidade comercial é o que faz a rua ter movimento ao longo do dia</div></td><td>7</td><td>157 m</td><td>Berlanda, Farmácia Diom, Farmácia lontrense</td></tr><tr><td><b>Lazer Culto</b><div class='nota'>igreja, praça e academia concentram fluxo em horários e dias específicos</div></td><td>3</td><td>279 m</td><td>Paróquia Santa Luzia, Capela mortuária Comunitária</td></tr></tbody></table><p class='vazio'>Equipamento sem nome no mapa entra na contagem e fica fora da coluna de exemplos. Cobertura é colaborativa: ausência aqui não é ausência no mundo.</p><p class='explica'><b>O que o mapa tem nesta área.</b> São <b>580 objetos</b> mapeados dentro do raio — traçado de rua, edificação, ponto solto —, dos quais <b>18</b> carregam etiqueta de equipamento. A área está mapeada e os equipamentos estão etiquetados, de modo que a contagem acima descreve o que existe.</p>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Onde mais olhar — mesma UF</h2>
+  <p class='explica'><b>Como ler.</b> <b>Mercado não atendido</b> é a receita medida na praça menos a receita Farmarcas — o que circula hoje sem passar por nós. Cada linha é uma <b>UTC</b>, a unidade de mercado do varejo, por isso a mesma cidade pode aparecer mais de uma vez — sempre com a localidade nomeada para distinguir uma da outra. <b>Potencial e captura são do município inteiro</b> e repetem nas linhas da mesma cidade, porque não existe potencial por UTC nas bases. <b>Captura</b> é quanto desse potencial o mercado já realiza: captura baixa com mercado grande é demanda represada; captura alta é praça madura, onde entrar significa tirar de alguém. <b>Preço médio por unidade</b> mostra se a praça é de ticket alto ou de volume — e a bandeira popular conversa melhor com preço baixo.</p><table><thead><tr><th>Praça (município — localidade) e por que olhar</th><th>Mercado não atendido</th><th>Potencial e captura do município</th><th>Preço médio</th><th>Cresc.</th><th>Lojas</th><th>Zoneamento</th></tr></thead><tbody><tr><td><b>FLORIANÓPOLIS/SC — CENTRO</b><div class='nota'>a 111 km do ponto pedido; mercado de R$ 441,8 milhões sem receita nossa dentro, em CENTRO; nenhuma loja Farmarcas na cidade; mercado crescendo 18%; 63% do potencial anual do município já capturado.</div></td><td><b>R$ 441,8 milhões</b><div class='nota'>R$ 441.848.286</div></td><td>R$ 2.420.062.490<div class='nota'>potencial anual do município · captura de 62,7% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>18,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>SÃO JOSÉ/SC — FORQUILHAS</b><div class='nota'>a 102 km do ponto pedido; mercado de R$ 413,2 milhões sem receita nossa dentro, em FORQUILHAS; 1 loja(s) Farmarcas já na cidade; mercado crescendo 13%; 36% do potencial anual do município já capturado; preço médio de R$ 32,53 por unidade; ATENÇÃO: a receita Farmarcas caiu aqui — praça possivelmente já testada.</div></td><td><b>R$ 413,2 milhões</b><div class='nota'>R$ 413.227.692</div></td><td>R$ 1.158.056.214<div class='nota'>potencial anual do município · captura de 35,9% pelo município</div></td><td>R$ 32,53<div class='nota'>por unidade</div></td><td>13,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>FLORIANÓPOLIS/SC — JOAO PAULO</b><div class='nota'>a 111 km do ponto pedido; mercado de R$ 357,4 milhões sem receita nossa dentro, em JOAO PAULO; nenhuma loja Farmarcas na cidade; mercado crescendo 13%; 63% do potencial anual do município já capturado.</div></td><td><b>R$ 357,4 milhões</b><div class='nota'>R$ 357.421.721</div></td><td>R$ 2.420.062.490<div class='nota'>potencial anual do município · captura de 62,7% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>13,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>ITAJAÍ/SC — CENTRO-1</b><div class='nota'>a 89 km do ponto pedido; mercado de R$ 348,5 milhões sem receita nossa dentro, em CENTRO-1; nenhuma loja Farmarcas na cidade; mercado crescendo 16%; 56% do potencial anual do município já capturado; preço médio de R$ 46,25 por unidade; ATENÇÃO: a receita Farmarcas caiu aqui — praça possivelmente já testada.</div></td><td><b>R$ 348,5 milhões</b><div class='nota'>R$ 348.479.160</div></td><td>R$ 975.569.429<div class='nota'>potencial anual do município · captura de 56,4% pelo município</div></td><td>R$ 46,25<div class='nota'>por unidade</div></td><td>16,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>BLUMENAU/SC — BAIRRO DA VELHA</b><div class='nota'>a 54 km do ponto pedido; mercado de R$ 326,8 milhões sem receita nossa dentro, em BAIRRO DA VELHA; nenhuma loja Farmarcas na cidade; mercado crescendo 31%; 43% do potencial anual do município já capturado; preço médio de R$ 32,76 por unidade.</div></td><td><b>R$ 326,8 milhões</b><div class='nota'>R$ 326.836.828</div></td><td>R$ 1.523.593.158<div class='nota'>potencial anual do município · captura de 43,4% pelo município</div></td><td>R$ 32,76<div class='nota'>por unidade</div></td><td>31,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>PALHOÇA/SC — PASSA VINTE</b><div class='nota'>a 101 km do ponto pedido; mercado de R$ 310,4 milhões sem receita nossa dentro, em PASSA VINTE; nenhuma loja Farmarcas na cidade; mercado crescendo 15%; 35% do potencial anual do município já capturado; preço médio de R$ 29,53 por unidade.</div></td><td><b>R$ 310,4 milhões</b><div class='nota'>R$ 310.386.621</div></td><td>R$ 887.898.371<div class='nota'>potencial anual do município · captura de 35,0% pelo município</div></td><td>R$ 29,53<div class='nota'>por unidade</div></td><td>15,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr></tbody></table><p class='vazio'>Lista de onde vale rodar um dossiê, não recomendação de abertura. Mercado grande sem a rede dentro pode ser praça aberta ou praça já testada e perdida — crescimento Farmarcas negativo é o segundo caso. UTC não é raio nem bairro: serve para escolher a praça, não o ponto.</p><p class='vazio'><b>A lista está limitada a 150 km deste endereço</b>, medidos até o centro aproximado de cada município — premissa desta análise, não regra da casa. Sem esse limite a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p><p class='vazio'>Preço médio em branco quando o nome do município aparece abreviado na base de preço e o casamento por nome falha — é ausência da chave, não do dado. Atinge sobretudo as capitais.</p>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que este dossiê NÃO sabe
+    <span class="qtd">30 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li>Quanta gente passa em frente ao ponto. Fluxo de passantes não existe em fonte nenhuma — nem nas bases do Órbita, nem no produto, nem em API pública. Aqui isso pesa porque só 413,16 pessoas moram dentro de 300 m e a via do endereço é residencial: quem sustenta a loja não mora no raio nem passa por uma avenida. Destrava com contagem de passantes em campo, em dia útil e em sábado.</li><li>Quanto do movimento das lojas de Rio do Sul vem de Lontras. O solicitante opera duas AC Farma no polo que a classificação da rede urbana aponta como destino de compras dos moradores daqui, e não soube dizer que parcela do movimento de lá é lontrense. Nenhuma base liga comprador a município de origem. É a diferença entre abrir e somar mercado novo ou abrir e transferir receita da própria casa. Destrava com o cadastro de clientes ou o CEP de entrega das lojas de Rio do Sul.</li><li>Quantas farmácias operam de fato em Lontras. A base do Farmácia Popular registra 7 farmácias na cidade e a camada de concorrentes encontra 3 no município inteiro. O solicitante não soube dizer qual número bate com a praça. É a contagem que decide a leitura de saturação e o tamanho do espaço em aberto. Destrava com consulta ao CNES por município ou com levantamento em campo.</li><li>Em qual brick este endereço cai. Nenhum brick leva o nome de Lontras, então não há preço por unidade desta praça. O que existe é vizinhança: Rio do Sul a 11,4 km com R$ 34,10 por unidade, Ibirama a 12,3 km com R$ 30,22 e Ituporanga a 28,1 km com R$ 31,60, contra R$ 32,75 na UF inteira. Preço por unidade mais baixo também pode refletir mix diferente, e não política de preço. Destrava com a malha geográfica de bricks.</li><li>Se o share da rede na praça é zero ou apenas ausente. A receita da rede na unidade territorial é zero e o cadastro não registra loja na cidade, o que sustenta a leitura de ausência — mas a unidade territorial de Lontras não existe na base de market share, de modo que o share não é medido e sim inferido da receita. Share ausente e share zero são coisas diferentes. Destrava com a base de market share cobrindo a unidade territorial.</li><li>Como o ponto se implanta na quadra. O cruzamento mais próximo está a 27,7 m, dentro da faixa entre os cortes de 20 m e 40 m em que não há classificação defensável entre esquina e meio de quadra. Duas faces de exposição mudam a decisão sobre onde fica a entrada e a vitrine. Destrava com verificação do alinhamento do imóvel em campo.</li><li>Em que unidade e em que ano estão os campos de renda. Os setores censitários do raio devolvem R$ 1.605,45 por habitante e R$ 2.750,73 por domicílio; a camada municipal devolve R$ 933,61 de renda domiciliar per capita. As duas descrevem coisas diferentes, em bases diferentes e sem ano de referência declarado, e não se comparam entre si — e é essa comparação que diria se o entorno do ponto é mais rico ou mais pobre que a cidade. Destrava com a documentação de origem das camadas de renda do acervo.</li><li>O índice de coleta de lixo dos setores do raio está corrompido na base. A camada devolve 231,7 para um campo que guarda fração de 0 a 1, enquanto água e esgoto vêm coerentes, em 0,9667 e 1,0. O valor não entra no documento — a apuração o registra como fora de faixa e o declara em vez de publicá-lo. Saneamento não sustenta nenhuma afirmação deste dossiê, mas o mesmo defeito pode estar em outros municípios e no mesmo bloco de campos. Destrava com conferência da coluna na origem do acervo.</li><li>Quanto custa ocupar este imóvel. Não há valor de aluguel pretendido nem régua de faturamento por metro quadrado para a bandeira, e não existe fonte pública de aluguel comercial por município. Sem os dois, área de venda, aluguel e custo de ocupação ficam fora do relatório, e não há como dizer se o ponto se paga no patamar medido da bandeira no estado. Destrava com a proposta de locação e a régua de R$/m² usada pela Expansão.</li><li>Quanto varia o faturamento dentro de cada canal. A régua traz a loja média de cada canal no estado e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Três independentes do mesmo quarteirão podem diferir várias vezes entre si, e é exatamente esse o perfil do concorrente aqui. Destrava com faturamento por CNPJ da região.</li><li>Onde está, de fato, o ponto analisado. A coordenada que ancora este dossiê veio com a solicitação e sua origem não é declarada na apuração. Toda distância do documento parte dela, incluindo os 122 m da farmácia mais próxima e os 202 m da primeira agência bancária. Destrava com conferência da coordenada contra o número do imóvel na rua.</li><li>Zoneamento — cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa.</li><li>Zoneamento — abaixo de 60 mil habitantes a distância mínima entre lojas não é checada — premissa herdada de quando o teto contava lojas e barrava antes. Com o teto contando grupos, uma cidade desta faixa pode passar no gate e seguir sem a checagem, e então a segunda regra de zoneamento fica sem veredito e o resultado do gate não avisa. Destrava com a regra oficial declarando se a distância vale em toda faixa.</li><li>Zoneamento — quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra.</li><li>Zoneamento — a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página.</li><li>Zoneamento — a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página.</li><li>Setores censitários — camada Estrutura e Saneamento: valor 231.7073 fora da faixa de fração [0, 1] nos setores do raio — a base é inconsistente neste campo e o valor NÃO foi publicado. Destrava conferindo a unidade da coluna na origem do acervo.</li><li>Concorrência — dispersão dentro do canal: a base traz a média do canal e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Duas farmácias independentes no mesmo quarteirão podem diferir várias vezes entre si, e isso não aparece. Destrava com faturamento por CNPJ da região.</li><li>Concorrência — enquadramento das redes nomeadas: em que canal cada rede corporativa nomeada se encaixa é critério do método desta análise, não campo da base. Ler a mesma rede como ABRAFARMA ou como outra rede corporativa muda a referência de porte dela em mais de duas vezes. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li>Concorrência — 18 registros da camada de concorrentes existem na base sem coordenada e por isso não entram em contagem por raio nenhuma — a concorrência medida aqui é um piso, não um total. Destrava com a geocodificação desses registros.</li><li>Concorrência — 932 lojas da rede — um terço do cadastro inteiro, não só desta praça — estão sem coordenada e ficam fora de qualquer checagem por distância. Destrava com a geocodificação do cadastro.</li><li>Concorrência — 32 lojas da rede, no cadastro inteiro, têm coordenada fora do território brasileiro e são descartadas para não medir distância errada. Destrava com a correção do cadastro.</li><li>Concorrência — 3.700 registros da camada, em todo o país, foram descartados por coordenada fora do território brasileiro — parte deles pode ser desta região e está fora da contagem. Destrava com a correção da coordenada na origem.</li><li>Concorrência — camada Farmácias Populares 2025: só endereço. Sem ela não dá para localizar no raio quem já é credenciado ao Farmácia Popular. Destrava geocodificando os endereços da camada.</li><li>Concorrência — camada Bancos: só endereço. Sem ela falta um gerador de fluxo relevante — fila de banco prende a pessoa no quarteirão. Destrava geocodificando os endereços.</li><li>Concorrência — camada Clínicas Oftalmológicas: só endereço. Sem ela falta um gerador de fluxo de saúde no entorno. Destrava geocodificando os endereços.</li><li>Concorrência — camada Barreiras Geográficas: polígono/linha ficou no asset, não no CSV. Num ponto de passagem é o que diria se a via corta ou conecta os dois lados da área de influência. Destrava recuperando os polígonos da camada.</li><li>Concorrência — camada Setor Censitário: polígono ficou no asset — habilita na Fase 2 com a malha do IBGE. A geometria dos setores vem do asset do Órbita, não do próprio arquivo; é ela que sustenta população, renda e potencial no raio.</li><li>Concorrência — quanta gente passa na calçada não existe em fonte nenhuma — nem nas bases do acervo, nem no produto, nem em API pública —, e é justamente o que separa um ponto de passagem de um ponto de bairro com a mesma população residente. Destrava com contagem de passantes em campo, em dia útil e em sábado, nos horários de pico.</li><li>Mercado por UTC — base de market share por UTC (IQVIA): UTC ausente nesta base. Sem ela o share da rede na praça não é medido, só inferido pela receita — e share ausente não é share zero. Destrava quando a IQVIA passar a publicar a UTC.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li>Contar passantes em frente ao ponto, em dia útil e em sábado. É a verificação mais importante deste dossiê: a via é residencial, moram 413,16 pessoas no raio e nenhuma base mede passagem. Contagem alta sustenta o ponto apesar do raio pequeno; contagem baixa deixa a loja dependendo de quem vem ao Centro resolver banco e supermercado, e aí a distância de 202 m até a primeira agência passa a importar.</li><li>Levantar nas duas lojas de Rio do Sul quantos clientes vêm de Lontras, pelo cadastro de clientes ou pelo CEP. Se a parcela for relevante, a abertura transfere receita da própria operação e o ganho líquido é menor do que o mercado da praça sugere; se for pequena, a abertura captura um vazamento que hoje vai para concorrente.</li><li>Conferir quantas farmácias operam hoje em Lontras e sob que bandeira, incluindo a que fica a 250 m do ponto. Se forem 7, como diz a base do Farmácia Popular, a praça está mais dividida do que a camada de concorrentes mostra; se forem 3 ou 4, a leitura de baixa saturação se confirma no quarteirão e não só na estatística municipal.</li><li>Verificar o alinhamento do imóvel na quadra — se tem uma ou duas faces para a rua. O cruzamento está a 27,7 m, dentro da faixa entre 20 m e 40 m em que a classificação automática não tem veredito, e duas faces de exposição mudam onde ficam entrada e vitrine.</li><li>Levantar a proposta de aluguel do imóvel e a régua de faturamento por metro quadrado da bandeira. Com as duas, o custo de ocupação volta ao relatório; se o aluguel couber no primeiro quartil medido da bandeira no estado, R$ 169.604,24 por mês, o ponto se discute pelo fluxo, e se não couber, a discussão de fluxo fica em segundo plano.</li><li>Conferir a coordenada do ponto contra o número do imóvel na rua, antes de usar qualquer distância deste relatório em decisão.</li></ul>
+</section>
+
+<section>
+  <h2><span class="ic">§</span> Fontes</h2>
+  <div>
+  <table class="fontes"><thead><tr><th>#</th><th>Lente</th><th>Afirmação</th><th>Fonte do dado</th></tr></thead><tbody><tr><td class="n">1</td><td>Forças</td><td>Lontras tem 2.009,4 habitantes por farmácia, contra mediana nacional de 1.492,6</td><td>base do Farmácia Popular, cadastro de municípios e Censo 2022 do IBGE</td></tr><tr><td class="n">2</td><td>Forças</td><td>A renda da cidade está acima de 96% dos municípios brasileiros</td><td>camada Renda Média por município, índice Firjan (IFDM) e base de PIB municipal</td></tr><tr><td class="n">3</td><td>Forças</td><td>Praticamente toda a farmácia da cidade está neste quarteirão</td><td>camada Concorrentes 2025 e Censo 2022 do IBGE</td></tr><tr><td class="n">4</td><td>Forças</td><td>O entorno de 500 m concentra banco, supermercado e saúde — e o ponto fica na borda dele</td><td>equipamentos mapeados e malha viária do OpenStreetMap</td></tr><tr><td class="n">5</td><td>Fragilidades</td><td>O mercado da praça cresce 1,94%, quase o mesmo ritmo da população</td><td>base de crescimento por UTC (IQVIA) e camada de Densidade Demográfica por município</td></tr><tr><td class="n">6</td><td>Fragilidades</td><td>Menos de 500 pessoas moram no raio de 300 m</td><td>camada Setor Censitário, camada Potencial de Consumo por setor censitário e camada de Densidade Demográfica por município</td></tr><tr><td class="n">7</td><td>Fragilidades</td><td>A cidade não retém o próprio consumo</td><td>REGIC 2018, do IBGE</td></tr><tr><td class="n">8</td><td>Oportunidades</td><td>A rede não tem receita nenhuma numa praça de R$ 10,93 milhões</td><td>base de bandeiras por UTC (IQVIA), base de crescimento por UTC (IQVIA) e cadastro de lojas</td></tr><tr><td class="n">9</td><td>Oportunidades</td><td>Esta abertura ocupa a única vaga de zoneamento da praça</td><td>regras de zoneamento (Confluence 4.5 e 6.1), Censo 2022 do IBGE e cadastro de lojas</td></tr><tr><td class="n">10</td><td>Oportunidades</td><td>Três das quatro farmácias do quarteirão são de canal sem retaguarda de rede</td><td>receita e PDVs por canal (IQVIA) e camada Concorrentes 2025</td></tr><tr><td class="n">11</td><td>Oportunidades</td><td>Credenciar ao Farmácia Popular é ação da própria loja, num município que gasta R$ 16,65 milhões em medicamentos</td><td>base do Farmácia Popular</td></tr><tr><td class="n">12</td><td>Dificuldades</td><td>O solicitante já opera duas lojas da mesma bandeira no polo para onde Lontras se desloca</td><td>cadastro de lojas, REGIC 2018 do IBGE e base de faturamento por brick (IQVIA)</td></tr><tr><td class="n">13</td><td>Dificuldades</td><td>O patamar da bandeira e o tamanho do quarteirão são da mesma ordem</td><td>receita medida por CNPJ (IQVIA) cruzada com o cadastro de lojas e receita e PDVs por canal (IQVIA)</td></tr></tbody></table>
+  <h3>Procedência geral</h3>
+  <ul class="proc">
+    <li><b>Coordenada do ponto</b> — origem não declarada nesta geração — toda distância deste relatório é medida a partir dela</li>
+    <li><b>Acervo de camadas do Órbita</b> — extração de 2026-10-26, sem atualização automática.</li>
+    <li><b>Cadastro de lojas Farmarcas</b> — extração de 2026-11-10, mais recente que o acervo de camadas.</li>
+    <li><b>Geometria dos setores censitários</b> — acervo cartográfico do Órbita.</li>
+    <li><b>População do Censo 2022</b> — API pública do IBGE, extração de 2026-11-24.</li>
+    <li><b>Faturamento, unidades e preço por brick e por UTC</b> — IQVIA e CloseUp.</li>
+    <li><b>Receita e número de pontos de venda por canal e por estado</b> — IQVIA, receita acumulada de 12 meses (MAT 2026) sobre contagem de pontos de venda do ano corrente (YTD 2026).</li>
+    <li><b>Geradores de fluxo no entorno</b> — OpenStreetMap.</li>
+    <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas.</li>
+  </ul>
+  <p class="vazio">Este dossiê não pontua o ponto: não há score, nota nem status de
+  recomendação. A régua de viabilidade pertence ao produto.</p>
+  </div>
+</section>
+<footer>
+  Órbita · Dossiê de Região · R. Paschoal Conte, 107 - Centro, Lontras/SC, 89182-000
+</footer></div></body></html>

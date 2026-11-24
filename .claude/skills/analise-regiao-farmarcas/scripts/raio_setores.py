@@ -220,6 +220,37 @@ def main() -> int:
         escolhido = "area"
 
     vals = resultado[escolhido]
+
+    # Campo de fração fora de [0, 1] é erro da base, não medida. Medido em
+    # Lontras/SC, 2026-11-24: a coluna Lixo% devolveu 231,7073 para os setores
+    # do raio, enquanto água veio 0,9667 e esgoto 1,0 na MESMA linha — e o
+    # gerador publicou "231,7%" no relatório, porque ninguém conferia a faixa.
+    # Número impossível impresso como medida é pior que lacuna: o leitor não
+    # tem como saber que aquilo não é o entorno dele.
+    #
+    # Só entram aqui os campos cuja base guarda fração de 0 a 1. `pct_medicamentos`
+    # e `pct_higiene` vêm em 0–100 na origem e ficam de fora de propósito.
+    FRACOES = ("agua", "esgoto", "lixo", "verticalizacao", "homens", "mulheres")
+    fora_de_faixa = {}
+    for campo in FRACOES:
+        v = vals.get(campo)
+        if v is None:
+            continue
+        if not (0.0 <= v <= 1.0):
+            fora_de_faixa[campo] = v
+            vals[campo] = None
+            lacunas.append(
+                {
+                    "base": CAMPOS[campo][0],
+                    "campo": CAMPOS[campo][1],
+                    "motivo": (
+                        f"valor {v} fora da faixa de fração [0, 1] nos setores do raio — "
+                        "a base é inconsistente neste campo e o valor NÃO foi publicado. "
+                        "Destrava conferindo a unidade da coluna na origem do acervo"
+                    ),
+                }
+            )
+
     pot = vals.get("potencial_drogarias")
     pm, ph = vals.get("pct_medicamentos"), vals.get("pct_higiene")
     split = None
@@ -260,6 +291,7 @@ def main() -> int:
                 "esgoto_pct": vals.get("esgoto"),
                 "lixo_pct": vals.get("lixo"),
             },
+            "campos_fora_de_faixa": fora_de_faixa or None,
             "populacao_por_genero": {
                 "homens_pct": vals.get("homens"),
                 "mulheres_pct": vals.get("mulheres"),

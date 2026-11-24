@@ -1,6 +1,6 @@
 ---
 name: analise-regiao-farmarcas
-description: Monta o dossiê de uma região para análise de ponto de farmácia da Farmarcas e entrega um relatório HTML no layout do relatório de viabilidade do Órbita — população na área, renda média, densidade, potencial de consumo com split entre Medicamentos e Higiene/Beleza/Nutrição, preço médio no brick, microterritório e concorrência, geradores de fluxo no entorno e praças alternativas — aplicando antes o gate de zoneamento (regras oficiais de expansão), e sem pontuar o ponto. Pergunta sempre se o solicitante é empresário novo ou já associado, porque isso muda a leitura de canibalização. Use quando o usuário disser 'analisa essa região', 'faz o dossiê desse ponto', 'o que tem nessa área', 'quais os pontos positivos e negativos desse endereço', 'tem concorrente perto daqui', 'vale olhar essa cidade', 'me dá o raio-X dessa região', ou fornecer um endereço/coordenada pedindo contexto para abrir loja. Do NOT use para calcular ou reproduzir o score de viabilidade 0–20 do produto → o dossiê não pontua, por decisão de produto; do NOT use para escrever cards do board SQO → use /orbita-user-stories; do NOT use para discovery de produto → use /product-discovery; do NOT use para escolher fornecedor de dado de mercado → use o subagente estrategista-fontes-dados.
+description: Monta o dossiê de uma região para análise de ponto de farmácia da Farmarcas e entrega um relatório HTML no layout do relatório de viabilidade do Órbita — população na área, renda média, densidade, potencial de consumo com split entre Medicamentos e Higiene/Beleza/Nutrição, preço médio no brick, microterritório e concorrência, geradores de fluxo no entorno e praças alternativas — aplicando antes o gate de zoneamento (regras oficiais de expansão), e sem pontuar o ponto. Pergunta sempre se o solicitante é empresário novo ou já associado, porque isso muda a leitura de canibalização. Use quando o usuário pedir o roteiro direto, já sabendo o que quer — 'gera o dossiê completo de X', 'roda a análise desse endereço', 'quero o relatório de viabilidade desse ponto', 'faz o dossiê desse ponto', 'monta o relatório dessa região', ou fornecer um endereço/coordenada pedindo o relatório pronto, sem conversa. Do NOT use para calcular ou reproduzir o score de viabilidade 0–20 do produto → o dossiê não pontua, por decisão de produto; do NOT use para escrever cards do board SQO → use /orbita-user-stories; do NOT use para discovery de produto → use /product-discovery; do NOT use para escolher fornecedor de dado de mercado → use o subagente estrategista-fontes-dados; do NOT use quando o pedido for pelo dossiê 'enxuto', 'curto' ou 'sem as fontes' → use /analise-regiao-farmarcas-enxuto; do NOT use quando o pedido for exploratório ou conversacional ('vamos olhar essa região', 'vale abrir aqui?', 'me ajuda a analisar esse ponto', 'onde eu deveria olhar?') → use /orbita.
 ---
 
 # Dossiê de região — Farmarcas
@@ -17,14 +17,21 @@ Referências (ler quando indicado):
 - `references/benchmarks.md` — contra o que comparar. **Step 4.**
 - `references/limites-e-vieses.md` — o que o dado não diz. **Step 5, obrigatório.**
 - `references/modelo-de-dossie.md` — estrutura do entregável. **Step 6.**
+- `references/bloco-apurado-e-nao-impresso.md` — bloco que o script devolve e o
+  gerador não imprime: a família de defeito que a conferência mecânica não pega.
+  **Ler antes de mexer em `montar_relatorio.py` ou nos scripts de apuração.**
 - `references/benchmarks.md` — e o que NUNCA serve de referência.
 
 ## Critical
 
-- **Perguntar SEMPRE se o solicitante é empresário novo ou já associado**, e
-  qual bandeira e modelo (popular/convencional) ele pretende. Sem isso o dossiê
-  não sabe se a loja Farmarcas vizinha é problema ou estratégia, e não consegue
-  aplicar o zoneamento. É a primeira pergunta, não um detalhe de preenchimento.
+- **Perguntar SEMPRE se o solicitante é empresário novo ou já associado, E QUEM
+  É O EMPRESÁRIO**, além de qual bandeira e modelo (popular/convencional) ele
+  pretende. Sem o perfil o dossiê não sabe se a loja Farmarcas vizinha é
+  problema ou estratégia, e não consegue aplicar o zoneamento. Sem o nome do
+  empresário não dá para checar se quem se declara novo já está no cadastro com
+  outra grafia — e o teto deduplica grupo por nome, não por CNPJ. O nome serve à
+  apuração e nunca entra no entregável. É a primeira pergunta, não um detalhe de
+  preenchimento.
 - **O teto de zoneamento conta GRUPOS ECONÔMICOS, não lojas** (refinado com o PM
   em 2026-10-29). Barra a entrada de um **novo grupo** na praça — porque o que a
   regra protege é a convivência entre associados, e não há conflito onde só há um.
@@ -124,6 +131,27 @@ Referências (ler quando indicado):
   narrativa declara a sua no campo `fonte`; o relatório numera a referência no
   fim da frase e resolve todas na seção **Fontes**. Nenhum parágrafo, nota de
   card ou tabela cita fonte no corpo.
+- **Fontes e parágrafos explicativos têm três modos**, no botão `--detalhes`:
+
+  | Modo | O que o leitor vê | Quando usar |
+  |---|---|---|
+  | `abertos` | tudo à vista | a cópia que vai ser auditada |
+  | `recolhidos` *(padrão)* | rótulo e contagem à vista, texto a um clique, tudo aberto na impressão | leitura normal |
+  | `ocultos` | fora do documento, e os marcadores de referência saem junto | **não nesta skill** — é o padrão de `/analise-regiao-farmarcas-enxuto` |
+
+  Recolher é decisão de **hierarquia visual** e não licença para escrever
+  menos: a tabela de referências continua inteira e o parágrafo explicativo
+  continua obrigatório em renda, potencial de consumo e geradores de fluxo. O
+  rótulo visível de cada explicação é a primeira frase dela, que é onde a
+  ressalva mora. **`ocultos` é diferente em natureza**: o arquivo que circula
+  deixa de permitir conferir de onde veio qualquer número, então a cópia que
+  for para o auditor de evidência tem de ser gerada com `abertos`. A
+  procedência não se perde — ela está no JSON da narrativa e volta inteira a
+  cada geração.
+- **O relatório de impedimento nunca recolhe explicação.** Lá os parágrafos
+  são o conteúdo, não o acompanhamento de um número: "por que o relatório
+  termina aqui" e "isto não é análise de mercado deste ponto" são a mensagem
+  que o entregável existe para dar.
 - **O corpo do relatório não fala de ferramenta.** Nada de nome de script,
   flag de linha de comando, nome de arquivo de base ou nome de bloco de JSON no
   texto que o analista lê. A rastreabilidade não cai, muda de endereço: o corpo
@@ -386,11 +414,15 @@ Perguntar, porque cada uma muda o resultado e nenhuma é adivinhável:
 
 1. **O solicitante é empresário novo ou já tem loja Farmarcas?** Se já tem,
    qual o responsável pelo GE — para separar loja dele de loja de outro associado.
-2. **Qual bandeira pretendida** — decide a distância mínima (300 m mesma
+2. **Quem é o empresário?** Pergunta sempre, inclusive para quem se declara
+   novo: o grupo econômico é o empresário, a contagem do teto deduplica por nome
+   normalizado, e sem o nome não há como conferir a declaração contra o
+   cadastro. Ver `references/zoneamento-e-perfil.md`, seção 1.
+3. **Qual bandeira pretendida** — decide a distância mínima (300 m mesma
    bandeira, 500 m outra).
-3. **Popular ou convencional** — a faixa de 60–120 mil exige que a 2ª loja da
+4. **Popular ou convencional** — a faixa de 60–120 mil exige que a 2ª loja da
    cidade seja popular.
-4. **É ponto novo, mudança de ponto ou conversão?**
+5. **É ponto novo, mudança de ponto ou conversão?**
 
 Se o usuário não souber alguma, registrar como premissa explícita e seguir —
 menos as duas primeiras, que mudam o gate e devem ser perguntadas.
@@ -535,12 +567,47 @@ O entregável é **HTML**, montado por script. A divisão é a regra da casa:
 python scripts/montar_relatorio.py     --config outputs/dossies/<arquivo>.json     --saida  outputs/dossies/<arquivo>.html
 ```
 
+O padrão desta skill é `--detalhes recolhidos`: Fontes e parágrafos
+explicativos saem com o rótulo à vista e o texto a um clique, abertos na
+impressão. Não passe `--detalhes` aqui — quem precisa do relatório sem o
+aparato de conferência usa a skill `/analise-regiao-farmarcas-enxuto`, que
+existe para isso e declara o que se perde.
+
 3. Conferir o HTML: cada card tem número ou "—" com o motivo; nenhum campo
    inventado; o bloco de zoneamento aparece no topo no lugar do score.
+4. **Rodar a conferência mecânica, sempre, antes do auditor:**
 
-Antes de apresentar, passar pelo subagente `(⌕) auditor-de-evidencia`. Se ele
-reprovar algum item, corrigir **no JSON** e gerar o relatório de novo — nunca
-editar o HTML à mão, que é saída de script.
+```
+python scripts/verificar_dossie.py     --config    outputs/dossies/<arquivo>.json     --relatorio outputs/dossies/<arquivo>.html     --ge "<responsável usado na geração>"
+```
+
+Ela confere o que é comparação exata e não precisa de leitura: todo número da
+narrativa existe numa saída de script, nenhum nome do cadastro de lojas vazou
+para o corpo, o dossiê não pontuou, nenhum nome de ferramenta escapou. Sai sem
+reprovação ou lista cada achado com o caminho até o valor apurado. Corrigir
+**no JSON** e gerar de novo até fechar limpo.
+
+Ela lê a apuração que `montar_relatorio.py` grava ao lado do HTML
+(`<arquivo>.apuracao.json`) — o registro de tudo que cada script devolveu
+naquela geração. Por isso a conferência não roda nada e não pode discordar do
+relatório: ela compara o dossiê com a apuração que o produziu.
+
+Três categorias **não** são reprovação e pedem olho:
+
+- **Sinal** — o valor apurado é negativo e o texto escreveu o módulo. Quase
+  sempre certo ("perde população a 0,25% ao ano"); é também a forma de uma
+  queda virar crescimento sem ninguém notar.
+- **Casamento fraco** — inteiro pequeno sem unidade. Casou, mas a apuração tem
+  centenas deles: confira se o caminho indicado é mesmo o que a frase afirma.
+- **Nada reprovado** não quer dizer dossiê correto. Quer dizer que a metade
+  mecânica está limpa.
+
+Depois disso, passar pelo subagente `(⌕) auditor-de-evidencia`, que agora recebe
+um dossiê com a procedência já conferida e gasta o tempo dele no que exige
+julgamento: a lente fala da região ou da medição, o item passa no teste do "e
+daí?", duas medidas foram pareadas como se fossem a mesma. Se ele reprovar algum
+item, corrigir **no JSON** e gerar o relatório de novo — nunca editar o HTML à
+mão, que é saída de script.
 
 Acionar `(◔◡◔) analista-expansao` quando houver dúvida se o dossiê fala a
 língua de quem decide, e `(⚑_⚑) estrategista-fontes-dados` **só** quando uma
@@ -552,6 +619,7 @@ lente ficar vazia por falta de fonte.
 |---|---|
 | "Faço uma nota de 0 a 10 só para resumir" | é a régua de novo, com outro nome |
 | "O usuário não disse o perfil, assumo empresário novo" | é a pergunta que muda a leitura de canibalização — pergunte |
+| "Ele disse que é empresário novo, não preciso do nome dele" | novo é a declaração; o cadastro é a confirmação. O teto deduplica grupo por nome normalizado, e grafia divergente barra pedido que caberia ou funde dois donos num grupo só |
 | "O ponto é barrado, mas rodo o mercado para enriquecer" | dossiê completo de ponto barrado sugere que há o que negociar |
 | "O ponto é barrado, então não indico nada — seria sugerir que há saída" | a saída existe, só não é neste endereço; praça onde a regra não barra é o próximo passo, não negociação do ponto |
 | "Filtro praça disponível por lojas < teto" | o teto conta grupos; cinco lojas de um dono só deixam a praça disponível, e o filtro por lojas a esconderia |
@@ -561,6 +629,8 @@ lente ficar vazia por falta de fonte.
 | "A cidade tem mais lojas que o teto, então está barrada" | o teto conta GRUPOS ECONÔMICOS; se todas respondem ao mesmo grupo, é alerta de densidade, não impedimento |
 | "O solicitante já é associado, então não é grupo novo na praça" | ser da casa não dá vaga; o que conta é já responder por loja NESTA cidade |
 | "O número deve girar em torno de X" | número sem script não entra |
+| "Essa subtração é óbvia, 425 menos 5 dá 420" | continua sendo número que nenhum script devolveu — e foi assim que passou um defeito por uma auditoria inteira |
+| "A conferência mecânica fechou limpa, dispenso o auditor" | ela confere origem, não julgamento; não lê a frase, não testa o "e daí?" e não percebe duas medidas pareadas como se fossem uma |
 | "A lacuna é técnica demais, resumo como dados limitados" | lacuna genérica não permite o analista agir |
 | "Ponto residencial, pulo o aviso de fluxo" | o aviso é incondicional |
 | "300 m basta, é o padrão do produto" | a prática real do time é 5.500 m de mediana |
@@ -688,6 +758,8 @@ lente ficar vazia por falta de fonte.
 - [ ] Receita medida filtrada pela bandeira pretendida, com o recorte nacional ao lado
 - [ ] Seção Fontes com a tabela numerada e a procedência geral
 - [ ] Nenhum nome de script, flag ou arquivo de base no corpo do relatório
+- [ ] `verificar_dossie.py` rodado e **sem reprovação** — e os avisos de sinal e
+      de casamento fraco olhados um a um
 - [ ] Relatório HTML gerado por `montar_relatorio.py`, não escrito à mão — vale
       também para o dossiê de impedimento, que tem relatório próprio
 - [ ] As contagens do teto mostradas **aplicadas ao pedido**, não ao estado atual
@@ -695,6 +767,8 @@ lente ficar vazia por falta de fonte.
 - [ ] Origem da coordenada do ponto declarada — geocodificada ou informada
 - [ ] Abaixo de 60 mil habitantes sem impedimento: a distância mínima declarada
       como regra SEM VEREDITO, não como pergunta de canibalização
+- [ ] Nome do empresário perguntado, e "empresário novo" conferido contra o
+      cadastro em vez de aceito pela declaração
 - [ ] Solicitante já associado: relatório gerado **com o responsável pelo GE**, senão
       o vínculo das lojas e a contagem por empresários saem como não apurados
 - [ ] Nenhuma referência a outro dossiê, nem explícita nem por eco

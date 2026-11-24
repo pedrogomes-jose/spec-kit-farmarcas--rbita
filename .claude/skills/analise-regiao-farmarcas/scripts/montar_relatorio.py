@@ -50,6 +50,29 @@ com aviso:
   "nao_sabe": ["lacuna explicada"],
   "campo": ["o que confirmar, e o que muda conforme a resposta"]
 }
+
+Há um terceiro relatório, e ele não depende do gate porque não há ponto: a lista
+de praças a conferir, de onde a análise ainda vai partir. Ela é escolhida por
+`tipo`, não por veredito, e roda um único script — o de praças alternativas.
+Identificação e distâncias saem da CIDADE DE REFERÊNCIA, que é obrigatória: sem
+âncora a lista vira a da UF e devolve sempre a capital (medido em 2026-11-05,
+Pouso Alegre e Ipatinga receberam listas idênticas, 15 de 15).
+
+{
+  "tipo": "prospeccao",
+  "referencia": "Pouso Alegre/MG",
+  "lat": -22.23, "lng": -45.936,
+  "municipio": "Pouso Alegre", "uf": "MG", "codigo_ibge": "3152501",
+  "raio_km": 150, "modelo": "popular", "perfil": "novo",
+  "resumo": "frase única: o que a lista mostra",
+  "leitura": ["parágrafo", "parágrafo — aqui se escreve qual praça o analista escolheu e por quê"],
+  "nao_sabe": ["lacuna explicada"],
+  "campo": ["o que confirmar antes de escolher"]
+}
+
+A tabela de praças vem inteira do script. A escolha do analista é PROSA, em
+`leitura` — filtrar linhas para mostrar só as escolhidas seria o modelo
+decidindo quais números o documento mostra.
 """
 
 from __future__ import annotations
@@ -224,6 +247,20 @@ CONSEQUENCIA = {
     "renda_media": (
         "sem ela a renda por habitante do raio não é calculável, restando só a renda domiciliar"
     ),
+    # Única chave de lacuna que caía no ramo cru "chave: valor" e saía como uma
+    # linha só — sem por que importa e sem o que destrava —, contra a regra de
+    # que lacuna de uma linha não é acionável. Era também a pior metade de uma
+    # duplicata: quando a narrativa escreve a lacuna de fluxo (o normal em ponto
+    # de passagem), as duas versões apareciam lado a lado e a automática era a
+    # fraca. Explicada, ela entra na comparação de tema por palavras inteiras e
+    # cede o lugar à escrita — e, quando ninguém escreveu, sai sozinha e inteira.
+    "fluxo_de_passantes": (
+        "quanta gente passa na calçada não existe em fonte nenhuma — nem nas bases do "
+        "acervo, nem no produto, nem em API pública —, e é justamente o que separa um "
+        "ponto de passagem de um ponto de bairro com a mesma população residente. "
+        "Destrava com contagem de passantes em campo, em dia útil e em sábado, nos "
+        "horários de pico"
+    ),
 }
 
 
@@ -284,16 +321,48 @@ CORES = {
 }
 
 
+# Registro da apuracao. Toda chamada de script passa por rodar(), entao e aqui
+# — e so aqui — que se captura o que cada script devolveu. Gravado ao lado do
+# relatorio, ele e o que permite conferir, sem rodar nada de novo, que todo
+# numero do dossie saiu de um script. Sem isso a conferencia tem de reexecutar a
+# apuracao inteira, e duas execucoes podem discordar: o dump envelhece e as APIs
+# publicas respondem diferente a cada dia.
+APURACAO: list = []
+
+
 def rodar(script: str, *args) -> dict:
     """Executa um script da skill e devolve o JSON. Nunca levanta: erro vira dado."""
     cmd = [sys.executable, "-X", "utf8", "-I", os.path.join(AQUI, script), *map(str, args)]
     try:
         r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", timeout=900)
-        return json.loads(r.stdout) if r.stdout.strip().startswith("{") else {
+        saida = json.loads(r.stdout) if r.stdout.strip().startswith("{") else {
             "erro": "saída não-JSON", "detalhe": (r.stderr or r.stdout)[-400:]
         }
     except (subprocess.TimeoutExpired, ValueError, OSError) as e:
-        return {"erro": f"{type(e).__name__}", "detalhe": str(e)[:300]}
+        saida = {"erro": f"{type(e).__name__}", "detalhe": str(e)[:300]}
+    APURACAO.append({"script": script, "argumentos": [str(a) for a in args], "saida": saida})
+    return saida
+
+
+def sem_nome_de_pessoa(obj, nome: str):
+    """Troca o nome do responsavel pelo GE por um rotulo, em qualquer profundidade.
+
+    O nome entra na apuracao porque o gate precisa dele para separar loja do
+    solicitante de loja de outro associado. O arquivo de apuracao, porem, vai
+    para outputs/ ao lado do relatorio — e nome de pessoa nao entra em nada que
+    saia da maquina de quem gerou (LGPD). O gate ja decidiu; o nome nao precisa
+    sobreviver a decisao.
+    """
+    if not nome:
+        return obj
+    alvo = B.normalizar(nome)
+    if isinstance(obj, dict):
+        return {k: sem_nome_de_pessoa(v, nome) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sem_nome_de_pessoa(v, nome) for v in obj]
+    if isinstance(obj, str) and alvo and alvo in B.normalizar(obj):
+        return re.sub(re.escape(nome), "«responsável pelo GE»", obj, flags=re.I)
+    return obj
 
 
 def brl(v, casas=2):
@@ -595,13 +664,15 @@ def _idade_do_cadastro(dump: str) -> str:
     return "da mesma data"
 
 
-def bloco_fontes(fontes: list, dump: str, origem_coord: str = "") -> str:
+def bloco_fontes(fontes: list, dump: str, origem_coord: str = "", modo: str = "recolhidos") -> str:
     """Seção única no fim: todas as fontes citadas, numeradas, mais a procedência.
 
     Fonte no meio do parágrafo interrompe a leitura e some do radar de quem
     quer conferir. Consolidada no fim, ela serve às duas coisas: o texto corre,
     e quem auditar acha tudo num lugar só.
     """
+    if modo == "ocultos":
+        return ""
     linhas = "".join(
         f'<tr><td class="n">{i}</td><td>{e(lente)}</td><td>{e(titulo)}</td><td>{e(fonte)}</td></tr>'
         for i, (lente, titulo, fonte) in enumerate(fontes, start=1)
@@ -616,8 +687,23 @@ def bloco_fontes(fontes: list, dump: str, origem_coord: str = "") -> str:
         "origem não declarada nesta geração — toda distância deste relatório é medida "
         "a partir dela"
     )
-    return f"""<section>
-  <h2><span class="ic">§</span> Fontes</h2>
+    # A seção inteira sai RECOLHIDA. Ela é o lastro do dossiê — é por ela que
+    # alguém confere de onde veio cada número, e por isso não pode sair do
+    # documento —, mas quem lê para decidir não a percorre: ela fecha o
+    # relatório com uma tabela longa e uma lista de procedência que o leitor
+    # só procura quando desconfia de um número. Fechada, o contador diz que
+    # ela existe e um clique a abre; na impressão ela abre sozinha.
+    n_ref = len(fontes)
+    aberta = modo == "abertos"
+    abre = (
+        '<section>\n  <h2><span class="ic">§</span> Fontes</h2>\n  <div>'
+        if aberta else
+        f'<details class="recolhido">\n  <summary><span class="ic">§</span> Fontes'
+        f'\n    <span class="qtd">{n_ref} {"referência" if n_ref == 1 else "referências"}'
+        '</span><span class="seta"></span></summary>\n  <div class="corpo-rec">'
+    )
+    fecha = "</div>\n</section>" if aberta else "</div>\n</details>"
+    return f"""{abre}
   {tabela}
   <h3>Procedência geral</h3>
   <ul class="proc">
@@ -633,7 +719,189 @@ def bloco_fontes(fontes: list, dump: str, origem_coord: str = "") -> str:
   </ul>
   <p class="vazio">Este dossiê não pontua o ponto: não há score, nota nem status de
   recomendação. A régua de viabilidade pertence ao produto.</p>
-</section>"""
+  {fecha}"""
+
+
+def bloco_cobertura_do_mapa(pois: dict) -> str:
+    """Diz, com número, se o entorno está sem equipamento ou sem mapeamento.
+
+    "Ausência aqui não é ausência no mundo" é verdade e não ajuda a decidir: o
+    leitor fica sem saber se a rua é vazia ou se ninguém a catalogou. A contagem
+    de TUDO que o mapa tem na área separa os dois casos. Medido em Simões
+    Filho/BA: 859 objetos mapeados dentro de 500 m e um único equipamento
+    etiquetado — bairro mapeado, equipamentos sem etiqueta.
+    """
+    c = pois.get("cobertura_do_mapa") or {}
+    objetos = c.get("objetos_mapeados_no_raio")
+    if objetos is None:
+        return ""
+    etiq = c.get("equipamentos_etiquetados", 0)
+    diag = {
+        "área mapeada, equipamentos sem etiqueta": (
+            "a área <b>está mapeada</b> e os equipamentos é que não estão etiquetados — "
+            "a contagem acima mede catalogação, não movimento de rua"
+        ),
+        "área pouco mapeada — a contagem de equipamentos não é conclusiva": (
+            "a área <b>está pouco mapeada</b>, e por isso a contagem acima não descreve "
+            "o entorno: é lacuna, não ausência de equipamentos"
+        ),
+        "área mapeada e com equipamentos etiquetados": (
+            "a área está mapeada e os equipamentos estão etiquetados, de modo que a "
+            "contagem acima descreve o que existe"
+        ),
+    }.get(c.get("_diagnostico"), "")
+    carregam = "carrega" if etiq == 1 else "carregam"
+    diag = f"{diag[0].upper()}{diag[1:]}" if diag else ""
+    return (
+        f"<p class='explica'><b>O que o mapa tem nesta área.</b> São "
+        f"<b>{num(objetos, 0)} objetos</b> mapeados dentro do raio — traçado de rua, "
+        f"edificação, ponto solto —, dos quais <b>{num(etiq, 0)}</b> {carregam} etiqueta "
+        f"de equipamento. {diag}.</p>"
+    )
+
+
+_P_EXPLICA = re.compile(r"<p class=['\"]explica['\"]>(.*?)</p>", re.S)
+_SUP_REF = re.compile(r"<sup class=['\"]ref['\"]>\d+</sup>")
+
+# Quanto do aparato do relatório vai para a tela. Um botão só, porque os dois
+# blocos que ele controla — a seção Fontes e os parágrafos explicativos —
+# respondem à mesma pergunta: o dossiê está sendo lido para decidir ou para
+# conferir?
+#
+#   abertos     o relatório inteiro à vista, como antes de 2026-11-12
+#   recolhidos  rótulo e contagem à vista, texto a um clique, tudo aberto no papel
+#   ocultos     fora do documento
+#
+# `ocultos` é o modo mais curto e o mais caro: ele abre mão da rastreabilidade
+# dentro do arquivo que circula. Quem receber o dossiê assim não tem como
+# conferir de onde veio um número sem pedir outra geração, e os marcadores de
+# referência saem do texto junto com a tabela que os resolvia — número órfão
+# no meio da frase seria pior que nenhum. A procedência não deixa de existir:
+# ela continua no JSON da narrativa e volta inteira com `--detalhes abertos`.
+DETALHES = ("abertos", "recolhidos", "ocultos")
+
+
+def aplicar_detalhes(corpo: str, modo: str) -> str:
+    """Abre, recolhe ou remove os parágrafos explicativos do documento pronto."""
+    if modo == "abertos":
+        return corpo
+    if modo == "ocultos":
+        return _SUP_REF.sub("", _P_EXPLICA.sub("", corpo))
+    return recolher_explicacoes(corpo)
+
+
+def recolher_explicacoes(corpo: str) -> str:
+    """Fecha cada parágrafo explicativo num bloco que abre com um clique.
+
+    O parágrafo continua sendo obrigatório — o número sozinho engana quem não
+    construiu o indicador, e é por isso que renda, potencial de consumo e
+    geradores de fluxo nunca saem sem explicação. O que muda é o peso VISUAL:
+    somados, esses parágrafos eram mais texto que os números que eles explicam,
+    e o analista que já conhece o indicador relia tudo a cada dossiê.
+
+    Recolhido não é omitido, e a diferença é a mesma da seção de lacunas: o
+    rótulo fica à vista, o texto fica a um clique, e a impressão abre tudo
+    porque em PDF não há clique.
+
+    O conserto é feito aqui, no documento pronto, e não nos dezesseis lugares
+    que escrevem um parágrafo desses. Espalhado pelos blocos, ele exigiria
+    lembrar da regra em cada bloco novo — e o primeiro que esquecesse voltaria
+    a imprimir o texto aberto, sem ninguém notar.
+    """
+    def troca(m: re.Match) -> str:
+        texto = m.group(1).strip()
+        # O rótulo do parágrafo já existe, em negrito, na primeira frase
+        # ("Como ler a renda.", "O que este número é."). Ele vira o título do
+        # bloco e sai do corpo, senão apareceria duas vezes.
+        rotulo = re.match(r"<b>(.*?)</b>\s*", texto, re.S)
+        if rotulo:
+            titulo = re.sub(r"<[^>]+>", "", rotulo.group(1)).strip().rstrip(".")
+            texto = texto[rotulo.end():]
+        else:
+            titulo = "Como ler"
+        return (
+            '<details class="explica-rec"><summary>'
+            f'<span class="rot">{titulo}</span><span class="seta"></span></summary>'
+            f'<div class="corpo-exp">{texto}</div></details>'
+        )
+
+    return _P_EXPLICA.sub(troca, corpo)
+
+
+# O cadastro grava o status no masculino ("Desativado"), e a frase do card fala
+# de LOJA. Concordar aqui é só redação: o status continua vindo do cadastro, e
+# status fora deste mapa sai como está, em minúscula, em vez de ser adivinhado.
+ROTULO_DE_STATUS = {
+    "ativado": ("ativa", "ativas"),
+    "desativado": ("desativada", "desativadas"),
+    "montando": ("em montagem", "em montagem"),
+    "transição": ("em transição", "em transição"),
+}
+
+
+def rotulo_de_status(status: str, n: int) -> str:
+    par = ROTULO_DE_STATUS.get(status.strip().lower())
+    if not par:
+        return status.lower()
+    return par[1] if n != 1 else par[0]
+
+
+# `str.title()` deixa a preposição em maiúscula ("Miracema Do Tocantins") e é a
+# única razão de existir esta função: nome de cidade vem em caixa alta da base.
+_CONECTIVOS = {"de", "da", "do", "das", "dos", "e", "d'"}
+
+
+def nome_proprio(texto: str) -> str:
+    palavras = [p for p in str(texto).strip().split() if p]
+    return " ".join(
+        p.lower() if i and p.lower() in _CONECTIVOS else p.capitalize()
+        for i, p in enumerate(palavras)
+    )
+
+
+def bloco_implausiveis(comp1: dict, comp2: dict, r1, r2) -> str:
+    """Registros que o script marcou como erro provável de cadastro.
+
+    O script já separa, dentro da checagem de qualidade do dado, o registro
+    cadastrado em cidade que o raio não alcança — e esse registro entra na
+    contagem de concorrentes da capa, na soma por régua de canal e na faixa de
+    faturamento. O gerador lia o bloco de lacunas do mesmo script e nunca este,
+    de modo que o dossiê mostrava o número contaminado sem dizer que sabia.
+    Medido em Gurupi/TO, 2026-11-23: 1 dos 13 concorrentes do anel de 300 m
+    estava cadastrado em Ibotirama/BA, cidade que um raio de 300 m em Gurupi/TO
+    não alcança.
+
+    Isto não é lacuna e não vai para a seção recolhida: é ressalva do número
+    que está impresso logo acima, e fica ao lado dele.
+    """
+    def itens_de(bloco: dict) -> list:
+        return ((bloco or {}).get("qualidade_do_dado") or {}).get("implausiveis") or []
+
+    linhas = []
+    for bloco, raio in ((comp1, r1), (comp2, r2)):
+        itens = itens_de(bloco)
+        if not itens:
+            continue
+        detalhe = "; ".join(
+            f"{e(nome_proprio(i.get('cidade') or 'cidade em branco'))} a "
+            f"{num(i.get('distancia_m'), 0, ' m')}"
+            + (f" ({e((i.get('classificacao') or '').lower())})" if i.get("classificacao") else "")
+            for i in itens[:6]
+        )
+        resto = f" e mais {len(itens) - 6}" if len(itens) > 6 else ""
+        linhas.append(
+            f"<li><b>{len(itens)}</b> registro(s) no raio de {num(raio)} m: {detalhe}{resto}</li>"
+        )
+    if not linhas:
+        return ""
+    return (
+        "<div class='alerta-dado'><b>Erro provável de cadastro nos números acima.</b> "
+        "A checagem de qualidade do dado encontrou registro de concorrente cadastrado em "
+        "cidade que o raio não alcança. Ele <b>entra</b> na contagem de concorrentes, na "
+        "soma por régua de canal e na faixa de faturamento desta seção — o número pode "
+        "estar um a mais por registro listado. Conferir o endereço do CNPJ antes de usar "
+        f"a contagem como definitiva.<ul>{''.join(linhas)}</ul></div>"
+    )
 
 
 def tabela_faixas(faixas: list) -> str:
@@ -651,7 +919,7 @@ def tabela_faixas(faixas: list) -> str:
         )
     return (
         "<table><thead><tr><th>Máxima</th><th>Mínima</th>"
-        "<th>Classificação</th><th>Lojas no raio</th></tr></thead>"
+        "<th>Classificação</th><th>Concorrentes no raio</th></tr></thead>"
         f"<tbody>{''.join(linhas)}</tbody></table>"
     )
 
@@ -738,6 +1006,7 @@ def rodar_gate(cfg: dict) -> dict:
 
 
 def construir(cfg: dict, zon: dict | None = None) -> str:
+    modo = cfg.get("_detalhes") or "recolhidos"
     lat, lng = cfg["lat"], cfg["lng"]
     cod, uf, mun = cfg["codigo_ibge"], cfg["uf"], cfg["municipio"]
     r1, r2 = cfg.get("raio_principal", 300), cfg.get("raio_amplo", 5000)
@@ -748,10 +1017,21 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     zon = zon if zon is not None else rodar_gate(cfg)
     setores = rodar("raio_setores.py", "--lat", lat, "--lng", lng, "--raio", r1,
                     "--codigo-ibge", cod, "--metodo", cfg.get("metodo_setores", "area"))
+    # O anel amplo nao alimenta bloco nenhum do relatorio — a narrativa e que o
+    # cita, sempre: populacao, renda e cobertura do raio de 5 km aparecem nas
+    # lentes de todo dossie. Sem a chamada aqui, esses numeros ficam de fora da
+    # apuracao gravada e a conferencia de procedencia os acusa como sem origem,
+    # tendo origem. A apuracao tem de cobrir o que o dossie AFIRMA, nao so o que
+    # o gerador IMPRIME.
+    rodar("raio_setores.py", "--lat", lat, "--lng", lng, "--raio", r2,
+          "--codigo-ibge", cod, "--metodo", cfg.get("metodo_setores", "area"))
+    # --listar so preenche `mais_proximos`, que nenhum bloco le: a lista nao
+    # entra no relatorio nem com 0 nem com 40. O que ela muda e a apuracao, onde
+    # ficam as distancias que a narrativa cita loja a loja ("a 178 m e a 216 m").
     comp1 = rodar("raio_concorrencia.py", "--lat", lat, "--lng", lng, "--raio", r1,
-                  "--listar", 0, "--municipio", mun, "--uf", uf)
+                  "--listar", 40, "--municipio", mun, "--uf", uf)
     comp2 = rodar("raio_concorrencia.py", "--lat", lat, "--lng", lng, "--raio", r2,
-                  "--listar", 0, "--municipio", mun, "--uf", uf)
+                  "--listar", 40, "--municipio", mun, "--uf", uf)
     utc = rodar("mercado_utc.py", "--codigo-ibge", cod)
     brick = rodar("mercado_brick.py", "--uf", uf, "--codigo-ibge", cod, "--lat", lat, "--lng", lng)
     # Caminhada, não o raio de estudo: 300 m é curto demais para geradores de
@@ -836,11 +1116,41 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     # Zero aqui pode significar "nenhuma loja nossa" OU "loja nossa sem coordenada".
     # Sem a nota, o card contradiz a lente que explica a lacuna.
     sem_coord_cidade = (zon.get("lacunas") or {}).get("lojas_da_cidade_sem_coordenada") or 0
+    # A contagem sozinha afirma "há N lojas da rede aqui", e é a leitura que
+    # decide canibalizacao — a distinção que a regra de perfil do solicitante
+    # usa. Em Gurupi/TO, 2026-11-23, o card dizia 2 lojas a 121 m e 154 m e as
+    # duas estavam DESATIVADAS no cadastro: lido isolado, o card inventava
+    # concorrência de loja própria onde havia ponto vago. O status vem do
+    # cadastro, no mesmo bloco, e não é inferido aqui.
+    bloco_lojas = comp1.get("lojas_farmarcas_no_raio", {}) or {}
+    itens_lojas = bloco_lojas.get("itens") or []
     nota_lojas = "pelo cadastro de lojas (CNPJ + coordenada)"
+    if itens_lojas:
+        por_status: dict[str, int] = {}
+        for item in itens_lojas:
+            rotulo = (item.get("status") or "").strip() or "sem status no cadastro"
+            por_status[rotulo] = por_status.get(rotulo, 0) + 1
+        resumo_status = " · ".join(
+            f"{n} {rotulo_de_status(rotulo, n)}"
+            for rotulo, n in sorted(por_status.items(), key=lambda kv: (-kv[1], kv[0]))
+        )
+        ocupam = bloco_lojas.get("ocupando_vaga_de_zoneamento")
+        nota_lojas = f"{resumo_status} — pelo cadastro de lojas (CNPJ + coordenada)"
+        if ocupam is not None:
+            nota_lojas += f" · {ocupam} ocupa(m) vaga de zoneamento"
     if sem_coord_cidade:
         nota_lojas += f" — atenção: {sem_coord_cidade} loja(s) do município estão sem coordenada e não entram nesta conta"
     split = setores.get("potencial_consumo_split") or {}
     pot = setores.get("potencial_consumo_drogarias_R$")
+    # Sem a seção Fontes, a origem da coordenada não teria onde ser declarada —
+    # e toda distância do relatório é medida a partir dela. Ela desce para o
+    # rodapé, que é a única linha que sobrevive aos três modos. É o mínimo que
+    # o modo `ocultos` preserva: o resto da procedência vai junto com a seção.
+    rodape_proc = (
+        f" · coordenada {e(limpar_tecnico(cfg.get('origem_da_coordenada')) or 'de origem não declarada')}"
+        f" · acervo de {e(B.DATA_DO_DUMP)}"
+        if modo == "ocultos" else ""
+    )
     av, av_nota = area_de_venda(pot, cfg.get("receita_por_m2"))
     alu, alu_nota = aluguel_comercial(cfg)
     occ, occ_nota = custo_de_ocupacao(cfg, pot, av)
@@ -951,6 +1261,7 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     {card("Lojas Farmarcas no raio", num(comp1.get("lojas_farmarcas_no_raio", {}).get("total")), nota_lojas, "#0f7b45")}
     {card_brick}
   </div>
+  {bloco_implausiveis(comp1, comp2, r1, r2)}
   <h3>Quanto vende uma loja — três fontes independentes</h3>
   <p class="explica"><b>Elas não medem a mesma coisa.</b> A primeira é a
   <b>faixa de faturamento dos concorrentes</b> da praça: classifica cada loja numa de
@@ -1038,17 +1349,47 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     # --- geradores de fluxo
     cats = (pois.get("categorias") or {})
     if cats:
+        # O anel mais largo e um disco cheio centrado no mesmo ponto: ele CONTEM
+        # o raio pedido. Por isso ele nao vira tabela separada. Duas tabelas com
+        # as mesmas nove categorias, uma quase toda zerada e a outra repetindo
+        # tudo, pedem ao leitor que case linha com linha para descobrir o que ja
+        # estava a uma coluna de distancia — e o unico achado do raio curto
+        # reaparecia na segunda tabela, lido como se fosse outro equipamento.
+        # Uma tabela, uma coluna por anel.
+        amplo = pois.get("anel_ampliado") or {}
+        cats_amplo = amplo.get("categorias") or {}
+        tem_amplo = bool(cats_amplo and amplo.get("equipamentos_etiquetados"))
+        raio_amplo_pois = amplo.get("raio_m") or 0
+
         linhas = []
         for k, v in cats.items():
+            w = cats_amplo.get(k) if tem_amplo else None
+            # O anel largo contem o curto, entao o mais proximo dele e o mais
+            # proximo de verdade, e os exemplos dele incluem os de dentro.
+            fonte = w if (w and w.get("total")) else v
             # Equipamento sem nome no OSM existe e conta; só não tem nome. Mostrar
             # "(sem nome)" polui a coluna de exemplos sem informar nada.
-            exemplos = [i["nome"] for i in v["itens"] if i["nome"] and i["nome"] != "(sem nome)"]
+            exemplos = [i["nome"] for i in fonte["itens"] if i["nome"] and i["nome"] != "(sem nome)"]
+            col_amplo = f"<td>{(w or {}).get('total', 0)}</td>" if tem_amplo else ""
             linhas.append(
                 f"<tr><td><b>{e(k.replace('_', ' ').title())}</b><div class='nota'>"
                 f"{e(POR_QUE_FLUXO.get(k, ''))}</div></td><td>{v['total']}</td>"
-                f"<td>{num(v['mais_proximo_m'], 0, ' m') if v['mais_proximo_m'] is not None else '—'}</td>"
+                + col_amplo
+                + f"<td>{num(fonte['mais_proximo_m'], 0, ' m') if fonte['mais_proximo_m'] is not None else '—'}</td>"
                 f"<td>{e(', '.join(exemplos[:3]))}</td></tr>"
             )
+        cab_amplo = f"<th>Em {num(raio_amplo_pois)} m</th>" if tem_amplo else ""
+        nota_amplo = (
+            f"<p class='explica'><b>Por que há duas distâncias.</b> O raio de "
+            f"{num(raio_pois)} m devolveu quase nada, e um entorno sem gerador "
+            "nenhum descreveria mal um bairro que tem posto de saúde e mercado a "
+            f"caminhada de distância. A coluna de {num(raio_amplo_pois)} m é o mesmo "
+            f"círculo, mais largo: ela <b>inclui</b> o que está nos {num(raio_pois)} m, "
+            "não se soma a ele. O que está na calçada é a primeira coluna; a segunda "
+            "responde o que há na região. O corte que acrescenta esta coluna é "
+            "premissa desta análise, não medida.</p>"
+            if tem_amplo else ""
+        )
         bloco_pois = (
             "<p class='explica'><b>Por que isto importa.</b> Farmácia de rua vive de "
             "quem passa, e quem passa é atraído por outra coisa — consulta, escola, "
@@ -1056,13 +1397,15 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
             "alguém estar nesta calçada. A contagem diz que os geradores existem e a "
             "que distância; <b>não diz quanta gente passa</b>, que continua sendo o "
             "dado ausente.</p>"
-            f"<table><thead><tr><th>Categoria e por que gera fluxo</th>"
-            f"<th>Em {num(raio_pois)} m</th>"
+            + nota_amplo
+            + f"<table><thead><tr><th>Categoria e por que gera fluxo</th>"
+            f"<th>Em {num(raio_pois)} m</th>{cab_amplo}"
             f"<th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead>"
             f"<tbody>{''.join(linhas)}</tbody></table>"
             "<p class='vazio'>Equipamento sem nome no mapa entra "
             "na contagem e fica fora da coluna de exemplos. Cobertura é colaborativa: "
             "ausência aqui não é ausência no mundo.</p>"
+            + bloco_cobertura_do_mapa(pois)
         )
     else:
         bloco_pois = f"<p class='vazio'>Indisponível: {e(pois.get('erro', 'sem dados'))}. É lacuna, não ausência de equipamentos.</p>"
@@ -1160,7 +1503,25 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
                           ("mercado UTC", utc), ("contexto", ctx)):
         lac = bloco.get("lacunas")
         if isinstance(lac, list):
-            for item in lac[:6]:
+            # SEM corte. Havia um `[:6]` aqui que silenciava por posição: a
+            # sétima lacuna sumia e nada no documento dizia que sumira — o
+            # oposto da regra da casa, onde lacuna silenciada vira conclusão
+            # errada e lacuna repetida só cansa.
+            #
+            # Medido em 2026-11-24, sobre os 26 dossiês do repositório: só
+            # `raio_setores.py`, `mercado_utc.py` e `contexto_municipio.py`
+            # devolvem `lacunas` em lista, e o maior já visto tem EXATAMENTE 6
+            # itens (Várzea Alegre/CE, uma linha por base de atributo sem
+            # registro no setor). O corte estava no teto, não acima dele: nada
+            # foi truncado até hoje, e tirar o `[:6]` não muda nenhum dossiê
+            # existente. O que muda é o dia seguinte — a checagem de fração
+            # fora de faixa acrescenta um SÉTIMO item ao fim dessa mesma lista,
+            # então numa praça como Várzea Alegre a lacuna da fração corrompida
+            # seria a primeira a cair, justamente a que não se pode perder.
+            #
+            # Volume não é argumento aqui: a seção já nasce recolhida, com
+            # contador no título, e quem a abre quer a lista inteira.
+            for item in lac:
                 if isinstance(item, dict):
                     texto = item.get("motivo") or item.get("_impacto") or ""
                     alvo = item.get("base") or item.get("utc") or item.get("campo") or ""
@@ -1276,11 +1637,11 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
   <h2><span class="ic">✓</span> Para confirmar em campo</h2>
   <ul class="proc">{campo or "<li>—</li>"}</ul>
 </section>
-"""); partes.append(bloco_fontes(fontes, dump, limpar_tecnico(cfg.get("origem_da_coordenada")) or "")); partes.append(f"""<footer>
-  Órbita · Dossiê de Região · {e(cfg['endereco'])}
+"""); partes.append(bloco_fontes(fontes, dump, limpar_tecnico(cfg.get("origem_da_coordenada")) or "", modo)); partes.append(f"""<footer>
+  Órbita · Dossiê de Região · {e(cfg['endereco'])}{rodape_proc}
 </footer>""")
 
-    corpo = "\n".join(partes)
+    corpo = aplicar_detalhes("\n".join(partes), modo)
     return PAGINA.replace("{{CORPO}}", corpo).replace("{{TITULO}}", e(cfg["endereco"]))
 
 
@@ -1489,8 +1850,14 @@ def bloco_duas_leituras(zon: dict, vinculo_apurado: bool = True) -> str:
   econômicos.</p>"""
 
 
-def bloco_onde_mais_olhar(alt: dict, cfg: dict) -> str:
-    """Praças onde a regra de zoneamento não barra — só no relatório de impedimento.
+def bloco_onde_mais_olhar(alt: dict, cfg: dict, contexto: str = "impedimento") -> str:
+    """Praças onde a regra de zoneamento não barra.
+
+    Dois contextos, mesma tabela: `impedimento`, depois de um ponto barrado, e
+    `prospeccao`, quando ainda não há ponto. Muda só o parágrafo de abertura,
+    porque a pergunta do leitor é outra — num caso ele acabou de receber um
+    "não" e precisa saber que a lista não fala do endereço dele; no outro ele
+    está escolhendo onde olhar e precisa saber que a lista não recomenda abrir.
 
     Não é análise de mercado do ponto barrado, e a distinção precisa estar na
     tela: estudar o endereço reprovado sugere que há número a negociar ali;
@@ -1506,11 +1873,30 @@ def bloco_onde_mais_olhar(alt: dict, cfg: dict) -> str:
         return ""
     disp = (alt or {}).get("_disponibilidade") or {}
     modelo = cfg.get("modelo") or ""
+    def _presenca(m: dict) -> str:
+        """Quantas lojas a rede já tem na praça, e se a receita dela caiu lá.
+
+        O script avisa, no `motivo` de cada linha, que receita Farmarcas em queda
+        indica praça já testada e perdida — e esse aviso não chegava à tela. O
+        leitor que acabou de receber um "não" via, no topo da única lista
+        acionável do relatório, a maior praça do estado, sem saber que a rede já
+        opera nela com vinte lojas e vem encolhendo. A coluna de crescimento ao
+        lado é do MERCADO, e sozinha reforça a leitura errada.
+        """
+        lojas = m.get("lojas_farmarcas_no_municipio")
+        cf = m.get("crescimento_farmarcas")
+        if lojas is None:
+            return ""
+        txt = f"{num(lojas)} loja(s) da rede na cidade"
+        if cf is not None and cf < 0:
+            txt += f" · receita da rede caiu {pct(abs(cf))} — praça possivelmente já testada"
+        return f"<div class=\"nota\">{txt}</div>"
+
     corpo = "".join(
         f"<tr><td><b>{e(m.get('municipio'))}/{e(m.get('uf'))}</b>"
-        + (f"<div class=\"nota\">{e(m.get('localidade'))}</div>" if m.get("localidade") else "")
-        + f"</td><td>{(str(int(m['distancia_km'])) + ' km') if m.get('distancia_km') is not None else '—'}</td>"
-        + f"<td>{e(m.get('escala_mercado_nao_atendido'))}</td>"
+        + f"<div class=\"nota\">{e(m.get('localidade') or 'município inteiro')}</div>"
+        + f"</td><td>{(num(round(m['distancia_km']), 0, ' km')) if m.get('distancia_km') is not None else '—'}</td>"
+        + f"<td>{e(m.get('escala_mercado_nao_atendido'))}{_presenca(m)}</td>"
         + (
             f"<td>{num(m.get('grupos_economicos_no_municipio'))} de {num(m.get('teto_de_lojas'))}"
             if m.get("teto_de_lojas") is not None
@@ -1529,6 +1915,14 @@ def bloco_onde_mais_olhar(alt: dict, cfg: dict) -> str:
     # Sem declarar o raio, o leitor nao sabe se "as melhores do estado" foram
     # filtradas por alcance ou nao — e quando NAO ha praca perto, esse fato e o
     # achado mais importante da secao, nao uma nota de rodape.
+    # Piso de receita: praça abaixo dele nunca entra na lista, e o leitor não
+    # tinha como saber que o filtro existe. Declarado como premissa, igual ao raio.
+    piso = ((alt or {}).get("filtro") or {}).get("receita_minima_R$")
+    nota_piso = (
+        f"Praça com mercado abaixo de {brl(piso)} não entra na lista — piso desta busca, "
+        "premissa e não regra da casa."
+        if piso else ""
+    )
     prox = (alt or {}).get("_proximidade") or {}
     if prox.get("raio_aplicado"):
         nota_raio = (
@@ -1551,20 +1945,39 @@ def bloco_onde_mais_olhar(alt: dict, cfg: dict) -> str:
             "A lista cobre a UF inteira, sem filtro de distância — as praças podem estar "
             "longe do endereço analisado."
         )
+    if contexto == "prospeccao":
+        titulo = "Praças a conferir — onde a regra não barra a entrada"
+        abertura = (
+            "<b>Isto é lista de onde vale rodar um dossiê, não recomendação de abertura.</b> "
+            "Nenhuma destas praças foi analisada: o que foi apurado é que a regra de "
+            "expansão não barra a entrada de um grupo novo nelas, e quanto mercado "
+            "farmacêutico circula ali hoje sem passar pela rede. Mercado grande sem nós "
+            "pode ser oportunidade ou praça já testada e perdida — a coluna de presença "
+            "mostra qual dos dois. Cada linha é uma unidade de mercado, por isso a mesma "
+            "cidade pode aparecer mais de uma vez, sempre nomeando a localidade — ou "
+            f"dizendo \"município inteiro\", quando a unidade cobre a cidade toda. {nota_modelo} {nota_piso}"
+        )
+    else:
+        titulo = "Onde mais olhar — praças onde a regra não barra"
+        abertura = (
+            "<b>Isto não é análise de mercado deste ponto.</b> Levantar renda, "
+            "concorrência e potencial do endereço reprovado sugeriria que há número a "
+            "negociar ali, e não há — o que existe para resolver é decisão de quem é dono "
+            "da regra. A lista abaixo não afirma nada sobre o endereço pedido: são praças "
+            "da mesma UF onde a entrada de um grupo novo <b>cabe no teto</b>, ordenadas "
+            "pelo mercado que hoje circula sem passar pela rede. Cada linha é uma unidade "
+            "de mercado, por isso a mesma cidade pode aparecer mais de uma vez, sempre "
+            "nomeando a localidade — ou dizendo \"município inteiro\", quando a unidade "
+            f"cobre a cidade toda. {nota_modelo} {nota_piso}"
+        )
     return f"""<section>
-  <h2><span class="ic">→</span> Onde mais olhar — praças onde a regra não barra</h2>
-  <p class="explica"><b>Isto não é análise de mercado deste ponto.</b> Levantar renda,
-  concorrência e potencial do endereço reprovado sugeriria que há número a negociar ali, e
-  não há — o que existe para resolver é decisão de quem é dono da regra. A lista abaixo não
-  afirma nada sobre o endereço pedido: são praças da mesma UF onde a entrada de um grupo
-  novo <b>cabe no teto</b>, ordenadas pelo mercado que hoje circula sem passar pela rede.
-  Cada linha é uma unidade de mercado, por isso a mesma cidade pode aparecer mais de uma vez,
-  sempre com a localidade nomeada. {nota_modelo}</p>
+  <h2><span class="ic">→</span> {titulo}</h2>
+  <p class="explica">{abertura}</p>
   <p class="explica">{nota_raio}</p>
   <table><thead><tr><th>Praça</th><th>Distância</th><th>Mercado não atendido</th>
   <th>Grupos / teto</th><th>Cresc.</th></tr></thead><tbody>{corpo}</tbody></table>
-  <p class="vazio"><b>Como a disponibilidade é apurada.</b> {e(disp.get("_regra"))}
-  {e(disp.get("_apuracao_do_grupo"))} — ou seja, uma praça pode aparecer como indisponível
+  <p class="vazio"><b>Como a disponibilidade é apurada.</b> {e(str(disp.get("_regra") or "").rstrip(". "))}.
+  O grupo sai do {e(str(disp.get("_apuracao_do_grupo") or "").lstrip(". "))} — ou seja, uma praça pode aparecer como indisponível
   por grafia divergente no cadastro, e o caminho para confirmar é o CNPJ. Esta lista escolhe
   a <b>praça</b>, não o ponto: cada uma ainda precisa do seu próprio dossiê.</p>
 </section>"""
@@ -1812,14 +2225,179 @@ def construir_impedimento(cfg: dict, zon: dict) -> str:
   insumo para o comentário da análise, não substitui o parecer do analista
 </footer>""")
 
+    # O relatorio de impedimento NAO recolhe explicacao: ali esses
+    # paragrafos sao o conteudo, nao o acompanhamento de um numero. "Por que
+    # o relatorio termina aqui" e "isto nao e analise de mercado deste ponto"
+    # sao a mensagem que o entregavel existe para dar — fechados, o leitor
+    # recebe um "nao" sem a razao dele. E o relatorio curto nao tem o que
+    # enxugar: o problema que o recolhimento resolve e do dossie completo.
     corpo = "\n".join(partes)
     return PAGINA.replace("{{CORPO}}", corpo).replace("{{TITULO}}", e(cfg["endereco"]))
+
+
+def construir_prospeccao(cfg: dict) -> str:
+    """Praças a conferir a partir de uma cidade de referência. Não há ponto.
+
+    Narrativa esperada no config: `tipo: "prospeccao"`, `referencia` (como a
+    cidade de referência se escreve), `lat`, `lng`, `municipio`, `uf`,
+    `codigo_ibge` — todos da REFERÊNCIA, não de um endereço —, mais `resumo`,
+    `leitura` (lista de parágrafos), `nao_sabe` e `campo`. Opcional: `raio_km`,
+    `modelo`, `perfil`.
+
+    A tabela inteira vem do script. Quem escreve a narrativa escolhe praça na
+    PROSA, nunca filtrando linhas: filtrar aqui seria o modelo decidindo quais
+    números o documento mostra, que é exatamente o que a divisão
+    número->script existe para impedir.
+
+    Por que a âncora é obrigatória: sem `--perto-de` a lista é função da UF e
+    não do pedido. Medido em 2026-11-05 — Pouso Alegre e Ipatinga, 390 km entre
+    si, receberam listas idênticas, 15 de 15, nenhuma praça a menos de 150 km de
+    qualquer um dos dois. Ordenar por mercado absoluto entrega sempre a capital.
+    """
+    dump = B.DATA_DO_DUMP
+    raio = cfg.get("raio_km") or RAIO_PRACAS_KM
+    alt = rodar(
+        "alternativas.py", "--uf", cfg["uf"], "--limite", 12,
+        "--perto-de", f"{cfg['lat']},{cfg['lng']}", "--raio-km", raio,
+        "--so-disponiveis",
+        *(("--modelo", cfg["modelo"]) if cfg.get("modelo") else ()),
+    )
+    listadas = len((alt or {}).get("melhores") or [])
+    referencia = cfg.get("referencia") or f"{cfg.get('municipio', '')}/{cfg.get('uf', '')}"
+
+    partes = [f"""<header>
+  <div class="marca">Órbita · Onde olhar</div>
+  <div class="sub">Praças a conferir — <b>sem análise de ponto e sem score</b> ·
+    acervo de camadas de {dump} · cadastro de lojas de {B.DATA_DO_CADASTRO} ·
+    população do Censo extraída em {data_censo()}</div>
+</header>
+<div class="faixa-end">A partir de {e(referencia)} · raio de {num(raio)} km</div>
+<section class="topo">
+  <div class="gate" style="border-color:#6b2fb5">
+    <div class="rot">Ordenado por</div>
+    <div class="val" style="color:#6b2fb5">Mercado não atendido</div>
+    <div class="nota">receita que circula na praça sem passar pela rede</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>{rico(limpar_tecnico(cfg.get('resumo')))}</p>
+    <div class="meta">Solicitante: <b>{e(PERFIL_HUMANO.get(cfg.get("perfil"), cfg.get("perfil") or "não informado"))}</b> ·
+      Modelo pretendido: <b>{e(cfg.get('modelo') or 'não informado')}</b> ·
+      Praças listadas: <b>{num(listadas)}</b></div>
+  </div>
+</section>"""]
+
+    # Primeira secao do corpo, e nao rodape, de proposito. O script declara na
+    # propria saida que a lista nao e recomendacao de abertura — e um documento
+    # que circula sera lido como recomendacao se nao disser o contrario onde o
+    # leitor olha primeiro. Quem recebe isto por encaminhamento nao leu a
+    # conversa que o gerou.
+    partes.append(f"""<section>
+  <h2><span class="ic">■</span> O que esta lista é, e o que ela não é</h2>
+  <p class="explica"><b>É o ponto de partida de uma análise, não o resultado dela.</b>
+  Nenhuma praça abaixo foi analisada: não houve gate de zoneamento em endereço nenhum,
+  não se olhou concorrência num raio, renda, população nem potencial de consumo. O que
+  está apurado aqui é outra coisa, e só ela — <b>onde a regra de expansão não barra a
+  entrada de um grupo novo</b>, e <b>quanto mercado farmacêutico circula ali hoje sem
+  passar pela rede</b>. Escolher entre duas praças desta lista ainda exige o dossiê de
+  cada uma. E "cabe no teto" é ausência de impedimento na contagem de grupos, não
+  liberação: o gate de verdade roda sobre um endereço, com bandeira e distância mínima,
+  e pode barrar um ponto dentro de uma praça que aparece aqui como disponível.</p>
+</section>""")
+
+    partes.append(bloco_onde_mais_olhar(alt, cfg, contexto="prospeccao"))
+
+    leitura = "".join(f"<p>{rico(limpar_tecnico(p))}</p>" for p in (cfg.get("leitura") or []))
+    if leitura:
+        partes.append(f"""<section>
+  <h2><span class="ic">◆</span> Leitura da lista</h2>
+  <div class="lente" style="border-color:#6b2fb5;background:#faf7fd">{leitura}</div>
+</section>""")
+
+    lacunas = [limpar_tecnico(x) for x in (cfg.get("nao_sabe") or [])]
+    # Incondicionais: sao as tres coisas que o leitor desta lista supoe saber e
+    # nao sabe. Nenhuma delas e visivel na tabela, e cada uma muda a decisao.
+    lacunas.append(
+        "<b>Como é cada praça por dentro.</b> A unidade desta lista é territorial e "
+        "cobre a cidade ou uma parte dela, não um raio em volta de um endereço — "
+        "população, renda, concorrência no raio e potencial de consumo seguem "
+        "desconhecidos em todas. Destrava rodando o dossiê da praça escolhida."
+    )
+    lacunas.append(
+        "<b>Se a vaga vale para quem está perguntando.</b> A disponibilidade é calculada "
+        "para a entrada de um grupo <b>novo</b>, e a apuração não sabe quem fez o pedido. "
+        "Para solicitante que já responde por loja numa destas cidades, o pedido não "
+        "acrescenta grupo e a leitura da linha é outra. Destrava informando em quais "
+        "cidades ele já opera."
+    )
+    lacunas.append(
+        f"<b>A que distância o empresário aceita operar.</b> O raio de {num(raio)} km é "
+        "premissa desta busca, não regra da casa e não medida: nenhuma fonte do acervo "
+        "responde isso. Praça boa logo depois do limite não aparece. Destrava com o raio "
+        "que o solicitante aceita, informado por ele."
+    )
+    lacunas.append(
+        "<b>Se duas lojas do mesmo dono foram contadas como dois grupos.</b> O grupo é "
+        "apurado pelo responsável registrado no cadastro, comparado por nome e não por "
+        "CNPJ. Grafia divergente inventa um grupo e esconde uma praça que está "
+        "disponível. Destrava conferindo o CNPJ das lojas da praça no cadastro."
+    )
+    vistas, unicas = set(), []
+    for x in lacunas:
+        chave = " ".join(re.sub(r"<[^>]+>", " ", x).lower().split())[:60]
+        if chave in vistas:
+            continue
+        vistas.add(chave)
+        unicas.append(x)
+    lacunas = unicas
+    campo = "".join(f"<li>{rico(limpar_tecnico(x))}</li>" for x in (cfg.get("campo") or []))
+    itens_lac = "".join(f"<li>{rico(x)}</li>" for x in lacunas)
+    n_lac = len(lacunas)
+    partes.append(f"""<details class="lacunas">
+  <summary><span class="ic">!</span> O que esta lista NÃO sabe
+    <span class="qtd">{n_lac} {'item' if n_lac == 1 else 'itens'}</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul>{itens_lac}</ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar antes de escolher</h2>
+  <ul class="proc">{campo or "<li>—</li>"}</ul>
+</section>""")
+
+    partes.append(f"""<section>
+  <h2><span class="ic">§</span> Fontes</h2>
+  <ul class="proc">
+    <li><b>Mercado por unidade territorial e crescimento</b> — base de mercado farmacêutico
+      do instituto, no acervo de {e(dump)}. "Mercado não atendido" é a receita total da
+      unidade menos a receita da rede nela: é subtração de dois valores medidos, não
+      projeção de quanto se capturaria.</li>
+    <li><b>Lojas da rede, grupos econômicos e modelo de negócio</b> — cadastro de lojas
+      Farmarcas, extração de {e(B.DATA_DO_CADASTRO)}. Ocupam vaga as lojas ativas, montando
+      ou em transição.</li>
+    <li><b>População que corta a faixa do teto</b> — Censo 2022 do IBGE, pela API pública,
+      extração de {e(data_censo())}. Não vem do acervo de camadas.</li>
+    <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas,
+      páginas 4.5 e 6.1. A contagem do teto é por <b>grupos econômicos</b>, confirmada com a
+      área dona da regra em 29/10/2026.</li>
+    <li><b>Distância</b> — do centro aproximado de {e(referencia)} até o centro aproximado
+      de cada município. Serve para ordem de grandeza, nunca para medir trajeto.</li>
+  </ul>
+  <p class="vazio">Este documento não pontua praça e não ordena por qualidade: a ordenação é
+  por uma quantidade medida. A régua de viabilidade pertence ao produto.</p>
+</section>""")
+
+    partes.append(f"""<footer>
+  Órbita · Onde olhar · a partir de {e(referencia)} ·
+  insumo para escolher onde analisar, não recomendação de abertura
+</footer>""")
+
+    corpo = "\n".join(partes)
+    return PAGINA.replace("{{CORPO}}", corpo).replace("{{TITULO}}", e(f"Onde olhar — {referencia}"))
 
 
 PAGINA = """<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dossiê de Região</title>
+<title>Órbita · {{TITULO}}</title>
 <style>
 :root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
 *{box-sizing:border-box}
@@ -1875,6 +2453,13 @@ tr.tem td{background:#fbf9ff;font-weight:600}
 .p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
 .azul{background:#3b7ddd}.rosa{background:#e8558f}
 .vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+/* Ressalva de qualidade do dado: fica do lado do numero que ela ressalva, e
+   nao na secao recolhida de lacunas — e defeito conhecido do registro, nao
+   coisa que o dossie deixou de saber. */
+.alerta-dado{margin:14px 0 0;padding:12px 14px;border-radius:9px;
+ background:#fdf3e8;border:1px solid #e3b887;font-size:13px;line-height:1.5}
+.alerta-dado ul{margin:7px 0 0;padding-left:19px}
+.alerta-dado li{margin:3px 0}
 sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
 table.fontes td{vertical-align:top;font-size:13px}
 table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
@@ -1894,10 +2479,38 @@ details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;co
 details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
 details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
 details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
 /* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
-   volta a ser lacuna silenciada. */
-@media print{details.lacunas>.corpo-lac{display:block!important;
- content-visibility:visible!important}details.lacunas>summary .seta{display:none}}
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
 footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
 @media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
 @media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
@@ -1905,6 +2518,36 @@ footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
 </style></head>
 <body><div class="pag">{{CORPO}}</div></body></html>
 """
+
+
+def gravar_entregavel(pagina: str, saida: str, cfg: dict, veredito) -> int:
+    """Grava o HTML e, ao lado dele, a apuração daquela geração.
+
+    A apuracao e o que torna o entregavel conferivel sem reexecutar nada. Ela
+    sai SEMPRE, nos tres relatorios, porque documento sem ela so pode ser
+    auditado por releitura humana — que e exatamente o custo que a divisao
+    numero->script existe para tirar. `veredito` e None quando nao houve gate,
+    que e o caso da prospeccao: ali nao ha ponto para barrar.
+    """
+    os.makedirs(os.path.dirname(os.path.abspath(saida)), exist_ok=True)
+    with open(saida, "w", encoding="utf-8") as fh:
+        fh.write(pagina)
+    print(f"relatório gravado: {saida} ({len(pagina):,} bytes)")
+
+    destino = re.sub(r"\.html?$", "", saida) + ".apuracao.json"
+    with open(destino, "w", encoding="utf-8") as fh:
+        json.dump(
+            {
+                "relatorio": os.path.basename(saida),
+                "gerado_em": datetime.date.today().isoformat(),
+                "dump_das_bases": getattr(B, "DATA_DO_DUMP", ""),
+                "veredito_do_gate": veredito,
+                "chamadas": sem_nome_de_pessoa(APURACAO, cfg.get("ge", "")),
+            },
+            fh, ensure_ascii=False, indent=1,
+        )
+    print(f"apuração gravada: {destino} ({len(APURACAO)} chamada(s) de script)")
+    return 0
 
 
 def main() -> int:
@@ -1916,6 +2559,15 @@ def main() -> int:
     # linha de comando e NÃO é gravado no config — o JSON é metade do entregável
     # e vai para outputs/ junto com o HTML.
     ap.add_argument("--ge", default="", help="responsável pelo GE; não gravar no config (LGPD)")
+    ap.add_argument(
+        "--detalhes", choices=DETALHES, default="recolhidos",
+        help=(
+            "o que fazer com a seção Fontes e com os parágrafos explicativos: "
+            "abertos (tudo à vista), recolhidos (rótulo à vista, texto a um "
+            "clique, aberto na impressão) ou ocultos (fora do documento — o "
+            "dossiê circula sem rastreabilidade de fonte)"
+        ),
+    )
     args = ap.parse_args()
 
     with open(args.config, encoding="utf-8") as fh:
@@ -1932,6 +2584,27 @@ def main() -> int:
         )
     if args.ge:
         cfg["ge"] = args.ge
+    cfg["_detalhes"] = args.detalhes
+    if args.detalhes == "ocultos":
+        print(
+            "AVISO: --detalhes ocultos tira a seção Fontes e os parágrafos "
+            "explicativos do documento. O dossiê gerado assim não permite "
+            "conferir de onde veio nenhum número, e os marcadores de referência "
+            "saem do texto junto. Para a cópia que vai ser auditada, gere "
+            "também com --detalhes abertos.",
+            file=sys.stderr,
+        )
+
+    # Prospeccao nao tem ponto, entao nao tem gate para rodar nem lentes para
+    # validar — e a narrativa cita varios municipios DE PROPOSITO, o que faria o
+    # aviso de referencia cruzada disparar em toda linha da lista. O despacho
+    # vem antes dos validadores porque todos eles sao sobre o quadrante SWOT de
+    # um dossie de ponto, que aqui nao existe. O erro fatal de perfil sem
+    # responsavel tambem nao se aplica: ele existe porque a prosa do dossie
+    # afirma de quem e cada loja, e esta lista nao afirma isso de ninguem.
+    if cfg.get("tipo") == "prospeccao":
+        pagina = construir_prospeccao(cfg)
+        return gravar_entregavel(pagina, args.saida, cfg, None)
 
     cruzadas = avisar_referencia_cruzada(cfg)
     if cruzadas:
@@ -2185,11 +2858,7 @@ def main() -> int:
                 file=sys.stderr,
             )
         pagina = construir(cfg, zon)
-    os.makedirs(os.path.dirname(os.path.abspath(args.saida)), exist_ok=True)
-    with open(args.saida, "w", encoding="utf-8") as fh:
-        fh.write(pagina)
-    print(f"relatório gravado: {args.saida} ({len(pagina):,} bytes)")
-    return 0
+    return gravar_entregavel(pagina, args.saida, cfg, zon.get("veredito"))
 
 
 if __name__ == "__main__":

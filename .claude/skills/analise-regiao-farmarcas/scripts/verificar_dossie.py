@@ -1,0 +1,550 @@
+"""Confere, sem modelo nenhum, se o dossiê respeita as regras que são mecânicas.
+
+A auditoria de um dossiê sempre teve duas metades. Uma é julgamento: a lente
+fala da região ou da medição, o item passa no teste do "e daí?", duas medidas
+diferentes foram pareadas como se fossem a mesma. Essa metade exige ler, e é
+onde o auditor se paga. A outra metade é casamento de string e número — todo
+valor do texto existe numa saída de script, nenhum nome de pessoa escapou,
+nenhum score foi inventado, nenhum nome de ferramenta vazou para o corpo. Essa
+metade não é tarefa de modelo: é comparação exata, e modelo que a faz erra de
+vez em quando, gasta muito e não deixa rastro de como conferiu.
+
+Este script faz a segunda metade. Ele não lê o dossiê — ele o confere.
+
+O que ele NÃO faz, de propósito:
+
+- Não repete os avisos que `montar_relatorio.py` já dá na geração (confiança
+  escrita na lente, método duplicado, ressalva de base como oração, valor
+  repetido em duas lentes, lacuna de script que não chegou ao entregável).
+  Duas implementações da mesma regra divergem com o tempo, e aí não se sabe
+  qual está certa.
+- Não julga se o número está CERTO. Ele confere se o número tem ORIGEM. Um
+  valor apurado por um script com a conta errada passa aqui — e tem de passar:
+  conferir a conta é conferir o script, não o dossiê.
+- Não substitui o auditor. Fechar sem achado quer dizer que a parte mecânica
+  está limpa, e só isso.
+
+Uso:
+
+    python verificar_dossie.py --config outputs/dossies/x.json \\
+                               --relatorio outputs/dossies/x.html
+
+A apuração é procurada ao lado do relatório (`x.apuracao.json`), que é onde
+`montar_relatorio.py` a grava. Sem ela o script para: conferir procedência
+contra nada é teatro.
+"""
+from __future__ import annotations
+
+import argparse
+import html as _html
+import json
+import math
+import os
+import re
+import sys
+import unicodedata
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+
+try:
+    import _bases as B
+except Exception:  # noqa: BLE001 — sem o módulo, a checagem de nome degrada
+    B = None
+
+
+# ---------------------------------------------------------------------------
+# Números escritos em português
+# ---------------------------------------------------------------------------
+
+_MULTIPLICADOR = {
+    "mil": 1e3,
+    "mi": 1e6, "milhão": 1e6, "milhao": 1e6, "milhões": 1e6, "milhoes": 1e6,
+    "bi": 1e9, "bilhão": 1e9, "bilhao": 1e9, "bilhões": 1e9, "bilhoes": 1e9,
+}
+
+_NUMERO = re.compile(
+    r"(R\$\s*)?"
+    r"(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)"
+    r"\s*(%|mil\b|mi\b|milh[õo]es\b|milh[ãa]o\b|bi\b|bilh[õo]es\b|bilh[ãa]o\b)?",
+    re.I,
+)
+
+
+class Escrito:
+    """Um número como ele aparece no texto, com a precisão com que foi escrito.
+
+    A precisão importa: "3,5" e "3,46" são o mesmo valor apurado escrito de dois
+    jeitos, e só um deles é o que o script devolveu. Guardar quantas casas o
+    autor escreveu é o que permite dizer qual.
+    """
+
+    __slots__ = ("bruto", "valor", "casas", "fator", "pct", "moeda", "onde")
+
+    def __init__(self, bruto, valor, casas, fator, pct, moeda, onde):
+        self.bruto, self.valor, self.casas = bruto, valor, casas
+        self.fator, self.pct, self.moeda, self.onde = fator, pct, moeda, onde
+
+    @property
+    def tem_unidade(self) -> bool:
+        return bool(self.moeda or self.pct or self.fator != 1)
+
+    def __repr__(self):
+        return f"<{self.bruto!r} = {self.valor}>"
+
+
+def sem_marcacao(txt: str) -> str:
+    return _html.unescape(re.sub(r"<[^>]+>", " ", txt or ""))
+
+
+def numeros_do_texto(txt: str, onde: str):
+    """Extrai todo número escrito, com moeda, percentual e escala."""
+    achados = []
+    for m in _NUMERO.finditer(sem_marcacao(txt)):
+        moeda, cru, sufixo = m.group(1), m.group(2), (m.group(3) or "").strip().lower()
+        if "," in cru:
+            casas = len(cru.split(",")[1])
+        else:
+            casas = 0
+        valor = float(cru.replace(".", "").replace(",", "."))
+        pct = sufixo == "%"
+        fator = 1.0 if pct or not sufixo else _MULTIPLICADOR.get(
+            unicodedata.normalize("NFC", sufixo), 1.0
+        )
+        achados.append(
+            Escrito(m.group(0).strip(), valor, casas, fator, pct, bool(moeda), onde)
+        )
+    return achados
+
+
+# ---------------------------------------------------------------------------
+# Valores apurados
+# ---------------------------------------------------------------------------
+
+def valores_da_apuracao(apuracao: dict):
+    """Todo número que algum script devolveu, com o caminho até ele.
+
+    O caminho é o que torna o achado acionável: "não casou" sem dizer contra o
+    que se procurou manda o leitor conferir à mão, que é o trabalho que este
+    script existe para tirar.
+    """
+    encontrados = []
+
+    def anda(no, caminho):
+        if isinstance(no, dict):
+            for k, v in no.items():
+                anda(v, f"{caminho}.{k}" if caminho else k)
+        elif isinstance(no, list):
+            for i, v in enumerate(no):
+                anda(v, f"{caminho}[{i}]")
+        elif isinstance(no, bool):
+            return
+        elif isinstance(no, (int, float)):
+            encontrados.append((float(no), caminho))
+        elif isinstance(no, str):
+            # Script que devolve número como texto ("1.303.403") continua sendo
+            # origem legítima: o defeito seria o dossiê inventar, não o script
+            # serializar diferente.
+            for m in _NUMERO.finditer(no):
+                try:
+                    encontrados.append(
+                        (float(m.group(2).replace(".", "").replace(",", ".")), caminho)
+                    )
+                except ValueError:
+                    pass
+
+    for chamada in apuracao.get("chamadas", []):
+        anda(chamada.get("saida"), chamada.get("script", "?"))
+    return encontrados
+
+
+def casa(n: Escrito, valores, tolerancia_relativa=0.0):
+    """Devolve o caminho do primeiro valor apurado que explica o número escrito.
+
+    Quatro formas de o mesmo valor aparecer no texto, todas legítimas:
+    o valor cru, o valor em escala ("R$ 143,05 mi" para 143.052.398), a fração
+    escrita como percentual (0,1531 para "15,31%") e o percentual já em 0–100.
+    O arredondamento é sempre feito na precisão em que o autor escreveu — é isso
+    que separa "3,46", que o script devolveu, de "3,5", que ninguém devolveu.
+    """
+    alvo = n.valor
+    for v, caminho in valores:
+        escala = v / n.fator if n.fator else v
+        if _mesma_origem(escala, alvo, n.casas):
+            return caminho, "direto" if n.fator == 1 else "em escala"
+        if n.pct:
+            if _mesma_origem(v * 100.0, alvo, n.casas):
+                return caminho, "fração 0–1 escrita em %"
+            if _mesma_origem(v, alvo, n.casas):
+                return caminho, "percentual já em 0–100"
+    # Ultima tentativa, e ela vale um rotulo proprio: o valor apurado e negativo
+    # e o texto escreveu o modulo. Normalmente esta certo — "perde populacao a
+    # 0,25% ao ano" diz a direcao em palavras e o sinal no numero seria duplo.
+    # Mas e a mesma forma de um crescimento virar queda sem ninguem notar, entao
+    # nao passa calado: vira conferencia, nao reprovacao.
+    for v, caminho in valores:
+        if v < 0 and (
+            _mesma_origem(abs(v) / (n.fator or 1), alvo, n.casas)
+            or (n.pct and _mesma_origem(abs(v) * 100.0, alvo, n.casas))
+            or (n.pct and _mesma_origem(abs(v), alvo, n.casas))
+        ):
+            return caminho, "módulo de valor negativo"
+    return None, ""
+
+
+def _mesma_origem(valor: float, escrito: float, casas: int) -> bool:
+    """O valor apurado, escrito com essa precisão, dá o número do texto?
+
+    Aceita arredondar e truncar. A diferença entre R$ 29.893 e R$ 29.893,52 é de
+    cinquenta centavos numa mediana nacional: não é número sem origem, é a
+    última casa. Acusá-la enterraria o achado que importa — o valor que nenhum
+    script devolveu — debaixo de divergências de centavo, e um aviso que grita
+    por tudo deixa de ser lido.
+
+    O que ele NÃO perdoa é o salto de precisão para fora da faixa: 3,46 escrito
+    como "3,5" passa, porque é arredondamento legítimo; escrito como "4" ou como
+    "3,40" não passa, porque nenhuma dessas é a leitura daquele valor.
+    """
+    fator = 10.0 ** casas
+    return (
+        round(valor, casas) == escrito
+        or math.floor(abs(valor) * fator) / fator * (1 if valor >= 0 else -1) == escrito
+    )
+
+
+# ---------------------------------------------------------------------------
+# Texto da narrativa
+# ---------------------------------------------------------------------------
+
+def trechos_da_narrativa(cfg: dict):
+    """Pares (rótulo, texto) de tudo que o modelo escreveu no dossiê.
+
+    Só a narrativa entra. O que `montar_relatorio.py` formata a partir das
+    saídas de script não precisa ser conferido aqui: ele não pode divergir da
+    apuração, porque é a apuração passada por um formatador.
+    """
+    saida = []
+    if cfg.get("resumo"):
+        saida.append(("resumo", cfg["resumo"]))
+    for campo in ("leitura", "o_que_mudaria", "alertas_cadastro", "nao_sabe", "campo"):
+        for i, t in enumerate(cfg.get(campo) or []):
+            saida.append((f"{campo}[{i}]", t if isinstance(t, str) else json.dumps(t, ensure_ascii=False)))
+    for lente, conteudo in (cfg.get("lentes") or {}).items():
+        if isinstance(conteudo, dict):
+            if conteudo.get("abertura"):
+                saida.append((f"{lente} — abertura", conteudo["abertura"]))
+            itens = conteudo.get("itens") or []
+        else:
+            itens = conteudo or []
+        for item in itens:
+            rotulo = f"{lente} — {(item.get('titulo') or '(sem título)')[:48]}"
+            saida.append((rotulo, " ".join(
+                str(item.get(k) or "") for k in ("titulo", "texto", "fonte")
+            )))
+    return saida
+
+
+def numeros_estruturais(cfg: dict):
+    """Números que vêm do próprio pedido, não de apuração nenhuma.
+
+    Coordenada, raio, código do município e o número da casa no endereço são
+    entrada, não medida: cobrá-los de origem apontaria o endereço do ponto como
+    número sem script.
+    """
+    fixos = set()
+    # `raio_km` e `referencia` são a entrada do relatório de prospecção, que não
+    # tem ponto: o raio é premissa declarada do pedido e a referência é de onde
+    # a distância é medida. Cobrar origem deles acusaria o pedido de ser número
+    # sem script, como já valeria para o endereço de um dossiê de ponto.
+    for chave in ("lat", "lng", "raio_principal", "raio_amplo", "raio_km", "receita_por_m2"):
+        v = cfg.get(chave)
+        if isinstance(v, (int, float)):
+            fixos.add(abs(float(v)))
+            # O mesmo raio escrito em quilômetros continua sendo o raio: "5 km"
+            # e 5.000 m são o mesmo pedido, e cobrar origem do segundo e não do
+            # primeiro é acusar a unidade, não o número.
+            if chave.startswith("raio"):
+                fixos.add(abs(float(v)) / 1000.0)
+    for chave in ("codigo_ibge", "endereco", "referencia"):
+        for m in _NUMERO.finditer(str(cfg.get(chave) or "")):
+            try:
+                fixos.add(float(m.group(2).replace(".", "").replace(",", ".")))
+            except ValueError:
+                pass
+    return fixos
+
+
+# ---------------------------------------------------------------------------
+# As quatro checagens
+# ---------------------------------------------------------------------------
+
+def checar_procedencia(cfg, apuracao):
+    valores = valores_da_apuracao(apuracao)
+    fixos = numeros_estruturais(cfg)
+    sem_origem, fracos, sinais = [], [], []
+    conferidos = 0
+
+    for onde, texto in trechos_da_narrativa(cfg):
+        for n in numeros_do_texto(texto, onde):
+            # Ano solto não é medida: ele nomeia a safra do dado ("Censo 2022").
+            if not n.tem_unidade and n.casas == 0 and 1990 <= n.valor <= 2030:
+                continue
+            if n.valor in fixos or (n.valor * n.fator) in fixos:
+                continue
+            conferidos += 1
+            caminho, forma = casa(n, valores)
+            if caminho is None:
+                sem_origem.append((onde, n))
+            elif forma == "módulo de valor negativo":
+                sinais.append((onde, n, caminho))
+            elif not n.tem_unidade and n.casas == 0 and n.valor < 100:
+                # Inteiro pequeno casa por acaso: há centenas deles na apuração.
+                # Dizer que casou seria dar por conferido o que não foi.
+                fracos.append((onde, n, caminho))
+    return conferidos, sem_origem, fracos, sinais
+
+
+def nomes_do_cadastro():
+    """Os nomes de pessoa que o cadastro de lojas realmente contém."""
+    if B is None:
+        return []
+    try:
+        brutos = {
+            (linha.get("Nome do responsável pelo GE") or "").strip()
+            for linha in B.ler_cadastro_lojas()
+        }
+    except Exception:  # noqa: BLE001 — cadastro ausente não derruba a conferência
+        return []
+    # Só nome completo: um sobrenome solto bate com nome de rua e de cidade, e
+    # acusar o que não é nome ensina a ignorar o aviso que importa.
+    return sorted(
+        n for n in brutos
+        if len(n) >= 10 and len(n.split()) >= 2 and not n.isdigit()
+    )
+
+
+def checar_nome_de_pessoa(texto_html: str, cfg: dict, ge: str):
+    achados = []
+    alvo = B.normalizar(texto_html) if B else texto_html.upper()
+    candidatos = list(nomes_do_cadastro())
+    if ge:
+        candidatos.append(ge)
+    if cfg.get("ge"):
+        candidatos.append(cfg["ge"])
+    vistos = set()
+    for nome in candidatos:
+        chave = B.normalizar(nome) if B else nome.upper()
+        if chave and chave not in vistos and chave in alvo:
+            vistos.add(chave)
+            achados.append(nome)
+    if cfg.get("ge"):
+        achados.append(f"(campo 'ge' preenchido no config: {cfg['ge']})")
+    return achados
+
+
+_PONTUACAO = (
+    (r"\bscores?\b", "a régua 0–20 tem dono e vive no produto"),
+    (r"\bpontua[çc][ãa]o\b", "a régua 0–20 tem dono e vive no produto"),
+    (r"\b\d{1,2}\s*(?:/|de)\s*20\b", "nota na escala do produto"),
+    (r"\bnota\s+(?:do|da)\s+(?:ponto|regi[ãa]o|endere[çc]o)\b", "o dossiê não pontua"),
+    (r"\bponto\s+(?:aprovado|recomendado|reprovado)\b", "o dossiê não recomenda"),
+    (r"\b(?:recomendamos|recomenda-se)\s+(?:abrir|a abertura)", "o dossiê não recomenda"),
+    (r"\bviabilidade\s+(?:alta|m[ée]dia|baixa)\b", "é a régua com outro nome"),
+)
+
+_FERRAMENTA = (
+    (r"\b[a-z_]{3,}\.py\b", "nome de script"),
+    (r"(?<![\w-])--[a-z][a-z-]{2,}", "flag de linha de comando"),
+    (r"\b[a-zA-Z_]{3,}\.(?:csv|xlsx|parquet)\b", "nome de arquivo de base"),
+    (r"\b(?:fatMedio|codigo_ibge|densidadedemografica|coverageRatio)\b", "nome de campo de base"),
+    (r"\b\d{4}-[A-Z]{2}_[A-Z]{2,}\b", "identificador de brick"),
+)
+
+
+def corpo_do_relatorio(texto_html: str) -> str:
+    """O que o analista lê — sem o rodapé, onde a ferramenta pode aparecer."""
+    sem_rodape = re.sub(r"<footer\b.*?</footer>", " ", texto_html, flags=re.S | re.I)
+    sem_estilo = re.sub(r"<(style|script)\b.*?</\1>", " ", sem_rodape, flags=re.S | re.I)
+    return sem_marcacao(sem_estilo)
+
+
+# A frase que DIZ que o dossie nao pontua contem a palavra que se esta
+# procurando. Sem esta guarda o verificador acusa justamente o paragrafo que o
+# gerador escreve para declarar a regra — e um verificador que reprova a propria
+# regra ensina a ignorar o aviso.
+_NEGADO = re.compile(
+    r"(?:n[ãa]o\s+(?:h[áa]|tem|traz|existe|pontua|atribui|d[áa])|sem|nem|nenhum[ao]?)"
+    r"[^.;:]{0,40}$",
+    re.I,
+)
+
+
+def checar_padroes(corpo: str, padroes, respeitar_negacao=False):
+    achados = []
+    for padrao, porque in padroes:
+        for m in re.finditer(padrao, corpo, re.I):
+            inicio, fim = max(0, m.start() - 60), min(len(corpo), m.end() + 60)
+            if respeitar_negacao and _NEGADO.search(corpo[inicio:m.start()]):
+                continue
+            contexto = re.sub(r"\s+", " ", corpo[inicio:fim]).strip()
+            achados.append((m.group(0), porque, contexto))
+    return achados
+
+
+# ---------------------------------------------------------------------------
+# Relato
+# ---------------------------------------------------------------------------
+
+def main() -> int:
+    # Mesma causa que derrubava o gate: no Windows a stdout sai em cp1252, que
+    # não tem "←" nem "→" — e este relatório usa os dois para apontar o valor
+    # apurado que explica cada número. A conferência quebrava DEPOIS de achar
+    # os problemas, imprimindo meio relatório e um traceback no lugar do
+    # veredito. Quem roda a conferência roda da linha de comando, sem -X utf8.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError):
+        pass
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--config", required=True, help="JSON da narrativa do dossiê")
+    ap.add_argument("--relatorio", required=True, help="HTML gerado")
+    ap.add_argument("--apuracao", default="", help="padrão: ao lado do relatório")
+    ap.add_argument("--ge", default="", help="responsável usado na geração, para conferir se vazou")
+    ap.add_argument("--json", action="store_true", help="saída estruturada")
+    args = ap.parse_args()
+
+    with open(args.config, encoding="utf-8") as fh:
+        cfg = json.load(fh)
+    with open(args.relatorio, encoding="utf-8") as fh:
+        pagina = fh.read()
+
+    caminho_apuracao = args.apuracao or (
+        re.sub(r"\.html?$", "", args.relatorio) + ".apuracao.json"
+    )
+    if not os.path.exists(caminho_apuracao):
+        print(
+            "ERRO: apuração não encontrada em " + caminho_apuracao + ".\n"
+            "Ela é gravada por montar_relatorio.py junto com o HTML. Sem ela não "
+            "há contra o que conferir procedência, e conferir contra nada passa "
+            "por conferência sem ser uma. Regere o relatório.",
+            file=sys.stderr,
+        )
+        return 2
+    with open(caminho_apuracao, encoding="utf-8") as fh:
+        apuracao = json.load(fh)
+
+    conferidos, sem_origem, fracos, sinais = checar_procedencia(cfg, apuracao)
+    corpo = corpo_do_relatorio(pagina)
+    nomes = checar_nome_de_pessoa(corpo, cfg, args.ge)
+    pontuacao = checar_padroes(corpo, _PONTUACAO, respeitar_negacao=True)
+    ferramenta = checar_padroes(corpo, _FERRAMENTA)
+
+    reprova = len(sem_origem) + len(nomes) + len(pontuacao) + len(ferramenta)
+
+    if args.json:
+        json.dump(
+            {
+                "numeros_conferidos": conferidos,
+                "sem_origem": [
+                    {"onde": o, "escrito": n.bruto, "valor": n.valor} for o, n in sem_origem
+                ],
+                "escrito_em_modulo": [
+                    {"onde": o, "escrito": n.bruto, "casou_com": c} for o, n, c in sinais
+                ],
+                "casamento_fraco": [
+                    {"onde": o, "escrito": n.bruto, "casou_com": c} for o, n, c in fracos
+                ],
+                "nome_de_pessoa": nomes,
+                "pontuacao": [{"trecho": a, "porque": p} for a, p, _ in pontuacao],
+                "ferramenta_no_corpo": [{"trecho": a, "tipo": p} for a, p, _ in ferramenta],
+                "reprovados": reprova,
+            },
+            sys.stdout, ensure_ascii=False, indent=1,
+        )
+        print()
+        return 1 if reprova else 0
+
+    larg = 78
+    print("=" * larg)
+    print("CONFERÊNCIA MECÂNICA — " + os.path.basename(args.relatorio))
+    print("=" * larg)
+    print(
+        f"{len(apuracao.get('chamadas', []))} chamada(s) de script na apuração · "
+        f"{len(valores_da_apuracao(apuracao)):,} valores apurados · "
+        f"{conferidos} número(s) da narrativa conferidos".replace(",", ".")
+    )
+    print()
+
+    print(f"1. PROCEDÊNCIA DOS NÚMEROS — {len(sem_origem)} sem origem")
+    if sem_origem:
+        for onde, n in sem_origem:
+            print(f"   REPROVA  {n.bruto:>18}  em {onde}")
+        print("   Nenhuma saída de script devolve esses valores, em nenhuma escala")
+        print("   nem precisão. Ou o número foi calculado na narrativa, ou foi")
+        print("   arredondado para longe do que o script devolveu.")
+    else:
+        print("   Todo número da narrativa tem um valor apurado que o explica.")
+    print()
+
+    if sinais:
+        print(f"2. SINAL — {len(sinais)} valor(es) escritos em módulo")
+        for onde, n, caminho in sinais:
+            print(f"   confira  {n.bruto:>18}  em {onde}  ← {caminho}")
+        print("   O valor apurado é negativo e o texto escreve o módulo. Em geral")
+        print("   está certo (a direção vai em palavras: \"perde população a 0,25%\"),")
+        print("   mas é por aqui que uma queda vira crescimento sem ninguém notar.")
+        print()
+
+    if fracos:
+        print(f"3. CASAMENTO FRACO — {len(fracos)} inteiro(s) pequeno(s)")
+        for onde, n, caminho in fracos:
+            print(f"   confira  {n.bruto:>18}  em {onde}  ← {caminho}")
+        print("   Inteiro pequeno sem unidade casa por acaso: a apuração tem")
+        print("   centenas deles. Casou, mas isso não é conferência — olhe se o")
+        print("   caminho indicado é mesmo o que a frase está afirmando.")
+        print()
+
+    print(f"4. NOME DE PESSOA NO ENTREGÁVEL — {len(nomes)} achado(s)")
+    if nomes:
+        for n in nomes:
+            print(f"   REPROVA  {n}")
+        print("   As bases trazem dado pessoal (LGPD) e nome de pessoa não entra")
+        print("   em entregável. O responsável pelo GE serve ao gate e para aí.")
+    elif B is None:
+        print("   Não conferido: o cadastro de lojas não pôde ser lido.")
+    else:
+        print("   Nenhum dos nomes do cadastro de lojas aparece no corpo.")
+    print()
+
+    print(f"5. PONTUAÇÃO — {len(pontuacao)} achado(s)")
+    for trecho, porque, contexto in pontuacao:
+        print(f"   REPROVA  {trecho!r} — {porque}")
+        print(f"            …{contexto}…")
+    if not pontuacao:
+        print("   O dossiê não pontua, não nota e não recomenda.")
+    print()
+
+    print(f"6. FERRAMENTA NO CORPO — {len(ferramenta)} achado(s)")
+    for trecho, tipo, contexto in ferramenta:
+        print(f"   REPROVA  {trecho!r} — {tipo}")
+        print(f"            …{contexto}…")
+    if not ferramenta:
+        print("   O corpo cita fonte de dado, não ferramenta.")
+    print()
+
+    print("-" * larg)
+    if reprova:
+        print(f"{reprova} reprovação(ões). O dossiê não deve sair assim.")
+    else:
+        print("Nada reprovado na parte mecânica.")
+    print(
+        "Isto é metade da auditoria. A outra metade — a lente fala da região ou\n"
+        "da medição, o item passa no teste do \"e daí?\", duas medidas foram\n"
+        "pareadas como se fossem a mesma — exige leitura e continua com o\n"
+        "auditor."
+    )
+    return 1 if reprova else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

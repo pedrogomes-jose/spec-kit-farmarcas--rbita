@@ -35,7 +35,7 @@ DATA_DO_DUMP = "2026-10-26"
 # do cadastro, um deles ficaria para tras e o relatorio carimbaria data velha
 # sem ninguem perceber — o envelhecimento silencioso que o proprio documento
 # alerta. Atualizar AQUI, num lugar so.
-DATA_DO_CADASTRO = "2026-10-23"
+DATA_DO_CADASTRO = "2026-11-10"
 
 ERRO_PLANILHA = ('{"error":"#N/A"}', "#N/A", "---", "")
 
@@ -200,6 +200,29 @@ CADASTRO_LOJAS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache
 STATUS_OCUPA_VAGA = ("Ativado", "Montando", "Transição")
 
 
+def so_digitos(valor) -> str:
+    """CNPJ comparável entre as duas bases: só dígitos, 14 posições.
+
+    O cadastro grava com zero à esquerda ("02513661000146") e a camada
+    Concorrentes sem ("2513661000146"). Comparar como texto cru faz a mesma
+    loja parecer duas — e foi o que manteve o casamento por nome no lugar do
+    casamento por documento, apesar do aviso logo acima.
+    """
+    digitos = re.sub(r"\D", "", str(valor or ""))
+    return digitos.zfill(14) if digitos else ""
+
+
+def cnpjs_do_cadastro() -> set:
+    """Conjunto de CNPJs do cadastro de lojas — a definição de "loja nossa".
+
+    Mora aqui, e não em um dos scripts, porque mais de um script precisa da
+    MESMA resposta para "este registro é nosso?". Quando cada um respondia por
+    conta própria, `raio_concorrencia.py` e `faturamento_canal.py` devolviam
+    mercados diferentes para o mesmo raio e nada dizia qual valia.
+    """
+    return {d for d in (so_digitos(loja.get("CNPJ")) for loja in ler_cadastro_lojas()) if d}
+
+
 def ler_cadastro_lojas():
     """Itera o cadastro de lojas convertido por preparar_cadastro_lojas.py."""
     if not os.path.exists(CADASTRO_LOJAS):
@@ -268,7 +291,23 @@ def populacao_censo_2022(codigo: str):
 
 
 def emitir(payload: dict) -> None:
-    """Imprime JSON na stdout. É isto que o modelo lê."""
+    """Imprime JSON na stdout. É isto que o modelo lê.
+
+    A stdout é forçada para UTF-8 antes de escrever. No Windows ela sai em
+    cp1252, que não tem "→" — e o gate de zoneamento escreve a faixa aplicada
+    com seta. O efeito era o pior possível: o script RODAVA, chegava ao
+    veredito, e morria com UnicodeEncodeError no meio do JSON, deixando saída
+    truncada que parece resultado. Encontrado em 2026-11-19, no gate de Várzea
+    Alegre/CE. Não dá para resolver por PYTHONIOENCODING porque os scripts de
+    análise rodam com `python -I`, que ignora variável de ambiente.
+    """
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError):
+        # Stream sem reconfigure (substituído por outro objeto) ou já fechado:
+        # seguir e deixar o json.dump falhar com o erro real, em vez de
+        # esconder a causa atrás de um erro de configuração.
+        pass
     payload.setdefault("_fonte", "dump local das bases do Órbita")
     payload.setdefault("_data_do_dump", DATA_DO_DUMP)
     json.dump(payload, sys.stdout, ensure_ascii=False, indent=2)

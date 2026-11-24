@@ -31,3 +31,100 @@ What worked: Ao ser corrigido pelo usuário ("o nome da tela é /orbita/ai"), a 
 What didn't: A busca inicial por "Órbita IA" usou o padrão `IA['"]` (letras I-A) e não encontrou nada — mas a rota real é `ai` (letras A-I, ordem invertida). "IA" e "ai" são strings diferentes, não uma diferença de maiúsculas/minúsculas; buscar case-insensitive por um não cobre o outro. Isso quase gerou uma conclusão errada publicada num card real (SQO-1279 já tinha ido ao ar com "nenhum consumidor de frontend encontrado" antes dessa correção).
 Edge case: A cobertura desta skill é limitada aos 3 repositórios mapeados no Step 0 (`api-agent-orbita`, `api-orbita-nodejs`, `webapp-orbita-angular`). Existe pelo menos um 4º repositório do Órbita (a tela `/orbita/ai`) fora desse escopo, ainda não identificado por nome. Qualquer afirmação do tipo "não encontrei consumidor/tela para X" deve ser qualificada como "não encontrei nestes 3 repositórios", nunca como fato absoluto sobre o produto inteiro — ver memória `orbita-repositorios-locais` para o aviso permanente sobre esse gap.
 Rodadas do revisor-clareza-junior: 0 nesta rodada (correção baseada em informação direta do usuário, não em nova investigação de código nem em nova revisão de clareza) — card atualizado via `editJiraIssue` e comentário de correção adicionado ao SQO-1279.
+
+## 2026-10-19 — Pedido de PRD completo (comparação de pontos comerciais)
+- **O que funcionou:** a fronteira negativa do "Out of Scope" segurou — pedido
+  de escrever o PRD em si foi recusado e roteado para `/claude-system-builder`
+  (primário), `/lovable-prompt` e `/prd-router`, sem gerar card algum.
+- **O que não funcionou:** nada a ajustar nesta rodada; não houve geração de card.
+- **Caso de borda:** pedido que usa vocabulário do Órbita e soa próximo do
+  backlog ("requisitos funcionais") mas é o artefato *anterior* ao card. Sinal
+  de corte: o usuário pede objetivo/métricas/requisitos, não cards.
+- **Rodadas do revisor-clareza-junior:** 0 (não aplicável — nenhum card gerado).
+
+---
+
+Date: 2026-10-19
+PROCEDENCIA: entrada gerada por RUN DE AVALIACAO da skill (/improve-skill), nao por uso real.
+Os achados de codigo abaixo foram produzidos por subagente e NAO foram reconferidos manualmente —
+tratar como pista a verificar com Grep antes de usar como fato num card.
+What worked: Conferir a direcao de "melhor" de cada dimensao no codigo antes de escrever a regra de "quem ganha a linha" evitou o erro mais provavel da feature de comparacao de pontos — densidade (`scoring.ts:65-70`) e renda (`economicClass.ts:7-35`) pontuam ao contrario do senso comum (menor densidade e menor renda pontuam mais). "Maior valor vence" teria recomendado o ponto errado em 2 das 4 linhas.
+What didn't: A premissa do pedido ("pontos ja analisados") nao existe no codigo — o `api-agent-orbita` e stateless, nenhuma operacao de escrita em todo o `src`. A feature de 2 cards virou uma de 5 porque persistencia e identidade da analise (endereco/raio) precisaram virar card. Vale checar "o substantivo do pedido existe como entidade persistida?" antes de quebrar em cards, nao depois.
+Edge case: O Cross-Skill Routing bloqueou os 2 cards de frontend (tela de resultado fora dos 3 repos mapeados), deixando a feature pedida pela metade no board. A regra esta certa, mas o resultado precisa ser comunicado como bloqueio acionavel ("clonem o 4o repo" / "usem /user-stories"), nao como recusa.
+Rodadas do revisor-clareza-junior: 0 — run de avaliacao da skill (outputs/improve-skill-runs/orbita-user-stories-2026-10-19/outputs-original/02.md), subagente nao invocado e nenhum ticket criado por restricao do run.
+
+## 2026-11-17 — Card de bug a partir de print de erro em produção
+
+**O que funcionou:** partir da string literal do erro e grepar os 3 repos
+achou a origem exata (`api-agent-orbita/src/db/mongo.ts`) em 1 busca, e dali
+o endpoint, o consumidor e os campos lidos. Card de bug a partir de print de
+DevTools é viável e fica forte quando a mensagem de erro é única no código.
+
+**O que não funcionou:** citei ~9 números de linha de memória do que tinha
+lido, e 8 estavam deslocados em 1-5 linhas. Pior: atribuí o campo
+`PotencialdeConsumoTotalDrogarias` a `collections.ts` quando ele está
+hardcoded em `cityInfluence.ts:79-81` — e `collections.ts:57` tem um campo
+**de nome parecido, de outra base** (`...-SetorCensitario`). Um júnior teria
+mexido na base errada. **Conferir arquivo:linha com `nl`/`sed -n` no momento
+de escrever o card, não de memória da leitura anterior.**
+
+**Caso de borda:** critério de aceite pode ser logicamente inválido sem ser
+óbvio. Usei `summary.averageIncome` preenchido como prova de que as fontes
+municipais resolveram — mas o código faz fallback para o valor de setor
+quando a renda municipal é nula (`radiusSearch/index.ts:388-391`), então o
+campo vem preenchido com a fonte quebrada. **Antes de escrever "então o
+campo X vem preenchido", checar se existe fallback que o preenche por outro
+caminho.** Mesma classe: ponto fora de qualquer município devolve o resultado
+de setor, não zeros.
+
+**Armadilha de validação:** `pnpm test` mocka o Mongo (`cityInfluence.test.ts:22`),
+então passa verde com produção quebrada. O critério fixo "Passar nos testes
+definidos por QA" vira armadilha em card de dado — precisa dizer qual é a
+validação real.
+
+**Precedente reutilizável:** `api-agent-orbita/scripts/dt-1162-migracao.ts`
+(card SQO-1162) é o padrão do time para mexer em fonte quebrada: dry-run por
+padrão, `--apply`, `--rollback --backup=`. Card que pede diagnóstico em
+produção deve apontar esse script em vez de só dizer "diagnosticar".
+
+**Rodadas do revisor-clareza-junior:** 1 rodada, veredito "precisa de ajuste"
+com 4 bloqueios reais + 9 correções de citação. Todas verificadas no código
+antes de incorporar — e todas procediam.
+
+## 2026-11-24 — Zoneamento: markup quebrado no Jira + 7 cards que nunca subiram
+
+**O que funcionou:** antes de reescrever, ler o campo `description` cru dos
+cards existentes (`getJiraIssue`) separou três estados que de fora pareciam um
+só: 2 cards preenchidos mas **com markup errado**, 3 ainda com o template vazio
+e `xxxxxx`, e 7 que só existiam no markdown local. O pedido do usuário ("os
+cards ficaram ruins") cobria os três, mas cada um exigia uma ação diferente.
+
+**O que não funcionou — e é a lição principal desta rodada:** a rodada anterior
+gravou os cards em **wiki markup do Jira** (`h5.`, `_itálico_`, `# lista`,
+`|| tabela ||`, `{quote}`) num campo que o Jira interpreta como **markdown**.
+Resultado em tela: `#` e `##` viraram títulos H1/H2 gigantes no lugar de lista
+numerada, a tabela do glossário virou texto solto, e `_Contexto:_` saiu em
+itálico onde o template usa negrito. **`editJiraIssue` com
+`contentFormat: markdown` exige markdown de verdade — nunca wiki markup.**
+
+**Duas armadilhas de serialização confirmadas nesta sessão:**
+- `[DEFAULT: 3 pts]` sai renderizado como `\[DEFAULT: 3 pts\]`, com as barras à
+  mostra. **Usar parênteses:** `(DEFAULT: 3 pts — confirmar com o time)`.
+- Um item de lista que começa com `1)` dentro de um `*` vira lista ordenada
+  aninhada. **Não abrir item de bullet com número seguido de parêntese.**
+
+**Caso de borda — o template oficial não tem "Pontos em aberto".** O SQO-1060
+tem 7 seções; esta skill exige 8. Quando o usuário pede "o template puro", as
+duas regras colidem. Saída adotada: dobrar as lacunas **bloqueantes de
+estimativa** dentro de "Escopo do card"/"Regras de negócio" (que são seções do
+template) e deixar o resto num bloco curto de "Pendências de negócio" **depois**
+das 7 seções, preservando a forma do template. O documento longo em
+`outputs/orbita-user-stories/` fica como arquivo do que foi cortado.
+
+**Glossário:** repetido em 12 cards, ele diverge na primeira mudança de regra.
+Virou página única no Confluence (4555636743), filha da página de regras, com os
+cards linkando. Vale como padrão para épico grande.
+
+**Rodadas do revisor-clareza-junior:** 0 — **o usuário proibiu explicitamente
+executá-lo nesta rodada**. O Step 5 da skill foi pulado por ordem direta e isso
+foi declarado ao usuário na entrega, não contornado em silêncio.

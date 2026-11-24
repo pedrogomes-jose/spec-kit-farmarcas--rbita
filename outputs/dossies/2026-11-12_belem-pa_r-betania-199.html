@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossiê de Região</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Dossiê de Região</div>
+  <div class="sub">Leitura de região para análise de ponto — <b>sem score</b> ·
+    dump de 2026-10-26 · cadastro de lojas de 2026-11-10</div>
+</header>
+<div class="faixa-end">R. Betânia, 199 - Benguí, Belém/PA, 66630-140</div>
+<section class="topo">
+  <div class="gate" style="border-color:#b07d00">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#b07d00">Alerta</div>
+    <div class="nota">Acima de 200 mil → sem teto de grupos, ocupação por market share</div>
+    <div class="nota" style="margin-top:6px;color:#b07d00">não há teto de lojas; a decisão é por share, que o zoneamento não quantifica</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Bairro residencial denso e de renda baixa no norte de Belém, com oito estabelecimentos farmacêuticos cadastrados dentro de 300 m — sete deles na mesma rua do ponto — e a bandeira mais presente no raio de 5 km a 55 m.</p>
+    <div class="meta">Solicitante: <b>já associado</b> ·
+      Bandeira: <b>Ultra Popular</b> (popular) ·
+      População do município (Censo 2022): <b>1.303.403</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da região</h2>
+  <div class="swot-eixo"><span>A favor</span><span>Contra</span></div><div class="swot"><div class="lente" style="border-color:#0f7b45;background:#e8f6ee"><div class="lente-tit" style="color:#0f7b45">Forças</div><p class="abertura">O que sustenta o endereço não é a rua, é o bairro: o raio de 300 m concentra moradores em cima do ponto, numa cidade cujo mercado farmacêutico cresce e que tem menos farmácia por habitante do que a mediana do país.</p><p><b>O raio de 300 m reúne 4.830 moradores, a uma densidade de 17.161 hab/km²</b> No município inteiro a densidade é de 1.317 hab/km². São 1.236 domicílios com 3,9 moradores cada, num entorno horizontal: a verticalização no raio é de 0%, de modo que essa concentração vem de casa, e não de prédio.<sup class="ref">1</sup></p><p><b>Belém tem 1.658 habitantes por farmácia, no percentil 62 entre 5.541 municípios</b> A mediana nacional é de 1.492,6 habitantes por farmácia, e a cidade fica acima dela: são 786 farmácias para os 1.303.403 habitantes do Censo 2022. Pelo acervo interno, que traz população maior, a razão sobe para 1.775,7 e a posição para o percentil 68.<sup class="ref">2</sup></p><p><b>O mercado farmacêutico de Belém cresceu 12,89% entre os dois períodos</b> A receita somada das nove unidades de mercado da cidade passou de R$ 1,85 bilhão para R$ 2,09 bilhões no acumulado de doze meses, dos quais R$ 324,25 milhões são de lojas da rede.<sup class="ref">3</sup></p><p><b>Belém é metrópole regional e polo declarado de 67 municípios</b> A classificação na rede urbana é 1C, e o índice de potencial de consumo da cidade está no percentil 100 entre 5.571 municípios. A renda domiciliar per capita de R$ 812,43 fica no percentil 91, contra mediana nacional de R$ 456,30.<sup class="ref">4</sup></p></div><div class="lente" style="border-color:#b4503c;background:#fdeee9"><div class="lente-tit" style="color:#b4503c">Fragilidades</div><p class="abertura">O bairro é denso e já está servido: a concentração de farmácias no entorno imediato é de outra ordem que a do resto da cidade, o dinheiro que circula no quarteirão está concentrado numa única vizinha, e a renda de quem mora ali é bem menor que a da região em volta.</p><p><b>São oito estabelecimentos cadastrados dentro de 300 m, sete deles na própria Rua Betânia</b> No raio de 5 km são 192 farmácias para 435.779 moradores; dentro de 300 m são oito. Os endereços são os números 152, 220, 449, 563 e 660 da mesma rua do ponto, que é o 199 — e três desses registros, de CNPJ distinto entre si, estão cadastrados no mesmo número 563.<sup class="ref">5</sup></p><p><b>A farmácia mais próxima fica a 55 m e é da bandeira mais presente no raio de 5 km</b> É uma unidade Extrafarma, no número 152 da Rua Betânia, e 19 das 192 farmácias do raio de 5 km são dessa mesma bandeira. A loja média do canal ABRAFARMA no Pará fatura R$ 780.588 por mês, contra R$ 1,16 milhão somados pelas sete lojas do raio de 300 m com canal reconhecido.<sup class="ref">6</sup></p><p><b>A renda por habitante no raio de 300 m é de R$ 675,51</b> No raio de 5 km ela é de R$ 1.171,42, e a renda domiciliar do entorno imediato fica em R$ 1.369,57 por mês. Na cidade, 30,4% dos domicílios são de classe D/E e 26,4% de C2.<sup class="ref">7</sup></p><p><b>Quatro das cinco vizinhas com faixa preenchida caem na faixa mais baixa da régua</b> A faixa 8 vai até R$ 89.997 por mês e concentra quatro lojas do raio; uma quinta está na faixa de R$ 271.181 a R$ 388.443. Na cidade inteira, a faixa mediana ocupada é a de R$ 216.713 e o terceiro quartil, a de R$ 469.259.<sup class="ref">8</sup></p><p><b>Belém perde população a 0,55% ao ano</b> O crescimento demográfico do município é negativo, e 99,5% da população é urbana. O mercado que cresce na cidade não está sendo empurrado por gente nova chegando.<sup class="ref">9</sup></p></div><div class="lente" style="border-color:#1a5fb4;background:#e9f0fb"><div class="lente-tit" style="color:#1a5fb4">Oportunidades</div><p class="abertura">O que este endereço passa a permitir, e as farmácias do raio não fazem, está em duas alavancas: o preço de retaguarda de rede num quarteirão de loja independente, e um programa público que a maioria das farmácias da cidade não usa.</p><p><b>Entrar com preço de rede num raio dominado por farmácia independente</b> Cinco das oito lojas do raio são do canal independente, cuja loja média no Pará fatura R$ 46.064 por mês, contra R$ 855.251 da loja média do Grupo Farmarcas no estado. Nos bricks de Belém a rede vende a R$ 24,33 por unidade e os concorrentes a R$ 31,21. Somadas pela régua de canal, essas cinco independentes movimentam R$ 230.322 por mês.<sup class="ref">10</sup></p><p><b>Credenciar ao Farmácia Popular, numa cidade em que 77 das 786 farmácias operam pelo programa</b> Belém gasta R$ 1,02 bilhão em medicamentos e tem 9,8% das suas farmácias credenciadas. Credenciar é ato da própria loja, e na praça ele ainda é exceção, não norma.<sup class="ref">11</sup></p><p><b>Ocupar, com a bandeira do solicitante, as três unidades de mercado de Belém em que ela não registra receita</b> É jogada de praça do grupo, e não vantagem deste endereço. Em Tenoné, Maracangalha e Pratinha a Ultra Popular aparece com 0% da receita, enquanto a Maxi Popular, do outro grupo econômico da praça, detém 16%, 11% e 11%. As três movimentaram, no acumulado de doze meses, R$ 114,48 milhões, R$ 158,80 milhões e R$ 257,38 milhões.<sup class="ref">12</sup></p></div><div class="lente" style="border-color:#8b3a62;background:#fbeaf2"><div class="lente-tit" style="color:#8b3a62">Dificuldades</div><p class="abertura">O que vai ter de ser atravessado não está no mercado, está na mesa de aprovação e na retaguarda: há loja de outro associado cadastrada no mesmo bairro, e a operação entra sem nenhuma loja do próprio grupo por perto.</p><p><b>Há uma loja Maxi Popular, de outro grupo econômico, cadastrada no próprio Benguí</b> A regra de expansão exige 500 m entre lojas de bandeiras diferentes, e o pedido chega à aprovação com esse ponto em aberto. Dentro do raio de 5 km há outras duas lojas desse mesmo grupo, a 3.141 m e a 4.781 m. Enquanto o endereço da loja do bairro não for resolvido, o que está sobre a mesa é um conflito entre associados, que alguém terá de arbitrar antes de o ponto andar.<sup class="ref">13</sup></p><p><b>A loja do próprio solicitante mais próxima com coordenada no cadastro fica a 6.354 m</b> O grupo tem dez lojas em Belém, e as duas lojas da rede localizáveis dentro de 5 km são do outro grupo econômico. No entorno medido não há loja irmã para apoiar reposição de estoque, cobertura de equipe e supervisão no período de maturação, e cada uma dessas rotinas passa a depender de deslocamento pela cidade.<sup class="ref">14</sup></p></div></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Detalhes da região analisada</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População na área</div><div class="val">4.830 habitantes</div><div class="nota">10 setores censitários no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Raio de estudo</div><div class="val">300 m</div><div class="nota">comparado também a 5.000 m</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Domicílios</div><div class="val">1.236</div><div class="nota">3,91 moradores por domicílio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo</div><div class="val">R$ 10.036.443,26</div><div class="nota">drogarias, rateado pela fração de cada setor no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Método de rateio</div><div class="val">proporcional por área</div><div class="nota">cobertura do círculo: 100,0% · 10 setores</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Contexto macroeconômico</h2>
+  <details class="explica-rec"><summary><span class="rot">Como ler a renda</span><span class="seta"></span></summary><div class="corpo-exp">São valores <b>mensais aproximados</b>,
+  média dos setores censitários <b>ponderada pela população e pelos domicílios que
+  cada setor tem dentro do raio</b> — setor que só encosta na borda pesa pouco — não a renda de quem compra na
+  loja, e sim a de quem <b>mora</b> ali. Renda por habitante divide o rendimento do
+  domicílio por todos os moradores, inclusive quem não tem renda; por isso fica bem
+  abaixo da renda domiciliar. Num ponto de passagem, as duas descrevem a vizinhança
+  residencial, não a clientela — que pode ser outra.</div></details>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Densidade demográfica</div><div class="val">17.161 hab/km²</div><div class="nota">média dos setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média por habitante</div><div class="val">R$ 675,51</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média domiciliar</div><div class="val">R$ 1.369,57</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Verticalização</div><div class="val">0,0%</div><div class="nota">domicílios em apartamento — casas x apartamentos</div></div>
+    
+  </div>
+  
+</section>
+<section>
+  <h2><span class="ic">$</span> Microterritório e concorrência</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais na cidade</div><div class="val">R$ 75.215.785,53</div><div class="nota">195 lojas com faixa declarada no município · soma de rótulos de faixa — o campo tem 8 valores, um por faixa, e classifica a loja em vez de medir a venda</div></div>
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Média da faixa por loja</div><div class="val">R$ 138.060,57</div><div class="nota">média mensal dos rótulos de faixa das lojas do raio — não é faturamento medido</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais no raio</div><div class="val">R$ 690.302,86</div><div class="nota">soma das faixas de 5 lojas classificadas · o campo tem 8 valores, um por faixa — classifica a loja, não mede a venda</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Concorrentes em 300 m</div><div class="val">8</div><div class="nota">192 em 5.000 m</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Lojas Farmarcas no raio</div><div class="val">0</div><div class="nota">pelo cadastro de lojas (CNPJ + coordenada) — atenção: 21 loja(s) do município estão sem coordenada e não entram nesta conta</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Preço médio no brick</div><div class="val">R$ 29,84</div><div class="nota">UF: R$ 26,77 · receita a preço de consumidor ÷ unidades vendidas · fonte: base de faturamento por brick da IQVIA</div></div>
+  </div>
+  <h3>Quanto vende uma loja — três fontes independentes</h3>
+  <details class="explica-rec"><summary><span class="rot">Elas não medem a mesma coisa</span><span class="seta"></span></summary><div class="corpo-exp">A primeira é a
+  <b>faixa de faturamento dos concorrentes</b> da praça: classifica cada loja numa de
+  oito faixas, está preenchida em menos da metade dos cadastros e — importante — não
+  traz valor por loja, só o rótulo da faixa. A segunda é a <b>régua medida por canal</b>: receita e
+  número de pontos de venda por canal e por estado, apurados por instituto, aplicados
+  ao canal em que cada concorrente está classificado. É ela que <b>dimensiona o
+  mercado do raio</b>, porque cobre também as lojas de campo vazio. A terceira é a
+  <b>receita medida das lojas do grupo</b>, cruzada loja a loja pelo CNPJ — responde
+  quanto <b>a nossa bandeira</b> fatura numa praça assim. Em varejo farmacêutico a
+  distribuição tem cauda longa, então mínimo, mediana e máximo dizem mais que média: a
+  distância entre os extremos mede o quanto o resultado depende de execução e de
+  ponto, não da região.</div></details>
+  <h4>Concorrentes da praça — em que faixa de faturamento eles caem</h4>
+  <details class="explica-rec"><summary><span class="rot">Estes três números são rótulos de faixa, não faturamento de
+  loja</span><span class="seta"></span></summary><div class="corpo-exp">O campo da camada de concorrentes assume <b>oito valores em toda a base</b>,
+  um para cada faixa da régua que aparece no fim desta seção — sete deles são o ponto
+  médio exato da faixa, e o mais baixo é o teto da faixa aberta embaixo. Então o que
+  está abaixo é a faixa mais baixa ocupada, a faixa mediana e a mais alta ocupada
+  entre as lojas da cidade: descrevem <b>como as lojas se distribuem entre as
+  faixas</b>. A distância entre dois deles é a distância entre faixas, não entre duas
+  lojas, e nenhum deles é o faturamento de nenhum estabelecimento.</div></details>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Faixa mais baixa ocupada</div><div class="val">R$ 89.997,73</div><div class="nota">faixa, entre as 195 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Faixa mediana</div><div class="val">R$ 216.712,75</div><div class="nota">faixa, entre as 195 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Faixa mais alta ocupada</div><div class="val">R$ 1.336.854,12</div><div class="nota">faixa, entre as 195 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+  </div>
+  <h4>Mercado do raio — régua medida por canal</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mercado em 300 m</div><div class="val">R$ 1.156.730,49</div><div class="nota">7 de 8 lojas em 300 m · 1 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Mercado em 5.000 m</div><div class="val">R$ 29.804.627,55</div><div class="nota">165 de 192 lojas em 5.000 m · 27 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+  </div>
+  <table><thead><tr><th>Canal</th><th>Por loja/mês</th><th>Lojas em 300 m</th><th>Lojas em 5.000 m</th></tr></thead><tbody><tr><td>Grupo Farmarcas</td><td>R$ 855.250,54</td><td>—</td><td>—</td></tr><tr class="tem"><td>ABRAFARMA</td><td>R$ 780.588,34</td><td>1</td><td>24</td></tr><tr class="tem"><td>Outras redes corporativas</td><td>R$ 542.937,50</td><td>—</td><td>7</td></tr><tr><td>FEBRAFAR</td><td>R$ 167.205,46</td><td>—</td><td>—</td></tr><tr class="tem"><td>Associações e franquias</td><td>R$ 145.820,00</td><td>1</td><td>11</td></tr><tr class="tem"><td>Independentes</td><td>R$ 46.064,43</td><td>5</td><td>123</td></tr></tbody></table>
+  <details class="explica-rec"><summary><span class="rot">O que este número é e o que não é</span><span class="seta"></span></summary><div class="corpo-exp">Cada valor da coluna
+  por loja é o que uma loja <b>média</b> daquele canal fatura neste estado — não o
+  faturamento da farmácia observada, que nenhuma base traz. A fonte não registra a
+  dispersão dentro do canal: duas independentes no mesmo quarteirão podem diferir
+  várias vezes entre si, e isso não aparece aqui. Some-se a isso que a receita é
+  acumulada de doze meses enquanto a contagem de pontos de venda é do ano corrente,
+  o que enviesa canal que abriu ou fechou muita loja no período. Serve para
+  dimensionar o mercado do entorno e para situar um concorrente pelo porte da rede a
+  que ele pertence; não serve para afirmar quanto um endereço vende.</div></details>
+
+  <h4>Lojas do grupo — receita medida · Ultra Popular em PA</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Menor receita medida</div><div class="val">R$ 193.365,33</div><div class="nota">67 loja(s) do grupo em PA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Receita mediana medida</div><div class="val">R$ 964.377,04</div><div class="nota">67 loja(s) do grupo em PA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Maior receita medida</div><div class="val">R$ 2.454.799,42</div><div class="nota">67 loja(s) do grupo em PA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mesma bandeira, rede inteira</div><div class="val">R$ 442.847,15</div><div class="nota">mediana de 890 loja(s) · mesma fonte, recorte nacional</div></div>
+  </div>
+
+  <h3>Venda mensal aproximada — raio de estudo</h3>
+  <table><thead><tr><th>Máxima</th><th>Mínima</th><th>Classificação</th><th>Lojas no raio</th></tr></thead><tbody><tr><td>Acima</td><td>R$ 1.336.854,12</td><td><span class="faixa f1">1</span></td><td>—</td></tr><tr><td>R$ 1.336.854,11</td><td>R$ 846.655,41</td><td><span class="faixa f2">2</span></td><td>—</td></tr><tr><td>R$ 846.655,40</td><td>R$ 549.075,62</td><td><span class="faixa f3">3</span></td><td>—</td></tr><tr><td>R$ 549.075,61</td><td>R$ 388.442,64</td><td><span class="faixa f4">4</span></td><td>—</td></tr><tr class="tem"><td>R$ 388.442,63</td><td>R$ 271.181,25</td><td><span class="faixa f5">5</span></td><td>1</td></tr><tr><td>R$ 271.181,24</td><td>R$ 162.244,26</td><td><span class="faixa f6">6</span></td><td>—</td></tr><tr><td>R$ 162.244,25</td><td>R$ 89.997,74</td><td><span class="faixa f7">7</span></td><td>—</td></tr><tr class="tem"><td>R$ 89.997,74</td><td>Abaixo</td><td><span class="faixa f8">8</span></td><td>4</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">◷</span> Potencial de consumo da região analisada</h2>
+  <details class="explica-rec"><summary><span class="rot">O que este número é</span><span class="seta"></span></summary><div class="corpo-exp">É quanto os moradores dos setores do
+  raio <b>poderiam</b> gastar em itens de drogaria — demanda potencial estimada, não
+  venda realizada. Cada setor censitário entra pela <b>fração que de fato cai dentro
+  do círculo</b>, não inteiro: um setor que só encosta na borda contribui com a parte
+  dele que está dentro. <b>A base não declara a periodicidade</b>: o teste de ordem de
+  grandeza aponta valor anual (ver as lacunas), embora o relatório do produto rotule o
+  mesmo campo como mensal. Nenhuma loja captura o potencial inteiro — ele se divide
+  entre todos os concorrentes do entorno e o que vaza para fora da região.</div></details>
+  <div class="split">
+    <div class="split-cards">
+      <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo total</div><div class="val">R$ 10.036.443,26</div><div class="nota">médio potencial de captura</div></div>
+      <div class="card" style="border-left-color:#3b7ddd"><div class="rot">Medicamentos</div><div class="val">R$ 3.221.507,59</div><div class="nota">32,1% do total</div></div>
+      <div class="card" style="border-left-color:#e8558f"><div class="rot">Higiene, Beleza &amp; Nutrição</div><div class="val">R$ 6.814.935,67</div><div class="nota">67,9% do total</div></div>
+    </div>
+    <div class="split-graf">
+      <svg viewBox="0 0 180 180" width="190" height="190" role="img"
+  aria-label="Medicamentos 32%, Higiene, Beleza &amp; Nutrição 68%">
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#e8558f" stroke-width="34"/>
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#3b7ddd" stroke-width="34"
+     stroke-dasharray="141.18 298.64" transform="rotate(-90 90 90)"/>
+</svg>
+      <div class="legenda"><span class="p azul"></span>Medicamentos
+        <span class="p rosa"></span>Higiene, Beleza &amp; Nutrição</div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Geradores de fluxo em 500 m</h2>
+  
+  <details class="explica-rec"><summary><span class="rot">Recorte diferente do resto do dossiê</span><span class="seta"></span></summary><div class="corpo-exp">Os números desta seção são de um raio de 500 m, e não dos 300 m do raio de estudo: 300 metros é curto demais para descrever o que atrai gente para a calçada, e uma caminhada de cinco minutos é o recorte que o pedestre de fato percorre. Não some estas contagens com a população do raio de estudo.</div></details>
+  <details class="explica-rec"><summary><span class="rot">Por que isto importa</span><span class="seta"></span></summary><div class="corpo-exp">Farmácia de rua vive de quem passa, e quem passa é atraído por outra coisa — consulta, escola, banco, ônibus, compra do dia. Cada categoria abaixo é um motivo para alguém estar nesta calçada. A contagem diz que os geradores existem e a que distância; <b>não diz quanta gente passa</b>, que continua sendo o dado ausente.</div></details><table><thead><tr><th>Categoria e por que gera fluxo</th><th>Em 500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b><div class='nota'>consulta e exame trazem paciente e acompanhante, muitos com receita na mão ao sair</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Creche Escola</b><div class='nota'>entrada e saída concentram pais e responsáveis em horário fixo, todo dia útil</div></td><td>1</td><td>403 m</td><td>Escola Estadual Maria Luiza da Costa Rego</td></tr><tr><td><b>Mercado Supermercado</b><div class='nota'>compra de rotina puxa a mesma pessoa várias vezes por semana</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Banco Loteria</b><div class='nota'>fila e pagamento prendem a pessoa no quarteirão, e o idoso é público de medicamento contínuo</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Transporte</b><div class='nota'>ponto e terminal despejam fluxo de passagem — o passante que não mora nem trabalha aqui</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Coletiva</b><div class='nota'>prédio concentra muita gente em pouca área, com compra de conveniência a pé</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Individual</b><div class='nota'>casa indica bairro residencial, de compra planejada e menos passagem</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Comercio Servicos</b><div class='nota'>densidade comercial é o que faz a rua ter movimento ao longo do dia</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Lazer Culto</b><div class='nota'>igreja, praça e academia concentram fluxo em horários e dias específicos</div></td><td>0</td><td>—</td><td></td></tr></tbody></table><p class='vazio'>Equipamento sem nome no mapa entra na contagem e fica fora da coluna de exemplos. Cobertura é colaborativa: ausência aqui não é ausência no mundo.</p><details class="explica-rec"><summary><span class="rot">O que o mapa tem nesta área</span><span class="seta"></span></summary><div class="corpo-exp">São <b>1.232 objetos</b> mapeados dentro do raio — traçado de rua, edificação, ponto solto —, dos quais <b>1</b> carrega etiqueta de equipamento. A área <b>está mapeada</b> e os equipamentos é que não estão etiquetados — a contagem acima mede catalogação, não movimento de rua.</div></details><details class="explica-rec"><summary><span class="rot">O que existe um pouco além, em 1.500 m</span><span class="seta"></span></summary><div class="corpo-exp">Este anel é <b>recorte diferente</b> e não se soma ao de cima: ele responde o que há na região do ponto, não o que há na calçada dele. Entra porque o raio menor voltou quase vazio, e um entorno sem nenhum gerador listado descreveria mal um bairro que tem posto de saúde e mercado a caminhada de distância. O corte que dispara este anel é premissa desta análise, não medida.</div></details><table><thead><tr><th>Categoria</th><th>Em 1.500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b></td><td>1</td><td>1.459 m</td><td>Climeps</td></tr><tr><td><b>Creche Escola</b></td><td>9</td><td>403 m</td><td>Escola Estadual Maria Luiza da Costa Rego, Escola Estadual Maria Amoras de Oliveira, FEAPA</td></tr><tr><td><b>Mercado Supermercado</b></td><td>3</td><td>960 m</td><td>Supermercado Líder - Independência, A M F Atacarejo - Augusto Montenegro, Pague Menos</td></tr><tr><td><b>Banco Loteria</b></td><td>2</td><td>808 m</td><td>Caixa Econômica Federal, Bradesco</td></tr><tr><td><b>Transporte</b></td><td>7</td><td>975 m</td><td>Estação BRT - Bengui, Mangueirão, Mangueirão</td></tr><tr><td><b>Moradia Individual</b></td><td>6</td><td>531 m</td><td>casa</td></tr><tr><td><b>Comercio Servicos</b></td><td>13</td><td>665 m</td><td>Parque Shopping, Domino&#x27;s, McDonald&#x27;s</td></tr><tr><td><b>Lazer Culto</b></td><td>10</td><td>871 m</td><td>Playground Natália Lins, Praça do Catalina, Parque Panorama XXI</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Onde mais olhar — mesma UF</h2>
+  <details class="explica-rec"><summary><span class="rot">Como ler</span><span class="seta"></span></summary><div class="corpo-exp"><b>Mercado não atendido</b> é a receita medida na praça menos a receita Farmarcas — o que circula hoje sem passar por nós. Cada linha é uma <b>UTC</b>, a unidade de mercado do varejo, por isso a mesma cidade pode aparecer mais de uma vez — sempre com a localidade nomeada para distinguir uma da outra. <b>Potencial e captura são do município inteiro</b> e repetem nas linhas da mesma cidade, porque não existe potencial por UTC nas bases. <b>Captura</b> é quanto desse potencial o mercado já realiza: captura baixa com mercado grande é demanda represada; captura alta é praça madura, onde entrar significa tirar de alguém. <b>Preço médio por unidade</b> mostra se a praça é de ticket alto ou de volume — e a bandeira popular conversa melhor com preço baixo.</div></details><table><thead><tr><th>Praça (município — localidade) e por que olhar</th><th>Mercado não atendido</th><th>Potencial e captura do município</th><th>Preço médio</th><th>Cresc.</th><th>Lojas</th><th>Zoneamento</th></tr></thead><tbody><tr><td><b>ANANINDEUA/PA — ICUI-GUAJARA</b><div class='nota'>a 6 km do ponto pedido; mercado de R$ 328,8 milhões sem receita nossa dentro, em ICUI-GUAJARA; 7 loja(s) Farmarcas já na cidade; mercado crescendo 13%; 41% do potencial anual do município já capturado; preço médio de R$ 27,60 por unidade.</div></td><td><b>R$ 328,8 milhões</b><div class='nota'>R$ 328.801.376</div></td><td>R$ 1.122.009.053<div class='nota'>potencial anual do município · captura de 41,4% pelo município</div></td><td>R$ 27,60<div class='nota'>por unidade</div></td><td>13,0%</td><td>7</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>CASTANHAL/PA — SAUDADE I</b><div class='nota'>a 59 km do ponto pedido; mercado de R$ 146,5 milhões sem receita nossa dentro, em SAUDADE I; 5 loja(s) Farmarcas já na cidade; mercado crescendo 12%; 53% do potencial anual do município já capturado; preço médio de R$ 28,40 por unidade.</div></td><td><b>R$ 146,5 milhões</b><div class='nota'>R$ 146.460.890</div></td><td>R$ 431.470.746<div class='nota'>potencial anual do município · captura de 53,3% pelo município</div></td><td>R$ 28,40<div class='nota'>por unidade</div></td><td>12,0%</td><td>5</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 1 de 3, 2 vaga(s)</td></tr><tr><td><b>ABAETETUBA/PA</b><div class='nota'>a 62 km do ponto pedido; mercado de R$ 112,7 milhões sem receita nossa dentro, no município; 2 loja(s) Farmarcas já na cidade; mercado crescendo 11%; 76% do potencial anual do município já capturado.</div></td><td><b>R$ 112,7 milhões</b><div class='nota'>R$ 112.727.833</div></td><td>R$ 196.501.941<div class='nota'>potencial anual do município · captura de 76,0% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>11,0%</td><td>2</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 1 de 3, 2 vaga(s)</td></tr><tr><td><b>BARCARENA/PA</b><div class='nota'>a 24 km do ponto pedido; mercado de R$ 85,7 milhões sem receita nossa dentro, no município; 2 loja(s) Farmarcas já na cidade; mercado crescendo 15%; 44% do potencial anual do município já capturado; preço médio de R$ 25,08 por unidade.</div></td><td><b>R$ 85,7 milhões</b><div class='nota'>R$ 85.682.682</div></td><td>R$ 220.842.789<div class='nota'>potencial anual do município · captura de 44,1% pelo município</div></td><td>R$ 25,08<div class='nota'>por unidade</div></td><td>15,0%</td><td>2</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 1 de 3, 2 vaga(s)</td></tr><tr><td><b>MARITUBA/PA</b><div class='nota'>a 13 km do ponto pedido; mercado de R$ 78,6 milhões sem receita nossa dentro, no município; 1 loja(s) Farmarcas já na cidade; mercado crescendo 37%; 37% do potencial anual do município já capturado.</div></td><td><b>R$ 78,6 milhões</b><div class='nota'>R$ 78.625.931</div></td><td>R$ 234.438.688<div class='nota'>potencial anual do município · captura de 37,3% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>37,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 1 de 2, 1 vaga(s)</td></tr><tr><td><b>ANANINDEUA/PA — TERRA FIRME</b><div class='nota'>a 6 km do ponto pedido; mercado de R$ 75,8 milhões sem receita nossa dentro, em TERRA FIRME; 7 loja(s) Farmarcas já na cidade; mercado crescendo 21%; 41% do potencial anual do município já capturado; preço médio de R$ 27,60 por unidade.</div></td><td><b>R$ 75,8 milhões</b><div class='nota'>R$ 75.847.682</div></td><td>R$ 1.122.009.053<div class='nota'>potencial anual do município · captura de 41,4% pelo município</div></td><td>R$ 27,60<div class='nota'>por unidade</div></td><td>21,0%</td><td>7</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr></tbody></table><p class='vazio'>Lista de onde vale rodar um dossiê, não recomendação de abertura. Mercado grande sem a rede dentro pode ser praça aberta ou praça já testada e perdida — crescimento Farmarcas negativo é o segundo caso. UTC não é raio nem bairro: serve para escolher a praça, não o ponto.</p><p class='vazio'><b>A lista está limitada a 150 km deste endereço</b>, medidos até o centro aproximado de cada município — premissa desta análise, não regra da casa. Sem esse limite a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p><p class='vazio'>Preço médio em branco quando o nome do município aparece abreviado na base de preço e o casamento por nome falha — é ausência da chave, não do dado. Atinge sobretudo as capitais.</p>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que este dossiê NÃO sabe
+    <span class="qtd">30 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li><b>Fluxo de passantes.</b> Nenhuma base do acervo e nenhuma camada do produto mede quantas pessoas passam pela calçada. Importa neste endereço porque ele fica numa rua com sete farmácias cadastradas, e o movimento de passagem é justamente o que separa um ponto de rua de um ponto de bairro. Destrava com contagem de passantes em campo, em dia útil e em sábado, ou com dado de telefonia celular.</li><li><b>A que distância fica a loja Maxi Popular cadastrada no Benguí.</b> Vinte e uma lojas cadastradas em Belém estão sem coordenada, dezessete delas entre as 32 ativas, e a do Benguí é uma delas; pelo centroide do bairro a aproximação é de 667 m, que é o centro do bairro e não o endereço da loja. Importa porque a regra para bandeiras diferentes é de 500 m, e é essa medida que decide se o caso é de distância mínima. Destrava geocodificando os endereços do cadastro de lojas.</li><li><b>Se os três registros no número 563 da Rua Betânia são três lojas ou uma.</b> São três CNPJs distintos no mesmo número, e dois deles têm nomes próximos entre si. Importa porque muda de oito para seis o número de concorrentes dentro de 300 m, e com ele a leitura de saturação do quarteirão. Destrava com visita ao endereço ou com consulta da situação cadastral de cada CNPJ.</li><li><b>Em qual brick o ponto cai.</b> O casamento foi pelo nome do município e trouxe os quinze bricks de Belém, de modo que o preço médio por unidade apresentado é o da cidade inteira. Importa porque preço de brick é o que mais varia de uma região para outra dentro de uma metrópole. Destrava com a malha geográfica de bricks.</li><li><b>Em qual unidade de mercado o ponto cai.</b> Belém tem nove, e o acervo não localiza o ponto dentro delas; share, crescimento e mix de categorias usados aqui são municipais. Importa porque a leitura de ocupação por bandeira foi feita sobre unidades inteiras da cidade, não sobre o entorno do endereço. Destrava com a malha geográfica dessas unidades.</li><li><b>Quanto do raio de 5 km ficou fora da conta.</b> Apenas 80,27% da área desse círculo é coberta por setor censitário com geometria, contra 99,99% no raio de 300 m. Importa porque população, renda e potencial de consumo do raio amplo foram calculados sobre a parte coberta, e o número sai menor do que a área real comporta. Destrava com a malha de setores completa para a região metropolitana.</li><li><b>Por que as dez lojas Farmarcas desativadas em Belém fecharam.</b> Cinco delas eram Ultra Popular, quatro Maxi Popular e uma Bigfort. O motivo do encerramento não consta de base nenhuma do acervo. Importa porque é a informação que mais mudaria a leitura de uma praça onde a rede já teve mais pontos do que tem hoje. Destrava com o histórico de encerramento mantido pelo time de Expansão.</li><li><b>Quais equipamentos existem no entorno do ponto.</b> A consulta ao mapa colaborativo devolveu uma escola a 403 m e mais nada dentro de 500 m, o que num bairro consolidado indica falta de mapeamento e não ausência de equipamento. Importa porque geradores de fluxo são o que mais se aproxima da variável de passantes que o dossiê não tem. Destrava com levantamento em campo ou com base comercial de pontos de interesse.</li><li><b>Quanto cada farmácia do entorno vende de fato.</b> A régua de canal devolve a loja média de cada canal no Pará e não traz a dispersão dentro do canal: não há mínimo, máximo nem quartil por loja. E a faixa de faturamento está preenchida em cinco das oito lojas do raio de 300 m e em 66 das 192 do raio de 5 km. Importa porque a leitura do entorno é de faixa e de média de canal, nunca de loja. Destrava com dado de faturamento por CNPJ da região.</li><li><b>Quais são os 67 municípios que a base declara influenciados por Belém.</b> A camada guarda apenas a contagem; invertendo a relação, nenhum município registra Belém como polo, e as duas leituras ficam declaradas sem que uma resolva a outra. Importa porque é o que dimensionaria o público que vem de fora da cidade. Destrava com a tabela de polos do REGIC.</li><li><b>Se a população se distribui por igual dentro de cada setor censitário.</b> O cálculo do raio supõe que sim, e num setor meio vazio e meio ocupado isso erra. Importa porque os dez setores do raio de 300 m entram todos por fração de área, e o entorno mistura quadras adensadas com lotes grandes. Destrava com rateio ponderado por área construída, que o acervo não tem.</li><li><b>Em que canal cada rede nomeada do entorno se encaixa.</b> O enquadramento das redes nomeadas é critério do método, não campo da base. Importa porque a vizinha de 55 m é a referência de porte do raio: lida como ABRAFARMA, a loja média do canal no Pará fatura R$ 780.588 por mês; lida como outra rede corporativa, R$ 542.938. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li><b>Quantas farmácias do entorno ficaram fora da contagem por falta de coordenada.</b> São 18 registros sem coordenada na camada de concorrentes, que não entram em contagem por raio nenhuma. Importa porque as oito lojas de 300 m e as 192 de 5 km são um piso, não um total, e é sobre elas que a leitura de saturação do quarteirão se apoia. Destrava com a geocodificação dos endereços da camada.</li><li><b>Cinco dos 425 setores do raio de 5 km não têm registro nas bases de atributo.</b> Ficam sem renda, classe econômica, potencial de consumo, verticalização, saneamento e gênero. Importa porque esses seis indicadores do raio amplo são calculados sobre 420 setores e não sobre os 425 que a área alcança. Destrava com o preenchimento desses setores nas camadas de atributo.</li><li>Zoneamento — 21 loja(s) Farmarcas do município sem coordenada no cadastro — a distância mínima até o ponto não pode ser checada nessas, e isso é lacuna, não ausência de risco. Destrava com a coordenada no cadastro ou com conferência do endereço em campo.</li><li>Zoneamento — cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa.</li><li>Zoneamento — quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra.</li><li>Zoneamento — a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página.</li><li>Zoneamento — a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página.</li><li>Concorrência — 932 lojas da rede — um terço do cadastro inteiro, não só desta praça — estão sem coordenada e ficam fora de qualquer checagem por distância. Destrava com a geocodificação do cadastro.</li><li>Concorrência — 32 lojas da rede, no cadastro inteiro, têm coordenada fora do território brasileiro e são descartadas para não medir distância errada. Destrava com a correção do cadastro.</li><li>Concorrência — 3.700 registros da camada, em todo o país, foram descartados por coordenada fora do território brasileiro — parte deles pode ser desta região e está fora da contagem. Destrava com a correção da coordenada na origem.</li><li>Concorrência — camada Farmácias (cadastro da Receita): cadastro Receita/QSA — só endereço; conferir via CNES (Fase 3). É a camada que permitiria conferir a contagem de concorrentes por uma segunda fonte; sem ela, a contagem fica sem checagem cruzada. Destrava com o CNES, que traz CNPJ e coordenada.</li><li>Concorrência — camada Farmácias Populares 2025: só endereço. Sem ela não dá para localizar no raio quem já é credenciado ao Farmácia Popular. Destrava geocodificando os endereços da camada.</li><li>Concorrência — camada Bancos: só endereço. Sem ela falta um gerador de fluxo relevante — fila de banco prende a pessoa no quarteirão. Destrava geocodificando os endereços.</li><li>Concorrência — camada Clínicas Oftalmológicas: só endereço. Sem ela falta um gerador de fluxo de saúde no entorno. Destrava geocodificando os endereços.</li><li>Concorrência — camada Barreiras Geográficas: polígono/linha ficou no asset, não no CSV. Num ponto de passagem é o que diria se a via corta ou conecta os dois lados da área de influência. Destrava recuperando os polígonos da camada.</li><li>Concorrência — camada Setor Censitário: polígono ficou no asset — habilita na Fase 2 com a malha do IBGE. A geometria dos setores vem do asset do Órbita, não do próprio arquivo; é ela que sustenta população, renda e potencial no raio.</li><li>Concorrência — fluxo de passantes: NÃO existe no dump nem no produto</li><li>Mercado por UTC — base de cobertura de PDVs por UTC (IQVIA): UTC ausente nesta base. Sem ela não se sabe se o crescimento da receita veio da mesma loja ou de abertura e fechamento de PDV. Destrava com a cobertura de PDVs da UTC na base da IQVIA. <b>(6×)</b></li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li><b>Endereço exato da loja Maxi Popular cadastrada no Benguí.</b> Se estiver a menos de 500 m, o pedido vira caso de distância mínima entre bandeiras diferentes e precisa de arbitragem antes de qualquer conta de mercado; se estiver além, o que resta é a densidade de lojas da praça.</li><li><b>Quantos estabelecimentos operam de fato no número 563 da Rua Betânia.</b> Se for um, o raio de 300 m tem seis concorrentes e não oito, e a leitura de saturação do quarteirão muda junto.</li><li><b>Contagem de passantes na Rua Betânia</b>, em dia útil e em sábado, nas faixas de maior movimento. Movimento alto desloca a leitura do ponto de bairro residencial para ponto de rua, e com ela o horário, o mix de conveniência e o tamanho da equipe de balcão; movimento baixo confirma a leitura residencial que o dossiê faz.</li><li><b>Como opera a Extrafarma a 55 m</b> — horário, serviços e se é unidade de bairro ou unidade de rede com aplicação e entrega. Define o que este ponto precisa oferecer para tirar volume dela, em vez de disputar o resto do quarteirão.</li><li><b>Motivo do encerramento das lojas da rede em Belém.</b> Se foi ponto, se foi operação ou se foi sociedade, muda o que precisa ser diferente nesta abertura.</li></ul>
+</section>
+
+<details class="recolhido">
+  <summary><span class="ic">§</span> Fontes
+    <span class="qtd">14 referências</span><span class="seta"></span></summary>
+  <div class="corpo-rec">
+  <table class="fontes"><thead><tr><th>#</th><th>Lente</th><th>Afirmação</th><th>Fonte do dado</th></tr></thead><tbody><tr><td class="n">1</td><td>Forças</td><td>O raio de 300 m reúne 4.830 moradores, a uma densidade de 17.161 hab/km²</td><td>Censo 2022 do IBGE, camada Densidade Demográfica do Setor e camada Índice de Verticalização</td></tr><tr><td class="n">2</td><td>Forças</td><td>Belém tem 1.658 habitantes por farmácia, no percentil 62 entre 5.541 municípios</td><td>camada Farmácia Popular e Censo 2022 do IBGE</td></tr><tr><td class="n">3</td><td>Forças</td><td>O mercado farmacêutico de Belém cresceu 12,89% entre os dois períodos</td><td>base de crescimento por UTC da IQVIA</td></tr><tr><td class="n">4</td><td>Forças</td><td>Belém é metrópole regional e polo declarado de 67 municípios</td><td>REGIC 2018 do IBGE, camada Ranking de Consumo e camada Renda Média do Município</td></tr><tr><td class="n">5</td><td>Fragilidades</td><td>São oito estabelecimentos cadastrados dentro de 300 m, sete deles na própria Rua Betânia</td><td>camada Concorrentes 2025</td></tr><tr><td class="n">6</td><td>Fragilidades</td><td>A farmácia mais próxima fica a 55 m e é da bandeira mais presente no raio de 5 km</td><td>camada Concorrentes 2025 e base de receita e PDVs por canal da IQVIA</td></tr><tr><td class="n">7</td><td>Fragilidades</td><td>A renda por habitante no raio de 300 m é de R$ 675,51</td><td>camada Renda Média por setor censitário e camada Classe Econômica dos Domicílios</td></tr><tr><td class="n">8</td><td>Fragilidades</td><td>Quatro das cinco vizinhas com faixa preenchida caem na faixa mais baixa da régua</td><td>camada Concorrentes 2025</td></tr><tr><td class="n">9</td><td>Fragilidades</td><td>Belém perde população a 0,55% ao ano</td><td>camada Densidade Demográfica e camada Situação do Território</td></tr><tr><td class="n">10</td><td>Oportunidades</td><td>Entrar com preço de rede num raio dominado por farmácia independente</td><td>camada Concorrentes 2025, base de receita e PDVs por canal da IQVIA e base de faturamento por brick da IQVIA</td></tr><tr><td class="n">11</td><td>Oportunidades</td><td>Credenciar ao Farmácia Popular, numa cidade em que 77 das 786 farmácias operam pelo programa</td><td>camada Farmácia Popular</td></tr><tr><td class="n">12</td><td>Oportunidades</td><td>Ocupar, com a bandeira do solicitante, as três unidades de mercado de Belém em que ela não registra receita</td><td>base de bandeiras por UTC e base de crescimento por UTC da IQVIA</td></tr><tr><td class="n">13</td><td>Dificuldades</td><td>Há uma loja Maxi Popular, de outro grupo econômico, cadastrada no próprio Benguí</td><td>cadastro de lojas da rede e regras oficiais de expansão da Farmarcas</td></tr><tr><td class="n">14</td><td>Dificuldades</td><td>A loja do próprio solicitante mais próxima com coordenada no cadastro fica a 6.354 m</td><td>cadastro de lojas da rede</td></tr></tbody></table>
+  <h3>Procedência geral</h3>
+  <ul class="proc">
+    <li><b>Coordenada do ponto</b> — informada pelo solicitante</li>
+    <li><b>Acervo de camadas do Órbita</b> — extração de 2026-10-26, sem atualização automática.</li>
+    <li><b>Cadastro de lojas Farmarcas</b> — extração de 2026-11-10, mais recente que o acervo de camadas.</li>
+    <li><b>Geometria dos setores censitários</b> — acervo cartográfico do Órbita.</li>
+    <li><b>População do Censo 2022</b> — API pública do IBGE, extração de 2026-11-12.</li>
+    <li><b>Faturamento, unidades e preço por brick e por UTC</b> — IQVIA e CloseUp.</li>
+    <li><b>Receita e número de pontos de venda por canal e por estado</b> — IQVIA, receita acumulada de 12 meses (MAT 2026) sobre contagem de pontos de venda do ano corrente (YTD 2026).</li>
+    <li><b>Geradores de fluxo no entorno</b> — OpenStreetMap.</li>
+    <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas.</li>
+  </ul>
+  <p class="vazio">Este dossiê não pontua o ponto: não há score, nota nem status de
+  recomendação. A régua de viabilidade pertence ao produto.</p>
+  </div>
+</details>
+<footer>
+  Órbita · Dossiê de Região · R. Betânia, 199 - Benguí, Belém/PA, 66630-140
+</footer></div></body></html>

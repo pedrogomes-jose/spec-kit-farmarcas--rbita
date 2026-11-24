@@ -1,0 +1,25 @@
+centroides municipais disponiveis: 6207
+
+Pouso Alegre/MG  (15 pracas, 0 sem centroide)
+   distancia ate o ponto: mediana    326 km | min  268 | max  667
+   dentro de 150 km: 0 de 15
+   3 primeiras: BELO HORIZONTE — SANTA EFIGENIA, BELO HORIZONTE — SAVASSI, BELO HORIZONTE — SANTO ANTONIO
+
+Ipatinga/MG  (15 pracas, 0 sem centroide)
+   distancia ate o ponto: mediana    157 km | min  150 | max  567
+   dentro de 150 km: 0 de 15
+   3 primeiras: BELO HORIZONTE — SANTA EFIGENIA, BELO HORIZONTE — SAVASSI, BELO HORIZONTE — SANTO ANTONIO
+
+Araputanga/MT  (15 pracas, 0 sem centroide)
+   distancia ate o ponto: mediana    245 km | min  238 | max  506
+   dentro de 150 km: 0 de 15
+   3 primeiras: CUIABÁ — JARDIM DAS AMERICAS, CUIABÁ — CENTRO SUL, SINOP — SETOR COMERCIAL
+
+Santarém/PA  (15 pracas, 0 sem centroide)
+   distancia ate o ponto: mediana    703 km | min  247 | max  765
+   dentro de 150 km: 0 de 15
+   3 primeiras: ANANINDEUA — ICUI-GUAJARA, BELÉM — SAO BRAS, BELÉM — CREMACAO-1
+
+DISCRIMINACAO entre os dois pontos de MG (Pouso Alegre x Ipatinga):
+   sobreposicao de Jaccard: 100%  (15 pracas iguais de 15)
+   quanto MENOR, mais a lista responde ao ponto e nao so a UF

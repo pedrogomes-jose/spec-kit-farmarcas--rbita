@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossiê de Região</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Dossiê de Região</div>
+  <div class="sub">Leitura de região para análise de ponto — <b>sem score</b> ·
+    dump de 2026-10-26 · cadastro de lojas de 2026-11-10</div>
+</header>
+<div class="faixa-end">Av. Elmo Serejo de Farias, 1303 - Conj. Hab. Cia II, Simões Filho/BA, 43700-000</div>
+<section class="topo">
+  <div class="gate" style="border-color:#b07d00">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#b07d00">Alerta</div>
+    <div class="nota">60–120 mil → até 2 grupos econômicos, o 2º grupo de bandeira popular, distância mínima</div>
+    <div class="nota" style="margin-top:6px;color:#b07d00">com o pedido a cidade fica com 3 loja(s) Farmarcas para uma faixa dimensionada em 2, distribuídas entre 2 grupo(s) econômico(s)</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Avenida de bairro residencial adensado num município-dormitório do arranjo urbano de Salvador, com apenas duas farmácias dentro de 300 m — e o ponto fica entre as duas, a 178 m de uma e 216 m da outra.</p>
+    <div class="meta">Solicitante: <b>já associado</b> ·
+      Bandeira: <b>Ultra Popular</b> (popular) ·
+      População do município (Censo 2022): <b>114.559</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da região</h2>
+  <div class="swot-eixo"><span>A favor</span><span>Contra</span></div><div class="swot"><div class="lente" style="border-color:#0f7b45;background:#e8f6ee"><div class="lente-tit" style="color:#0f7b45">Forças</div><p class="abertura">A praça cresce em dois dígitos e a rede cresce mais que ela, o entorno imediato do ponto é adensado, e a bandeira pretendida já tem receita registrada na cidade.</p><p><b>O mercado farmacêutico do município cresceu 15,31% entre os dois períodos</b> A receita passou de R$ 124,05 milhões para R$ 143,05 milhões no acumulado de doze meses. As lojas da rede cresceram 20% no período, contra 15% do mercado sem elas.<sup class="ref">1</sup></p><p><b>O raio de 300 m reúne 2.348 moradores, a uma densidade de 8.337 hab/km²</b> No município a densidade é de 598 hab/km². São 679 domicílios com 3,46 moradores cada, e o abastecimento de água chega a 99,2% deles contra 94,4% no raio de 5 km.<sup class="ref">2</sup></p><p><b>A bandeira pretendida já responde por 7% da receita farmacêutica da cidade</b> A Ultra Popular tem 7% e a Bigfort, do outro grupo econômico da praça, 1%; os 92% restantes são de concorrentes. Em receita, as lojas da rede somam R$ 11,51 milhões dos R$ 143,05 milhões do município.<sup class="ref">3</sup></p><p><b>O PIB por habitante está no percentil 90 nacional, a R$ 74.270</b> A mediana nacional é de R$ 29.893, e o município fica a 24 km de Salvador, com 98% da população em área urbana e 13.912 empresas registradas.<sup class="ref">4</sup></p></div><div class="lente" style="border-color:#b4503c;background:#fdeee9"><div class="lente-tit" style="color:#b4503c">Fragilidades</div><p class="abertura">O endereço é cercado de perto, a classe econômica da cidade se concentra na base da pirâmide, e há mais farmácia por habitante aqui do que na metade dos municípios do país.</p><p><b>O ponto fica entre duas farmácias, a 178 m e a 216 m</b> As duas estão na própria Av. Elmo Serejo de Farias, nos números 1200 e 1525, e o ponto é o 1303 — uma de cada lado. No raio de 5 km são 48 farmácias para 97.576 moradores.<sup class="ref">5</sup></p><p><b>A renda por habitante no raio de 300 m é de R$ 581,83</b> No raio de 5 km ela é de R$ 722,28, e a renda domiciliar do entorno imediato fica em R$ 1.006,08 por mês contra R$ 1.191,46 no raio amplo. Na cidade, 44,7% dos domicílios são de classe D/E e 26,7% de C2.<sup class="ref">6</sup></p><p><b>Simões Filho tem 1.414 habitantes por farmácia, no percentil 45 entre 5.541 municípios</b> A mediana nacional é de 1.492,6 habitantes por farmácia, e a cidade fica abaixo dela: são 81 farmácias para os 114.559 habitantes do Censo 2022. Há mais ponto dividindo o mesmo mercado do que na metade dos municípios do país.<sup class="ref">7</sup></p><p><b>A cidade não traz público de fora, e perde população a 0,25% ao ano</b> A rede urbana descreve Simões Filho como de alcance restrito aos próprios limites, integrante do arranjo urbano de Salvador, com parte dos moradores se deslocando ao núcleo para trabalho e compras e retornando no fim do dia. A população do município encolhe a 0,25% ao ano.<sup class="ref">8</sup></p></div><div class="lente" style="border-color:#1a5fb4;background:#e9f0fb"><div class="lente-tit" style="color:#1a5fb4">Oportunidades</div><p class="abertura">As duas alavancas disponíveis neste endereço vêm da retaguarda de rede: preço num quarteirão servido só por farmácia independente, e um programa público que quase ninguém na cidade usa. A terceira é de praça, e só existe porque o solicitante já ocupa uma das duas vagas.</p><p><b>Entrar com preço de rede num raio servido só por farmácia independente</b> As duas farmácias do raio são do canal independente, cuja loja média na Bahia fatura R$ 40.156 por mês, contra R$ 399.211 da loja média do Grupo Farmarcas no estado. No brick de Simões Filho a rede vende a R$ 20,05 por unidade e os concorrentes a R$ 25,98. Somadas pela régua de canal, as duas movimentam R$ 80.313 por mês.<sup class="ref">9</sup></p><p><b>Credenciar ao Farmácia Popular, numa cidade em que 7 das 81 farmácias operam pelo programa</b> Simões Filho gasta R$ 113,54 milhões em medicamentos, e medicamentos respondem por 44,2% do potencial de consumo em drogarias do raio — R$ 1,66 milhão dos R$ 3,76 milhões. Credenciar é ato da própria loja, e na praça ele ainda é exceção.<sup class="ref">10</sup></p><p><b>Segurar a praça enquanto as duas vagas de grupo econômico estão ocupadas</b> A faixa de população da cidade comporta dois grupos econômicos e os dois já estão na praça: o do solicitante e o da Bigfort. Enquanto durarem, nenhum terceiro grupo entra em Simões Filho pela rede Farmarcas — o que a regra de expansão não alcança é o concorrente de fora dela, e esse continua livre para abrir.<sup class="ref">11</sup></p></div><div class="lente" style="border-color:#8b3a62;background:#fbeaf2"><div class="lente-tit" style="color:#8b3a62">Dificuldades</div><p class="abertura">O que vai ter de ser atravessado é a mesa de aprovação e a divisão do próprio mercado: a loja entra numa praça que a faixa de população já dá por dimensionada, e numa unidade de mercado que o solicitante já opera.</p><p><b>Com o pedido, a contagem de lojas da rede na cidade passa de duas para três</b> A faixa de população em que Simões Filho cai dimensiona a praça em duas lojas, e esta abertura leva a cidade a três. O alerta vai junto para a mesa de aprovação e precisa de resposta antes de o ponto andar — e a resposta depende de qual população a área de Expansão usa para cortar a faixa.<sup class="ref">12</sup></p><p><b>A loja do próprio solicitante fica a 4.345 m, dentro da mesma unidade de mercado</b> Simões Filho tem uma única unidade de mercado, que é o município inteiro, então as duas lojas do grupo passam a disputar o mesmo mercado medido, sem recorte geográfico que as separe. A mediana medida da bandeira na Bahia é de R$ 365.080 por mês: é essa ordem de grandeza que passa a ser repartida entre dois pontos do mesmo dono.<sup class="ref">13</sup></p></div></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Detalhes da região analisada</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População na área</div><div class="val">2.348 habitantes</div><div class="nota">8 setores censitários no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Raio de estudo</div><div class="val">300 m</div><div class="nota">comparado também a 5.000 m</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Domicílios</div><div class="val">679</div><div class="nota">3,46 moradores por domicílio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo</div><div class="val">R$ 3.761.944,48</div><div class="nota">drogarias, rateado pela fração de cada setor no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Método de rateio</div><div class="val">proporcional por área</div><div class="nota">cobertura do círculo: 100,0% · 8 setores</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Contexto macroeconômico</h2>
+  <details class="explica-rec"><summary><span class="rot">Como ler a renda</span><span class="seta"></span></summary><div class="corpo-exp">São valores <b>mensais aproximados</b>,
+  média dos setores censitários <b>ponderada pela população e pelos domicílios que
+  cada setor tem dentro do raio</b> — setor que só encosta na borda pesa pouco — não a renda de quem compra na
+  loja, e sim a de quem <b>mora</b> ali. Renda por habitante divide o rendimento do
+  domicílio por todos os moradores, inclusive quem não tem renda; por isso fica bem
+  abaixo da renda domiciliar. Num ponto de passagem, as duas descrevem a vizinhança
+  residencial, não a clientela — que pode ser outra.</div></details>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Densidade demográfica</div><div class="val">8.337 hab/km²</div><div class="nota">média dos setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média por habitante</div><div class="val">R$ 581,83</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média domiciliar</div><div class="val">R$ 1.006,08</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Verticalização</div><div class="val">7,0%</div><div class="nota">domicílios em apartamento — casas x apartamentos</div></div>
+    
+  </div>
+  
+</section>
+<section>
+  <h2><span class="ic">$</span> Microterritório e concorrência</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais na cidade</div><div class="val">R$ 3.395.642,11</div><div class="nota">17 lojas com faixa declarada no município · soma de rótulos de faixa — o campo tem 8 valores, um por faixa, e classifica a loja em vez de medir a venda</div></div>
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Média da faixa por loja</div><div class="val">R$ 126.120,99</div><div class="nota">média mensal dos rótulos de faixa das lojas do raio — não é faturamento medido</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais no raio</div><div class="val">R$ 126.120,99</div><div class="nota">soma das faixas de 1 loja classificada · o campo tem 8 valores, um por faixa — classifica a loja, não mede a venda</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Concorrentes em 300 m</div><div class="val">2</div><div class="nota">48 em 5.000 m</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Lojas Farmarcas no raio</div><div class="val">0</div><div class="nota">pelo cadastro de lojas (CNPJ + coordenada)</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Preço médio no brick</div><div class="val">R$ 25,28</div><div class="nota">UF: R$ 27,89 · receita a preço de consumidor ÷ unidades vendidas · fonte: base de faturamento por brick da IQVIA</div></div>
+  </div>
+  <h3>Quanto vende uma loja — três fontes independentes</h3>
+  <details class="explica-rec"><summary><span class="rot">Elas não medem a mesma coisa</span><span class="seta"></span></summary><div class="corpo-exp">A primeira é a
+  <b>faixa de faturamento dos concorrentes</b> da praça: classifica cada loja numa de
+  oito faixas, está preenchida em menos da metade dos cadastros e — importante — não
+  traz valor por loja, só o rótulo da faixa. A segunda é a <b>régua medida por canal</b>: receita e
+  número de pontos de venda por canal e por estado, apurados por instituto, aplicados
+  ao canal em que cada concorrente está classificado. É ela que <b>dimensiona o
+  mercado do raio</b>, porque cobre também as lojas de campo vazio. A terceira é a
+  <b>receita medida das lojas do grupo</b>, cruzada loja a loja pelo CNPJ — responde
+  quanto <b>a nossa bandeira</b> fatura numa praça assim. Em varejo farmacêutico a
+  distribuição tem cauda longa, então mínimo, mediana e máximo dizem mais que média: a
+  distância entre os extremos mede o quanto o resultado depende de execução e de
+  ponto, não da região.</div></details>
+  <h4>Concorrentes da praça — em que faixa de faturamento eles caem</h4>
+  <details class="explica-rec"><summary><span class="rot">Estes três números são rótulos de faixa, não faturamento de
+  loja</span><span class="seta"></span></summary><div class="corpo-exp">O campo da camada de concorrentes assume <b>oito valores em toda a base</b>,
+  um para cada faixa da régua que aparece no fim desta seção — sete deles são o ponto
+  médio exato da faixa, e o mais baixo é o teto da faixa aberta embaixo. Então o que
+  está abaixo é a faixa mais baixa ocupada, a faixa mediana e a mais alta ocupada
+  entre as lojas da cidade: descrevem <b>como as lojas se distribuem entre as
+  faixas</b>. A distância entre dois deles é a distância entre faixas, não entre duas
+  lojas, e nenhum deles é o faturamento de nenhum estabelecimento.</div></details>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Faixa mais baixa ocupada</div><div class="val">R$ 89.997,73</div><div class="nota">faixa, entre as 17 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Faixa mediana</div><div class="val">R$ 126.120,99</div><div class="nota">faixa, entre as 17 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Faixa mais alta ocupada</div><div class="val">R$ 697.865,52</div><div class="nota">faixa, entre as 17 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+  </div>
+  <h4>Mercado do raio — régua medida por canal</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mercado em 300 m</div><div class="val">R$ 80.312,78</div><div class="nota">2 de 2 lojas em 300 m · fonte: receita e PDVs por canal da IQVIA</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Mercado em 5.000 m</div><div class="val">R$ 5.440.030,88</div><div class="nota">42 de 48 lojas em 5.000 m · 6 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+  </div>
+  <table><thead><tr><th>Canal</th><th>Por loja/mês</th><th>Lojas em 300 m</th><th>Lojas em 5.000 m</th></tr></thead><tbody><tr class="tem"><td>ABRAFARMA</td><td>R$ 890.910,79</td><td>—</td><td>2</td></tr><tr><td>Grupo Farmarcas</td><td>R$ 399.210,53</td><td>—</td><td>—</td></tr><tr class="tem"><td>Outras redes corporativas</td><td>R$ 384.282,59</td><td>—</td><td>5</td></tr><tr><td>FEBRAFAR</td><td>R$ 178.802,84</td><td>—</td><td>—</td></tr><tr class="tem"><td>Associações e franquias</td><td>R$ 106.420,93</td><td>—</td><td>5</td></tr><tr class="tem"><td>Independentes</td><td>R$ 40.156,39</td><td>2</td><td>30</td></tr></tbody></table>
+  <details class="explica-rec"><summary><span class="rot">O que este número é e o que não é</span><span class="seta"></span></summary><div class="corpo-exp">Cada valor da coluna
+  por loja é o que uma loja <b>média</b> daquele canal fatura neste estado — não o
+  faturamento da farmácia observada, que nenhuma base traz. A fonte não registra a
+  dispersão dentro do canal: duas independentes no mesmo quarteirão podem diferir
+  várias vezes entre si, e isso não aparece aqui. Some-se a isso que a receita é
+  acumulada de doze meses enquanto a contagem de pontos de venda é do ano corrente,
+  o que enviesa canal que abriu ou fechou muita loja no período. Serve para
+  dimensionar o mercado do entorno e para situar um concorrente pelo porte da rede a
+  que ele pertence; não serve para afirmar quanto um endereço vende.</div></details>
+
+  <h4>Lojas do grupo — receita medida · Ultra Popular em BA</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Menor receita medida</div><div class="val">R$ 40.811,47</div><div class="nota">76 loja(s) do grupo em BA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Receita mediana medida</div><div class="val">R$ 365.080,10</div><div class="nota">76 loja(s) do grupo em BA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Maior receita medida</div><div class="val">R$ 2.013.930,66</div><div class="nota">76 loja(s) do grupo em BA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mesma bandeira, rede inteira</div><div class="val">R$ 442.847,15</div><div class="nota">mediana de 890 loja(s) · mesma fonte, recorte nacional</div></div>
+  </div>
+
+  <h3>Venda mensal aproximada — raio de estudo</h3>
+  <table><thead><tr><th>Máxima</th><th>Mínima</th><th>Classificação</th><th>Lojas no raio</th></tr></thead><tbody><tr><td>Acima</td><td>R$ 1.336.854,12</td><td><span class="faixa f1">1</span></td><td>—</td></tr><tr><td>R$ 1.336.854,11</td><td>R$ 846.655,41</td><td><span class="faixa f2">2</span></td><td>—</td></tr><tr><td>R$ 846.655,40</td><td>R$ 549.075,62</td><td><span class="faixa f3">3</span></td><td>—</td></tr><tr><td>R$ 549.075,61</td><td>R$ 388.442,64</td><td><span class="faixa f4">4</span></td><td>—</td></tr><tr><td>R$ 388.442,63</td><td>R$ 271.181,25</td><td><span class="faixa f5">5</span></td><td>—</td></tr><tr><td>R$ 271.181,24</td><td>R$ 162.244,26</td><td><span class="faixa f6">6</span></td><td>—</td></tr><tr class="tem"><td>R$ 162.244,25</td><td>R$ 89.997,74</td><td><span class="faixa f7">7</span></td><td>1</td></tr><tr><td>R$ 89.997,74</td><td>Abaixo</td><td><span class="faixa f8">8</span></td><td>—</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">◷</span> Potencial de consumo da região analisada</h2>
+  <details class="explica-rec"><summary><span class="rot">O que este número é</span><span class="seta"></span></summary><div class="corpo-exp">É quanto os moradores dos setores do
+  raio <b>poderiam</b> gastar em itens de drogaria — demanda potencial estimada, não
+  venda realizada. Cada setor censitário entra pela <b>fração que de fato cai dentro
+  do círculo</b>, não inteiro: um setor que só encosta na borda contribui com a parte
+  dele que está dentro. <b>A base não declara a periodicidade</b>: o teste de ordem de
+  grandeza aponta valor anual (ver as lacunas), embora o relatório do produto rotule o
+  mesmo campo como mensal. Nenhuma loja captura o potencial inteiro — ele se divide
+  entre todos os concorrentes do entorno e o que vaza para fora da região.</div></details>
+  <div class="split">
+    <div class="split-cards">
+      <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo total</div><div class="val">R$ 3.761.944,48</div><div class="nota">médio potencial de captura</div></div>
+      <div class="card" style="border-left-color:#3b7ddd"><div class="rot">Medicamentos</div><div class="val">R$ 1.660.988,77</div><div class="nota">44,2% do total</div></div>
+      <div class="card" style="border-left-color:#e8558f"><div class="rot">Higiene, Beleza &amp; Nutrição</div><div class="val">R$ 2.100.955,71</div><div class="nota">55,8% do total</div></div>
+    </div>
+    <div class="split-graf">
+      <svg viewBox="0 0 180 180" width="190" height="190" role="img"
+  aria-label="Medicamentos 44%, Higiene, Beleza &amp; Nutrição 56%">
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#e8558f" stroke-width="34"/>
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#3b7ddd" stroke-width="34"
+     stroke-dasharray="194.40 245.42" transform="rotate(-90 90 90)"/>
+</svg>
+      <div class="legenda"><span class="p azul"></span>Medicamentos
+        <span class="p rosa"></span>Higiene, Beleza &amp; Nutrição</div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Geradores de fluxo em 500 m</h2>
+  
+  <details class="explica-rec"><summary><span class="rot">Recorte diferente do resto do dossiê</span><span class="seta"></span></summary><div class="corpo-exp">Os números desta seção são de um raio de 500 m, e não dos 300 m do raio de estudo: 300 metros é curto demais para descrever o que atrai gente para a calçada, e uma caminhada de cinco minutos é o recorte que o pedestre de fato percorre. Não some estas contagens com a população do raio de estudo.</div></details>
+  <details class="explica-rec"><summary><span class="rot">Por que isto importa</span><span class="seta"></span></summary><div class="corpo-exp">Farmácia de rua vive de quem passa, e quem passa é atraído por outra coisa — consulta, escola, banco, ônibus, compra do dia. Cada categoria abaixo é um motivo para alguém estar nesta calçada. A contagem diz que os geradores existem e a que distância; <b>não diz quanta gente passa</b>, que continua sendo o dado ausente.</div></details><table><thead><tr><th>Categoria e por que gera fluxo</th><th>Em 500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b><div class='nota'>consulta e exame trazem paciente e acompanhante, muitos com receita na mão ao sair</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Creche Escola</b><div class='nota'>entrada e saída concentram pais e responsáveis em horário fixo, todo dia útil</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Mercado Supermercado</b><div class='nota'>compra de rotina puxa a mesma pessoa várias vezes por semana</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Banco Loteria</b><div class='nota'>fila e pagamento prendem a pessoa no quarteirão, e o idoso é público de medicamento contínuo</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Transporte</b><div class='nota'>ponto e terminal despejam fluxo de passagem — o passante que não mora nem trabalha aqui</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Coletiva</b><div class='nota'>prédio concentra muita gente em pouca área, com compra de conveniência a pé</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Individual</b><div class='nota'>casa indica bairro residencial, de compra planejada e menos passagem</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Comercio Servicos</b><div class='nota'>densidade comercial é o que faz a rua ter movimento ao longo do dia</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Lazer Culto</b><div class='nota'>igreja, praça e academia concentram fluxo em horários e dias específicos</div></td><td>1</td><td>518 m</td><td>Ginasio de Esportes</td></tr></tbody></table><p class='vazio'>Equipamento sem nome no mapa entra na contagem e fica fora da coluna de exemplos. Cobertura é colaborativa: ausência aqui não é ausência no mundo.</p><details class="explica-rec"><summary><span class="rot">O que o mapa tem nesta área</span><span class="seta"></span></summary><div class="corpo-exp">São <b>859 objetos</b> mapeados dentro do raio — traçado de rua, edificação, ponto solto —, dos quais <b>1</b> carrega etiqueta de equipamento. A área <b>está mapeada</b> e os equipamentos é que não estão etiquetados — a contagem acima mede catalogação, não movimento de rua.</div></details><details class="explica-rec"><summary><span class="rot">O que existe um pouco além, em 1.500 m</span><span class="seta"></span></summary><div class="corpo-exp">Este anel é <b>recorte diferente</b> e não se soma ao de cima: ele responde o que há na região do ponto, não o que há na calçada dele. Entra porque o raio menor voltou quase vazio, e um entorno sem nenhum gerador listado descreveria mal um bairro que tem posto de saúde e mercado a caminhada de distância. O corte que dispara este anel é premissa desta análise, não medida.</div></details><table><thead><tr><th>Categoria</th><th>Em 1.500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b></td><td>2</td><td>1.030 m</td><td>Unidade Básica de Saúde Ponto Parada, Unidade de Pronto Atendimento</td></tr><tr><td><b>Creche Escola</b></td><td>14</td><td>790 m</td><td>Colégio Luz da Infância, Educandário Mariano, Colégio Estadual Reitor Miguel Calmon</td></tr><tr><td><b>Mercado Supermercado</b></td><td>15</td><td>701 m</td><td>Mercadinho Rodeio, Mercadinho Mota, Mercadinho São Paulo</td></tr><tr><td><b>Banco Loteria</b></td><td>1</td><td>1.405 m</td><td>Caixa Econômica Federal</td></tr><tr><td><b>Moradia Coletiva</b></td><td>32</td><td>1.227 m</td><td>Salão Maria Bonita</td></tr><tr><td><b>Moradia Individual</b></td><td>14</td><td>724 m</td><td></td></tr><tr><td><b>Comercio Servicos</b></td><td>34</td><td>701 m</td><td>Mercadinho Rodeio, Senshi Kasay, Mercadinho Mota</td></tr><tr><td><b>Lazer Culto</b></td><td>13</td><td>518 m</td><td>Ginasio de Esportes, Quadrangular Baixa da Jaqueira, Assembleia de Deus</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Onde mais olhar — mesma UF</h2>
+  <details class="explica-rec"><summary><span class="rot">Como ler</span><span class="seta"></span></summary><div class="corpo-exp"><b>Mercado não atendido</b> é a receita medida na praça menos a receita Farmarcas — o que circula hoje sem passar por nós. Cada linha é uma <b>UTC</b>, a unidade de mercado do varejo, por isso a mesma cidade pode aparecer mais de uma vez — sempre com a localidade nomeada para distinguir uma da outra. <b>Potencial e captura são do município inteiro</b> e repetem nas linhas da mesma cidade, porque não existe potencial por UTC nas bases. <b>Captura</b> é quanto desse potencial o mercado já realiza: captura baixa com mercado grande é demanda represada; captura alta é praça madura, onde entrar significa tirar de alguém. <b>Preço médio por unidade</b> mostra se a praça é de ticket alto ou de volume — e a bandeira popular conversa melhor com preço baixo.</div></details><table><thead><tr><th>Praça (município — localidade) e por que olhar</th><th>Mercado não atendido</th><th>Potencial e captura do município</th><th>Preço médio</th><th>Cresc.</th><th>Lojas</th><th>Zoneamento</th></tr></thead><tbody><tr><td><b>SALVADOR/BA — AMARALINA-2</b><div class='nota'>a 18 km do ponto pedido; mercado de R$ 428,2 milhões sem receita nossa dentro, em AMARALINA-2; 39 loja(s) Farmarcas já na cidade; mercado crescendo 15%; 48% do potencial anual do município já capturado.</div></td><td><b>R$ 428,2 milhões</b><div class='nota'>R$ 428.159.384</div></td><td>R$ 7.098.170.927<div class='nota'>potencial anual do município · captura de 48,2% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>15,0%</td><td>39</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>SALVADOR/BA — AMARALINA-5</b><div class='nota'>a 18 km do ponto pedido; mercado de R$ 315,1 milhões sem receita nossa dentro, em AMARALINA-5; 39 loja(s) Farmarcas já na cidade; mercado crescendo 49%; 48% do potencial anual do município já capturado.</div></td><td><b>R$ 315,1 milhões</b><div class='nota'>R$ 315.073.793</div></td><td>R$ 7.098.170.927<div class='nota'>potencial anual do município · captura de 48,2% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>49,0%</td><td>39</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>LAURO DE FREITAS/BA</b><div class='nota'>a 13 km do ponto pedido; mercado de R$ 314,6 milhões sem receita nossa dentro, no município; 8 loja(s) Farmarcas já na cidade; mercado crescendo 14%; 60% do potencial anual do município já capturado; preço médio de R$ 30,29 por unidade.</div></td><td><b>R$ 314,6 milhões</b><div class='nota'>R$ 314.560.359</div></td><td>R$ 603.281.281<div class='nota'>potencial anual do município · captura de 60,2% pelo município</div></td><td>R$ 30,29<div class='nota'>por unidade</div></td><td>14,0%</td><td>8</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>SALVADOR/BA — VITORIA-2</b><div class='nota'>a 18 km do ponto pedido; mercado de R$ 286,7 milhões sem receita nossa dentro, em VITORIA-2; 39 loja(s) Farmarcas já na cidade; mercado crescendo 12%; 48% do potencial anual do município já capturado.</div></td><td><b>R$ 286,7 milhões</b><div class='nota'>R$ 286.721.697</div></td><td>R$ 7.098.170.927<div class='nota'>potencial anual do município · captura de 48,2% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>12,0%</td><td>39</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>SALVADOR/BA — ITAPOA-1</b><div class='nota'>a 18 km do ponto pedido; mercado de R$ 270,3 milhões sem receita nossa dentro, em ITAPOA-1; 39 loja(s) Farmarcas já na cidade; mercado crescendo 17%; 48% do potencial anual do município já capturado; ATENÇÃO: a receita Farmarcas caiu aqui — praça possivelmente já testada.</div></td><td><b>R$ 270,3 milhões</b><div class='nota'>R$ 270.283.000</div></td><td>R$ 7.098.170.927<div class='nota'>potencial anual do município · captura de 48,2% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>17,0%</td><td>39</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>SALVADOR/BA — AMARALINA</b><div class='nota'>a 18 km do ponto pedido; mercado de R$ 260,3 milhões sem receita nossa dentro, em AMARALINA; 39 loja(s) Farmarcas já na cidade; mercado crescendo 14%; 48% do potencial anual do município já capturado.</div></td><td><b>R$ 260,3 milhões</b><div class='nota'>R$ 260.322.464</div></td><td>R$ 7.098.170.927<div class='nota'>potencial anual do município · captura de 48,2% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>14,0%</td><td>39</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr></tbody></table><p class='vazio'>Lista de onde vale rodar um dossiê, não recomendação de abertura. Mercado grande sem a rede dentro pode ser praça aberta ou praça já testada e perdida — crescimento Farmarcas negativo é o segundo caso. UTC não é raio nem bairro: serve para escolher a praça, não o ponto.</p><p class='vazio'><b>A lista está limitada a 150 km deste endereço</b>, medidos até o centro aproximado de cada município — premissa desta análise, não regra da casa. Sem esse limite a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p><p class='vazio'>Preço médio em branco quando o nome do município aparece abreviado na base de preço e o casamento por nome falha — é ausência da chave, não do dado. Atinge sobretudo as capitais.</p>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que este dossiê NÃO sabe
+    <span class="qtd">31 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li><b>Fluxo de passantes.</b> Nenhuma base do acervo e nenhuma camada do produto mede quantas pessoas passam pela calçada. Importa neste endereço porque ele fica numa avenida de bairro, onde o movimento de passagem é o que separa um ponto de rua de um ponto de vizinhança — e é a única variável que distinguiria este endereço das duas farmácias que o cercam. Destrava com contagem de passantes em campo, em dia útil e em sábado, ou com dado de telefonia celular.</li><li><b>Qual população corta a faixa de zoneamento.</b> O Censo 2022 registra 114.559 habitantes e o acervo interno, 120.428 — e a diferença troca a faixa de 60–120 mil para a de 120–200 mil, e com ela o teto de dois para três grupos econômicos. Esta análise cortou pelo Censo, que é a régua da casa, e é dessa escolha que nasce o alerta de densidade. Destrava com a definição escrita de qual fonte de população a regra usa.</li><li><b>Qual é a renda por habitante do município.</b> A camada municipal declara R$ 129,44, no percentil 0 entre 5.565 municípios, enquanto os setores censitários do raio apontam R$ 581,83 para essa mesma medida; a mediana nacional é de R$ 456,30, acima da qual o raio fica e o município não. A renda domiciliar do raio, que é outra medida, é de R$ 1.006,08. As duas leituras não se resolvem uma na outra e nenhuma foi descartada aqui: a leitura de renda deste dossiê usa os setores, que são o recorte do ponto. Destrava com a revisão da camada municipal de renda.</li><li><b>Quanto cada farmácia do entorno vende de fato.</b> Das duas lojas do raio de 300 m, uma tem faixa de faturamento preenchida; no raio de 5 km são 15 de 48. A régua de canal devolve a loja média de cada canal na Bahia e não traz a dispersão dentro do canal: não há mínimo, máximo nem quartil por loja. Importa porque as duas vizinhas são o concorrente direto deste ponto e a leitura delas é de faixa e de média, nunca de loja. Destrava com dado de faturamento por CNPJ da região.</li><li><b>Seis das 48 farmácias do raio de 5 km não têm canal reconhecido.</b> Elas ficam fora da soma que dimensiona o mercado do entorno, que por isso é um piso. Importa porque é esse número que mede o tamanho da disputa em volta do ponto. Destrava com a classificação de canal dessas redes na base do instituto.</li><li><b>Quanto do raio de 5 km ficou fora da conta.</b> 91,77% da área desse círculo é coberta por setor censitário com geometria, contra 99,99% no raio de 300 m. Importa porque população, renda e potencial de consumo do raio amplo foram calculados sobre a parte coberta, e saem menores do que a área real comporta. Destrava com a malha de setores completa para a região metropolitana.</li><li><b>Por que a loja Ultra Popular do Centro foi desativada.</b> Ela fica a 1.467 m do ponto, é da mesma bandeira pretendida e responde a outro responsável no cadastro. O motivo do encerramento não consta de base nenhuma do acervo. Importa porque é a informação que mais mudaria a leitura de uma praça onde a bandeira já operou e saiu. Destrava com o histórico de encerramento mantido pelo time de Expansão.</li><li><b>Quais equipamentos existem no entorno do ponto.</b> A consulta ao mapa colaborativo devolveu um ginásio de esportes a 518 m e mais nada — num bairro residencial consolidado isso indica falta de mapeamento, não ausência de equipamento. Importa porque geradores de fluxo são o que mais se aproxima da variável de passantes que o dossiê não tem. Destrava com levantamento em campo ou com base comercial de pontos de interesse.</li><li><b>Quais são os 60 municípios que a base declara influenciados por Simões Filho.</b> A camada guarda apenas a contagem, e o texto da mesma camada descreve a cidade como de alcance restrito aos próprios limites — as duas leituras ficam declaradas sem que uma resolva a outra. Invertendo a relação, nenhum município registra Simões Filho como polo. Importa porque é o que dimensionaria qualquer público vindo de fora. Destrava com a tabela de polos do REGIC.</li><li><b>Se a população se distribui por igual dentro de cada setor censitário.</b> O cálculo do raio supõe que sim, e num setor meio vazio e meio ocupado isso erra. Importa porque os oito setores do raio de 300 m entram todos por fração de área, num conjunto habitacional cuja ocupação não é uniforme. Destrava com rateio ponderado por área construída, que o acervo não tem.</li><li><b>Se os dois grupos econômicos da cidade são mesmo dois donos distintos.</b> A contagem sai do responsável registrado no cadastro de lojas, comparado por nome normalizado e não por CNPJ, e o cadastro traz grafias próximas entre si que tanto podem ser o mesmo responsável quanto dois. Importa porque é essa contagem que decide se o pedido traz grupo novo para a praça — e com ela a diferença entre um alerta de densidade e um impedimento. Destrava com o vínculo por CNPJ no cadastro de lojas.</li><li><b>Em qual brick o ponto cai.</b> O casamento foi pelo nome do município, e Simões Filho tem um único brick, de modo que o preço por unidade apresentado é o da cidade inteira e não o do quarteirão. Importa porque a alavanca de preço deste dossiê se apoia nesse número. Destrava com a malha geográfica de bricks.</li><li><b>Se o potencial de consumo é anual ou mensal.</b> A base não declara a periodicidade: o teste de ordem de grandeza aponta valor anual, enquanto o relatório do produto rotula o mesmo campo como mensal. Este dossiê lê como anual. Importa porque as duas leituras diferem em doze vezes, e é sobre esse número que o tamanho do espaço de medicamentos no raio foi dimensionado. Destrava com a definição da periodicidade na origem da camada.</li><li><b>Quanto a receita medida da bandeira deixa de fora.</b> Ela reflete a carteira atual do grupo, com o histórico retroagido — loja que saiu da rede foi apagada para trás —, e cerca de um quarto dos CNPJs da base do instituto não casa com o cadastro de lojas. Importa porque é essa régua que diz o que a nossa bandeira fatura numa praça assim, e ela descreve quem ficou, não quem passou. Destrava com o casamento completo entre o cadastro e a base do instituto.</li><li><b>Quantos habitantes por farmácia a cidade tem, afinal.</b> Pela população do Censo são 1.414,3, no percentil 45; pela população do acervo interno são 1.486,8, no percentil 49 — e a distribuição nacional contra a qual os dois são comparados foi montada com o acervo, de modo que a leitura pelo Censo mistura duas origens. Importa porque é o indicador que diz se a praça já está servida. Destrava com a distribuição nacional recalculada sobre o Censo.</li><li>Zoneamento — cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa.</li><li>Zoneamento — quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra.</li><li>Zoneamento — a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página.</li><li>Zoneamento — a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página.</li><li>Concorrência — enquadramento das redes nomeadas: em que canal cada rede corporativa nomeada se encaixa é critério do método desta análise, não campo da base. Ler a mesma rede como ABRAFARMA ou como outra rede corporativa muda a referência de porte dela em mais de duas vezes. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li>Concorrência — 18 registros da camada de concorrentes existem na base sem coordenada e por isso não entram em contagem por raio nenhuma — a concorrência medida aqui é um piso, não um total. Destrava com a geocodificação desses registros.</li><li>Concorrência — 932 lojas da rede — um terço do cadastro inteiro, não só desta praça — estão sem coordenada e ficam fora de qualquer checagem por distância. Destrava com a geocodificação do cadastro.</li><li>Concorrência — 32 lojas da rede, no cadastro inteiro, têm coordenada fora do território brasileiro e são descartadas para não medir distância errada. Destrava com a correção do cadastro.</li><li>Concorrência — 3.700 registros da camada, em todo o país, foram descartados por coordenada fora do território brasileiro — parte deles pode ser desta região e está fora da contagem. Destrava com a correção da coordenada na origem.</li><li>Concorrência — camada Farmácias Populares 2025: só endereço. Sem ela não dá para localizar no raio quem já é credenciado ao Farmácia Popular. Destrava geocodificando os endereços da camada.</li><li>Concorrência — camada Bancos: só endereço. Sem ela falta um gerador de fluxo relevante — fila de banco prende a pessoa no quarteirão. Destrava geocodificando os endereços.</li><li>Concorrência — camada Clínicas Oftalmológicas: só endereço. Sem ela falta um gerador de fluxo de saúde no entorno. Destrava geocodificando os endereços.</li><li>Concorrência — camada Barreiras Geográficas: polígono/linha ficou no asset, não no CSV. Num ponto de passagem é o que diria se a via corta ou conecta os dois lados da área de influência. Destrava recuperando os polígonos da camada.</li><li>Concorrência — camada Setor Censitário: polígono ficou no asset — habilita na Fase 2 com a malha do IBGE. A geometria dos setores vem do asset do Órbita, não do próprio arquivo; é ela que sustenta população, renda e potencial no raio.</li><li>Concorrência — fluxo de passantes: NÃO existe no dump nem no produto</li><li>Mercado por UTC — base de cobertura de PDVs por UTC (IQVIA): UTC ausente nesta base. Sem ela não se sabe se o crescimento da receita veio da mesma loja ou de abertura e fechamento de PDV. Destrava com a cobertura de PDVs da UTC na base da IQVIA.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li><b>Se as duas farmácias a 178 m e 216 m estão abertas e em que horário.</b> A camada é cadastral e não diz se a loja opera. Se uma delas estiver fechada, o ponto deixa de estar espremido entre duas e passa a ter o quarteirão para si; se as duas operarem em horário estendido, a disputa é por conveniência e não por preço.</li><li><b>Contagem de passantes na Av. Elmo Serejo de Farias</b>, em dia útil e em sábado, nas faixas de maior movimento. Movimento alto desloca a leitura de ponto de vizinhança para ponto de avenida, e com ela o horário e o mix de conveniência; movimento baixo confirma a leitura residencial que o dossiê faz.</li><li><b>Qual população a área de Expansão usa para cortar a faixa.</b> Se for a do acervo, a cidade sobe para a faixa de teto três e o alerta de densidade desaparece do pedido; se for a do Censo, o alerta vai para a mesa como está aqui.</li><li><b>Por que a Ultra Popular do Centro fechou.</b> Se foi ponto, se foi operação ou se foi sociedade, muda o que precisa ser diferente nesta abertura — é a mesma bandeira, na mesma cidade.</li><li><b>Se a loja do solicitante a 4.345 m já atende clientes deste bairro.</b> Define se a abertura amplia a praça ou redistribui a receita que o grupo já tem.</li></ul>
+</section>
+
+<details class="recolhido">
+  <summary><span class="ic">§</span> Fontes
+    <span class="qtd">13 referências</span><span class="seta"></span></summary>
+  <div class="corpo-rec">
+  <table class="fontes"><thead><tr><th>#</th><th>Lente</th><th>Afirmação</th><th>Fonte do dado</th></tr></thead><tbody><tr><td class="n">1</td><td>Forças</td><td>O mercado farmacêutico do município cresceu 15,31% entre os dois períodos</td><td>base de crescimento por UTC da IQVIA</td></tr><tr><td class="n">2</td><td>Forças</td><td>O raio de 300 m reúne 2.348 moradores, a uma densidade de 8.337 hab/km²</td><td>Censo 2022 do IBGE, camada Densidade Demográfica do Setor e camada Estrutura de Saneamento</td></tr><tr><td class="n">3</td><td>Forças</td><td>A bandeira pretendida já responde por 7% da receita farmacêutica da cidade</td><td>base de bandeiras por UTC e base de crescimento por UTC da IQVIA</td></tr><tr><td class="n">4</td><td>Forças</td><td>O PIB por habitante está no percentil 90 nacional, a R$ 74.270</td><td>camada PIB, camada Situação do Território e camada Empresas Totais</td></tr><tr><td class="n">5</td><td>Fragilidades</td><td>O ponto fica entre duas farmácias, a 178 m e a 216 m</td><td>camada Concorrentes 2025</td></tr><tr><td class="n">6</td><td>Fragilidades</td><td>A renda por habitante no raio de 300 m é de R$ 581,83</td><td>camada Renda Média por setor censitário e camada Classe Econômica dos Domicílios</td></tr><tr><td class="n">7</td><td>Fragilidades</td><td>Simões Filho tem 1.414 habitantes por farmácia, no percentil 45 entre 5.541 municípios</td><td>camada Farmácia Popular e Censo 2022 do IBGE</td></tr><tr><td class="n">8</td><td>Fragilidades</td><td>A cidade não traz público de fora, e perde população a 0,25% ao ano</td><td>REGIC 2018 do IBGE e camada Densidade Demográfica</td></tr><tr><td class="n">9</td><td>Oportunidades</td><td>Entrar com preço de rede num raio servido só por farmácia independente</td><td>camada Concorrentes 2025, base de receita e PDVs por canal da IQVIA e base de faturamento por brick da IQVIA</td></tr><tr><td class="n">10</td><td>Oportunidades</td><td>Credenciar ao Farmácia Popular, numa cidade em que 7 das 81 farmácias operam pelo programa</td><td>camada Farmácia Popular e camada Potencial de Consumo por setor censitário</td></tr><tr><td class="n">11</td><td>Oportunidades</td><td>Segurar a praça enquanto as duas vagas de grupo econômico estão ocupadas</td><td>cadastro de lojas da rede e regras oficiais de expansão da Farmarcas</td></tr><tr><td class="n">12</td><td>Dificuldades</td><td>Com o pedido, a contagem de lojas da rede na cidade passa de duas para três</td><td>cadastro de lojas da rede e regras oficiais de expansão da Farmarcas</td></tr><tr><td class="n">13</td><td>Dificuldades</td><td>A loja do próprio solicitante fica a 4.345 m, dentro da mesma unidade de mercado</td><td>cadastro de lojas da rede e base de crescimento por UTC da IQVIA</td></tr></tbody></table>
+  <h3>Procedência geral</h3>
+  <ul class="proc">
+    <li><b>Coordenada do ponto</b> — informada pelo solicitante</li>
+    <li><b>Acervo de camadas do Órbita</b> — extração de 2026-10-26, sem atualização automática.</li>
+    <li><b>Cadastro de lojas Farmarcas</b> — extração de 2026-11-10, mais recente que o acervo de camadas.</li>
+    <li><b>Geometria dos setores censitários</b> — acervo cartográfico do Órbita.</li>
+    <li><b>População do Censo 2022</b> — API pública do IBGE, extração de 2026-11-12.</li>
+    <li><b>Faturamento, unidades e preço por brick e por UTC</b> — IQVIA e CloseUp.</li>
+    <li><b>Receita e número de pontos de venda por canal e por estado</b> — IQVIA, receita acumulada de 12 meses (MAT 2026) sobre contagem de pontos de venda do ano corrente (YTD 2026).</li>
+    <li><b>Geradores de fluxo no entorno</b> — OpenStreetMap.</li>
+    <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas.</li>
+  </ul>
+  <p class="vazio">Este dossiê não pontua o ponto: não há score, nota nem status de
+  recomendação. A régua de viabilidade pertence ao produto.</p>
+  </div>
+</details>
+<footer>
+  Órbita · Dossiê de Região · Av. Elmo Serejo de Farias, 1303 - Conj. Hab. Cia II, Simões Filho/BA, 43700-000
+</footer></div></body></html>

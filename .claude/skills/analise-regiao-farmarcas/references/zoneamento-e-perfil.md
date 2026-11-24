@@ -9,6 +9,35 @@ Duas coisas que mudam o dossiê antes de qualquer número de mercado:
 
 Se não estiver dito na solicitação, **perguntar**. Não assumir.
 
+São **duas** perguntas, não uma: *qual é o perfil* e *quem é o empresário*.
+
+### Quem é o empresário se pergunta sempre, inclusive para empresário novo
+
+Grupo econômico não é entidade solta: ele é o **empresário** que responde pelas
+lojas, e é por nome dele que a contagem do teto deduplica. Sem saber quem está
+pedindo, não há como checar a pergunta que decide o gate — **esse empresário já
+aparece no cadastro?**
+
+Isso não é redundante com o perfil. "Empresário novo" é o que o solicitante
+*diz* ser; o cadastro é quem *confirma*. E a confirmação importa nos dois
+sentidos:
+
+- o solicitante se declara novo e já responde por loja na praça com grafia
+  diferente — o pedido não traz grupo novo, e o teto que parecia cheio não está;
+- o solicitante se declara novo e de fato é — mas opera em outro município, e
+  ser da casa não dá vaga nesta praça.
+
+A fragilidade que torna isso decisivo está documentada adiante: o grupo é
+deduplicado por **nome normalizado, não por CNPJ**. Duas grafias do mesmo dono
+viram dois grupos e barram um pedido que caberia; a mesma falha, ao contrário,
+funde dois donos distintos num grupo só. Sem o nome do empresário em mãos, não
+há nem como suspeitar de nenhum dos dois casos.
+
+**O nome não entra no entregável.** Ele é dado pessoal (LGPD) e tem o mesmo
+tratamento do responsável pelo GE: serve à apuração, entra por linha de comando
+quando o script precisa dele, e no dossiê as partes aparecem como "Grupo A",
+"Grupo B", "o solicitante", "outro associado".
+
 | Perfil | O que muda |
 |---|---|
 | **Empresário novo** | Nenhuma sobreposição é estratégica para ele. Toda loja Farmarcas próxima é de terceiro — e é exatamente o conflito que a regra de expansão existe para evitar ("evitar conflito e concorrência desleal entre associados", página 6.1). |

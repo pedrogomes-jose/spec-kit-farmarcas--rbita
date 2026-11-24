@@ -1,0 +1,128 @@
+{
+  "endereco": "Av. Elmo Serejo de Farias, 1303 - Conj. Hab. Cia II, Simões Filho/BA, 43700-000",
+  "lat": -12.799872,
+  "lng": -38.395963,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "2930709",
+  "municipio": "Simões Filho",
+  "uf": "BA",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "existente",
+  "ge": "",
+  "origem_da_coordenada": "informada pelo solicitante",
+  "receita_por_m2": null,
+  "resumo": "Avenida de bairro residencial adensado num município-dormitório do arranjo urbano de Salvador, com apenas duas farmácias dentro de 300 m — e o ponto fica entre as duas, a 178 m de uma e 216 m da outra.",
+  "lentes": {
+    "Forças": {
+      "abertura": "A praça cresce em dois dígitos e a rede cresce mais que ela, o entorno imediato do ponto é adensado, e a bandeira pretendida já tem receita registrada na cidade.",
+      "itens": [
+        {
+          "titulo": "O mercado farmacêutico do município cresceu 15,31% entre os dois períodos",
+          "texto": "A receita passou de R$ 124,05 milhões para R$ 143,05 milhões no acumulado de doze meses. As lojas da rede cresceram 20% no período, contra 15% do mercado sem elas.",
+          "fonte": "base de crescimento por UTC da IQVIA"
+        },
+        {
+          "titulo": "O raio de 300 m reúne 2.348 moradores, a uma densidade de 8.337 hab/km²",
+          "texto": "No município a densidade é de 598 hab/km². São 679 domicílios com 3,46 moradores cada, e o abastecimento de água chega a 99,2% deles contra 94,4% no raio de 5 km.",
+          "fonte": "Censo 2022 do IBGE, camada Densidade Demográfica do Setor e camada Estrutura de Saneamento"
+        },
+        {
+          "titulo": "A bandeira pretendida já responde por 7% da receita farmacêutica da cidade",
+          "texto": "A Ultra Popular tem 7% e a Bigfort, do outro grupo econômico da praça, 1%; os 92% restantes são de concorrentes. Em receita, as lojas da rede somam R$ 11,51 milhões dos R$ 143,05 milhões do município.",
+          "fonte": "base de bandeiras por UTC e base de crescimento por UTC da IQVIA"
+        },
+        {
+          "titulo": "O PIB por habitante está no percentil 90 nacional, a R$ 74.270",
+          "texto": "A mediana nacional é de R$ 29.893, e o município fica a 24 km de Salvador, com 98% da população em área urbana e 13.912 empresas registradas.",
+          "fonte": "camada PIB, camada Situação do Território e camada Empresas Totais"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "O endereço é cercado de perto, a classe econômica da cidade se concentra na base da pirâmide, e há mais farmácia por habitante aqui do que na metade dos municípios do país.",
+      "itens": [
+        {
+          "titulo": "O ponto fica entre duas farmácias, a 178 m e a 216 m",
+          "texto": "As duas estão na própria Av. Elmo Serejo de Farias, nos números 1200 e 1525, e o ponto é o 1303 — uma de cada lado. No raio de 5 km são 48 farmácias para 97.576 moradores.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "A renda por habitante no raio de 300 m é de R$ 581,83",
+          "texto": "No raio de 5 km ela é de R$ 722,28, e a renda domiciliar do entorno imediato fica em R$ 1.006,08 por mês contra R$ 1.191,46 no raio amplo. Na cidade, 44,7% dos domicílios são de classe D/E e 26,7% de C2.",
+          "fonte": "camada Renda Média por setor censitário e camada Classe Econômica dos Domicílios"
+        },
+        {
+          "titulo": "Simões Filho tem 1.414 habitantes por farmácia, no percentil 45 entre 5.541 municípios",
+          "texto": "A mediana nacional é de 1.492,6 habitantes por farmácia, e a cidade fica abaixo dela: são 81 farmácias para os 114.559 habitantes do Censo 2022. Há mais ponto dividindo o mesmo mercado do que na metade dos municípios do país.",
+          "fonte": "camada Farmácia Popular e Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "A cidade não traz público de fora, e perde população a 0,25% ao ano",
+          "texto": "A rede urbana descreve Simões Filho como de alcance restrito aos próprios limites, integrante do arranjo urbano de Salvador, com parte dos moradores se deslocando ao núcleo para trabalho e compras e retornando no fim do dia. A população do município encolhe a 0,25% ao ano.",
+          "fonte": "REGIC 2018 do IBGE e camada Densidade Demográfica"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "As duas alavancas disponíveis neste endereço vêm da retaguarda de rede: preço num quarteirão servido só por farmácia independente, e um programa público que quase ninguém na cidade usa. A terceira é de praça, e só existe porque o solicitante já ocupa uma das duas vagas.",
+      "itens": [
+        {
+          "titulo": "Entrar com preço de rede num raio servido só por farmácia independente",
+          "texto": "As duas farmácias do raio são do canal independente, cuja loja média na Bahia fatura R$ 40.156 por mês, contra R$ 399.211 da loja média do Grupo Farmarcas no estado. No brick de Simões Filho a rede vende a R$ 20,05 por unidade e os concorrentes a R$ 25,98. Somadas pela régua de canal, as duas movimentam R$ 80.313 por mês.",
+          "fonte": "camada Concorrentes 2025, base de receita e PDVs por canal da IQVIA e base de faturamento por brick da IQVIA"
+        },
+        {
+          "titulo": "Credenciar ao Farmácia Popular, numa cidade em que 7 das 81 farmácias operam pelo programa",
+          "texto": "Simões Filho gasta R$ 113,54 milhões em medicamentos, e medicamentos respondem por 44,2% do potencial de consumo em drogarias do raio — R$ 1,66 milhão dos R$ 3,76 milhões. Credenciar é ato da própria loja, e na praça ele ainda é exceção.",
+          "fonte": "camada Farmácia Popular e camada Potencial de Consumo por setor censitário"
+        },
+        {
+          "titulo": "Segurar a praça enquanto as duas vagas de grupo econômico estão ocupadas",
+          "texto": "A faixa de população da cidade comporta dois grupos econômicos e os dois já estão na praça: o do solicitante e o da Bigfort. Enquanto durarem, nenhum terceiro grupo entra em Simões Filho pela rede Farmarcas — o que a regra de expansão não alcança é o concorrente de fora dela, e esse continua livre para abrir.",
+          "fonte": "cadastro de lojas da rede e regras oficiais de expansão da Farmarcas"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "O que vai ter de ser atravessado é a mesa de aprovação e a divisão do próprio mercado: a loja entra numa praça que a faixa de população já dá por dimensionada, e numa unidade de mercado que o solicitante já opera.",
+      "itens": [
+        {
+          "titulo": "Com o pedido, a contagem de lojas da rede na cidade passa de duas para três",
+          "texto": "A faixa de população em que Simões Filho cai dimensiona a praça em duas lojas, e esta abertura leva a cidade a três. O alerta vai junto para a mesa de aprovação e precisa de resposta antes de o ponto andar — e a resposta depende de qual população a área de Expansão usa para cortar a faixa.",
+          "fonte": "cadastro de lojas da rede e regras oficiais de expansão da Farmarcas"
+        },
+        {
+          "titulo": "A loja do próprio solicitante fica a 4.345 m, dentro da mesma unidade de mercado",
+          "texto": "Simões Filho tem uma única unidade de mercado, que é o município inteiro, então as duas lojas do grupo passam a disputar o mesmo mercado medido, sem recorte geográfico que as separe. A mediana medida da bandeira na Bahia é de R$ 365.080 por mês: é essa ordem de grandeza que passa a ser repartida entre dois pontos do mesmo dono.",
+          "fonte": "cadastro de lojas da rede e base de crescimento por UTC da IQVIA"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "<b>Fluxo de passantes.</b> Nenhuma base do acervo e nenhuma camada do produto mede quantas pessoas passam pela calçada. Importa neste endereço porque ele fica numa avenida de bairro, onde o movimento de passagem é o que separa um ponto de rua de um ponto de vizinhança — e é a única variável que distinguiria este endereço das duas farmácias que o cercam. Destrava com contagem de passantes em campo, em dia útil e em sábado, ou com dado de telefonia celular.",
+    "<b>Qual população corta a faixa de zoneamento.</b> O Censo 2022 registra 114.559 habitantes e o acervo interno, 120.428 — e a diferença troca a faixa de 60–120 mil para a de 120–200 mil, e com ela o teto de dois para três grupos econômicos. Esta análise cortou pelo Censo, que é a régua da casa, e é dessa escolha que nasce o alerta de densidade. Destrava com a definição escrita de qual fonte de população a regra usa.",
+    "<b>Qual é a renda por habitante do município.</b> A camada municipal declara R$ 129,44, no percentil 0 entre 5.565 municípios, enquanto os setores censitários do raio apontam R$ 581,83 para essa mesma medida; a mediana nacional é de R$ 456,30, acima da qual o raio fica e o município não. A renda domiciliar do raio, que é outra medida, é de R$ 1.006,08. As duas leituras não se resolvem uma na outra e nenhuma foi descartada aqui: a leitura de renda deste dossiê usa os setores, que são o recorte do ponto. Destrava com a revisão da camada municipal de renda.",
+    "<b>Quanto cada farmácia do entorno vende de fato.</b> Das duas lojas do raio de 300 m, uma tem faixa de faturamento preenchida; no raio de 5 km são 15 de 48. A régua de canal devolve a loja média de cada canal na Bahia e não traz a dispersão dentro do canal: não há mínimo, máximo nem quartil por loja. Importa porque as duas vizinhas são o concorrente direto deste ponto e a leitura delas é de faixa e de média, nunca de loja. Destrava com dado de faturamento por CNPJ da região.",
+    "<b>Seis das 48 farmácias do raio de 5 km não têm canal reconhecido.</b> Elas ficam fora da soma que dimensiona o mercado do entorno, que por isso é um piso. Importa porque é esse número que mede o tamanho da disputa em volta do ponto. Destrava com a classificação de canal dessas redes na base do instituto.",
+    "<b>Quanto do raio de 5 km ficou fora da conta.</b> 91,77% da área desse círculo é coberta por setor censitário com geometria, contra 99,99% no raio de 300 m. Importa porque população, renda e potencial de consumo do raio amplo foram calculados sobre a parte coberta, e saem menores do que a área real comporta. Destrava com a malha de setores completa para a região metropolitana.",
+    "<b>Por que a loja Ultra Popular do Centro foi desativada.</b> Ela fica a 1.467 m do ponto, é da mesma bandeira pretendida e responde a outro responsável no cadastro. O motivo do encerramento não consta de base nenhuma do acervo. Importa porque é a informação que mais mudaria a leitura de uma praça onde a bandeira já operou e saiu. Destrava com o histórico de encerramento mantido pelo time de Expansão.",
+    "<b>Quais equipamentos existem no entorno do ponto.</b> A consulta ao mapa colaborativo devolveu um ginásio de esportes a 518 m e mais nada — num bairro residencial consolidado isso indica falta de mapeamento, não ausência de equipamento. Importa porque geradores de fluxo são o que mais se aproxima da variável de passantes que o dossiê não tem. Destrava com levantamento em campo ou com base comercial de pontos de interesse.",
+    "<b>Quais são os 60 municípios que a base declara influenciados por Simões Filho.</b> A camada guarda apenas a contagem, e o texto da mesma camada descreve a cidade como de alcance restrito aos próprios limites — as duas leituras ficam declaradas sem que uma resolva a outra. Invertendo a relação, nenhum município registra Simões Filho como polo. Importa porque é o que dimensionaria qualquer público vindo de fora. Destrava com a tabela de polos do REGIC.",
+    "<b>Se a população se distribui por igual dentro de cada setor censitário.</b> O cálculo do raio supõe que sim, e num setor meio vazio e meio ocupado isso erra. Importa porque os oito setores do raio de 300 m entram todos por fração de área, num conjunto habitacional cuja ocupação não é uniforme. Destrava com rateio ponderado por área construída, que o acervo não tem.",
+    "<b>Se os dois grupos econômicos da cidade são mesmo dois donos distintos.</b> A contagem sai do responsável registrado no cadastro de lojas, comparado por nome normalizado e não por CNPJ, e o cadastro traz grafias próximas entre si que tanto podem ser o mesmo responsável quanto dois. Importa porque é essa contagem que decide se o pedido traz grupo novo para a praça — e com ela a diferença entre um alerta de densidade e um impedimento. Destrava com o vínculo por CNPJ no cadastro de lojas.",
+    "<b>Em qual brick o ponto cai.</b> O casamento foi pelo nome do município, e Simões Filho tem um único brick, de modo que o preço por unidade apresentado é o da cidade inteira e não o do quarteirão. Importa porque a alavanca de preço deste dossiê se apoia nesse número. Destrava com a malha geográfica de bricks.",
+    "<b>Se o potencial de consumo é anual ou mensal.</b> A base não declara a periodicidade: o teste de ordem de grandeza aponta valor anual, enquanto o relatório do produto rotula o mesmo campo como mensal. Este dossiê lê como anual. Importa porque as duas leituras diferem em doze vezes, e é sobre esse número que o tamanho do espaço de medicamentos no raio foi dimensionado. Destrava com a definição da periodicidade na origem da camada.",
+    "<b>Quanto a receita medida da bandeira deixa de fora.</b> Ela reflete a carteira atual do grupo, com o histórico retroagido — loja que saiu da rede foi apagada para trás —, e cerca de um quarto dos CNPJs da base do instituto não casa com o cadastro de lojas. Importa porque é essa régua que diz o que a nossa bandeira fatura numa praça assim, e ela descreve quem ficou, não quem passou. Destrava com o casamento completo entre o cadastro e a base do instituto.",
+    "<b>Quantos habitantes por farmácia a cidade tem, afinal.</b> Pela população do Censo são 1.414,3, no percentil 45; pela população do acervo interno são 1.486,8, no percentil 49 — e a distribuição nacional contra a qual os dois são comparados foi montada com o acervo, de modo que a leitura pelo Censo mistura duas origens. Importa porque é o indicador que diz se a praça já está servida. Destrava com a distribuição nacional recalculada sobre o Censo."
+  ],
+  "campo": [
+    "<b>Se as duas farmácias a 178 m e 216 m estão abertas e em que horário.</b> A camada é cadastral e não diz se a loja opera. Se uma delas estiver fechada, o ponto deixa de estar espremido entre duas e passa a ter o quarteirão para si; se as duas operarem em horário estendido, a disputa é por conveniência e não por preço.",
+    "<b>Contagem de passantes na Av. Elmo Serejo de Farias</b>, em dia útil e em sábado, nas faixas de maior movimento. Movimento alto desloca a leitura de ponto de vizinhança para ponto de avenida, e com ela o horário e o mix de conveniência; movimento baixo confirma a leitura residencial que o dossiê faz.",
+    "<b>Qual população a área de Expansão usa para cortar a faixa.</b> Se for a do acervo, a cidade sobe para a faixa de teto três e o alerta de densidade desaparece do pedido; se for a do Censo, o alerta vai para a mesa como está aqui.",
+    "<b>Por que a Ultra Popular do Centro fechou.</b> Se foi ponto, se foi operação ou se foi sociedade, muda o que precisa ser diferente nesta abertura — é a mesma bandeira, na mesma cidade.",
+    "<b>Se a loja do solicitante a 4.345 m já atende clientes deste bairro.</b> Define se a abertura amplia a praça ou redistribui a receita que o grupo já tem."
+  ]
+}

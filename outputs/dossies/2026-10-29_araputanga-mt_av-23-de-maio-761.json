@@ -1,0 +1,148 @@
+{
+  "endereco": "Av. Vinte e Três de Maio, 761 — São Sebastião, Araputanga/MT · CEP 78260-000",
+  "lat": -15.468705,
+  "lng": -58.352849,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "5101258",
+  "municipio": "Araputanga",
+  "uf": "MT",
+  "bandeira": "Bigfort",
+  "modelo": "convencional",
+  "perfil": "existente",
+  "ge": "",
+  "metodo_setores": "area",
+  "receita_por_m2": null,
+  "aluguel_m2": null,
+  "aluguel_fonte": "",
+  "origem_da_coordenada": "informada na solicitação em 29/10/2026, com o endereço completo. Toda distância deste relatório é medida a partir dela.",
+  "resumo": "Praça pequena, de renda acima da maioria dos municípios brasileiros e já densamente servida de farmácias, onde a operação do próprio solicitante detém 35% do mercado e vem crescendo enquanto o restante encolhe — de modo que a segunda loja disputa, em boa medida, o mercado que ele já atende.",
+  "lentes": {
+    "Forças": {
+      "abertura": "O que sustenta esta praça não é tamanho: são 14.786 habitantes e o mercado farmacêutico local encolheu no último período. O que sustenta é renda acima do padrão nacional, uma posição regional que traz gente de fora e, sobretudo, uma operação da rede que vem ganhando terreno exatamente onde o concorrente perde.",
+      "itens": [
+        {
+          "titulo": "A rede cresceu 12% numa praça cujo mercado encolheu 8%",
+          "texto": "No acumulado de doze meses, a receita total da praça caiu de R$ 13,07 milhões para R$ 12,01 milhões. Dentro dessa queda, a receita da rede subiu de R$ 3,80 milhões para R$ 4,26 milhões, enquanto a de todo o resto caiu de R$ 9,27 milhões para R$ 7,75 milhões. Ou seja: o encolhimento está inteiramente do lado do concorrente, e a rede não apenas resistiu como tomou participação. Confiança alta, porque a praça tem uma única unidade de mercado e o número descreve exatamente este município, sem agregação com cidades vizinhas. A ressalva é de natureza, não de precisão: esse crescimento é da operação que já existe aqui, e não a promessa de um ponto novo.",
+          "fonte": "base de crescimento por UTC da IQVIA"
+        },
+        {
+          "titulo": "A bandeira da rede presente na praça responde por 35% do mercado",
+          "texto": "A composição por bandeira registra Ultra Popular com 35% e todo o conjunto de concorrentes com 65%. Esse é um patamar alto de participação para uma única bandeira, e é coerente com a receita medida. Há, porém, uma divergência entre as bases que precisa ser dita: o campo dedicado a participação da rede devolve 0% nesta praça, o que contradiz tanto a composição por bandeira quanto a receita. O defeito não é local — esse campo assume apenas dois valores em toda a base e está zerado em 882 das 897 linhas. Não escolhemos um dos dois — a leitura de 35% é a que tem duas fontes convergentes, e o campo zerado fica registrado como defeito a conferir antes de usar esse indicador em qualquer decisão.",
+          "fonte": "base de market share por UTC e base de bandeiras por UTC da IQVIA"
+        },
+        {
+          "titulo": "Renda domiciliar per capita no percentil 85 dos municípios brasileiros",
+          "texto": "O município registra R$ 734,76 de renda domiciliar per capita, contra uma mediana nacional de R$ 456,30 — posição 85 entre cem. Esse percentil compara o município contra os outros 5.564 da mesma camada, então ele continua de pé mesmo que o valor absoluto esteja deslocado — é posição relativa, não nível — e só se desloca se o erro for diferente de município para município. Esse valor vem da camada municipal de renda e não é o mesmo indicador dos cards, que saem das camadas setoriais. As duas medem rendimento por morador, em bases diferentes e com anos de referência que nenhuma delas declara, e a diferença entre elas é grande demais para ser efeito do recorte: o raio de 5 quilômetros alcança mais de quatro quintos da população do município e ainda assim devolve R$ 1.029,38 por habitante. Qual das duas descreve melhor esta praça é pergunta em aberto, e por isso nenhuma conclusão deste dossiê se apoia na comparação entre elas. O PIB per capita, de R$ 58.458,15, fica no percentil 82, e o índice de desenvolvimento municipal no percentil 77. É uma cidade pequena, mas não é uma cidade pobre, e isso separa o caso de muitos municípios de porte parecido. O componente fraco do desenvolvimento é saúde, com 0,5112 contra 0,8894 de emprego e renda — o que, numa praça de farmácia, tende a empurrar demanda para o balcão em vez do consultório.",
+          "fonte": "camada Renda Média por município, base de PIB e índice Firjan"
+        },
+        {
+          "titulo": "Hospital, supermercado e agências bancárias dentro de 150 metros do ponto",
+          "texto": "No entorno de 500 metros o levantamento encontra hospital geral e maternidade a 132 metros, supermercado a 88 metros, agência bancária a 106 metros — são três no entorno — e comércio a 20 metros. Hospital e maternidade trazem paciente e acompanhante, boa parte com receita na mão ao sair; supermercado puxa a mesma pessoa várias vezes por semana; fila de banco prende gente no quarteirão, e idoso em fila é público de medicamento contínuo. É a concentração de geradores mais relevante que este endereço tem a seu favor. Confiança média: a contagem é de equipamentos mapeados colaborativamente, que em cidade pequena costuma subcontar, e contagem de equipamento não é medida de gente passando.",
+          "fonte": "OpenStreetMap"
+        },
+        {
+          "titulo": "A cidade é polo de três municípios que somam 7.125 habitantes",
+          "texto": "Na hierarquia da rede urbana o município é classificado como Centro de Zona B, vinculado ao arranjo de Cuiabá, e três municípios o registram como seu polo: Figueirópolis D'Oeste, com 2.999 habitantes, Indiavaí, com 2.148, e Reserva do Cabaçal, com 1.978 — 7.125 somados. Os três são classificados como Centro Local, o degrau mais baixo da rede urbana, que é o perfil de cidade que busca fora o que não resolve dentro. Isso importa porque todos os números de população, renda e potencial deste relatório contam apenas quem reside dentro do raio: esse público some das contas e aparece no balcão. A lista sai invertendo a relação de polo registrada na camada, e bate com a contagem que ela declara. A classificação é de 2018, então descreve o papel regional que a cidade tinha naquele ano e pode ter mudado desde então.",
+          "fonte": "REGIC 2018, do IBGE"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "A praça já está servida. A conta de habitantes por farmácia coloca o município entre os mais densamente atendidos do país, o mercado encolheu no último período e a população não cresce — três sinais que, somados, dizem que o espaço aqui não vem de demanda nova.",
+      "itens": [
+        {
+          "titulo": "983 habitantes por farmácia — percentil 13 nacional",
+          "texto": "São 15 farmácias para os habitantes do município, o que dá 983 pessoas por estabelecimento, contra uma mediana nacional de 1.493. Na distribuição de 5.541 municípios, isso coloca Araputanga no percentil 13: oitenta e sete por cento das cidades brasileiras têm mais gente por farmácia do que esta. Uma loja adicional entra num mercado que já tem oferta acima do padrão, e precisa tirar venda de alguém em vez de atender demanda não servida. Confiança média, porque a contagem de farmácias e a população vêm de bases distintas e o ano de referência da população do acervo não está declarado.",
+          "fonte": "base do Farmácia Popular e camada População por município"
+        },
+        {
+          "titulo": "O mercado da praça encolheu 8% em doze meses",
+          "texto": "A receita total caiu de R$ 13,07 milhões para R$ 12,01 milhões no acumulado de doze meses. Não é oscilação de um mês: é a comparação entre dois períodos anuais fechados. Um mercado que encolhe muda a natureza da decisão — a loja nova não divide um bolo que cresce, divide um bolo menor que o do ano anterior. Vale notar que a queda se concentra no concorrente, o que é simultaneamente a principal força desta praça e a razão pela qual o espaço a ganhar pode já estar sendo ganho pela operação existente.",
+          "fonte": "base de crescimento por UTC da IQVIA"
+        },
+        {
+          "titulo": "A população do município encolhe 0,28% ao ano",
+          "texto": "A taxa de crescimento demográfico registrada é negativa. Não é um número grande, mas a direção importa: a demanda residencial desta praça não tende a crescer sozinha, então qualquer ganho de uma loja nova vem de participação, não de expansão do mercado. O período sobre o qual essa taxa foi calculada não está declarado na base, o que limita a leitura a direção e ordem de grandeza.",
+          "fonte": "camada Densidade Demográfica por município"
+        },
+        {
+          "titulo": "Mais da metade dos domicílios nas classes C2 e D/E",
+          "texto": "A distribuição de classe econômica do município registra 31,0% em C2 e 25,2% em D/E, somando 56,2%, contra 1,7% em A e 3,8% em B1 — comparação interna ao município, porque a base não traz distribuição nacional de classe para situar esses percentuais. Isso convive com a renda per capita alta na comparação nacional — são medidas diferentes, e a divergência aparente é informativa: há renda, mas concentrada, com uma base ampla de domicílios de menor poder de compra. Para o balcão, isso empurra o mix para genérico, similar e preço, que é coerente com o posicionamento popular já presente na praça.",
+          "fonte": "base do Farmácia Popular"
+        },
+        {
+          "titulo": "Só 572 moradores dentro de 300 metros, e 12.489 dentro de 5 quilômetros",
+          "texto": "No raio curto o rateio proporcional dos cinco setores censitários que tocam o círculo devolve 572 moradores e 193 domicílios, com densidade de 2.031 habitantes por quilômetro quadrado. No raio de 5 quilômetros, que é o recorte mais largo deste relatório, são 12.489 moradores em 3.991 domicílios, com densidade de 160 por quilômetro quadrado — ou seja, a população se espalha rapidamente ao sair do núcleo. A cobertura cartográfica do círculo é praticamente integral nos dois raios, o que torna o rateio confiável; o que ele assume é distribuição uniforme dentro de cada setor, premissa que erra em setor meio vazio e meio adensado.",
+          "fonte": "malha de setores censitários do IBGE e camadas setoriais do acervo"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "O que há de espaço nesta praça não está em demanda nova, e sim em três frentes mais estreitas: uma bandeira que ainda não existe aqui, um programa público em que a rede não está credenciada, e categorias que crescem contra a maré do mercado.",
+      "itens": [
+        {
+          "titulo": "A bandeira pretendida ainda não existe nesta praça",
+          "texto": "A composição por bandeira da praça registra 0% para a bandeira pretendida, e 35% para a bandeira que a rede já opera aqui. Entrar com bandeira nova permite endereçar um público diferente do que a loja atual atende, que é o argumento econômico de ter duas lojas de bandeiras distintas na mesma cidade. A ressalva é incontornável e está na lente seguinte: o mercado de onde essa venda sairia é majoritariamente o mesmo, e 35% dele já é da casa.",
+          "fonte": "base de bandeiras por UTC da IQVIA"
+        },
+        {
+          "titulo": "Nenhuma loja da rede credenciada ao Farmácia Popular na cidade",
+          "texto": "O município tem 6 das 15 farmácias credenciadas ao programa, e nenhuma delas é da rede. Numa praça com 56% dos domicílios em C2 e D/E e gasto anual em medicamentos de R$ 16,33 milhões, o credenciamento é porta de entrada recorrente para o público de medicamento contínuo, e hoje essa porta está inteiramente com o concorrente. É uma frente que não depende de abrir loja nova: vale tanto para a operação existente quanto para uma segunda.",
+          "fonte": "base do Farmácia Popular"
+        },
+        {
+          "titulo": "Infantil cresce 24% e higiene 17%, enquanto prescrição cai 11%",
+          "texto": "No mix da praça, prescrição responde por 54% da receita e caiu 11% no período; medicamentos isentos de prescrição são 23% e caíram 12%. Na direção oposta, infantil cresce 24% com 5% de participação, higiene cresce 17% com 2%, e conveniência cresce 7% com 5%. São bases pequenas, então os percentuais de crescimento se movem com pouco volume e não sustentam projeção — mas indicam onde a demanda local está se deslocando enquanto o carro-chefe recua.",
+          "fonte": "base de mix de categorias por UTC da IQVIA"
+        },
+        {
+          "titulo": "A rede pratica R$ 28,46 por unidade no estado, contra R$ 34,73 do concorrente",
+          "texto": "No agregado de Mato Grosso, o preço médio por unidade vendida é de R$ 28,46 nas lojas da rede contra R$ 34,73 nas concorrentes, com média geral de R$ 33,04. Numa praça cuja base de domicílios é majoritariamente C2 e D/E, esse posicionamento é o ativo competitivo mais direto. O recorte é do estado inteiro, e não desta cidade: o dado por sub-região não pôde ser casado com este endereço, de modo que o número descreve o posicionamento da rede em Mato Grosso, não o preço praticado nesta esquina.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "A principal dificuldade deste ponto não é concorrência: é que o solicitante já atende esta praça. A regra de zoneamento não barra, porque não entra grupo econômico novo na cidade, mas o alerta que ela emite descreve exatamente o problema econômico — e há uma loja da própria operação que já fechou a 830 metros daqui.",
+      "itens": [
+        {
+          "titulo": "A cidade ficaria com duas lojas da rede numa faixa dimensionada para um grupo",
+          "texto": "Com 14.786 habitantes no Censo 2022, o município cai na faixa de até 60 mil, dimensionada para um grupo econômico. O pedido não traz grupo novo, porque a loja já instalada responde ao mesmo grupo da solicitante — por isso o zoneamento não barra. Essa virada inteira depende de uma comparação de nomes: os grupos são apurados pelo responsável registrado no cadastro, deduplicados por nome e não por CNPJ, de modo que grafia divergente entre as duas lojas as contaria como dois grupos e devolveria impedimento em vez de alerta. Confirmado o vínculo, não há loja de outro associado na cidade, então não existe conflito entre associados a dimensionar — toda a sobreposição é com a própria operação. O que o gate registra é um alerta de densidade: a praça passaria a ter duas lojas da rede onde a faixa prevê uma. Vale dizer o que esse alerta não cobre — a outra regra de zoneamento, a de distância mínima entre lojas, não chegou a ser avaliada neste pedido. O limiar a partir do qual essa densidade alerta foi decidido fora da regra escrita, que não o define. Em números, a receita da rede na praça é de R$ 4,26 milhões no ano, e é esse o bolo que passaria a ser dividido entre dois pontos.",
+          "fonte": "regras de zoneamento e expansão, cadastro de lojas e base de crescimento por UTC da IQVIA"
+        },
+        {
+          "titulo": "Existe uma loja da própria operação desativada a 830 metros deste ponto",
+          "texto": "O cadastro registra uma Ultra Popular desativada no Centro, a 830 metros deste endereço, do mesmo grupo econômico do solicitante. O registro traz o status e não o motivo do fechamento. Essa é a informação de maior valor que falta neste dossiê, porque descreve uma tentativa anterior de operar com a mesma bandeira, na mesma praça, a 830 metros daqui — e a diferença entre fechamento por ponto, por operação ou por mercado muda inteiramente o que ela significa para este pedido. É informação a buscar com quem operou a loja, não sinal a extrapolar do registro de status.",
+          "fonte": "cadastro de lojas"
+        },
+        {
+          "titulo": "O mercado dentro de 300 metros é de cinco farmácias, e as duas medidas dele não cobrem as mesmas lojas",
+          "texto": "No raio curto há cinco farmácias concorrentes. Três delas trazem faixa de faturamento declarada, e a mais alta cai na faixa de R$ 162 mil a R$ 271 mil por mês — o campo assume apenas oito valores em toda a base, um por faixa, então ele classifica a loja e não mede o que ela vende. Pela régua medida por canal, três lojas têm canal reconhecido e dimensionam R$ 269.853,46 por mês de mercado no entorno imediato. Os dois trios não são o mesmo: duas lojas ficam sem canal reconhecido e por isso entram como intervalo, calculado atribuindo a elas o canal mais barato e o mais caro do estado — o que põe o entorno entre R$ 388,6 mil e R$ 1,90 milhão mensais. A largura desse intervalo vem de não se saber a que canal elas pertencem, não do tamanho delas. Uma dessas duas é a de faixa de faturamento mais alta do raio, de modo que a soma de R$ 269.853,46 deixa de fora justamente a loja que a camada classifica no topo. Essa régua diz quanto fatura uma loja média de cada canal em Mato Grosso, nunca quanto vende a farmácia da esquina.",
+          "fonte": "camada Concorrentes 2025 e base de receita e PDVs por canal da IQVIA"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "Fluxo de passantes. Não existe no acervo, no produto nem em fonte pública consultável, e é a variável que mais distorce avaliação de ponto de rua comercial. Aqui importa especialmente: o endereço tem hospital a 132 metros, supermercado a 88 e agências bancárias a 106, de modo que o movimento de passagem pode ser muito maior que os 572 moradores do raio curto — ou não ser, e nada no dado distingue os dois casos. Destrava com contagem de fluxo em campo, em dias e horários distintos, ou com contratação de base de mobilidade.",
+    "Se o ponto respeita a distância mínima entre lojas da rede. É a segunda regra de zoneamento e ficou sem veredito, por dois motivos independentes: a checagem só roda acima de 60 mil habitantes, e a loja ativa do solicitante não tem coordenada no cadastro, de modo que a distância não poderia ser medida nem se a checagem rodasse. O mínimo aplicável aqui seria de 500 metros, porque a bandeira pretendida difere da instalada. O que isso significa para quem lê: o cabeçalho deste dossiê diz que o zoneamento alertou, e esse alerta trata do teto — nada no resultado avisa que a outra regra não chegou a ser aplicada. Destrava com a coordenada da loja no cadastro, e com a definição de se a distância vale em toda faixa de população.",
+    "Por que a loja da própria operação a 830 metros foi desativada. O cadastro registra o status e não o motivo. É a mesma praça, a mesma rede e o mesmo grupo econômico, então a resposta muda a leitura de abrir uma segunda loja mais do que qualquer indicador deste relatório. Destrava com a operação que a conduzia e com a área de Expansão.",
+    "A participação real da rede nesta praça. O campo dedicado devolve 0%, enquanto a composição por bandeira registra 35% e a receita medida é compatível com esse patamar — três bases da mesma família que não fecham entre si. O defeito não é desta praça: o campo assume apenas dois valores em toda a base, e está zerado em 882 das 897 linhas. A leitura adotada é a de 35%, por ter duas fontes convergentes, mas o indicador de participação não deve ser usado em praça nenhuma até isso ser resolvido. Destrava com correção na base de origem.",
+    "Quantos pontos de venda abriram ou fecharam na praça no período. A base que registra entrada e saída de lojas não cobre esta unidade de mercado. Sem ela não dá para saber se a queda de 8% veio de lojas vendendo menos ou de lojas que fecharam — e as duas coisas levam a decisões opostas sobre abrir mais uma. Destrava quando a base de cobertura passar a incluir esta praça.",
+    "O ano de referência da população do acervo interno. O relatório abre com 14.786 habitantes, do Censo 2022, que é o número que corta a faixa de zoneamento; a conta de habitantes por farmácia usa os 14.745 do acervo, cujo ano não está declarado em lugar nenhum da base. A diferença é pequena e não muda o percentil de saturação nem a faixa, mas o leitor encontra dois números de população no mesmo documento sem saber por quê. Destrava com a declaração do ano de referência na base.",
+    "O preço praticado nesta cidade. O dado de preço por unidade não pôde ser casado com este endereço: o acervo não informa em qual sub-região de mercado o ponto cai, e o casamento por nome não encontrou correspondência. O que entrou no relatório é o agregado de Mato Grosso, que descreve o posicionamento da rede no estado, não a prática local. Destrava com a geometria das sub-regiões de mercado, que hoje não está no acervo.",
+    "A distância entre este ponto e a loja ativa do solicitante. Essa loja não tem coordenada preenchida no cadastro, então a distância não foi medida. Numa cidade onde a questão central é quanto a segunda loja divide o mercado da primeira, saber se elas ficam a trezentos metros ou a três quilômetros muda a leitura inteira. Destrava com a coordenada no cadastro, ou com conferência do endereço em campo.",
+    "Área de venda e custo de ocupação do imóvel. Nenhuma régua de receita por metro quadrado e nenhum valor de aluguel foram informados, e não há fonte verificável para estimá-los. Sem isso o relatório não dimensiona o ponto fisicamente nem calcula peso do aluguel sobre a venda. Destrava com os valores do imóvel e a régua que a área de Expansão utiliza.",
+    "Quanto do movimento vem dos municípios do entorno. A cidade é classificada como centro que atende a rotina de três municípios vizinhos, mas todos os números de população, renda e potencial deste relatório contam apenas quem reside dentro do raio. Não existe no acervo medida de quanto do faturamento local vem de fora. Destrava com pesquisa de origem de clientes na operação já existente, que é informação que o próprio solicitante tem.",
+    "Quantas das lojas contadas como concorrentes seguem abertas. A camada de concorrentes carrega, a 830 metros, um registro cujo CNPJ é o mesmo de uma loja que o cadastro dá como desativada — prova de que a camada não expurga loja fechada. Esse registro específico não entra na contagem de 13 nem no mercado dimensionado por canal, porque o nome casa com bandeira da rede e ele é separado como suspeita; o problema é que nada garante que as 13 que entram sigam abertas. Numa praça cujo mercado encolheu 8%, superestimar a concorrência instalada leva a subestimar o espaço disponível. Destrava conferindo em campo quais endereços seguem operando, e com atualização da camada.",
+    "Qual medida de renda descreve esta praça. A camada municipal devolve R$ 734,76 de renda domiciliar per capita e as camadas setoriais devolvem R$ 1.029,38 por habitante no raio de 5 quilômetros, que alcança mais de quatro quintos da população do município — as duas não podem ser reconciliadas por recorte geográfico, e nenhuma declara ano de referência ou método. Renda é um dos indicadores que mais pesam na leitura de um ponto, e aqui há duas respostas distantes entre si sem critério para escolher. Destrava com a declaração de ano e método nas duas bases."
+  ],
+  "campo": [
+    "Levantar por que a loja da própria operação a 830 metros fechou. Se o motivo for de ponto, não se aplica a este endereço; se for de operação, é corrigível; se for de mercado, aplica-se igualmente a uma loja nova nesta praça — e aí a decisão muda de sinal.",
+    "Medir fluxo de passantes na calçada, em pelo menos dois dias e três faixas de horário. O ponto tem hospital, supermercado e agências bancárias a menos de 150 metros, mas só 572 moradores no raio curto: é exatamente o perfil em que o dado residencial subestima a praça, ou não, e só a contagem distingue.",
+    "Confirmar o endereço e a distância da loja ativa do solicitante até este ponto, e levantar com ela de onde vêm os clientes. O cadastro não tem a coordenada dela, e é essa distância que determina quanto as duas lojas disputam o mesmo cliente; a origem dos clientes é a única forma disponível de estimar o peso do público dos municípios vizinhos, que nenhum indicador deste relatório captura.",
+    "Verificar se o imóvel comporta a operação pretendida, e obter área e valor do aluguel. Sem esses dois números nenhuma conta de retorno do ponto fecha, e este relatório não os estima: área pequena demais não comporta o sortimento da bandeira, e aluguel alto consome a margem que a segunda loja teria por tirar venda da primeira.",
+    "Checar quantas das cinco farmácias do raio curto seguem abertas. A camada de concorrentes é do acervo estático; numa praça cujo mercado encolheu 8%, fechamento recente de concorrente é a informação que mais muda a leitura de espaço disponível."
+  ]
+}

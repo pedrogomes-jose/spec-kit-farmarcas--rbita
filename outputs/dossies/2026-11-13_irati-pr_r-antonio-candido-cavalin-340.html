@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossiê de Região</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Dossiê de Região</div>
+  <div class="sub">Leitura de região para análise de ponto — <b>sem score</b> ·
+    dump de 2026-10-26 · cadastro de lojas de 2026-11-10</div>
+</header>
+<div class="faixa-end">R. Antônio Cândido Cavalin, 340 - Irati/PR, 84500-000</div>
+<section class="topo">
+  <div class="gate" style="border-color:#0f7b45">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#0f7b45">Liberado</div>
+    <div class="nota">Até 60 mil → 1 grupo econômico, sem expansão adicional</div>
+    
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Irati é cidade-polo de 59.250 habitantes onde a rede não tem nenhuma loja e a regra de expansão reserva vaga para um único grupo econômico; no raio de 300 m há duas farmácias de associação, a 142 m e a 226 m, e o entorno imediato tem renda por habitante acima da do raio de 5 km.</p>
+    <div class="meta">Solicitante: <b>já associado</b> ·
+      Bandeira: <b>AC Farma</b> (convencional) ·
+      População do município (Censo 2022): <b>59.250</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da região</h2>
+  <div class="swot-eixo"><span>A favor</span><span>Contra</span></div><div class="swot"><div class="lente" style="border-color:#0f7b45;background:#e8f6ee"><div class="lente-tit" style="color:#0f7b45">Forças</div><p class="abertura">O que Irati tem e não se vê da calçada do endereço: a cidade é o centro de uma órbita de seis municípios, tem perfil econômico alto para o porte e um mercado farmacêutico em expansão.</p><p><b>A cidade puxa público de seis municípios, que somam 68.098 habitantes</b> Rebouças (14.890), Rio Azul (14.128), Mallet (13.701), Teixeira Soares (9.495), Inácio Martins (9.474) e Fernandes Pinheiro (6.410) registram Irati como polo e vêm aqui resolver comércio e serviço de rotina. Somados, os seis superam a população do próprio município, que a mesma camada mede em 61.188.</p><p><b>O mercado farmacêutico do município cresceu 15,87% entre os dois períodos medidos</b> A receita anual da praça — acumulado de 12 meses — passou de R$ 96,48 milhões para R$ 111,78 milhões, e o crescimento está onde o volume está: prescrição responde por 55% do mix e cresceu 16%. Nutrição e suplementos, com 3% do mix, cresceram 50%, e cuidados, com 2%, cresceram 32%.</p><p><b>Para o porte, a cidade está acima da maioria do país em consumo e desenvolvimento</b> O índice de potencial de consumo põe Irati no percentil 91 nacional e na 33ª posição do Paraná; o índice de desenvolvimento municipal, no percentil 93. O PIB per capita de R$ 47.529,86 fica no percentil 73, e a renda domiciliar per capita de R$ 605,35 no percentil 70, contra a mediana nacional de R$ 456,30.</p><p><b>O entorno de 300 m é a parte densa e servida da cidade</b> Moram 697,56 pessoas em 242,28 domicílios no raio de 300 m, a 2.472,18 habitantes por km² — contra 545,88 por km² no raio de 5 km. Os equipamentos de rotina estão colados no endereço: agência bancária a 67 m, clínica a 91 m e supermercado a 95 m, com 76 estabelecimentos de comércio e serviço dentro de 500 m.</p></div><div class="lente" style="border-color:#b4503c;background:#fdeee9"><div class="lente-tit" style="color:#b4503c">Fragilidades</div><p class="abertura">O que joga contra está perto e é de contagem: concorrência instalada no mesmo quarteirão comercial, e uma área de influência larga mais pobre que o entorno imediato.</p><p><b>Duas farmácias dentro de 300 m, a 142 m e a 226 m</b> As duas são de associação, e a mais próxima está a distância de calçada, não de bairro. No raio de 5 km há 26 farmácias, num município que tem 39 no total. A cidade inteira não é um mercado sobreposto — são 1.568,9 habitantes por farmácia, contra a mediana nacional de 1.492,6, percentil 56 —, mas a disputa deste endereço se decide dentro dos 300 m.</p><p><b>A renda do entorno imediato não se repete no raio de 5 km</b> No raio de 300 m a renda média domiciliar é de R$ 2.970,20 e a renda por habitante de R$ 1.876,79. No raio de 5 km caem para R$ 1.974,18 e R$ 1.178,26. O endereço está na faixa alta da cidade, e a área que a loja de fato atende é mais pobre que o quarteirão onde ela ficaria.</p><p><b>A faixa mediana ocupada pelas farmácias da cidade é a de R$ 216.712,75 por mês</b> Entre as 10 farmácias de Irati com faixa preenchida, a mais baixa ocupada é a de R$ 126.120,99 e a mais alta a de R$ 697.865,52. Dentro do raio de 5 km são nove lojas com faixa, com mediana na faixa de R$ 216.712,75 e primeiro quartil na de R$ 126.120,99.</p></div><div class="lente" style="border-color:#1a5fb4;background:#e9f0fb"><div class="lente-tit" style="color:#1a5fb4">Oportunidades</div><p class="abertura">Três alavancas estão disponíveis neste endereço e nenhuma está tomada por alguém da rede — porque a rede não está na cidade.</p><p><b>Ocupar a vaga única que a regra de expansão reserva em Irati</b> Com 59.250 habitantes no Censo 2022, a cidade cai na faixa que admite um só grupo econômico, e o cadastro de lojas não registra nenhuma loja Farmarcas em Irati — nem ativa, nem desativada. Abrir aqui ocupa essa vaga, e enquanto ela estiver ocupada nenhum outro grupo econômico entra na praça pela rede Farmarcas; concorrente de fora dela a regra não alcança. A vaga é de um grupo só enquanto a cidade estiver abaixo de 60.000 habitantes — passado o corte a praça admite um segundo grupo, que nessa faixa só entra com bandeira popular —, e a cidade cresce 0,44% ao ano.</p><p><b>Entrar com retaguarda de rede num entorno de canal pequeno</b> Das 21 farmácias classificadas no raio de 5 km, 12 são independentes e 8 de associações e franquias; uma única é de rede ABRAFARMA. A loja média do canal independente no Paraná fatura R$ 68.898,72 por mês e a de associações e franquias R$ 124.989,74, contra R$ 564.570,69 da loja média do Grupo Farmarcas no estado. A receita medida das 13 lojas AC Farma do Paraná tem mediana de R$ 330.572,28 por mês. A alavanca é a escala de compra e a política de preço que o vizinho típico daqui não alcança.</p><p><b>Credenciar ao Farmácia Popular no ato da abertura</b> 35,90% das farmácias de Irati operam credenciadas — 14 de 39 —, num município que gasta R$ 61.539.392 em medicamentos. É programa público que a maior parte da praça ainda não ocupa, e o credenciamento é ação da própria loja.</p></div><div class="lente" style="border-color:#8b3a62;background:#fbeaf2"><div class="lente-tit" style="color:#8b3a62">Dificuldades</div><p class="abertura">O que vai precisar de resposta depois da abertura é o encaixe entre a bandeira pretendida e o bolso da praça.</p><p><b>Calibrar bandeira convencional para o perfil de renda da praça</b> Os domicílios de Irati se concentram nas classes C2, com 28,21%, e D/E, com 24,35%, contra 1,61% em A e 5,35% em B1. O preço médio por unidade no brick é de R$ 29,29, contra R$ 29,89 na UF. Quem impõe é o perfil de renda da cidade, e o custo de não tratar é um mix e uma política de preço de convencional desenhados para um público que aqui é minoria.</p></div></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Detalhes da região analisada</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População na área</div><div class="val">698 habitantes</div><div class="nota">4 setores censitários no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Raio de estudo</div><div class="val">300 m</div><div class="nota">comparado também a 5.000 m</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Domicílios</div><div class="val">242</div><div class="nota">2,88 moradores por domicílio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo</div><div class="val">R$ 1.084.671,97</div><div class="nota">drogarias, rateado pela fração de cada setor no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Método de rateio</div><div class="val">proporcional por área</div><div class="nota">cobertura do círculo: 100,0% · 4 setores</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Contexto macroeconômico</h2>
+  
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Densidade demográfica</div><div class="val">2.472 hab/km²</div><div class="nota">média dos setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média por habitante</div><div class="val">R$ 1.876,79</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média domiciliar</div><div class="val">R$ 2.970,20</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Verticalização</div><div class="val">4,7%</div><div class="nota">domicílios em apartamento — casas x apartamentos</div></div>
+    
+  </div>
+  <h3>Cidades que têm este município como polo</h3>
+  
+  <table><thead><tr><th>Município</th><th>População</th><th>Papel na rede urbana</th></tr></thead>
+  <tbody><tr><td>Rebouças/PR</td><td>14.890</td><td>Centro Local</td></tr><tr><td>Rio Azul/PR</td><td>14.128</td><td>Centro Local</td></tr><tr><td>Mallet/PR</td><td>13.701</td><td>Centro Local</td></tr><tr><td>Teixeira Soares/PR</td><td>9.495</td><td>Centro Local</td></tr><tr><td>Inácio Martins/PR</td><td>9.474</td><td>Centro Local</td></tr><tr><td>Fernandes Pinheiro/PR</td><td>6.410</td><td>Centro Local</td></tr></tbody></table>
+  <p class='vazio'>Somadas, essas cidades têm <b>68.098 habitantes</b>. É público que não mora no raio e que nenhum indicador de área deste relatório conta.</p>
+</section>
+<section>
+  <h2><span class="ic">$</span> Microterritório e concorrência</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais na cidade</div><div class="val">R$ 2.995.196,94</div><div class="nota">10 lojas com faixa declarada no município · soma de rótulos de faixa — o campo tem 8 valores, um por faixa, e classifica a loja em vez de medir a venda</div></div>
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Média da faixa por loja</div><div class="val">R$ 216.712,75</div><div class="nota">média mensal dos rótulos de faixa das lojas do raio — não é faturamento medido</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais no raio</div><div class="val">R$ 216.712,75</div><div class="nota">soma das faixas de 1 loja classificada · o campo tem 8 valores, um por faixa — classifica a loja, não mede a venda</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Concorrentes em 300 m</div><div class="val">2</div><div class="nota">26 em 5.000 m</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Lojas Farmarcas no raio</div><div class="val">0</div><div class="nota">pelo cadastro de lojas (CNPJ + coordenada)</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Preço médio no brick</div><div class="val">R$ 29,29</div><div class="nota">UF: R$ 29,89 · receita a preço de consumidor ÷ unidades vendidas · fonte: base de faturamento por brick da IQVIA</div></div>
+  </div>
+  <h3>Quanto vende uma loja — três fontes independentes</h3>
+  
+  <h4>Concorrentes da praça — em que faixa de faturamento eles caem</h4>
+  
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Faixa mais baixa ocupada</div><div class="val">R$ 126.120,99</div><div class="nota">faixa, entre as 10 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Faixa mediana</div><div class="val">R$ 216.712,75</div><div class="nota">faixa, entre as 10 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Faixa mais alta ocupada</div><div class="val">R$ 697.865,52</div><div class="nota">faixa, entre as 10 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+  </div>
+  <h4>Mercado do raio — régua medida por canal</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mercado em 300 m</div><div class="val">R$ 249.979,48</div><div class="nota">2 de 2 lojas em 300 m · fonte: receita e PDVs por canal da IQVIA</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Mercado em 5.000 m</div><div class="val">R$ 2.528.201,50</div><div class="nota">21 de 26 lojas em 5.000 m · 5 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+  </div>
+  <table><thead><tr><th>Canal</th><th>Por loja/mês</th><th>Lojas em 300 m</th><th>Lojas em 5.000 m</th></tr></thead><tbody><tr class="tem"><td>ABRAFARMA</td><td>R$ 701.498,94</td><td>—</td><td>1</td></tr><tr><td>Grupo Farmarcas</td><td>R$ 564.570,69</td><td>—</td><td>—</td></tr><tr><td>Outras redes corporativas</td><td>R$ 461.988,45</td><td>—</td><td>—</td></tr><tr><td>FEBRAFAR</td><td>R$ 149.713,28</td><td>—</td><td>—</td></tr><tr class="tem"><td>Associações e franquias</td><td>R$ 124.989,74</td><td>2</td><td>8</td></tr><tr class="tem"><td>Independentes</td><td>R$ 68.898,72</td><td>—</td><td>12</td></tr></tbody></table>
+  
+
+  <h4>Lojas do grupo — receita medida · AC Farma em PR</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Menor receita medida</div><div class="val">R$ 54.492,29</div><div class="nota">13 loja(s) do grupo em PR, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Receita mediana medida</div><div class="val">R$ 330.572,28</div><div class="nota">13 loja(s) do grupo em PR, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Maior receita medida</div><div class="val">R$ 786.575,88</div><div class="nota">13 loja(s) do grupo em PR, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mesma bandeira, rede inteira</div><div class="val">R$ 247.413,58</div><div class="nota">mediana de 44 loja(s) · mesma fonte, recorte nacional</div></div>
+  </div>
+
+  <h3>Venda mensal aproximada — raio de estudo</h3>
+  <table><thead><tr><th>Máxima</th><th>Mínima</th><th>Classificação</th><th>Lojas no raio</th></tr></thead><tbody><tr><td>Acima</td><td>R$ 1.336.854,12</td><td><span class="faixa f1">1</span></td><td>—</td></tr><tr><td>R$ 1.336.854,11</td><td>R$ 846.655,41</td><td><span class="faixa f2">2</span></td><td>—</td></tr><tr><td>R$ 846.655,40</td><td>R$ 549.075,62</td><td><span class="faixa f3">3</span></td><td>—</td></tr><tr><td>R$ 549.075,61</td><td>R$ 388.442,64</td><td><span class="faixa f4">4</span></td><td>—</td></tr><tr><td>R$ 388.442,63</td><td>R$ 271.181,25</td><td><span class="faixa f5">5</span></td><td>—</td></tr><tr class="tem"><td>R$ 271.181,24</td><td>R$ 162.244,26</td><td><span class="faixa f6">6</span></td><td>1</td></tr><tr><td>R$ 162.244,25</td><td>R$ 89.997,74</td><td><span class="faixa f7">7</span></td><td>—</td></tr><tr><td>R$ 89.997,74</td><td>Abaixo</td><td><span class="faixa f8">8</span></td><td>—</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">◷</span> Potencial de consumo da região analisada</h2>
+  
+  <div class="split">
+    <div class="split-cards">
+      <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo total</div><div class="val">R$ 1.084.671,97</div><div class="nota">médio potencial de captura</div></div>
+      <div class="card" style="border-left-color:#3b7ddd"><div class="rot">Medicamentos</div><div class="val">R$ 558.343,57</div><div class="nota">51,5% do total</div></div>
+      <div class="card" style="border-left-color:#e8558f"><div class="rot">Higiene, Beleza &amp; Nutrição</div><div class="val">R$ 526.328,40</div><div class="nota">48,5% do total</div></div>
+    </div>
+    <div class="split-graf">
+      <svg viewBox="0 0 180 180" width="190" height="190" role="img"
+  aria-label="Medicamentos 52%, Higiene, Beleza &amp; Nutrição 48%">
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#e8558f" stroke-width="34"/>
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#3b7ddd" stroke-width="34"
+     stroke-dasharray="226.51 213.31" transform="rotate(-90 90 90)"/>
+</svg>
+      <div class="legenda"><span class="p azul"></span>Medicamentos
+        <span class="p rosa"></span>Higiene, Beleza &amp; Nutrição</div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Geradores de fluxo em 500 m</h2>
+  
+  
+  <table><thead><tr><th>Categoria e por que gera fluxo</th><th>Em 500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b><div class='nota'>consulta e exame trazem paciente e acompanhante, muitos com receita na mão ao sair</div></td><td>2</td><td>91 m</td><td>Clinica de Olhos</td></tr><tr><td><b>Creche Escola</b><div class='nota'>entrada e saída concentram pais e responsáveis em horário fixo, todo dia útil</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Mercado Supermercado</b><div class='nota'>compra de rotina puxa a mesma pessoa várias vezes por semana</div></td><td>3</td><td>95 m</td><td>Cavalin Bora, Atacarejo Santo Antonio, Ivasco - 19</td></tr><tr><td><b>Banco Loteria</b><div class='nota'>fila e pagamento prendem a pessoa no quarteirão, e o idoso é público de medicamento contínuo</div></td><td>1</td><td>67 m</td><td>Sicredi - Antonio Cavalin</td></tr><tr><td><b>Transporte</b><div class='nota'>ponto e terminal despejam fluxo de passagem — o passante que não mora nem trabalha aqui</div></td><td>1</td><td>455 m</td><td></td></tr><tr><td><b>Moradia Coletiva</b><div class='nota'>prédio concentra muita gente em pouca área, com compra de conveniência a pé</div></td><td>4</td><td>325 m</td><td></td></tr><tr><td><b>Moradia Individual</b><div class='nota'>casa indica bairro residencial, de compra planejada e menos passagem</div></td><td>776</td><td>8 m</td><td></td></tr><tr><td><b>Comercio Servicos</b><div class='nota'>densidade comercial é o que faz a rua ter movimento ao longo do dia</div></td><td>76</td><td>28 m</td><td>Cavalin Bora</td></tr><tr><td><b>Lazer Culto</b><div class='nota'>igreja, praça e academia concentram fluxo em horários e dias específicos</div></td><td>1</td><td>346 m</td><td></td></tr></tbody></table><p class='vazio'>Equipamento sem nome no mapa entra na contagem e fica fora da coluna de exemplos. Cobertura é colaborativa: ausência aqui não é ausência no mundo.</p>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Onde mais olhar — mesma UF</h2>
+  <table><thead><tr><th>Praça (município — localidade) e por que olhar</th><th>Mercado não atendido</th><th>Potencial e captura do município</th><th>Preço médio</th><th>Cresc.</th><th>Lojas</th><th>Zoneamento</th></tr></thead><tbody><tr><td><b>CURITIBA/PR — MOSSUNGUE</b><div class='nota'>a 139 km do ponto pedido; mercado de R$ 457,0 milhões sem receita nossa dentro, em MOSSUNGUE; 1 loja(s) Farmarcas já na cidade; mercado crescendo 10%; 65% do potencial anual do município já capturado.</div></td><td><b>R$ 457,0 milhões</b><div class='nota'>R$ 456.966.464</div></td><td>R$ 6.355.219.046<div class='nota'>potencial anual do município · captura de 65,3% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>10,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>CURITIBA/PR — SANTA FELICIDADE</b><div class='nota'>a 139 km do ponto pedido; mercado de R$ 406,6 milhões sem receita nossa dentro, em SANTA FELICIDADE; 1 loja(s) Farmarcas já na cidade; mercado crescendo 11%; 65% do potencial anual do município já capturado.</div></td><td><b>R$ 406,6 milhões</b><div class='nota'>R$ 406.585.269</div></td><td>R$ 6.355.219.046<div class='nota'>potencial anual do município · captura de 65,3% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>11,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>CURITIBA/PR — CENTRO-4</b><div class='nota'>a 139 km do ponto pedido; mercado de R$ 361,0 milhões sem receita nossa dentro, em CENTRO-4; 1 loja(s) Farmarcas já na cidade; mercado crescendo 16%; 65% do potencial anual do município já capturado.</div></td><td><b>R$ 361,0 milhões</b><div class='nota'>R$ 361.003.143</div></td><td>R$ 6.355.219.046<div class='nota'>potencial anual do município · captura de 65,3% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>16,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>CURITIBA/PR — AHU</b><div class='nota'>a 139 km do ponto pedido; mercado de R$ 276,4 milhões sem receita nossa dentro, em AHU; 1 loja(s) Farmarcas já na cidade; mercado crescendo 13%; 65% do potencial anual do município já capturado.</div></td><td><b>R$ 276,4 milhões</b><div class='nota'>R$ 276.369.745</div></td><td>R$ 6.355.219.046<div class='nota'>potencial anual do município · captura de 65,3% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>13,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>PONTA GROSSA/PR — CONTORNO</b><div class='nota'>a 66 km do ponto pedido; mercado de R$ 260,4 milhões sem receita nossa dentro, em CONTORNO; nenhuma loja Farmarcas na cidade; mercado crescendo 15%; 50% do potencial anual do município já capturado; preço médio de R$ 29,66 por unidade.</div></td><td><b>R$ 260,4 milhões</b><div class='nota'>R$ 260.413.744</div></td><td>R$ 1.030.617.338<div class='nota'>potencial anual do município · captura de 50,0% pelo município</div></td><td>R$ 29,66<div class='nota'>por unidade</div></td><td>15,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>CURITIBA/PR — PORTAO-1</b><div class='nota'>a 139 km do ponto pedido; mercado de R$ 246,6 milhões sem receita nossa dentro, em PORTAO-1; 1 loja(s) Farmarcas já na cidade; mercado crescendo 10%; 65% do potencial anual do município já capturado.</div></td><td><b>R$ 246,6 milhões</b><div class='nota'>R$ 246.570.208</div></td><td>R$ 6.355.219.046<div class='nota'>potencial anual do município · captura de 65,3% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>10,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr></tbody></table><p class='vazio'>Lista de onde vale rodar um dossiê, não recomendação de abertura. Mercado grande sem a rede dentro pode ser praça aberta ou praça já testada e perdida — crescimento Farmarcas negativo é o segundo caso. UTC não é raio nem bairro: serve para escolher a praça, não o ponto.</p><p class='vazio'><b>A lista está limitada a 150 km deste endereço</b>, medidos até o centro aproximado de cada município — premissa desta análise, não regra da casa. Sem esse limite a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p><p class='vazio'>Preço médio em branco quando o nome do município aparece abreviado na base de preço e o casamento por nome falha — é ausência da chave, não do dado. Atinge sobretudo as capitais.</p>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que este dossiê NÃO sabe
+    <span class="qtd">28 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li>**Fluxo de passantes.** Quantas pessoas passam pela calçada deste endereço, em que horários e em que dias da semana, não existe em nenhuma das bases do acervo, nem no produto, nem em API pública. Importa aqui porque o endereço tem agência bancária a 67 m e supermercado a 95 m, e num ponto assim o passante que não mora nem trabalha no quarteirão é parte relevante do movimento — este dossiê mede quem mora e por isso subestima a região. Destrava com contagem de campo em dia útil por faixa de horário, ou com fonte de mobilidade por telefonia. População flutuante tem exatamente o mesmo status: não existe em fonte alguma e não entra como estimativa.</li><li>**O brick que leva o nome de Irati não é o município de Irati.** A base de faturamento por brick registra R$ 15.654.353,98 de receita do Grupo Farmarcas no brick da praça, enquanto a base de crescimento por UTC registra R$ 0,00 de receita da rede no município e o cadastro de lojas não tem nenhuma loja Farmarcas em Irati. Os três números estão certos e descrevem recortes diferentes: o brick cobre área maior que a cidade, e o acervo não diz qual, porque a malha de bricks veio sem polígono e a correspondência com o endereço foi feita pelo nome do município. Importa porque o preço médio por unidade de R$ 29,29 é a única leitura de preço disponível para este ponto e ela mistura praças vizinhas — e porque, se o endereço pertencer a um brick vizinho, esse preço muda. Destrava com a malha de bricks da IQVIA.</li><li>**A unidade dos valores de renda das camadas setoriais.** As camadas por setor censitário do acervo são o Censo 2010, e não está apurado se os valores de renda vêm em reais de 2010 ou atualizados. Importa porque a renda por habitante de R$ 1.876,79 e a renda domiciliar de R$ 2.970,20 no raio de 300 m são o que sustenta a leitura de que este é o quarteirão alto da cidade — e, se forem nominais de 2010, o erro é de ordem de grandeza, não da escala da defasagem de população. Destrava com uma apuração que compare esses campos à tabela de rendimento do Censo; enquanto ela não existir, a comparação entre os dois raios vale e o valor absoluto não.</li><li>**A defasagem das camadas setoriais.** População, domicílios, densidade e potencial de consumo no raio saem do Censo 2010; a população do município medida pelo Censo 2022 é de 59.250 e o acervo interno registra 61.188. Importa porque os 697,56 habitantes do raio de 300 m e os 42.785,28 do raio de 5 km estão subestimados, e a direção do erro é conhecida mesmo sem o tamanho dele. Destrava com as camadas setoriais reprocessadas sobre os setores de 2022 — e não com reescala por fator municipal, que imporia precisão que o dado não tem: o crescimento urbano não é uniforme entre centro e borda, e as fronteiras dos setores mudaram em 2022.</li><li>**Onde o grupo do solicitante já opera na órbita de Irati.** O gate de zoneamento apurou o que decide o teto — o solicitante não responde por nenhuma loja em Irati — e não olha além do município. Importa porque loja do mesmo grupo numa das seis cidades que têm Irati como polo divide público com a loja do polo, e a soma das duas é o que o grupo passa a ter na microrregião: é a diferença entre abrir praça nova e adensar uma praça que já é sua. Destrava com uma apuração do cadastro de lojas por responsável pelo grupo econômico nos municípios do entorno, que nenhum levantamento deste dossiê faz hoje.</li><li>**A base de receita medida descreve a carteira de hoje, e não casa com um quarto do cadastro.** A base de receita por CNPJ do instituto reflete a carteira ATUAL do grupo, com histórico retroagido: loja que saiu da rede foi apagada também nos períodos anteriores. E 481 dos 1.790 CNPJs dessa base não casam com o cadastro de lojas. Importa porque os R$ 15.654.353,98 de receita do grupo no brick e o crescimento de 15,87% da praça são lidos como série estável, e porque a mediana de R$ 330.572,28 das 13 lojas AC Farma do Paraná é lida como se fosse a bandeira inteira no estado, quando é a parte dela que casou. Destrava com o histórico por carteira da época e com o casamento dos 481 CNPJs restantes.</li><li>**O share da rede na praça é inferido, não medido.** A base de market share por unidade de medida do instituto não traz a de Irati; o zero de receita Farmarcas vem da base de crescimento. Importa porque share ausente e share zero são coisas diferentes — aqui o cadastro de lojas sustenta o zero, mas a leitura não tem segunda fonte independente. Destrava quando o instituto passar a publicar essa unidade na base de share.</li><li>**Cinco das 26 farmácias do raio de 5 km não têm canal reconhecido** — quatro de bandeira Farmais e uma de Hiperfarma, que o mapeamento de canais não cobre. Importa porque o mercado do raio deixa de ser um número e passa a ser faixa: entre R$ 2.872.695,10 e R$ 6.035.696,20 por mês, conforme essas cinco sejam lidas pelo canal mais barato ou pelo mais caro do Paraná. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li>**A dispersão dentro de cada canal.** A base do instituto traz a receita média por loja de cada canal no estado, não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Importa porque duas farmácias independentes no mesmo quarteirão podem faturar várias vezes uma a outra, e os R$ 68.898,72 da loja média do canal independente no Paraná não distinguem a vizinha forte da fraca. Destrava com faturamento por CNPJ da região.</li><li>**Um registro do raio de 5 km está cadastrado num município que o raio não alcança.** A camada de concorrentes traz uma farmácia com coordenada a 1.942 m do ponto e cidade cadastrada em outro município do Paraná, a centenas de quilômetros daqui. Importa porque ou a coordenada está errada, e há uma loja a menos no raio, ou o cadastro está errado, e a contagem de 26 continua válida. Destrava conferindo o CNPJ desse registro contra o CNES.</li><li>**Área de venda, aluguel comercial e custo de ocupação.** Nenhum dos três tem fonte: não existe base pública de aluguel comercial por m² por município, e a área de venda depende de uma régua de faturamento por m² que o analista forneça. Importa porque o custo de ocupação é o que fecha a conta do ponto depois que o mercado já foi dimensionado — e é o número que falta para esta análise virar decisão. Destrava informando o aluguel pedido e a régua de R$/m²; com os dois, os três voltam ao relatório.</li><li>Zoneamento — cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa.</li><li>Zoneamento — abaixo de 60 mil habitantes a distância mínima entre lojas não é checada — premissa herdada de quando o teto contava lojas e barrava antes. Com o teto contando grupos, uma cidade desta faixa pode passar no gate e seguir sem a checagem, e então a segunda regra de zoneamento fica sem veredito e o resultado do gate não avisa. Destrava com a regra oficial declarando se a distância vale em toda faixa.</li><li>Zoneamento — quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra.</li><li>Zoneamento — a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página.</li><li>Zoneamento — a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página.</li><li>Concorrência — enquadramento das redes nomeadas: em que canal cada rede corporativa nomeada se encaixa é critério do método desta análise, não campo da base. Ler a mesma rede como ABRAFARMA ou como outra rede corporativa muda a referência de porte dela em mais de duas vezes. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li>Concorrência — 18 registros da camada de concorrentes existem na base sem coordenada e por isso não entram em contagem por raio nenhuma — a concorrência medida aqui é um piso, não um total. Destrava com a geocodificação desses registros.</li><li>Concorrência — 932 lojas da rede — um terço do cadastro inteiro, não só desta praça — estão sem coordenada e ficam fora de qualquer checagem por distância. Destrava com a geocodificação do cadastro.</li><li>Concorrência — 32 lojas da rede, no cadastro inteiro, têm coordenada fora do território brasileiro e são descartadas para não medir distância errada. Destrava com a correção do cadastro.</li><li>Concorrência — 3.700 registros da camada, em todo o país, foram descartados por coordenada fora do território brasileiro — parte deles pode ser desta região e está fora da contagem. Destrava com a correção da coordenada na origem.</li><li>Concorrência — camada Farmácias Populares 2025: só endereço. Sem ela não dá para localizar no raio quem já é credenciado ao Farmácia Popular. Destrava geocodificando os endereços da camada.</li><li>Concorrência — camada Bancos: só endereço. Sem ela falta um gerador de fluxo relevante — fila de banco prende a pessoa no quarteirão. Destrava geocodificando os endereços.</li><li>Concorrência — camada Clínicas Oftalmológicas: só endereço. Sem ela falta um gerador de fluxo de saúde no entorno. Destrava geocodificando os endereços.</li><li>Concorrência — camada Barreiras Geográficas: polígono/linha ficou no asset, não no CSV. Num ponto de passagem é o que diria se a via corta ou conecta os dois lados da área de influência. Destrava recuperando os polígonos da camada.</li><li>Concorrência — camada Setor Censitário: polígono ficou no asset — habilita na Fase 2 com a malha do IBGE. A geometria dos setores vem do asset do Órbita, não do próprio arquivo; é ela que sustenta população, renda e potencial no raio.</li><li>Concorrência — fluxo de passantes: NÃO existe no dump nem no produto</li><li>Mercado por UTC — base de market share por UTC (IQVIA): UTC ausente nesta base. Sem ela o share da rede na praça não é medido, só inferido pela receita — e share ausente não é share zero. Destrava quando a IQVIA passar a publicar a UTC.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li>**Se as duas farmácias a 142 m e a 226 m estão abertas e operando.** A camada de concorrentes não traz situação cadastral para nenhuma das duas. Se uma estiver fechada, o raio de 300 m passa a ter uma concorrente, e a disputa de calçada do endereço muda de tamanho.</li><li>**Quanta gente passa na calçada em dia útil, por faixa de horário.** É a lacuna que nenhuma base cobre e a que mais muda a leitura de ponto de rua comercial. Fluxo alto reequilibra a leitura de que a área de influência larga é mais pobre que o quarteirão; fluxo baixo confirma que o ponto vive de quem mora perto.</li><li>**Se o quarteirão tem estacionamento, e de que lado.** O entorno de 500 m tem 776 edificações residenciais individuais e um supermercado a 95 m: compra de rotina a pé e compra de carro atendem públicos diferentes, e a resposta decide qual dos dois o ponto captura.</li><li>**Qual o aluguel pedido e a área do imóvel.** Sem os dois valores informados, área de venda, aluguel e custo de ocupação ficam fora do relatório — e são eles que dizem se o mercado dimensionado aqui cabe na conta do ponto.</li><li>**De que lado da via estão a agência bancária a 67 m e o supermercado a 95 m.** As distâncias são em linha reta e não dizem a face de quadra. Equipamento do outro lado de uma via movimentada gera fluxo que não cruza, e isso muda quanto do movimento do quarteirão chega à porta.</li></ul>
+</section>
+
+
+<footer>
+  Órbita · Dossiê de Região · R. Antônio Cândido Cavalin, 340 - Irati/PR, 84500-000 · coordenada informada pelo solicitante · acervo de 2026-10-26
+</footer></div></body></html>

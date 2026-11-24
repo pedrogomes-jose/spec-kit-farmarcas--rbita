@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Órbita · R. Luiz Otacílio Correia, 49 — Centro, Várzea Alegre/CE, 63540-000</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Dossiê de Região</div>
+  <div class="sub">Leitura de região para análise de ponto — <b>sem score</b> ·
+    dump de 2026-10-26 · cadastro de lojas de 2026-11-10</div>
+</header>
+<div class="faixa-end">R. Luiz Otacílio Correia, 49 — Centro, Várzea Alegre/CE, 63540-000</div>
+<section class="topo">
+  <div class="gate" style="border-color:#0f7b45">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#0f7b45">Liberado</div>
+    <div class="nota">Até 60 mil → 1 grupo econômico, sem expansão adicional</div>
+    
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Cidade de 38.984 habitantes sem nenhuma loja da rede e com a vaga única do teto em aberto, onde a farmácia mais próxima está a 16 m e quatro das seis portas do raio pertencem a dois donos.</p>
+    <div class="meta">Solicitante: <b>empresário novo</b> ·
+      Bandeira: <b>Ultra Popular</b> (popular) ·
+      População do município (Censo 2022): <b>38.984</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da região</h2>
+  <div class="swot-eixo"><span>A favor</span><span>Contra</span></div><div class="swot"><div class="lente" style="border-color:#0f7b45;background:#e8f6ee"><div class="lente-tit" style="color:#0f7b45">Forças</div><p class="abertura">O que sustenta este ponto não é o raio de 300 m: é a cidade inteira estar desocupada pela rede, com mercado grande para o porte dela e pouca farmácia por habitante.</p><p><b>Nenhuma loja da rede na cidade, e R$ 29.878.340,00 por ano circulando sem ela</b> O cadastro não registra loja da rede em Várzea Alegre, e a receita Farmarcas na unidade territorial do município é de R$ 0,00, com as bandeiras da rede em 0% e a linha de concorrentes em 100%. O mercado do município avançou 4% desde o período anterior, quando somava R$ 28.615.269,64.</p><p><b>A cidade tem menos farmácia por habitante que nove em cada dez municípios do país</b> São 2.560,9 habitantes por farmácia, contra uma mediana nacional de 1.492,6 — percentil 91 entre 5.541 municípios comparados. Com a população do Censo 2022 no numerador, são 2.436,5 habitantes por farmácia, no percentil 89. Mais habitantes por farmácia significa mercado menos disputado por ponto instalado.</p><p><b>Nenhum grupo econômico instalado na praça</b> A cidade tem zero lojas ocupando vaga de zoneamento e zero grupos econômicos registrados no cadastro. O pedido entraria como o primeiro grupo da praça, e a faixa de até 60 mil habitantes admite um.</p><p><b>A composição de classe da cidade é a do modelo pretendido</b> Várzea Alegre tem 52,99% dos domicílios em D/E e 26,39% em C2, contra 0,31% em A e 1,62% em B1. O preço por unidade praticado pelo Grupo Farmarcas no Ceará é de R$ 22,66, contra R$ 29,91 dos concorrentes no mesmo estado — o grupo opera abaixo do patamar de preço do estado, e não precisa esticar para alcançá-lo.</p></div><div class="lente" style="border-color:#b4503c;background:#fdeee9"><div class="lente-tit" style="color:#b4503c">Fragilidades</div><p class="abertura">A fragilidade deste ponto é de vizinhança imediata: o raio de 300 m já está ocupado, e por poucos donos.</p><p><b>A farmácia mais próxima está a 16 m, na mesma rua</b> Dentro de 300 m há seis registros de farmácia, e o mais próximo fica a 16 m do endereço analisado, classificado como franquia. Em 5 km são quatorze, um deles cadastrado em outro estado e sinalizado como registro implausível. A faixa mediana ocupada pelos vizinhos do raio curto é a de R$ 162.244,26 a R$ 271.181,24 por mês, e a faixa mais alta ocupada vai de R$ 549.075,62 a R$ 846.655,40.</p><p><b>Seis portas, e dois donos respondem por quatro delas</b> Dos seis registros em 300 m, dois pares compartilham a mesma raiz de CNPJ, e o solicitante confirmou que são dois empresários com duas lojas cada. Os outros dois registros estão no mesmo endereço da Rua Deputado Otacílio Correia, com raízes diferentes entre si. Disputar esta praça é disputar com donos que já têm mais de uma porta.</p><p><b>O entorno imediato comporta entre R$ 681.939,06 e R$ 1.542.245,82 por mês</b> É a banda que a régua de canal devolve para as seis lojas de 300 m, e ela é larga por dois motivos declarados: uma das seis está sem canal reconhecido e entra como intervalo, e a base não traz a dispersão interna de cada canal. A loja média do canal de associações e franquias no Ceará fatura R$ 127.431,72 por mês.</p><p><b>A renda do município está entre as mais baixas do país</b> A renda domiciliar per capita é de R$ 202,74, no percentil 6 entre 5.565 municípios, contra uma mediana nacional de R$ 456,30. O PIB per capita de R$ 14.755,13 fica no percentil 18, contra R$ 29.893,52 de mediana. No índice de desenvolvimento municipal, a dimensão de emprego e renda é a mais fraca das três, em 0,3719 contra 0,7778 em educação.</p></div><div class="lente" style="border-color:#1a5fb4;background:#e9f0fb"><div class="lente-tit" style="color:#1a5fb4">Oportunidades</div><p class="abertura">As oportunidades aqui não estão no raio de 300 m, e sim no que a cidade consome fora dele e no que as farmácias instaladas deixaram de fazer.</p><p><b>Quatorze das dezesseis farmácias da cidade não são credenciadas ao Farmácia Popular</b> A cidade tem 16 farmácias, das quais apenas 2 credenciadas ao programa, e nenhuma da rede. Os gastos em medicamentos do município somam R$ 20.254.225,00, e os domicílios de classe D/E são maioria absoluta na cidade. É a porta que a maioria dos concorrentes deixou fechada, justamente no público mais numeroso.</p><p><b>O anel de 5 km reúne 22.726 moradores, contra 1.884 no raio curto</b> A densidade cai de 6.690,71 habitantes por km² em 300 m para 310,76 em 5 km, e o município é 38,59% rural. A clientela da loja, se vier de fora da quadra, vem desse anel — e ele é a maior parte do município.</p><p><b>O mercado da cidade é mais pesado em prescrição do que em conveniência</b> Na unidade territorial do município, prescrição responde por 60% da receita e medicamentos isentos de prescrição por 17%, com genéricos em 27% do grupo de produtos e propagados em 37%. Sortimento de bandeira popular numa praça assim se decide no estoque de receita e de genérico, não no mix de conveniência, que soma 2%.</p><p><b>Os bricks vizinhos praticam entre R$ 25,36 e R$ 32,86 por unidade</b> Os dois mais próximos ficam a 35,9 km e 36,8 km, com R$ 25,36 e R$ 27,11; os polos regionais a 47,7 km e 47,8 km vão de R$ 30,55 a R$ 32,86. O agregado do Ceará é R$ 29,35. É o patamar da região, e não o desta praça, que não tem brick identificado.</p></div><div class="lente" style="border-color:#8b3a62;background:#fbeaf2"><div class="lente-tit" style="color:#8b3a62">Dificuldades</div><p class="abertura">O que este ponto vai ter de atravessar é a distância entre onde ele está e onde está o dinheiro que o sustenta.</p><p><b>A renda do anel externo é metade da do Centro</b> São R$ 1.023,82 por habitante em 300 m contra R$ 537,22 em 5 km, e R$ 1.590,74 de renda domiciliar contra R$ 912,59. A loja fica onde a renda é alta e a população é pequena, e o volume está onde a renda por habitante é a metade — atrair esse volume é custo de operação, não consequência do endereço.</p><p><b>A cidade não atrai consumo de fora, e perde consumo para o polo</b> O IBGE classifica Várzea Alegre como Centro Local, hierarquia 5, com 0 municípios influenciados, e registra que a demanda por serviços de maior complexidade é atendida em Juazeiro do Norte. A 350 km da capital, a praça depende do próprio município: qualquer plano que conte com clientela de cidades vizinhas contraria o que a base registra.</p><p><b>Via residencial e nenhum transporte público mapeado em 500 m</b> A via do endereço é classificada como rua residencial, e não há ponto de transporte público mapeado no entorno — quem chega, chega a pé do próprio Centro ou de carro. O ponto fica num trecho de centro com equipamentos de praça e calçadão a partir de 56 m e comércio a partir de 103 m, então o movimento depende de quem já está no Centro, não de quem desembarca nele.</p></div></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Detalhes da região analisada</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População na área</div><div class="val">1.884 habitantes</div><div class="nota">13 setores censitários no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Raio de estudo</div><div class="val">300 m</div><div class="nota">comparado também a 5.000 m</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Domicílios</div><div class="val">636</div><div class="nota">2,97 moradores por domicílio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo</div><div class="val">R$ 1.815.831,07</div><div class="nota">drogarias, rateado pela fração de cada setor no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Método de rateio</div><div class="val">proporcional por área</div><div class="nota">cobertura do círculo: 100,0% · 13 setores</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Contexto macroeconômico</h2>
+  
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Densidade demográfica</div><div class="val">6.691 hab/km²</div><div class="nota">média dos setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média por habitante</div><div class="val">R$ 1.023,82</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média domiciliar</div><div class="val">R$ 1.590,74</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Verticalização</div><div class="val">4,8%</div><div class="nota">domicílios em apartamento — casas x apartamentos</div></div>
+    
+  </div>
+  
+</section>
+<section>
+  <h2><span class="ic">$</span> Microterritório e concorrência</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais na cidade</div><div class="val">R$ 2.615.935,55</div><div class="nota">10 lojas com faixa declarada no município · soma de rótulos de faixa — o campo tem 8 valores, um por faixa, e classifica a loja em vez de medir a venda</div></div>
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Média da faixa por loja</div><div class="val">R$ 335.663,14</div><div class="nota">média mensal dos rótulos de faixa das lojas do raio — não é faturamento medido</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais no raio</div><div class="val">R$ 1.678.315,71</div><div class="nota">soma das faixas de 5 lojas classificadas · o campo tem 8 valores, um por faixa — classifica a loja, não mede a venda</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Concorrentes em 300 m</div><div class="val">6</div><div class="nota">14 em 5.000 m</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Lojas Farmarcas no raio</div><div class="val">0</div><div class="nota">pelo cadastro de lojas (CNPJ + coordenada)</div></div>
+    
+  </div>
+  <h3>Quanto vende uma loja — três fontes independentes</h3>
+  
+  <h4>Concorrentes da praça — em que faixa de faturamento eles caem</h4>
+  
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Faixa mais baixa ocupada</div><div class="val">R$ 89.997,73</div><div class="nota">faixa, entre as 10 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Faixa mediana</div><div class="val">R$ 216.712,75</div><div class="nota">faixa, entre as 10 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Faixa mais alta ocupada</div><div class="val">R$ 697.865,52</div><div class="nota">faixa, entre as 10 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+  </div>
+  <h4>Mercado do raio — régua medida por canal</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mercado em 300 m</div><div class="val">R$ 637.158,60</div><div class="nota">5 de 6 lojas em 300 m · 1 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Mercado em 5.000 m</div><div class="val">R$ 1.408.658,58</div><div class="nota">13 de 14 lojas em 5.000 m · 1 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+  </div>
+  <table><thead><tr><th>Canal</th><th>Por loja/mês</th><th>Lojas em 300 m</th><th>Lojas em 5.000 m</th></tr></thead><tbody><tr><td>ABRAFARMA</td><td>R$ 905.087,22</td><td>—</td><td>—</td></tr><tr><td>Grupo Farmarcas</td><td>R$ 435.225,59</td><td>—</td><td>—</td></tr><tr><td>Outras redes corporativas</td><td>R$ 337.999,76</td><td>—</td><td>—</td></tr><tr><td>FEBRAFAR</td><td>R$ 226.586,37</td><td>—</td><td>—</td></tr><tr class="tem"><td>Associações e franquias</td><td>R$ 127.431,72</td><td>5</td><td>10</td></tr><tr class="tem"><td>Independentes</td><td>R$ 44.780,46</td><td>—</td><td>3</td></tr></tbody></table>
+  
+
+  <h4>Lojas do grupo — receita medida · Ultra Popular em CE</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Menor receita medida</div><div class="val">R$ 110.850,64</div><div class="nota">36 loja(s) do grupo em CE, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Receita mediana medida</div><div class="val">R$ 394.240,34</div><div class="nota">36 loja(s) do grupo em CE, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Maior receita medida</div><div class="val">R$ 1.067.475,70</div><div class="nota">36 loja(s) do grupo em CE, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mesma bandeira, rede inteira</div><div class="val">R$ 442.847,15</div><div class="nota">mediana de 890 loja(s) · mesma fonte, recorte nacional</div></div>
+  </div>
+
+  <h3>Venda mensal aproximada — raio de estudo</h3>
+  <table><thead><tr><th>Máxima</th><th>Mínima</th><th>Classificação</th><th>Lojas no raio</th></tr></thead><tbody><tr><td>Acima</td><td>R$ 1.336.854,12</td><td><span class="faixa f1">1</span></td><td>—</td></tr><tr><td>R$ 1.336.854,11</td><td>R$ 846.655,41</td><td><span class="faixa f2">2</span></td><td>—</td></tr><tr class="tem"><td>R$ 846.655,40</td><td>R$ 549.075,62</td><td><span class="faixa f3">3</span></td><td>1</td></tr><tr><td>R$ 549.075,61</td><td>R$ 388.442,64</td><td><span class="faixa f4">4</span></td><td>—</td></tr><tr class="tem"><td>R$ 388.442,63</td><td>R$ 271.181,25</td><td><span class="faixa f5">5</span></td><td>1</td></tr><tr class="tem"><td>R$ 271.181,24</td><td>R$ 162.244,26</td><td><span class="faixa f6">6</span></td><td>3</td></tr><tr><td>R$ 162.244,25</td><td>R$ 89.997,74</td><td><span class="faixa f7">7</span></td><td>—</td></tr><tr><td>R$ 89.997,74</td><td>Abaixo</td><td><span class="faixa f8">8</span></td><td>—</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">◷</span> Potencial de consumo da região analisada</h2>
+  
+  <div class="split">
+    <div class="split-cards">
+      <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo total</div><div class="val">R$ 1.815.831,07</div><div class="nota">médio potencial de captura</div></div>
+      <div class="card" style="border-left-color:#3b7ddd"><div class="rot">Medicamentos</div><div class="val">R$ 766.139,08</div><div class="nota">42,2% do total</div></div>
+      <div class="card" style="border-left-color:#e8558f"><div class="rot">Higiene, Beleza &amp; Nutrição</div><div class="val">R$ 1.049.691,99</div><div class="nota">57,8% do total</div></div>
+    </div>
+    <div class="split-graf">
+      <svg viewBox="0 0 180 180" width="190" height="190" role="img"
+  aria-label="Medicamentos 42%, Higiene, Beleza &amp; Nutrição 58%">
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#e8558f" stroke-width="34"/>
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#3b7ddd" stroke-width="34"
+     stroke-dasharray="185.61 254.22" transform="rotate(-90 90 90)"/>
+</svg>
+      <div class="legenda"><span class="p azul"></span>Medicamentos
+        <span class="p rosa"></span>Higiene, Beleza &amp; Nutrição</div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Geradores de fluxo em 500 m</h2>
+  
+  
+  <table><thead><tr><th>Categoria e por que gera fluxo</th><th>Em 500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b><div class='nota'>consulta e exame trazem paciente e acompanhante, muitos com receita na mão ao sair</div></td><td>1</td><td>396 m</td><td>Hospital São Raimundo Nonato</td></tr><tr><td><b>Creche Escola</b><div class='nota'>entrada e saída concentram pais e responsáveis em horário fixo, todo dia útil</div></td><td>3</td><td>209 m</td><td>Escola Estadual de Ensino Médio José Correia Lima, Escola Dr. Pedro Satiro, Colégio São Raimundo Nonato</td></tr><tr><td><b>Mercado Supermercado</b><div class='nota'>compra de rotina puxa a mesma pessoa várias vezes por semana</div></td><td>2</td><td>352 m</td><td>Mercadinho Padre Cícero, SuperQue Atacarejo - Loja 2</td></tr><tr><td><b>Banco Loteria</b><div class='nota'>fila e pagamento prendem a pessoa no quarteirão, e o idoso é público de medicamento contínuo</div></td><td>1</td><td>117 m</td><td>Caixa Econômica Federal</td></tr><tr><td><b>Transporte</b><div class='nota'>ponto e terminal despejam fluxo de passagem — o passante que não mora nem trabalha aqui</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Coletiva</b><div class='nota'>prédio concentra muita gente em pouca área, com compra de conveniência a pé</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Individual</b><div class='nota'>casa indica bairro residencial, de compra planejada e menos passagem</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Comercio Servicos</b><div class='nota'>densidade comercial é o que faz a rua ter movimento ao longo do dia</div></td><td>10</td><td>103 m</td><td>Churrascaria e Pousada Gregório, Americanas Express, Lojas Moveletro</td></tr><tr><td><b>Lazer Culto</b><div class='nota'>igreja, praça e academia concentram fluxo em horários e dias específicos</div></td><td>15</td><td>56 m</td><td>Calçadão, Praça São Vicente, Praça da Matriz</td></tr></tbody></table><p class='vazio'>Equipamento sem nome no mapa entra na contagem e fica fora da coluna de exemplos. Cobertura é colaborativa: ausência aqui não é ausência no mundo.</p>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Onde mais olhar — mesma UF</h2>
+  <table><thead><tr><th>Praça (município — localidade) e por que olhar</th><th>Mercado não atendido</th><th>Potencial e captura do município</th><th>Preço médio</th><th>Cresc.</th><th>Lojas</th><th>Zoneamento</th></tr></thead><tbody><tr><td><b>JUAZEIRO DO NORTE/CE</b><div class='nota'>a 48 km do ponto pedido; mercado de R$ 336,9 milhões sem receita nossa dentro, no município; 1 loja(s) Farmarcas já na cidade; mercado crescendo 14%; 54% do potencial anual do município já capturado; preço médio de R$ 31,63 por unidade; ATENÇÃO: a receita Farmarcas caiu aqui — praça possivelmente já testada.</div></td><td><b>R$ 336,9 milhões</b><div class='nota'>R$ 336.945.955</div></td><td>R$ 628.394.853<div class='nota'>potencial anual do município · captura de 53,9% pelo município</div></td><td>R$ 31,63<div class='nota'>por unidade</div></td><td>14,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem teto (acima de 200 mil habitantes)</td></tr><tr><td><b>IGUATU/CE — VILA CENTENARIO</b><div class='nota'>a 48 km do ponto pedido; mercado de R$ 145,8 milhões sem receita nossa dentro, em VILA CENTENARIO; 1 loja(s) Farmarcas já na cidade; mercado crescendo 15%; 83% do potencial anual do município já capturado; preço médio de R$ 32,86 por unidade.</div></td><td><b>R$ 145,8 milhões</b><div class='nota'>R$ 145.753.936</div></td><td>R$ 181.454.830<div class='nota'>potencial anual do município · captura de 82,8% pelo município</div></td><td>R$ 32,86<div class='nota'>por unidade</div></td><td>15,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 1 de 2, 1 vaga(s)</td></tr><tr><td><b>CRATO/CE — MURITI</b><div class='nota'>a 51 km do ponto pedido; mercado de R$ 136,7 milhões sem receita nossa dentro, em MURITI; nenhuma loja Farmarcas na cidade; mercado crescendo 15%; 54% do potencial anual do município já capturado; preço médio de R$ 30,06 por unidade.</div></td><td><b>R$ 136,7 milhões</b><div class='nota'>R$ 136.667.304</div></td><td>R$ 254.315.107<div class='nota'>potencial anual do município · captura de 53,7% pelo município</div></td><td>R$ 30,06<div class='nota'>por unidade</div></td><td>15,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 0 de 3, 3 vaga(s)</td></tr><tr><td><b>ICÓ/CE</b><div class='nota'>a 65 km do ponto pedido; mercado de R$ 50,2 milhões sem receita nossa dentro, no município; nenhuma loja Farmarcas na cidade; mercado crescendo 17%; 76% do potencial anual do município já capturado; preço médio de R$ 27,74 por unidade.</div></td><td><b>R$ 50,2 milhões</b><div class='nota'>R$ 50.150.554</div></td><td>R$ 65.853.143<div class='nota'>potencial anual do município · captura de 76,2% pelo município</div></td><td>R$ 27,74<div class='nota'>por unidade</div></td><td>17,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 0 de 2, 2 vaga(s)</td></tr><tr><td><b>BREJO SANTO/CE</b><div class='nota'>a 85 km do ponto pedido; mercado de R$ 48,5 milhões sem receita nossa dentro, no município; nenhuma loja Farmarcas na cidade; mercado crescendo 23%; 68% do potencial anual do município já capturado.</div></td><td><b>R$ 48,5 milhões</b><div class='nota'>R$ 48.509.078</div></td><td>R$ 71.504.414<div class='nota'>potencial anual do município · captura de 67,8% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>23,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 0 de 1, 1 vaga(s)</td></tr><tr><td><b>BARBALHA/CE</b><div class='nota'>a 58 km do ponto pedido; mercado de R$ 48,5 milhões sem receita nossa dentro, no município; nenhuma loja Farmarcas na cidade; mercado crescendo 18%; 40% do potencial anual do município já capturado; preço médio de R$ 25,44 por unidade.</div></td><td><b>R$ 48,5 milhões</b><div class='nota'>R$ 48.452.276</div></td><td>R$ 119.753.715<div class='nota'>potencial anual do município · captura de 40,5% pelo município</div></td><td>R$ 25,44<div class='nota'>por unidade</div></td><td>18,0%</td><td>0</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 0 de 2, 2 vaga(s)</td></tr></tbody></table><p class='vazio'>Lista de onde vale rodar um dossiê, não recomendação de abertura. Mercado grande sem a rede dentro pode ser praça aberta ou praça já testada e perdida — crescimento Farmarcas negativo é o segundo caso. UTC não é raio nem bairro: serve para escolher a praça, não o ponto.</p><p class='vazio'><b>A lista está limitada a 150 km deste endereço</b>, medidos até o centro aproximado de cada município — premissa desta análise, não regra da casa. Sem esse limite a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p><p class='vazio'>Preço médio em branco quando o nome do município aparece abreviado na base de preço e o casamento por nome falha — é ausência da chave, não do dado. Atinge sobretudo as capitais.</p>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que este dossiê NÃO sabe
+    <span class="qtd">28 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li>Quanta gente passa em frente ao ponto. Fluxo de passantes não existe no acervo nem no produto, e os equipamentos mapeados em 500 m dizem que há geradores de fluxo, não quanta gente circula. Importa aqui porque a tese do ponto é captar quem vem de fora do raio curto, e isso se confirma ou se desmente na calçada. O solicitante tem vídeos do local, que confirmam movimento sem medi-lo: destrava com uma contagem por faixa de hora, num dia útil e num sábado, a partir do material que já existe.</li><li>Parte do anel de 5 km não foi medida. Dois dos 70 setores do raio amplo não têm registro em seis bases — renda, classe de domicílio, potencial de consumo, verticalização, saneamento e gênero — e apenas 94,37% do círculo é coberto por setor com geometria, contra 99,99% no raio de 300 m — o que falta para fechar o círculo é vazio cartográfico. Importa muito neste ponto porque é o anel de 5 km que carrega a tese de onde virá a clientela: população e renda do anel saem por baixo. Destrava com a malha e as tabelas por setor do Censo 2022.</li><li>Em qual brick o ponto cai. Nenhum dos 73 bricks do Ceará leva o nome de Várzea Alegre, e o acervo não traz o polígono do brick. Os valores dos vizinhos são o patamar da região, não o preço desta praça — e é possível que a cidade esteja dentro de um deles sem que a base diga qual. Importa porque preço por unidade é o que separa uma praça de giro barato de uma de giro caro. Destrava com a tabela de municípios por brick do próprio instituto.</li><li>A classe econômica dentro do raio. A composição D/E, C2 e C1 existe apenas por município, e cobre a cidade inteira, Centro incluído; as camadas por setor censitário trazem renda média e não faixa de classe. Então não se sabe qual é o perfil de classe de quem mora no raio da loja, nem no anel externo. Importa porque é a classe, e não a renda média, que define sortimento e política de preço. Destrava com a classe por setor censitário, que o acervo não cobre hoje.</li><li>Se os valores de renda do raio estão em moeda de hoje. As camadas por setor censitário são do Censo 2010 e a unidade dos campos de renda nunca foi apurada. Há um sinal concreto do problema neste dossiê: a renda por habitante do anel de 5 km, aplicada à população dele, supera a massa de renda que o per capita municipal produz para o município inteiro — os dois não podem ser ambos reais de hoje. Por isso a renda do raio entra como comparação entre os dois anéis, nunca como valor absoluto. Destrava com uma apuração da unidade desses campos contra a fonte original.</li><li>Quantos moradores há de fato no raio hoje. População, domicílios e densidade vêm do Censo 2010, com os setores de 2010, e saem subestimados: o município tinha 38.984 habitantes no Censo 2022 e aparece com 40.975 no acervo interno, cujo ano de referência não está declarado. Importa porque a demanda do raio é proporcional a quem mora nele. Destrava com as camadas por setor recalculadas sobre o Censo 2022.</li><li>Quantas farmácias existem na cidade. A camada de mercado farmacêutico municipal registra 16 farmácias; a camada de concorrentes encontra 14 em 5 km, e tem 18 registros sem coordenada que não entram em raio nenhum. A diferença é o tamanho da incerteza sobre a concorrência instalada, e ela também entra no cálculo de habitantes por farmácia. Destrava com o cruzamento por CNPJ entre as duas camadas.</li><li>Se um dos concorrentes de 300 m é uma loja contada duas vezes. Dois registros no mesmo endereço da Rua Deputado Otacílio Correia aparecem com raízes de CNPJ diferentes e rótulos de rede diferentes, e um deles está sem canal reconhecido. Se forem a mesma operação, são cinco concorrentes em 300 m e não seis. Destrava conferindo os dois CNPJs na Receita.</li><li>Quanto uma loja nova faturaria aqui. A régua de canal dimensiona o entorno com a loja média do canal no estado, e a receita medida das lojas da rede descreve praças onde a rede já opera, com a carteira atual e o histórico retroagido. Nenhuma das duas projeta esta loja, e o dossiê não faz essa conta. Destrava com o acompanhamento das primeiras praças virgens abertas pela rede no Ceará.</li><li>Se há loja da rede próxima que o cadastro não localiza. A checagem de distância mínima entre lojas não roda abaixo de 60 mil habitantes, e 932 das 2.808 lojas do cadastro estão sem coordenada preenchida. Neste ponto o efeito é nulo, porque não há loja da rede na cidade nem cadastrada em cidade vizinha aparecendo no raio — mas a regra ficou sem ser exercida. Destrava com a coordenada preenchida no cadastro.</li><li>Zoneamento — cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa.</li><li>Zoneamento — abaixo de 60 mil habitantes a distância mínima entre lojas não é checada — premissa herdada de quando o teto contava lojas e barrava antes. Com o teto contando grupos, uma cidade desta faixa pode passar no gate e seguir sem a checagem, e então a segunda regra de zoneamento fica sem veredito e o resultado do gate não avisa. Destrava com a regra oficial declarando se a distância vale em toda faixa.</li><li>Zoneamento — quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra.</li><li>Zoneamento — a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página.</li><li>Zoneamento — a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página.</li><li>Concorrência — dispersão dentro do canal: a base traz a média do canal e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Duas farmácias independentes no mesmo quarteirão podem diferir várias vezes entre si, e isso não aparece. Destrava com faturamento por CNPJ da região.</li><li>Concorrência — enquadramento das redes nomeadas: em que canal cada rede corporativa nomeada se encaixa é critério do método desta análise, não campo da base. Ler a mesma rede como ABRAFARMA ou como outra rede corporativa muda a referência de porte dela em mais de duas vezes. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li>Concorrência — 18 registros da camada de concorrentes existem na base sem coordenada e por isso não entram em contagem por raio nenhuma — a concorrência medida aqui é um piso, não um total. Destrava com a geocodificação desses registros.</li><li>Concorrência — 32 lojas da rede, no cadastro inteiro, têm coordenada fora do território brasileiro e são descartadas para não medir distância errada. Destrava com a correção do cadastro.</li><li>Concorrência — 3.700 registros da camada, em todo o país, foram descartados por coordenada fora do território brasileiro — parte deles pode ser desta região e está fora da contagem. Destrava com a correção da coordenada na origem.</li><li>Concorrência — camada Farmácias (cadastro da Receita): cadastro Receita/QSA — só endereço; conferir via CNES (Fase 3). É a camada que permitiria conferir a contagem de concorrentes por uma segunda fonte; sem ela, a contagem fica sem checagem cruzada. Destrava com o CNES, que traz CNPJ e coordenada.</li><li>Concorrência — camada Farmácias Populares 2025: só endereço. Sem ela não dá para localizar no raio quem já é credenciado ao Farmácia Popular. Destrava geocodificando os endereços da camada.</li><li>Concorrência — camada Bancos: só endereço. Sem ela falta um gerador de fluxo relevante — fila de banco prende a pessoa no quarteirão. Destrava geocodificando os endereços.</li><li>Concorrência — camada Clínicas Oftalmológicas: só endereço. Sem ela falta um gerador de fluxo de saúde no entorno. Destrava geocodificando os endereços.</li><li>Concorrência — camada Barreiras Geográficas: polígono/linha ficou no asset, não no CSV. Num ponto de passagem é o que diria se a via corta ou conecta os dois lados da área de influência. Destrava recuperando os polígonos da camada.</li><li>Concorrência — camada Setor Censitário: polígono ficou no asset — habilita na Fase 2 com a malha do IBGE. A geometria dos setores vem do asset do Órbita, não do próprio arquivo; é ela que sustenta população, renda e potencial no raio.</li><li>Concorrência — fluxo de passantes: NÃO existe no dump nem no produto</li><li>Mercado por UTC — base de market share por UTC (IQVIA): UTC ausente nesta base. Sem ela o share da rede na praça não é medido, só inferido pela receita — e share ausente não é share zero. Destrava quando a IQVIA passar a publicar a UTC.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li>Confirmar qual farmácia está efetivamente colada ao ponto. A numeração não acompanha as distâncias: o endereço analisado é o número 49, o registro do número 197 aparece a 16 m e o do número 90 a 192 m. Se a coordenada do vizinho mais próximo estiver trocada, a fragilidade central deste dossiê muda de tamanho.</li><li>Transformar os vídeos do local em contagem de passantes por faixa de hora, num dia útil e num sábado. Fluxo alto confirma a tese de captar quem vem de fora do raio curto; fluxo concentrado em uma faixa curta do dia muda o dimensionamento da equipe e do estoque.</li><li>Andar o trecho entre o ponto e o calçadão, que está a 56 m, e entre o ponto e o comércio, que começa a 103 m. Se a caminhada for contínua e movimentada, o endereço é parte do eixo comercial; se houver quebra de fluxo, ele é borda, e a conta de captação muda.</li><li>Conferir na Receita se os dois registros da Rua Deputado Otacílio Correia são uma operação ou duas. Se for uma, o raio de 300 m tem cinco concorrentes e não seis, e a concentração entre poucos donos é ainda maior.</li><li>Checar o registro de farmácia cadastrada em outro estado que aparece a 836 m deste ponto. Ou a coordenada está errada e há uma farmácia não identificada no raio de 5 km, ou o cadastro está errado e a contagem de concorrentes do anel amplo está inflada em um.</li><li>Levantar com a rede quanto o credenciamento ao Farmácia Popular movimenta em praça de perfil parecido. Se movimentar parcela relevante do faturamento em praças de maioria D/E, o credenciamento deixa de ser diferencial e passa a ser pré-requisito de abertura; se for marginal, a oportunidade identificada aqui sai da lista e o pedido perde um dos seus argumentos.</li></ul>
+</section>
+
+
+<footer>
+  Órbita · Dossiê de Região · R. Luiz Otacílio Correia, 49 — Centro, Várzea Alegre/CE, 63540-000 · coordenada informada pelo solicitante na abertura da análise; não geocodificada nesta sessão · acervo de 2026-10-26
+</footer></div></body></html>

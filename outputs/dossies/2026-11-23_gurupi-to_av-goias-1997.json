@@ -1,0 +1,138 @@
+{
+  "endereco": "BR-242 (Avenida Goiás), 1997 - Setor União I, Gurupi/TO, 77440-070",
+  "lat": -11.728721,
+  "lng": -49.066997,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "1709500",
+  "municipio": "Gurupi",
+  "uf": "TO",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "novo",
+  "ge": "",
+  "receita_por_m2": null,
+  "resumo": "Esquina de avenida principal numa cidade de alto potencial de consumo e alta saturação de farmácias, com 13 concorrentes dentro de 300 m e o zoneamento liberando com alerta de densidade.",
+  "lentes": {
+    "Forças": {
+      "abertura": "O que joga a favor deste endereço está mais na cidade e na posição da esquina do que em quem mora em volta dela: Gurupi é polo de uma rede de 14 municípios, tem potencial de consumo acima de nove em cada dez municípios comparados, e um mercado farmacêutico em crescimento.",
+      "itens": [
+        {
+          "titulo": "O ponto está em esquina de avenida principal, com duas faces de exposição",
+          "texto": "É o encontro da Avenida Goiás com a Rua Presidente Juscelino Kubitschek, a 10,6 m do cruzamento e a 4,4 m da via. A Avenida Goiás é classificada como avenida principal na malha viária, o maior porte que a classificação distingue.",
+          "fonte": "malha viária do OpenStreetMap"
+        },
+        {
+          "titulo": "Gurupi puxa público de 14 municípios que somam quase outra Gurupi",
+          "texto": "A cidade é classificada como Centro Sub-Regional A e atende a demanda de rotina de 14 municípios do entorno, que somam 87.206 habitantes — contra 90.819 moradores da própria cidade na mesma base de população. Na rede urbana ela se vincula a Palmas.",
+          "fonte": "REGIC 2018, do IBGE, e camada de População por município"
+        },
+        {
+          "titulo": "O mercado farmacêutico da cidade cresce 11,68%, e a rede cresce mais que ele",
+          "texto": "São R$ 129,90 milhões no acumulado de 12 meses atual, contra R$ 116,32 milhões no anterior. Dentro desse total a Farmarcas fez R$ 20,10 milhões, crescendo 23% enquanto o restante do mercado cresceu 10%. A Ultra Popular é a única bandeira da rede presente na praça e responde por 16% dela.",
+          "fonte": "base de crescimento por UTC e base de bandeiras por UTC (IQVIA)"
+        },
+        {
+          "titulo": "O potencial de consumo da cidade está acima de 93% dos municípios brasileiros",
+          "texto": "O índice de potencial de consumo de Gurupi é 0,04221, terceiro do Tocantins e no percentil 93 entre 5.571 municípios comparados. O índice Firjan de desenvolvimento municipal é 0,7497, segundo do estado e no percentil 87, contra mediana nacional de 0,61.",
+          "fonte": "Ranking de Consumo e índice Firjan (IFDM)"
+        },
+        {
+          "titulo": "O entorno imediato concentra escolas e comércio de destino",
+          "texto": "Dentro de 500 m há 4 escolas, a mais próxima a 111 m, uma agência bancária a 148 m e uma Lojas Americanas a 357 m. O mapa colaborativo registra 579 objetos e 9 equipamentos etiquetados na área, e nenhum deles é de saúde, mercado ou transporte.",
+          "fonte": "equipamentos mapeados no OpenStreetMap"
+        },
+        {
+          "titulo": "Os domicílios da cidade se concentram nas classes C e D/E",
+          "texto": "C2 responde por 28,6%, D/E por 25,3% e C1 por 21,4%. A classe A responde por 2,3% e a B1 por 5,8%.",
+          "fonte": "base do Farmácia Popular"
+        }
+      ]
+    },
+    "Fragilidades": {
+      "abertura": "A praça é disputada e o quarteirão é o mais disputado dela. A cidade já tem mais farmácia por habitante que a maioria do país, e o mercado do anel de 300 m é explicado sobretudo por lojas de rede nacional, num trecho onde quase ninguém mora.",
+      "itens": [
+        {
+          "titulo": "Gurupi tem 1.121,2 habitantes por farmácia, contra mediana nacional de 1.492,6",
+          "texto": "São 5.541 municípios comparados, e Gurupi fica no percentil 23 — quanto menor o percentil, mais farmácia para a mesma gente. Com a população do Censo 2022 no numerador, são 1.050,9 habitantes por farmácia e percentil 18. A cidade tem 81 farmácias.",
+          "fonte": "base do Farmácia Popular, cadastro de municípios e Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "Treze farmácias dentro de 300 m, e a mais próxima está a 17 m",
+          "texto": "A vizinha imediata é uma Pague Menos, a 17 m. Depois vêm lojas a 39 m, 60 m, 87 m, 115 m, 115 m, 116 m, 135 m, 140 m e 144 m — quase todas na própria Avenida Goiás. Num raio de 5 km em volta do mesmo ponto são 67 farmácias.",
+          "fonte": "camada Concorrentes 2025"
+        },
+        {
+          "titulo": "O mercado do anel é explicado sobretudo por três lojas de canal nacional",
+          "texto": "Das 13 farmácias do anel de 300 m, 3 são do canal ABRAFARMA, cuja loja média no Tocantins fatura R$ 1.049.209,93 por mês, e 6 são independentes, cuja loja média no estado fatura R$ 47.772,91. Somadas pela régua de canal, as lojas do anel movimentam R$ 3,96 milhões por mês. Por outra medida, a da faixa de faturamento que cada loja declara no cadastro, uma única das 13 ocupa a faixa mais alta do anel, a de R$ 846.655,41 a R$ 1.336.854,11 — e ela está a 60 m, operando como franquia.",
+          "fonte": "receita e PDVs por canal (IQVIA) e camada Concorrentes 2025"
+        },
+        {
+          "titulo": "Menos de mil pessoas moram no raio que concentra as treze farmácias",
+          "texto": "São 943,64 moradores em 336 domicílios dentro de 300 m, com densidade de 3.350,73 habitantes por km² contra 49,25 no município inteiro, e verticalização de 8,62%. O potencial de consumo em drogarias no raio é de R$ 1,71 milhão, repartido em 48% medicamentos e 52% higiene, beleza e nutrição. É um trecho de comércio, não de moradia: quem sustenta a loja não mora nela.",
+          "fonte": "camada Setor Censitário, camada Potencial de Consumo por setor censitário e camada de Densidade Demográfica por município"
+        }
+      ]
+    },
+    "Oportunidades": {
+      "abertura": "As duas alavancas em aberto aqui não dependem do endereço, e sim do que a rede consegue fazer que o concorrente típico do quarteirão não faz: credenciar-se a um programa que move quase cem milhões na cidade, e comprar com retaguarda que seis vizinhos independentes não têm.",
+      "itens": [
+        {
+          "titulo": "Credenciar ao Farmácia Popular é ação da própria loja, num município que gasta R$ 98,39 milhões em medicamentos",
+          "texto": "O credenciamento se resolve no ato de abertura e já é praticado por 14 das 81 farmácias da cidade. O solicitante confirmou que pretende credenciar este ponto, o que o põe desde o primeiro dia na parcela da praça que opera pelo programa.",
+          "fonte": "base do Farmácia Popular"
+        },
+        {
+          "titulo": "A retaguarda da rede alcança um patamar de preço que o vizinho independente não alcança",
+          "texto": "Seis das 13 farmácias do anel de 300 m são independentes, cuja loja média no Tocantins fatura R$ 47.772,91 por mês. Na região de Gurupi, as lojas do Grupo Farmarcas registram R$ 23,17 por unidade e os concorrentes R$ 35,10, num patamar regional de R$ 32,71 por unidade, acima dos R$ 30,61 da UF.",
+          "fonte": "base de faturamento por brick (IQVIA) e receita e PDVs por canal (IQVIA)"
+        },
+        {
+          "titulo": "As categorias que mais crescem na praça respondem hoje por fatias pequenas dela",
+          "texto": "Nutrição e suplementos crescem 17% e respondem por 2% da receita da praça; conveniência cresce 16% com 5%; infantil cresce 14% com 6%. A prescrição, que sozinha é 56% do mix, cresce 14%. Montar o mix com peso nas três primeiras é decisão de sortimento disponível na abertura.",
+          "fonte": "base de mix de categorias por UTC (IQVIA)"
+        }
+      ]
+    },
+    "Dificuldades": {
+      "abertura": "O zoneamento não barra, e chega à mesa de aprovação com duas ressalvas do próprio gate — a densidade de lojas e uma distância mínima que não pôde ser checada —, somadas à convivência com o associado que já opera a praça.",
+      "itens": [
+        {
+          "titulo": "A praça passa a ter 4 lojas da rede para uma faixa que dimensiona 2",
+          "texto": "Com esta loja, Gurupi fica com 4 lojas Farmarcas distribuídas entre 2 grupos econômicos, numa faixa de população cujo teto é de 2 grupos. O teto é respeitado, e ainda assim são mais pontos da rede dividindo a mesma cidade: o alerta de densidade precisa de resposta na mesa de aprovação antes de o ponto andar.",
+          "fonte": "regras de zoneamento (Confluence 4.5 e 6.1) e cadastro de lojas"
+        },
+        {
+          "titulo": "As três lojas Farmarcas ativas da cidade são de outro associado, e a mais próxima está a 619 m",
+          "texto": "Todas respondem ao mesmo grupo econômico, que não é o do solicitante, e todas operam a bandeira Ultra Popular. Para empresário novo, nenhuma sobreposição é escolha estratégica: toda loja da rede próxima é de terceiro, e a disputa pelo mesmo público entre associados é o que a regra de expansão existe para evitar. Alguém vai ter de arbitrar essa convivência antes de o ponto andar.",
+          "fonte": "cadastro de lojas e regras de zoneamento (Confluence 4.5 e 6.1)"
+        }
+      ]
+    }
+  },
+  "nao_sabe": [
+    "Quanta gente passa em frente ao ponto. O solicitante confirmou que a tese deste endereço se apoia no fluxo de passagem da rodovia que cruza a cidade, e fluxo de passantes não existe em fonte nenhuma — nem nas bases do Órbita, nem no produto, nem em API pública. Isso importa mais aqui do que em ponto de bairro: só 943,64 pessoas moram dentro de 300 m, de modo que a premissa central do pedido é justamente a que não tem medida. Destrava com contagem de passantes em campo, em dia útil e em sábado, nos horários de pico da avenida.",
+    "Por que as duas lojas Ultra Popular do quarteirão fecharam. O cadastro registra duas lojas da mesma bandeira pretendida, de um grupo econômico diferente do instalado, desativadas a 121 m e a 154 m do ponto. O motivo do fechamento não está em base nenhuma, e ele é a diferença entre um endereço que já derrubou duas operações iguais à pretendida e uma saída da rede por razão alheia ao ponto. O solicitante não sabe dizer. Destrava com o histórico de encerramento dessas duas lojas junto à área de Expansão.",
+    "Qual das duas bases está certa sobre essas lojas. O cadastro, que é a fonte de verdade, diz que as duas estão desativadas, e o solicitante confirmou essa leitura. A camada Concorrentes 2025 registra os mesmos dois CNPJs com faturamento cadastrado, e situa um deles a 33 m do ponto, contra 154 m no cadastro. Enquanto as duas divergirem, a contagem de grupos econômicos da cidade depende de qual se acredita — e é ela que decide o teto. Destrava com conferência de situação cadastral dos dois CNPJs na Receita e com atualização da camada.",
+    "Que o pedido caiba no teto depende de uma premissa, não da regra escrita. A página de zoneamento não diz se loja desativada ocupa vaga; a apuração adota que não ocupa. É essa adoção que mantém Gurupi com 1 grupo econômico instalado e o solicitante como 2º numa faixa de teto 2. Se loja desativada passasse a ocupar vaga, as duas do quarteirão trariam um segundo grupo e o pedido seria o terceiro. Destrava com a definição oficial de quais situações cadastrais ocupam vaga.",
+    "Onde fica a terceira loja ativa do associado instalado. Ela está sem coordenada no cadastro, registrada no Setor Central, e por isso não entrou na checagem de distância mínima — se estiver a menos de 300 m, a regra entre lojas de mesma bandeira passa a incidir sobre este pedido. No cadastro inteiro, 932 das 2.808 lojas estão sem coordenada preenchida e 32 caem fora do Brasil. Destrava com geocodificação do endereço dessa loja.",
+    "Se a renda do entorno é maior ou menor que a da cidade. Os setores censitários do raio devolvem R$ 2.634,26 por habitante e R$ 4.139,96 por domicílio; a camada municipal devolve R$ 284,64 de renda domiciliar per capita para Gurupi. As duas descrevem coisas diferentes, em bases diferentes e sem ano de referência declarado, e não se comparam entre si — e é essa comparação que diria se o ponto puxa para perfumaria ou para genérico. Destrava com a documentação de origem das camadas de renda do acervo.",
+    "A que período se refere o potencial de consumo. A base não declara se os R$ 1,71 milhão do raio são de um mês ou de um ano, e o relatório do produto rotula o mesmo campo como mensal enquanto o teste de ordem de grandeza aponta valor anual. A diferença é de doze vezes, e ela decide se o potencial do raio é maior ou menor que os R$ 3,96 milhões por mês que o anel movimenta pela régua de canal. Destrava com a documentação da camada de potencial de consumo.",
+    "O que existe de saúde num raio de 500 m. O mapa colaborativo não encontrou nenhum posto, clínica, laboratório ou consultório, num trecho em que encontrou 579 objetos e 9 equipamentos etiquetados. Ausência no mapa não é ausência no mundo, e saúde é a categoria que mais traz gente com receita na mão. O solicitante preferiu tratar o assunto depois. Destrava com levantamento em campo ou consulta ao CNES por coordenada.",
+    "Quanto custa ocupar este imóvel. O solicitante não tem o valor de aluguel pretendido nem uma régua de faturamento por metro quadrado para a bandeira, e não existe fonte pública de aluguel comercial por município. Sem os dois, área de venda, aluguel e custo de ocupação ficam fora do relatório, e não há como dizer se o ponto se paga no patamar de receita da bandeira no estado. Destrava com a proposta de locação e a régua de R$/m² usada pela Expansão.",
+    "Em qual brick este endereço cai. O casamento foi pelo nome do município e dois bricks de Gurupi entraram na conta, de modo que o preço médio por unidade é o patamar da região e não o deste quarteirão. Preço por unidade mais baixo também pode refletir mix diferente, e não política de preço. Destrava com a malha geográfica de bricks.",
+    "Se são 13 ou 12 farmácias no anel. Um dos 13 registros, a 178 m do ponto, está cadastrado em Ibotirama — cidade que um raio de 300 m não alcança —, e a checagem de qualidade do dado o marca como erro provável de cadastro. Ele entra também entre as 6 independentes e na soma de R$ 3,96 milhões por mês pela régua de canal, de modo que o número de capa deste dossiê pode ser um a menos. Destrava com conferência do endereço desse CNPJ.",
+    "Onde está, de fato, o ponto analisado. A coordenada que ancora este dossiê veio com a solicitação e sua origem não é declarada na apuração. Toda distância do documento parte dela: os 17 m da farmácia mais próxima, os 619 m da loja do associado, a classificação de esquina. Um erro de dezenas de metros muda a vizinhança imediata, e um de centenas muda o raio inteiro. Destrava com conferência da coordenada contra o número do imóvel na Avenida Goiás.",
+    "O que o cadastro da Receita diria sobre as farmácias do entorno. A camada de farmácias do cadastro da Receita traz só endereço, sem coordenada, e por isso não entrou na contagem do raio. Ela é uma das fontes que permitiria conferir quantas das 13 estão de fato ativas e cruzar com os equipamentos de saúde que faltam no mapa. Destrava com consulta ao CNES por coordenada, que tem CNPJ e geolocalização.",
+    "Quanto varia o faturamento dentro de cada canal. A régua traz a loja média de cada canal no estado e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Duas independentes do mesmo quarteirão podem diferir várias vezes entre si, e aqui são seis delas no anel de 300 m. Destrava com faturamento por CNPJ da região.",
+    "Por que este endereço e não outro em Gurupi. O solicitante respondeu que o ponto ficou livre, de modo que a escolha é disponibilidade de imóvel e não leitura competitiva. Fica como premissa declarada: o dossiê descreve o endereço apresentado e não o compara com outros imóveis da cidade que poderiam estar disponíveis. Destrava com uma lista de imóveis candidatos para análise comparativa."
+  ],
+  "campo": [
+    "Contar passantes em frente ao ponto, em dia útil e em sábado, nos horários de pico da Avenida Goiás. É a verificação mais importante deste dossiê: o pedido se apoia no fluxo de passagem e nenhuma base o mede. Contagem alta sustenta a tese apesar dos 943,64 moradores do raio; contagem baixa deixa o ponto dependendo de quem mora em volta, e aí as 13 farmácias do anel passam a dividir uma base pequena.",
+    "Verificar no local se os imóveis das duas Ultra Popular desativadas, a 121 m e a 154 m, estão fechados, e o que ocupa cada um hoje. Se alguma estiver operando, há um segundo grupo econômico instalado na cidade e o pedido deixa de ser o 2º grupo numa faixa de teto 2 — o zoneamento precisa ser rodado de novo.",
+    "Obter o endereço da terceira loja Ultra Popular do associado instalado, registrada no Setor Central. Se ela estiver a menos de 300 m, a regra de distância mínima entre lojas de mesma bandeira incide sobre este pedido e o veredito do zoneamento muda.",
+    "Levantar os equipamentos de saúde num raio de 500 m — posto, clínica, laboratório, consultório. Se houver, entram como gerador de fluxo a favor do ponto; se de fato não houver, confirma-se um entorno de comércio puro, que depende inteiramente da passagem.",
+    "Conferir quantas das 13 farmácias do anel de 300 m estão efetivamente abertas. A camada é de 2025: se várias já fecharam, o quarteirão está menos dividido do que o dossiê descreve; se todas operam, o mercado do anel se reparte entre mais lojas do que a régua de canal supõe.",
+    "Levantar a proposta de aluguel do imóvel e a régua de faturamento por metro quadrado da bandeira. Com as duas, o custo de ocupação volta ao relatório. Se o aluguel couber no patamar de receita das 18 lojas Ultra Popular do Tocantins, cuja mediana é de R$ 611.118,64 por mês, o ponto se discute pelo fluxo; se não couber, a discussão de fluxo fica em segundo plano."
+  ]
+}

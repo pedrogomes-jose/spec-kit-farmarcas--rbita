@@ -174,7 +174,31 @@ def main() -> int:
 
     cidade_ref = None
 
+    # Quem é "loja nossa" sai do CADASTRO, por CNPJ — não do nome da bandeira.
+    # O nome erra nos DOIS sentidos, e cada um já apareceu numa rodada real:
+    #   a mais: Gurupi/TO, 2026-11-23 — duas lojas que o cadastro tem como
+    #           DESATIVADAS casavam por nome e saíam da contagem como se o
+    #           casamento provasse alguma coisa (aqui o nome acertou, por sorte);
+    #   a menos: Lontras/SC, 2026-11-24 — "SUPER POPULAR" a 250 m casa com a
+    #           bandeira, NÃO está no cadastro e não há loja dessa bandeira em
+    #           SC. É concorrente de verdade, e saía da contagem, da régua de
+    #           canal e do mercado somado do anel.
+    # A regra já estava escrita em `_bases` e em references/bases-orbita.md
+    # ("o match por nome vale como suspeita, nunca como fato"); o que faltava
+    # era o código parar de usar a suspeita para decidir.
+    try:
+        nossos_cnpjs = B.cnpjs_do_cadastro()
+        cadastro_disponivel = True
+        criterio_loja_nossa = "CNPJ confirmado no cadastro de lojas"
+    except FileNotFoundError:
+        nossos_cnpjs, cadastro_disponivel = set(), False
+        criterio_loja_nossa = (
+            "CADASTRO INDISPONÍVEL — recaiu no nome da bandeira, que erra nos dois "
+            "sentidos: conta concorrente de nome parecido como nosso e vice-versa"
+        )
+
     dentro, nossas, suspeitos = [], [], []
+    casam_por_nome = []
     sem_coord = 0
     coord_invalida = 0
     for linha in B.ler("concorrentes_2025"):
@@ -189,6 +213,9 @@ def main() -> int:
         if dist > args.raio:
             continue
         pdv = (linha.get("MDM-PDV") or "").strip()
+        cnpj_comparavel = B.so_digitos(linha.get("CNPJ"))
+        casa_por_nome = B.eh_farmarcas(pdv)
+        confirmada = bool(cnpj_comparavel) and cnpj_comparavel in nossos_cnpjs
         reg = {
             "pdv": pdv,
             "cidade": (linha.get("CIDADE") or "").strip(),
@@ -199,8 +226,15 @@ def main() -> int:
             "situacao": (linha.get("SITUACAO") or "").strip() or None,
             "fat_medio": B.num(linha.get("fatMedio")),
             "distancia_m": round(dist),
+            "casa_por_nome_de_bandeira": casa_por_nome,
+            "confirmada_no_cadastro_por_cnpj": confirmada,
         }
-        (nossas if B.eh_farmarcas(pdv) else dentro).append(reg)
+        # Sem cadastro não há critério melhor que o nome, e a saída declara isso
+        # em `_criterio_loja_nossa` em vez de fingir que a contagem é a mesma.
+        eh_nossa = confirmada if cadastro_disponivel else casa_por_nome
+        (nossas if eh_nossa else dentro).append(reg)
+        if casa_por_nome:
+            casam_por_nome.append(reg)
 
     # A referência de cadastro é o MUNICÍPIO DO PONTO, não a cidade mais comum
     # do raio. Usar a modal parece razoável e erra feio perto de divisa: num raio
@@ -241,8 +275,16 @@ def main() -> int:
     r_total = round(sum(com_fat), 2) if com_fat else None
     r_media = round(r_total / len(com_fat), 2) if com_fat else None
 
+    # O recorte desta tabela é o MESMO de `concorrentes` e de
+    # `microterritorio.vendas_totais_no_raio_R$`: só as lojas do raio que não
+    # casaram com bandeira Farmarcas. Somar `nossas` aqui fazia a tabela tabular
+    # mais lojas do que o card de vendas totais da mesma tela — medido em
+    # Gurupi/TO em 2026-11-23: 9 classificadas na tabela contra 7 no card, e as
+    # duas de diferença eram lojas da própria rede, DESATIVADAS no cadastro.
+    # Loja nossa não é concorrente, e loja desativada não disputa mercado:
+    # entrar nas duas contas é contradizer a mesma página.
     contagem = {c: 0 for c, _, _ in FAIXAS_FATURAMENTO}
-    for reg in dentro + nossas:
+    for reg in dentro:
         f = classificar_faturamento(reg["fat_medio"])
         if f:
             contagem[f] += 1
@@ -296,6 +338,9 @@ def main() -> int:
             "ponto": {"lat": args.lat, "lng": args.lng, "raio_m": args.raio},
             "concorrentes": {
                 "total": len(dentro),
+                "_criterio_de_corte": (
+                    f"tudo no raio que o cadastro NÃO confirma como loja nossa ({criterio_loja_nossa})"
+                ),
                 "com_fat_medio": len(com_fat),
                 "fat_medio_somado_R$": round(sum(com_fat), 2) if com_fat else None,
                 "fat_medio_maior_R$": round(max(com_fat), 2) if com_fat else None,
@@ -352,11 +397,27 @@ def main() -> int:
                 "_erro_cadastro": erro_cadastro,
             },
             "suspeitas_por_nome_de_bandeira": {
-                "total": len(nossas),
+                "total": len(casam_por_nome),
+                "confirmadas_no_cadastro": sum(
+                    1 for r in casam_por_nome if r["confirmada_no_cadastro_por_cnpj"]
+                ),
+                "refutadas_pelo_cadastro": sum(
+                    1 for r in casam_por_nome if not r["confirmada_no_cadastro_por_cnpj"]
+                ),
                 "_leitura": (
                     "registros da camada Concorrentes cujo nome casa com bandeira Farmarcas. "
-                    "NÃO é prova de que a loja é nossa — confirmar CNPJ no cadastro antes de "
-                    "chamar de canibalização."
+                    "O nome é SUSPEITA, não fato: quem decide é o CNPJ contra o cadastro. "
+                    "As refutadas são CONCORRENTE de verdade, com nome parecido, e contam "
+                    "normalmente em `concorrentes`, na régua de canal e na tabela de faixas."
+                ),
+                "itens": casam_por_nome,
+            },
+            "lojas_nossas_na_camada_concorrentes": {
+                "total": len(nossas),
+                "_criterio": criterio_loja_nossa,
+                "_leitura": (
+                    "registros da camada que o cadastro confirma como loja da rede, por CNPJ. "
+                    "Ficam FORA da contagem de concorrentes e de toda soma de mercado do raio"
                 ),
                 "itens": nossas,
             },

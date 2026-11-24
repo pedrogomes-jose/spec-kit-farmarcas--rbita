@@ -1,0 +1,47 @@
+{
+  "endereco": "R. Baltazar Saldanha, 331 - Centro, Ponta Porã/MS, 79904-602",
+  "lat": -22.530331,
+  "lng": -55.732088,
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "5006606",
+  "municipio": "Ponta Porã",
+  "uf": "MS",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "existente",
+  "ge": "",
+  "origem_da_coordenada": "informada pelo solicitante",
+  "resumo": "O ponto não passa na regra de distância mínima: uma loja Maxi Popular do próprio solicitante fica a 444 m, contra o mínimo de 500 m exigido entre bandeiras diferentes.",
+  "leitura": [
+    "O que barra este endereço é a distância, e ela barra o solicitante contra ele mesmo. A loja mais próxima da rede é uma Maxi Popular a 444 m, do próprio grupo que faz o pedido. Como a bandeira pretendida é Ultra Popular, o mínimo que se aplica é o de bandeiras diferentes, de 500 m — e não o de 300 m, que valeria entre lojas de mesma bandeira.",
+    "Não há conflito entre associados a arbitrar aqui. As quatro lojas Farmarcas de Ponta Porã são todas do mesmo grupo econômico e todas no Centro, a 444 m, 628 m, 936 m e 1.213 m do ponto pedido. Nenhum outro associado opera na praça, e o pedido não traz grupo novo para a cidade.",
+    "A contagem de grupos também não barra. A faixa de população do município comporta dois grupos econômicos e a cidade tem um; com o pedido continua tendo um. O que muda é a quantidade de lojas: a praça passa a ter cinco pontos da rede para uma faixa dimensionada em dois. Isso é alerta de densidade, que é risco econômico do próprio grupo e decisão dele — nunca impedimento.",
+    "Nenhuma camada de mercado foi levantada para este endereço. Não há aqui população no raio, renda, concorrência, potencial de consumo nem preço por unidade, e a ausência desses números não significa que sejam favoráveis ou desfavoráveis: significa que não foram apurados, porque levantá-los sugeriria que existe número a negociar num ponto que a regra barra. O que existe para resolver é decisão de quem é dono da regra."
+  ],
+  "o_que_mudaria": [
+    "<b>Regra — abrir com a bandeira Maxi Popular.</b> Verificado na própria checagem de zoneamento: com Maxi Popular como bandeira pretendida o veredito deixa de ser impedimento e passa a alerta. A vizinha de 444 m passaria a ser de mesma bandeira, com mínimo de 300 m, e a Ultra Popular mais próxima fica a 628 m, acima dos 500 m exigidos entre bandeiras diferentes. É a mudança mais barata, e é de escopo do solicitante.",
+    "<b>Regra — outro endereço, mantida a bandeira Ultra Popular.</b> Ele precisa ficar a pelo menos 500 m das duas Maxi Popular e a pelo menos 300 m das duas Ultra Popular do Centro: num endereço novo a checagem recomeça contra as quatro lojas, e não só contra a que barra hoje.",
+    "<b>Hipótese — a distância real ser diferente de 444 m.</b> O número é medido em linha reta entre a coordenada informada para o ponto e a coordenada do endereço de Receita registrada no cadastro de lojas. Nenhuma das duas foi levantada em campo, e o endereço de Receita é onde a empresa está registrada, não necessariamente onde a porta da loja está. Medição em campo confirma ou derruba o impedimento.",
+    "<b>Hipótese — a loja de 444 m deixar de operar.</b> Encerramento ou mudança de ponto dela retiraria a referência que barra a distância. Não há nada no acervo indicando que isso esteja previsto, e se a regra de distância considera loja desativada é questão em aberto — a checagem aplica a premissa de que só contam lojas ativadas, em montagem ou em transição."
+  ],
+  "alertas_cadastro": [
+    "<b>A decisão se apoia numa distância que não é medida de campo.</b> Os 444 m saem, em linha reta, da coordenada do endereço de Receita no cadastro de lojas contra a coordenada informada para o ponto — e o mínimo da regra é 500 m. Nenhuma das duas pontas foi conferida no local.",
+    "<b>As quatro lojas da cidade têm coordenada preenchida</b>, então nenhuma ficou fora da checagem de distância — num cadastro em que 1.844 das 2.808 lojas (66%) têm coordenada utilizável, 932 estão vazias e 32 caem fora do Brasil.",
+    "<b>Nenhuma loja cadastrada em outra cidade foi encontrada perto do ponto</b>, e não há loja desativada em Ponta Porã. Os dois casos que costumam distorcer a contagem do teto não se aplicam aqui."
+  ],
+  "nao_sabe": [
+    "<b>Nenhuma camada de mercado foi levantada para este endereço.</b> População no raio, renda, densidade, concorrência, potencial de consumo, preço por unidade e geradores de fluxo não foram apurados, por decisão de método: dossiê de mercado sobre ponto barrado sugere que há número a negociar, e não há. Importa dizer isto por extenso porque o silêncio sobre essas camadas é lido como ausência de problema nelas. Destrava quando o impedimento for resolvido — aí o ponto, ou o endereço que o substituir, recebe o dossiê completo.",
+    "<b>Fluxo de passantes.</b> Nenhuma base do acervo e nenhuma camada do produto mede quantas pessoas passam pela calçada, e isso vale para qualquer endereço desta praça, não só para este. Importa porque é a variável que mais pesa num ponto de centro comercial, e é a que nenhuma análise da casa responde hoje. Destrava com contagem de passantes em campo ou com dado de telefonia celular.",
+    "<b>A que distância fica, de fato, a loja de 444 m.</b> O cadastro traz a coordenada do endereço de Receita, que é onde a empresa está registrada e não necessariamente onde a porta da loja está. Importa porque é essa medida que decide o pedido: 444 m contra um mínimo de 500 m. Destrava com medição em campo entre as duas portas, ou com a geocodificação revisada do cadastro.",
+    "<b>Se a regra de distância vale contra loja do próprio solicitante.</b> A regra de expansão foi escrita para evitar conflito entre associados, e aqui não há dois associados: o solicitante está sendo barrado pela própria loja. A página não distingue os dois casos, e a checagem aplica a distância sem olhar de quem é a loja vizinha. Importa porque é o que decide este pedido. Destrava com a definição escrita de quem é dono da regra.",
+    "<b>Se os quatro pontos da cidade são mesmo um único grupo econômico.</b> A contagem sai do responsável registrado no cadastro, comparado por nome normalizado e não por CNPJ. Aqui as quatro lojas trazem exatamente o mesmo nome, o que torna a leitura firme — mas é a mesma apuração que, com grafias divergentes, separaria um dono em dois grupos. Importa porque é essa contagem que diz que o pedido não traz grupo novo. Destrava com o vínculo por CNPJ no cadastro de lojas.",
+    "<b>Se a regra de distância considera loja desativada.</b> A checagem aplica a premissa de que só ocupam vaga as lojas em situação ativada, em montagem ou em transição, e essa premissa não está escrita na regra. Importa menos aqui, porque Ponta Porã não tem loja desativada — mas é a premissa que sustentaria o destravamento por encerramento. Destrava com a definição escrita na regra."
+  ],
+  "campo": [
+    "<b>Medir a distância em linha reta entre a porta do ponto e a porta da Maxi Popular do Centro.</b> É assim que a regra mede — caminhada a pé dá sempre mais que a reta e derrubaria um impedimento que não caiu. Se a reta der 500 m ou mais, o impedimento cai e o endereço segue para o dossiê completo; se confirmar abaixo, o caminho é trocar a bandeira ou o endereço.",
+    "<b>Confirmar se a bandeira pretendida pode ser Maxi Popular.</b> É o destravamento mais barato e já verificado: com ela o veredito passa a alerta sem mudar de endereço. Se a escolha da Ultra Popular for inegociável, o endereço é que precisa mudar.",
+    "<b>Confirmar que a loja de 444 m está operando.</b> O cadastro a registra como ativa; se estiver fechada ou em mudança de ponto sem baixa no cadastro, a referência que barra deixa de existir — e o cadastro precisa ser corrigido de todo modo.",
+    "<b>Levar o alerta de densidade para a mesa junto com a decisão de endereço.</b> Mesmo resolvido o impedimento, a praça fica com cinco lojas da rede para uma faixa dimensionada em duas, todas do mesmo dono. Isso não barra, mas é a conta que o solicitante está fazendo quando decide abrir mais um ponto no mesmo centro."
+  ]
+}
