@@ -104,31 +104,25 @@ def populacao_censo_2022_safe(codigo: str):
         return None, f"indisponível ({type(e).__name__})"
 
 
-def percentil_municipal(prefixo: str, campo: str, codigo: str, maior_e_melhor: bool = True) -> dict:
-    """Posição de um indicador municipal na distribuição nacional da própria base.
+# A máquina de percentil mudou de casa em 2026-11-25: vive em `_bases.py`,
+# porque o painel de perfil por cidade da lista de praças precisa exatamente da
+# mesma resposta. Duas implementações do mesmo percentil é como dois scripts
+# passaram a devolver mercados diferentes para o mesmo raio.
+percentil_municipal = B.percentil_municipal
 
-    Existe porque número isolado não decide nada: "renda de R$ 453,17" não é boa
-    nem ruim; "percentil 38 dos 5.565 municípios" é.
+
+def habitantes_por_farmacia() -> dict:
+    """`{código IBGE: habitantes por farmácia}` — a razão, para o país inteiro.
+
+    Separada de `saturacao()` porque o painel de perfil por cidade precisa da
+    mesma distribuição. A razão usa a população do DUMP no numerador para ser
+    internamente coerente: numerador e denominador da mesma base, para todos os
+    municípios da distribuição, então a POSIÇÃO relativa não herda o viés de
+    ~4% contra o Censo 2022. O valor absoluto herda, e quem o imprime declara.
     """
-    valores = {}
-    for cod, linha in B.indexar_por_municipio(prefixo).items():
-        v = B.num(linha.get(campo))
-        if v is not None:
-            valores[cod] = v
-    alvo = valores.get(str(codigo).strip())
-    if alvo is None:
-        return {"erro": f"município ausente em {prefixo}.{campo}"}
-    ordenados = sorted(valores.values())
-    abaixo = sum(1 for v in ordenados if v < alvo)
-    pct = round(100.0 * abaixo / len(ordenados))
-    return {
-        "valor": alvo,
-        "percentil": pct,
-        "mediana_nacional": round(ordenados[len(ordenados) // 2], 2),
-        "municipios_comparados": len(ordenados),
-        "_leitura": ("percentil alto = acima da maioria" if maior_e_melhor else "percentil alto = abaixo da maioria"),
-        "_fonte": f"{prefixo}.{campo}",
-    }
+    pop = {c: B.num(l.get("01-POPULACAOTOTAL")) for c, l in B.indexar_por_municipio("populacao_municipios").items()}
+    farm = {c: B.num(l.get("totalfarmaciasnacidade")) for c, l in B.indexar_por_municipio("dados_farmacia_popular").items()}
+    return {c: p / farm[c] for c, p in pop.items() if p and farm.get(c)}
 
 
 def saturacao(codigo: str) -> dict:
@@ -137,14 +131,8 @@ def saturacao(codigo: str) -> dict:
     Número isolado não diz nada: 1.490 hab/farmácia só significa algo contra a
     distribuição dos 5.570 municípios. O percentil é a comparação.
     """
-    pop = {c: B.num(l.get("01-POPULACAOTOTAL")) for c, l in B.indexar_por_municipio("populacao_municipios").items()}
+    razoes = habitantes_por_farmacia()
     farm = {c: B.num(l.get("totalfarmaciasnacidade")) for c, l in B.indexar_por_municipio("dados_farmacia_popular").items()}
-
-    razoes = {}
-    for c, p in pop.items():
-        f = farm.get(c)
-        if p and f and f > 0:
-            razoes[c] = p / f
 
     alvo = razoes.get(codigo)
     if alvo is None:

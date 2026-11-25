@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Órbita · Onde olhar — Amélia Rodrigues/BA</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+/* Alerta de cadastro. Cor própria porque ele não descreve a praça: diz que o
+   número ao lado pode estar errado, e isso tem de se distinguir da nota comum
+   sem virar semáforo de qualidade — não há escala, só presença ou ausência. */
+.alerta-cad{color:#8a5a00}
+
+/* ---------------------------------------------------------------------------
+   Perfil por cidade.
+   O cabeçalho NÃO leva a faixa roxa da tabela de praças, e a seção tem borda e
+   ícone próprios: colada e igual, ela seria lida como continuação da lista e
+   herdaria a ordem por mercado, que é justamente o que não vale aqui.
+   A tira de percentil tem UMA matiz, sem escala de cor, sem seta e sem ícone
+   de bom/ruim — a ausência é a decisão. Colorir por faixa parece melhoria de
+   legibilidade e converte o painel em nota num único commit.
+   Não existe tfoot: linha de total ou de média seria a composição que o script
+   se recusa a emitir, reintroduzida pelo CSS. */
+section.painel{border-left:3px solid #2f6b8f;padding-left:14px}
+table.painel-mun{width:100%;border-collapse:collapse;margin-top:10px}
+table.painel-mun th{background:#eef3f6;color:#24323a;text-align:left;
+  font-size:12px;font-weight:700;padding:7px 9px;border-bottom:1px solid #cfdae1}
+table.painel-mun td{padding:8px 9px;border-bottom:1px solid #eef1f3;vertical-align:top}
+table.painel-mun .nota-th{font-weight:400;font-size:10.5px;color:#6b7c86;margin-top:2px}
+.painel-mun .ind{margin-bottom:7px;font-size:11.5px;line-height:1.35}
+.painel-mun .ind:last-child{margin-bottom:0}
+.painel-mun .rot{display:block;color:var(--fraco)}
+.painel-mun .val{font-weight:700;color:#24323a}
+.painel-mun .pn{color:#6b7c86;margin-left:5px}
+.painel-mun .faixa-pct{display:inline-block;position:relative;width:54px;height:4px;
+  background:#dfe6ea;border-radius:2px;margin:0 2px 0 6px;vertical-align:middle}
+.painel-mun .faixa-pct i{position:absolute;top:-2px;width:2px;height:8px;
+  background:#2f6b8f;border-radius:1px}
+@media print{section.painel{break-inside:avoid}}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+/* Ressalva de qualidade do dado: fica do lado do numero que ela ressalva, e
+   nao na secao recolhida de lacunas — e defeito conhecido do registro, nao
+   coisa que o dossie deixou de saber. */
+.alerta-dado{margin:14px 0 0;padding:12px 14px;border-radius:9px;
+ background:#fdf3e8;border:1px solid #e3b887;font-size:13px;line-height:1.5}
+.alerta-dado ul{margin:7px 0 0;padding-left:19px}
+.alerta-dado li{margin:3px 0}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Onde olhar</div>
+  <div class="sub">Praças a conferir — <b>sem análise de ponto e sem score</b> ·
+    acervo de camadas de 2026-10-26 · cadastro de lojas de 2026-11-10 ·
+    população do Censo extraída em 2026-11-25</div>
+</header>
+<div class="faixa-end">A partir de Amélia Rodrigues/BA · raio de 80 km</div>
+<section class="topo">
+  <div class="gate" style="border-color:#6b2fb5">
+    <div class="rot">Ordenado por</div>
+    <div class="val" style="color:#6b2fb5">Mercado não atendido</div>
+    <div class="nota">receita que circula na praça sem passar pela rede</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Dentro de 80 km de Amélia Rodrigues há 38 praças onde a regra de expansão não barra a entrada de um grupo novo com bandeira convencional; as duas regiões de Feira de Santana e o Polo Petroquímico de Camaçari são as três linhas com um único grupo econômico na cidade — e também as três de menor mercado não atendido da tabela.</p>
+    <div class="meta">Solicitante: <b>não informado</b> ·
+      Modelo pretendido: <b>convencional</b> ·
+      Praças listadas: <b>12</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">■</span> O que esta lista é, e o que ela não é</h2>
+  <p class="explica"><b>É o ponto de partida de uma análise, não o resultado dela.</b>
+  Nenhuma praça abaixo foi analisada: não houve gate de zoneamento em endereço nenhum e
+  não se olhou concorrência num raio. Renda, população e potencial de consumo aparecem
+  mais adiante <b>por cidade</b>, e nessa granularidade não distinguem uma praça da outra
+  dentro do mesmo município. O que está apurado por praça é outra coisa, e só ela —
+  <b>onde a regra de expansão não barra a entrada de um grupo novo</b>, e <b>quanto
+  mercado farmacêutico circula ali hoje sem passar pela rede</b>. Escolher entre duas
+  praças desta lista ainda exige o dossiê de cada uma. E "cabe no teto" é ausência de impedimento na contagem de grupos, não
+  liberação: o gate de verdade roda sobre um endereço, com bandeira e distância mínima,
+  e pode barrar um ponto dentro de uma praça que aparece aqui como disponível.</p>
+</section>
+<section>
+  <h2><span class="ic">→</span> Praças a conferir — onde a regra não barra a entrada</h2>
+  <p class="explica"><b>Isto é lista de onde vale rodar um dossiê, não recomendação de abertura.</b> Nenhuma destas praças foi analisada: o que foi apurado é que a regra de expansão não barra a entrada de um grupo novo nelas, e quanto mercado farmacêutico circula ali hoje sem passar pela rede. Mercado grande sem nós pode ser oportunidade ou praça já testada e perdida, e <b>esta apuração não separa os dois</b>: sob o mercado de cada linha vem quantas lojas a rede já tem na cidade e se a receita dela caiu ali — que é o que foi medido. A causa da queda não está em base nenhuma deste acervo. Cada linha é uma unidade de mercado, por isso a mesma cidade pode aparecer mais de uma vez, sempre nomeando a localidade — ou dizendo "município inteiro", quando a unidade cobre a cidade toda. A lista já considera que a bandeira pretendida é <b>convencional</b>. Praça com mercado abaixo de R$ 5.000.000,00 não entra na lista — piso desta busca, premissa e não regra da casa.</p>
+  <p class="explica"><b>A lista está limitada a 80 km do endereço analisado</b>, medidos até o centro aproximado de cada município. Esse raio é premissa desta análise, não regra da casa: nenhuma fonte diz a que distância um empresário aceita operar. Sem ele, a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p>
+  <table><thead><tr><th>Praça</th><th>Distância</th><th>Mercado não atendido</th>
+  <th>Grupos / teto</th><th>Cresc.</th></tr></thead><tbody><tr><td><b>SALVADOR/BA</b><div class="nota">AMARALINA-2</div></td><td>68 km</td><td>R$ 428,2 milhões<div class="nota">39 loja(s) da rede na cidade</div></td><td>13 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>15,0%</td></tr><tr><td><b>SALVADOR/BA</b><div class="nota">AMARALINA-5</div></td><td>68 km</td><td>R$ 315,1 milhões<div class="nota">39 loja(s) da rede na cidade</div></td><td>13 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>49,0%</td></tr><tr><td><b>LAURO DE FREITAS/BA</b><div class="nota">município inteiro</div></td><td>72 km</td><td>R$ 314,6 milhões<div class="nota">8 loja(s) da rede na cidade</div></td><td>3 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>14,0%</td></tr><tr><td><b>SALVADOR/BA</b><div class="nota">VITORIA-2</div></td><td>68 km</td><td>R$ 286,7 milhões<div class="nota">39 loja(s) da rede na cidade</div></td><td>13 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>12,0%</td></tr><tr><td><b>SALVADOR/BA</b><div class="nota">ITAPOA-1</div></td><td>68 km</td><td>R$ 270,3 milhões<div class="nota">39 loja(s) da rede na cidade · receita da rede caiu 26,0% aqui — a base não diz por quê</div></td><td>13 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>17,0%</td></tr><tr><td><b>SALVADOR/BA</b><div class="nota">AMARALINA</div></td><td>68 km</td><td>R$ 260,3 milhões<div class="nota">39 loja(s) da rede na cidade</div></td><td>13 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>14,0%</td></tr><tr><td><b>FEIRA DE SANTANA/BA</b><div class="nota">CENTRO</div></td><td>28 km</td><td>R$ 205,8 milhões<div class="nota">2 loja(s) da rede na cidade</div></td><td>1 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>16,0%</td></tr><tr><td><b>SALVADOR/BA</b><div class="nota">VITORIA</div></td><td>68 km</td><td>R$ 196,9 milhões<div class="nota">39 loja(s) da rede na cidade · receita da rede caiu 70,0% aqui — a base não diz por quê</div></td><td>13 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>8,0%</td></tr><tr><td><b>FEIRA DE SANTANA/BA</b><div class="nota">CAMPO LIMPO</div></td><td>28 km</td><td>R$ 195,1 milhões<div class="nota">2 loja(s) da rede na cidade</div></td><td>1 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>19,0%</td></tr><tr><td><b>CAMAÇARI/BA</b><div class="nota">POLO PETROQUIMICO</div></td><td>58 km</td><td>R$ 188,2 milhões<div class="nota">4 loja(s) da rede na cidade</div></td><td>1 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>20,0%</td></tr><tr><td><b>SALVADOR/BA</b><div class="nota">PIRAJA</div></td><td>68 km</td><td>R$ 176,9 milhões<div class="nota">39 loja(s) da rede na cidade</div></td><td>13 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>16,0%</td></tr><tr><td><b>SALVADOR/BA</b><div class="nota">PLATAFORMA</div></td><td>68 km</td><td>R$ 168,7 milhões<div class="nota">39 loja(s) da rede na cidade · receita da rede caiu 10,0% aqui — a base não diz por quê</div></td><td>13 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>15,0%</td></tr></tbody></table>
+  <p class="vazio"><b>Como a disponibilidade é apurada.</b> cabe grupo novo quando os grupos econômicos com loja ativa na cidade são MENOS que o teto da faixa — e, na faixa de 60 a 120 mil, o 2º grupo só entra com bandeira popular.
+  O grupo sai do identificador de grupo econômico do cadastro de lojas. Até 2026-11-25 a contagem deduplicava pelo NOME do responsável, que quebra com grafia divergente — duas lojas do mesmo dono escritas de dois jeitos viravam dois grupos, e um grupo a mais barra um pedido que caberia. Loja ativa sem identificador preenchido conta como loja e não conta como grupo, e isso é declarado por praça Esta lista escolhe
+  a <b>praça</b>, não o ponto: cada uma ainda precisa do seu próprio dossiê.</p>
+  <p class="vazio alerta-cad">⚠ A contagem de lojas e de grupos tem ressalva em SALVADOR/BA — está declarada na seção de perfil por cidade, logo abaixo.</p>
+</section>
+<section class="painel">
+  <h2><span class="ic">◎</span> Como é cada cidade — valor e posição nacional</h2>
+  <p class="explica"><b>Aqui a unidade muda: cada linha é uma cidade, não uma praça.</b>
+  Estes indicadores são do município inteiro e seriam idênticos nas regiões da mesma
+  cidade — SALVADOR ocupa 8 linhas da tabela acima e uma só aqui, porque 8 linhas iguais sugeririam 8 praças avaliadas. Nenhum número desta seção pontua, nota ou ordena: cada indicador
+  aparece com o valor e com a posição dele na distribuição dos municípios brasileiros da
+  própria camada. <b>Nenhuma linha é melhor que outra</b>, e cidade com percentil alto em
+  três dimensões e baixo na quarta não é "três de quatro" — é uma cidade com um perfil, e
+  o perfil é o conteúdo.</p>
+  <p class="explica"><b>O que o percentil compara, e o que ele não compara.</b> Comparar
+  cada cidade com a distribuição nacional da própria camada é o referente que esta análise
+  usa. Comparar entre si os <b>percentis</b> destas cidades <b>não</b> é: quatro ou doze
+  casos não são uma distribuição, e ordená-los criaria uma régua de qualidade que não
+  existe. Contagens do cadastro — quantas lojas, quantos grupos — comparam-se à vontade,
+  porque são o que a lista mede. A ordem das
+  linhas é alfabética e não significa nada. Dentro de uma mesma dimensão os indicadores
+  podem apontar em direções opostas — renda baixa com consumo de farmácia alto é um achado,
+  e qualquer média entre os dois apagaria justamente ele.</p>
+  <p class="explica"><b>Três ressalvas que mudam a leitura.</b> A captura do potencial pode
+  ser baixa porque há mercado que ninguém atende <b>ou</b> porque a medição de mercado cobre
+  mal aquela praça — nada neste acervo separa os dois casos. <b>Habitantes por farmácia alto
+  tem a mesma ambiguidade</b>, e pela mesma razão: pode ser parque subdimensionado ou
+  cobertura parcial da base de farmácias. Essa base sustenta três dos indicadores deste
+  painel — habitantes por farmácia, o percentual de credenciadas e as classes de renda dos
+  domicílios —, então uma falha de cobertura nela afetaria os três juntos. E a razão de habitantes por
+  farmácia usa uma contagem de população que é estimativa, cerca de 4% acima do Censo 2022:
+  a <b>posição</b> na distribuição não é afetada, porque todas as cidades entram pela mesma
+  régua, mas o <b>valor</b> é, e ele não é comparável com a população do Censo que aparece
+  na tabela de praças acima.</p>
+  <table class="painel-mun">
+    <thead><tr>
+      <th>Município<div class="nota-th">ordem alfabética</div></th>
+      <th>Poder de compra</th><th>Folga competitiva</th><th>Dinamismo</th><th>Centralidade urbana</th>
+    </tr></thead>
+    <tbody><tr><td><b>CAMAÇARI/BA</b><div class="nota">1 linha(s) na tabela acima</div><div class="nota">Metrópole na rede urbana</div></td><td><div class="ind"><span class="rot">renda domiciliar per capita</span><span class="val">260,2 R$</span><span class="faixa-pct" title="percentil 21 — mediana nacional 456,3 R$"><i style="left:21%"></i></span><span class="pn">p21</span></div><div class="ind"><span class="rot">consumo em drogarias por habitante</span><span class="val">198,2 R$/ano</span><span class="faixa-pct" title="percentil 79 — mediana nacional 135,0 R$/ano"><i style="left:79%"></i></span><span class="pn">p79</span></div><div class="ind"><span class="rot">domicílios nas classes A, B1 e B2</span><span class="val">16,2 %</span><span class="faixa-pct" title="percentil 49 — mediana nacional 17,0 %"><i style="left:49%"></i></span><span class="pn">p49</span></div></td><td><div class="ind"><span class="rot">habitantes por farmácia</span><span class="val">1.520,4 hab</span><span class="faixa-pct" title="percentil 52 — mediana nacional 1.492,6 hab"><i style="left:52%"></i></span><span class="pn">p52</span></div><div class="ind"><span class="rot">captura do potencial pelo varejo medido</span><span class="val">33,5 %</span><span class="faixa-pct" title="percentil 38 — mediana nacional 39,7 %"><i style="left:38%"></i></span><span class="pn">p38</span></div><div class="ind"><span class="rot">farmácias credenciadas ao Farmácia Popular</span><span class="val">2,4 %</span><span class="faixa-pct" title="percentil 11 — mediana nacional 29,0 %"><i style="left:11%"></i></span><span class="pn">p11</span></div></td><td><div class="ind"><span class="rot">crescimento demográfico</span><span class="val">1,8 % a.a.</span><span class="faixa-pct" title="percentil 93 — mediana nacional 0,1 % a.a."><i style="left:93%"></i></span><span class="pn">p93</span></div><div class="ind"><span class="rot">crescimento do mercado farmacêutico do município</span><span class="val">18,6 %</span><span class="faixa-pct" title="percentil 74 — mediana nacional 12,5 %"><i style="left:74%"></i></span><span class="pn">p74</span></div></td><td><div class="ind"><span class="rot">municípios que este influencia</span><span class="val">60 cidades</span><span class="faixa-pct" title="percentil 97 — mediana nacional 0,0 cidades"><i style="left:97%"></i></span><span class="pn">p97</span></div><div class="ind"><span class="rot">população urbana</span><span class="val">97,8 %</span><span class="faixa-pct" title="percentil 96 — mediana nacional 71,0 %"><i style="left:96%"></i></span><span class="pn">p96</span></div><div class="ind"><span class="rot">densidade demográfica</span><span class="val">412,3 hab/km²</span><span class="faixa-pct" title="percentil 96 — mediana nacional 24,9 hab/km²"><i style="left:96%"></i></span><span class="pn">p96</span></div></td></tr><tr><td><b>FEIRA DE SANTANA/BA</b><div class="nota">2 linha(s) na tabela acima</div><div class="nota">Capital Regional B na rede urbana</div></td><td><div class="ind"><span class="rot">renda domiciliar per capita</span><span class="val">243,0 R$</span><span class="faixa-pct" title="percentil 17 — mediana nacional 456,3 R$"><i style="left:17%"></i></span><span class="pn">p17</span></div><div class="ind"><span class="rot">consumo em drogarias por habitante</span><span class="val">191,3 R$/ano</span><span class="faixa-pct" title="percentil 76 — mediana nacional 135,0 R$/ano"><i style="left:76%"></i></span><span class="pn">p76</span></div><div class="ind"><span class="rot">domicílios nas classes A, B1 e B2</span><span class="val">18,1 %</span><span class="faixa-pct" title="percentil 55 — mediana nacional 17,0 %"><i style="left:55%"></i></span><span class="pn">p55</span></div></td><td><div class="ind"><span class="rot">habitantes por farmácia</span><span class="val">1.433,2 hab</span><span class="faixa-pct" title="percentil 46 — mediana nacional 1.492,6 hab"><i style="left:46%"></i></span><span class="pn">p46</span></div><div class="ind"><span class="rot">captura do potencial pelo varejo medido</span><span class="val">59,6 %</span><span class="faixa-pct" title="percentil 81 — mediana nacional 39,7 %"><i style="left:81%"></i></span><span class="pn">p81</span></div><div class="ind"><span class="rot">farmácias credenciadas ao Farmácia Popular</span><span class="val">5,8 %</span><span class="faixa-pct" title="percentil 15 — mediana nacional 29,0 %"><i style="left:15%"></i></span><span class="pn">p15</span></div></td><td><div class="ind"><span class="rot">crescimento demográfico</span><span class="val">0,8 % a.a.</span><span class="faixa-pct" title="percentil 78 — mediana nacional 0,1 % a.a."><i style="left:78%"></i></span><span class="pn">p78</span></div><div class="ind"><span class="rot">crescimento do mercado farmacêutico do município</span><span class="val">15,1 %</span><span class="faixa-pct" title="percentil 63 — mediana nacional 12,5 %"><i style="left:63%"></i></span><span class="pn">p63</span></div></td><td><div class="ind"><span class="rot">municípios que este influencia</span><span class="val">31 cidades</span><span class="faixa-pct" title="percentil 94 — mediana nacional 0,0 cidades"><i style="left:94%"></i></span><span class="pn">p94</span></div><div class="ind"><span class="rot">população urbana</span><span class="val">93,8 %</span><span class="faixa-pct" title="percentil 89 — mediana nacional 71,0 %"><i style="left:89%"></i></span><span class="pn">p89</span></div><div class="ind"><span class="rot">densidade demográfica</span><span class="val">508,7 hab/km²</span><span class="faixa-pct" title="percentil 97 — mediana nacional 24,9 hab/km²"><i style="left:97%"></i></span><span class="pn">p97</span></div></td></tr><tr><td><b>LAURO DE FREITAS/BA</b><div class="nota">1 linha(s) na tabela acima</div><div class="nota">Metrópole na rede urbana</div></td><td><div class="ind"><span class="rot">renda domiciliar per capita</span><span class="val">359,5 R$</span><span class="faixa-pct" title="percentil 39 — mediana nacional 456,3 R$"><i style="left:39%"></i></span><span class="pn">p39</span></div><div class="ind"><span class="rot">consumo em drogarias por habitante</span><span class="val">227,3 R$/ano</span><span class="faixa-pct" title="percentil 90 — mediana nacional 135,0 R$/ano"><i style="left:90%"></i></span><span class="pn">p90</span></div><div class="ind"><span class="rot">domicílios nas classes A, B1 e B2</span><span class="val">24,4 %</span><span class="faixa-pct" title="percentil 77 — mediana nacional 17,0 %"><i style="left:77%"></i></span><span class="pn">p77</span></div></td><td><div class="ind"><span class="rot">habitantes por farmácia</span><span class="val">1.100,2 hab</span><span class="faixa-pct" title="percentil 21 — mediana nacional 1.492,6 hab"><i style="left:21%"></i></span><span class="pn">p21</span></div><div class="ind"><span class="rot">captura do potencial pelo varejo medido</span><span class="val">60,2 %</span><span class="faixa-pct" title="percentil 82 — mediana nacional 39,7 %"><i style="left:82%"></i></span><span class="pn">p82</span></div><div class="ind"><span class="rot">farmácias credenciadas ao Farmácia Popular</span><span class="val">4,5 %</span><span class="faixa-pct" title="percentil 13 — mediana nacional 29,0 %"><i style="left:13%"></i></span><span class="pn">p13</span></div></td><td><div class="ind"><span class="rot">crescimento demográfico</span><span class="val">1,8 % a.a.</span><span class="faixa-pct" title="percentil 93 — mediana nacional 0,1 % a.a."><i style="left:93%"></i></span><span class="pn">p93</span></div><div class="ind"><span class="rot">crescimento do mercado farmacêutico do município</span><span class="val">14,1 %</span><span class="faixa-pct" title="percentil 58 — mediana nacional 12,5 %"><i style="left:58%"></i></span><span class="pn">p58</span></div></td><td><div class="ind"><span class="rot">municípios que este influencia</span><span class="val">60 cidades</span><span class="faixa-pct" title="percentil 97 — mediana nacional 0,0 cidades"><i style="left:97%"></i></span><span class="pn">p97</span></div><div class="ind"><span class="rot">população urbana</span><span class="val">100,0 %</span><span class="faixa-pct" title="percentil 99 — mediana nacional 71,0 %"><i style="left:99%"></i></span><span class="pn">p99</span></div><div class="ind"><span class="rot">densidade demográfica</span><span class="val">3.816,8 hab/km²</span><span class="faixa-pct" title="percentil 99 — mediana nacional 24,9 hab/km²"><i style="left:99%"></i></span><span class="pn">p99</span></div></td></tr><tr><td><b>SALVADOR/BA</b><div class="nota">8 linha(s) na tabela acima</div><div class="nota">Metrópole na rede urbana</div><div class="nota alerta-cad">⚠ 1 loja(s) de outra cidade têm endereço de operação aqui e <b>não</b> entram nesta contagem · isso mexeria na contagem de grupos e, em cidade com teto, na disponibilidade — esta cidade não tem teto, então aqui não muda</div></td><td><div class="ind"><span class="rot">renda domiciliar per capita</span><span class="val">245,3 R$</span><span class="faixa-pct" title="percentil 17 — mediana nacional 456,3 R$"><i style="left:17%"></i></span><span class="pn">p17</span></div><div class="ind"><span class="rot">consumo em drogarias por habitante</span><span class="val">231,1 R$/ano</span><span class="faixa-pct" title="percentil 91 — mediana nacional 135,0 R$/ano"><i style="left:91%"></i></span><span class="pn">p91</span></div><div class="ind"><span class="rot">domicílios nas classes A, B1 e B2</span><span class="val">19,2 %</span><span class="faixa-pct" title="percentil 58 — mediana nacional 17,0 %"><i style="left:58%"></i></span><span class="pn">p58</span></div></td><td><div class="ind"><span class="rot">habitantes por farmácia</span><span class="val">1.924,2 hab</span><span class="faixa-pct" title="percentil 75 — mediana nacional 1.492,6 hab"><i style="left:75%"></i></span><span class="pn">p75</span></div><div class="ind"><span class="rot">captura do potencial pelo varejo medido</span><span class="val">48,2 %</span><span class="faixa-pct" title="percentil 66 — mediana nacional 39,7 %"><i style="left:66%"></i></span><span class="pn">p66</span></div><div class="ind"><span class="rot">farmácias credenciadas ao Farmácia Popular</span><span class="val">8,7 %</span><span class="faixa-pct" title="percentil 19 — mediana nacional 29,0 %"><i style="left:19%"></i></span><span class="pn">p19</span></div></td><td><div class="ind"><span class="rot">crescimento demográfico</span><span class="val">-0,8 % a.a.</span><span class="faixa-pct" title="percentil 11 — mediana nacional 0,1 % a.a."><i style="left:11%"></i></span><span class="pn">p11</span></div><div class="ind"><span class="rot">crescimento do mercado farmacêutico do município</span><span class="val">15,8 %</span><span class="faixa-pct" title="percentil 65 — mediana nacional 12,5 %"><i style="left:65%"></i></span><span class="pn">p65</span></div></td><td><div class="ind"><span class="rot">municípios que este influencia</span><span class="val">60 cidades</span><span class="faixa-pct" title="percentil 97 — mediana nacional 0,0 cidades"><i style="left:97%"></i></span><span class="pn">p97</span></div><div class="ind"><span class="rot">população urbana</span><span class="val">100,0 %</span><span class="faixa-pct" title="percentil 99 — mediana nacional 71,0 %"><i style="left:99%"></i></span><span class="pn">p99</span></div><div class="ind"><span class="rot">densidade demográfica</span><span class="val">3.695,0 hab/km²</span><span class="faixa-pct" title="percentil 99 — mediana nacional 24,9 hab/km²"><i style="left:99%"></i></span><span class="pn">p99</span></div></td></tr></tbody>
+  </table>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da lista</h2>
+  <div class="lente" style="border-color:#6b2fb5;background:#faf7fd"><p><b>O que foi apurado.</b> A busca cobriu a Bahia inteira, avaliou 68 unidades territoriais do varejo farmacêutico e manteve as que ficam a até 80 km do centro de Amélia Rodrigues — alcance declarado no pedido como restrição real de operação, não como preferência. Dentro desse raio, <b>38 praças têm vaga na contagem de grupos econômicos</b> para a entrada de um grupo novo operando bandeira convencional. A tabela acima traz as 12 maiores por mercado não atendido, que é a receita de farmácia que circula na região sem passar pela rede. <b>Essa é a única régua que ordena a tabela</b>: nada nela mede qualidade de praça, e a ordem não é recomendação.</p><p><b>Feira de Santana tem a menor presença da rede entre as cidades da lista.</b> São 616.272 habitantes no Censo 2022 e apenas <b>duas lojas da rede, de um único grupo econômico</b>, numa cidade a 28 km da referência. Duas das suas regiões entram na lista: o Centro, com R$ 205,8 milhões de mercado não atendido e crescimento de mercado de 16%, e Campo Limpo, com R$ 195,1 milhões e crescimento de 19% — nesta última a rede não fatura absolutamente nada hoje. Que a praça seja pouco explorada pela rede foi <b>informado na sessão pela área de expansão em 25/11/2026, sem registro em base</b>, e é coerente com a contagem de 2 lojas e 1 grupo. Não é dado medido, e nenhuma base deste acervo o confirma. Se essas duas lojas são antigas ou recentes o acervo também não diz — ver a lacuna sobre o crescimento da rede no Centro.</p><p><b>Camaçari entra na lista pelo mesmo critério das outras — R$ 188,2 milhões de mercado não atendido no Polo Petroquímico — mas o que distingue o município é outra camada.</b> Entre os quatro municípios representados na lista, Camaçari é o de <b>menor captura do potencial de consumo</b>: 33%, contra 48% em Salvador e 60% tanto em Feira de Santana quanto em Lauro de Freitas (dois valores próximos que o arredondamento iguala). O crescimento de mercado no Polo Petroquímico é de 20%, o segundo mais alto da lista, atrás dos 49% de Salvador — Amaralina-5; a cidade inteira cresce 18,6%, percentil 74. São dois recortes, não dois números para a mesma coisa: o primeiro é da região listada, o segundo do município. A captura é indicador do <b>município inteiro</b> e se repete igual em todas as regiões da mesma cidade: ela não distingue o Polo Petroquímico das demais regiões de Camaçari, e não separa uma praça da outra dentro de uma mesma cidade.</p><p><b>O que a captura baixa quer dizer, e o que ela não quer dizer.</b> Captura é a receita de farmácia somada das unidades territoriais do município dividida pelo potencial anual de consumo em drogarias da população que mora ali — indicador da camada de potencial de consumo do acervo de 2026-10-26. Em Camaçari, 33% desse potencial aparece como receita em farmácia. A diferença pode ser mercado desassistido, pode ser população que compra em outro município, e pode ser cobertura parcial da base de mercado — <b>nenhuma das três é distinguível neste acervo</b>. É o indicador que menos conclui sozinho: três causas incompatíveis produzem o mesmo 33%.</p><p><b>Salvador ocupa oito das doze linhas, e isso é efeito da ordenação.</b> A lista ordena por mercado absoluto não atendido, e a capital sempre vence nessa régua: Amaralina-2 sozinha tem R$ 428,2 milhões sem receita da rede dentro. Mas a cidade já tem <b>39 lojas da rede distribuídas em 13 grupos econômicos</b>, e a ausência de teto de zoneamento ali decorre apenas do porte populacional — nas cidades maiores a regra de expansão não estabelece limite de grupos, o que não é o mesmo que haver espaço comercial sobrando. A 68 km, é também a praça mais distante da lista depois de Lauro de Freitas, que está a 72 km. E é a única das quatro cidades que <b>encolhe</b>: crescimento demográfico de −0,8% ao ano, percentil 11, a única das quatro abaixo da mediana nacional de 0,1%. As outras três estão nos percentis 93, 93 e 78 — Camaçari e Lauro de Freitas em 1,8% (dois valores próximos que o arredondamento iguala) e Feira de Santana em 0,8%.</p><p><b>Sobre as quedas de receita em Salvador.</b> Três regiões da capital aparecem na tabela com a receita da rede em queda, e a tabela diz quanto: <b>70,0% na Vitória, 26,0% em Itapoã-1 e 10,0% em Plataforma</b>. Os três valores saem da mesma coluna, mas não descrevem o mesmo evento — uma perda de 70,0% e uma de 10,0% só se parecem enquanto a leitura for “caiu”. Foi <b>informado na sessão pela área de expansão em 25/11/2026, sem registro em base</b>, que não houve saída de associado em nenhuma das três: a queda é de loja que continua operando. Nenhuma base deste acervo explica por quê. Não desqualifica as praças e não as promove — fica como pergunta em aberto, registrada entre as lacunas.</p><p><b>Amélia Rodrigues não aparece na tabela, e o motivo é do filtro.</b> Esta apuração só considera regiões com pelo menos R$ 5 milhões de receita de mercado, e nenhuma região da cidade de referência alcançou esse corte. Isso <b>não</b> significa que a cidade não tenha mercado — significa que ela está abaixo da régua que esta lista usa para separar praça de localidade pequena, e que uma lista ordenada por mercado absoluto nunca a mostraria. Se o interesse for abrir em Amélia Rodrigues mesmo, o caminho não é este documento: é o dossiê do ponto, que exige um endereço com coordenada e roda o gate de zoneamento sobre ele.</p><p><b>O perfil das quatro cidades desfaz pelo menos duas leituras que a tabela sozinha sugere.</b> A primeira é sobre renda: as quatro têm renda domiciliar per capita <b>abaixo</b> da mediana nacional — Feira de Santana e Salvador no percentil 17, Camaçari no 21, Lauro de Freitas no 39 — e, ainda assim, as quatro gastam em farmácia por habitante <b>acima</b> da maioria dos municípios brasileiros: percentil 91 em Salvador, 90 em Lauro de Freitas, 79 em Camaçari e 76 em Feira de Santana. Renda baixa e consumo de farmácia alto convivem aqui, e é por isso que renda sozinha não serve para escolher praça nesta região. A segunda é sobre a densidade do parque instalado: Salvador tem 1.924 habitantes por farmácia, acima da mediana nacional de 1.493 — percentil 75. Lauro de Freitas tem 1.100, abaixo dela — percentil 21. As duas estão em pontos opostos da distribuição brasileira, e é isso que o número diz; a diferença entre elas não é leitura que quatro casos sustentem. E o indicador tem a mesma ambiguidade da captura: razão alta pode ser parque subdimensionado ou cobertura parcial da base de farmácias, e o acervo não separa os dois. Os dois valores usam uma contagem de população estimada, que não é a do Censo citada acima para Feira de Santana.</p><p><b>Um achado que vale para as quatro, e que não aparece na tabela de praças.</b> O percentual de farmácias credenciadas ao Farmácia Popular é muito baixo em todas: 2,4% em Camaçari, 4,5% em Lauro de Freitas, 5,8% em Feira de Santana e 8,7% em Salvador, contra uma mediana nacional de 29,0%. Isso é perfil do parque instalado, não folga de mercado. A consequência é prática: se o modelo pretendido depender de movimento de Farmácia Popular, nenhuma das quatro cidades oferece parque local de referência para calibrar essa expectativa. E vale dizer o que o achado <b>não</b> faz — ele é uniforme nas quatro, nos percentis 11, 13, 15 e 19, então não separa uma praça da outra desta lista nem move a escolha de qual recebe dossiê primeiro. Nenhuma base deste acervo explica por que a região inteira está tão abaixo da mediana.</p><p><b>Qual conferir primeiro depende de um critério que este documento não fixa.</b> As duas regiões de Feira de Santana e o Polo Petroquímico de Camaçari são as três linhas da lista com um único grupo econômico na cidade, a 28 km e 58 km da referência — contra 68 km e 72 km das demais, que têm 3 ou 13 grupos instalados. São também as três de menor mercado não atendido da tabela, e essa tensão é real: Salvador concentra oito linhas por tamanho absoluto. Qual das duas combinações vale mais é decisão de quem pede — a apuração não ordena por ela.</p></div>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que esta lista NÃO sabe
+    <span class="qtd">12 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li><b>Quanto mercado Amélia Rodrigues tem.</b> A cidade de referência não entrou na lista porque nenhuma de suas regiões alcançou o corte mínimo de R$ 5 milhões de receita de mercado que esta apuração aplica — e abaixo desse corte o número não foi apurado, nem para mais nem para menos. Destrava com o dossiê da cidade, que exige um endereço com coordenada.</li><li><b>O que explica a captura de 33% em Camaçari.</b> A taxa divide receita apurada nas unidades territoriais do município pelo potencial de consumo da população residente, e as duas fronteiras não são a mesma. Mercado desassistido, população que compra em outro município e cobertura parcial da base produzem o mesmo número, e o acervo não separa os três casos. Destrava com apuração de origem do consumo da população de Camaçari, que não existe neste acervo.</li><li><b>Por que a receita da rede caiu em três regiões de Salvador.</b> Itapoã-1, Vitória e Plataforma aparecem com retração, e foi informado na sessão que não houve saída de associado em nenhuma delas. Sem saída, a causa está na operação das lojas que continuam lá, e isso não está em base nenhuma deste acervo. Destrava com o histórico comercial dessas lojas junto à área de relacionamento.</li><li><b>Se o crescimento da rede no Centro de Feira de Santana é real.</b> A apuração devolve para essa região uma variação de receita da rede de três ordens de grandeza, compatível com entrada muito recente partindo de base quase nula — mas também com erro de base. O número não foi usado em nenhuma afirmação deste documento, e não deve ser citado sem conferência. Destrava com a data de abertura das lojas da rede na cidade.</li><li><b>Fluxo de passantes, em todas as doze praças.</b> Nenhuma base deste acervo mede quanta gente circula a pé ou de carro em qualquer uma das regiões listadas. A ausência vale igualmente para as 12 linhas e por isso não diferencia nenhuma delas nesta tabela — mas no Polo Petroquímico ela muda a leitura de um indicador específico, como registra o item de campo correspondente. Destrava em campo, na etapa de geração de fluxo, e só sobre um endereço.</li><li><b>A que distância cada região de Salvador realmente está.</b> A distância é calculada de um ponto único por município, e as farmácias de Salvador se espalham 5,6 quilômetros em volta dele. Itapoã e Plataforma não estão igualmente distantes de Amélia Rodrigues na prática. A distância desta tabela serve para ordenar praças, nunca para medir trajeto entre dois endereços.</li><li><b>Preço médio por unidade.</b> A apuração traz esse indicador para Feira de Santana, Lauro de Freitas e Camaçari, e não para nenhuma das oito regiões de Salvador. Ele é do município inteiro, não da região listada, e por isso <b>não foi usado em nenhuma afirmação deste documento</b>.</li><li><b>Por que o credenciamento ao Farmácia Popular é tão baixo nas quatro cidades.</b> Os quatro percentuais ficam muito abaixo da mediana nacional, e o acervo registra o fato sem explicá-lo: pode ser decisão das operações instaladas, pode ser característica regional do programa, pode ser cobertura da base. Destrava com a área que acompanha o credenciamento na rede.</li><li><b>Como é cada praça por dentro.</b> A unidade desta lista é territorial e cobre a cidade ou uma parte dela, não um raio em volta de um endereço. Renda, população e potencial de consumo aparecem no perfil <b>por cidade</b>, e nessa granularidade não distinguem uma praça da outra dentro do mesmo município; <b>por praça</b> seguem desconhecidos, junto com a concorrência no raio. Destrava rodando o dossiê da praça escolhida.</li><li><b>Se a vaga vale para quem está perguntando.</b> A disponibilidade é calculada para a entrada de um grupo <b>novo</b>, e a apuração não sabe quem fez o pedido. Para solicitante que já responde por loja numa destas cidades, o pedido não acrescenta grupo e a leitura da linha é outra. Destrava informando em quais cidades ele já opera.</li><li><b>A que distância o empresário aceita operar.</b> O raio de 80 km é premissa desta busca, não regra da casa e não medida: nenhuma fonte do acervo responde isso. Praça boa logo depois do limite não aparece. Destrava com o raio que o solicitante aceita, informado por ele.</li><li><b>Se alguma loja ficou fora da contagem de grupos.</b> A contagem usa o identificador de grupo econômico do cadastro, e loja ativa sem esse identificador preenchido conta como loja e <b>não</b> conta como grupo. Onde isso acontece, a praça aparece com menos grupos do que tem — e pode aparecer disponível sem estar. A lista declara, em cada cidade, quando há loja nessa situação. Destrava conferindo o cadastro das lojas da praça.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar antes de escolher</h2>
+  <ul class="proc"><li><b>Quais são, e sob qual bandeira operam, as duas lojas da rede em Feira de Santana.</b> A contagem diz duas lojas e um grupo econômico, mas não diz onde estão dentro de uma cidade de 616 mil habitantes. Se as duas estiverem no Centro, a região de Feira com mais mercado não atendido (R$ 205,8 milhões, sétima linha da tabela) é também a mais disputada internamente; se estiverem em outra ponta, Centro e Campo Limpo seguem abertos. Muda qual das duas regiões de Feira recebe dossiê primeiro.</li><li><b>Em que rua de cada região o ponto estaria.</b> As regiões desta lista são unidades territoriais do varejo farmacêutico: cobrem a cidade ou uma parte dela, nunca um raio em volta de um endereço. Nada aqui diz onde dentro do Centro de Feira ou dentro do Polo Petroquímico vale procurar. Muda tudo que vier depois — o gate de zoneamento, a concorrência no raio e o potencial de consumo só existem sobre um endereço.</li><li><b>Que tipo de fluxo sustenta o Polo Petroquímico de Camaçari.</b> O potencial de consumo que entra no cálculo da captura é da população residente do município, e uma região de perfil industrial pode ser sustentada por trabalhador que não mora ali. Muda qual das três causas possíveis da captura de 33% está em jogo — mercado desassistido, população que compra onde mora, ou cobertura parcial da base.</li><li><b>Em que faixa de zoneamento Lauro de Freitas realmente cai.</b> Com 203.331 habitantes no Censo 2022, a cidade fica logo acima do corte populacional que dispensa o teto de grupos, e é a única linha da lista cuja ausência de teto se decide por margem estreita. Com outra safra de população ela cairia em faixa com teto, e os 3 grupos econômicos já instalados passariam a contar. Muda a disponibilidade dessa linha.</li></ul>
+</section>
+<section>
+      <h2><span class="ic">§</span> Fontes</h2>
+      <ul class="proc">
+        <li><b>Mercado por unidade territorial e crescimento</b> — base de mercado farmacêutico
+          do instituto, no acervo de 2026-10-26. "Mercado não atendido" é a receita total da
+          unidade menos a receita da rede nela: é subtração de dois valores medidos, não
+          projeção de quanto se capturaria.</li>
+        <li><b>Lojas da rede, grupos econômicos e modelo de negócio</b> — cadastro de lojas
+          Farmarcas, extração de 2026-11-10. Ocupam vaga as lojas ativas, montando
+          ou em transição; loja desativada não conta, e isso é premissa desta análise, não
+          texto da regra. A loja é atribuída à praça pela <b>cidade do endereço fiscal</b>,
+          comparada pelo nome do município e pela UF — divergência de grafia entre o cadastro
+          e a base de unidades territoriais zera a contagem sem avisar, e por isso a lista
+          declara, em cada praça, quando o endereço de operação aponta para outro município.
+          O grupo econômico é contado pelo <b>identificador do cadastro</b>, não pelo nome do
+          responsável.</li>
+        <li><b>População que corta a faixa do teto</b> — Censo 2022 do IBGE, pela API pública,
+          extração de 2026-11-25. Não vem do acervo de camadas.</li>
+        <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas,
+          páginas 4.5 e 6.1. A contagem do teto é por <b>grupos econômicos</b>, confirmada com a
+          área dona da regra em 29/10/2026.</li>
+        <li><b>Distância</b> — do centro aproximado de Amélia Rodrigues/BA até o centro aproximado
+          de cada município. Serve para ordem de grandeza, nunca para medir trajeto.</li>
+        <li><b>Perfil por cidade — como ler a posição nacional</b> — cada indicador é comparado
+          com a distribuição dos municípios brasileiros que têm aquele dado na camada, e
+          <b>esse total varia por indicador</b>: de 5.249 a
+          5.571 municípios. Os dois de base mais estreita são a captura do
+          potencial e o crescimento do mercado municipal — percentil apurado contra menos
+          municípios é percentil mais frágil, e os dois aparecem na leitura.</li>
+        <li><b>Perfil por cidade — poder de compra</b> — camada de Renda Média por município e
+          base municipal de Potencial de Consumo, do acervo de 2026-10-26, mais as faixas de
+          classe econômica da base do Farmácia Popular. O consumo em drogarias é publicado
+          por habitante na própria base; as classes A, B1 e B2 são a soma das três faixas.</li>
+        <li><b>Perfil por cidade — folga competitiva</b> — habitantes por farmácia é a
+          população municipal dividida pelo total de farmácias da cidade na base do Farmácia
+          Popular. A captura é a receita somada das unidades territoriais do município
+          dividida pelo potencial de consumo anual dele — duas medidas, nenhuma projeção.
+          O percentual de farmácias credenciadas vem da mesma base do Farmácia Popular.</li>
+        <li><b>Perfil por cidade — dinamismo</b> — taxa de crescimento demográfico da camada
+          de Densidade Demográfica, e crescimento do mercado farmacêutico do município pela
+          soma da receita de todas as unidades territoriais dele, período atual contra
+          anterior. A soma é de receita, nunca média das taxas das unidades.</li>
+        <li><b>Perfil por cidade — centralidade urbana</b> — REGIC 2018 do IBGE para o papel
+          na rede urbana e para quantos municípios a cidade influencia, pela contagem que a
+          própria camada declara; percentual de população urbana da camada de Situação do
+          Território; densidade da camada de Densidade Demográfica. O papel na rede urbana
+          sai como rótulo e <b>sem</b> posição nacional: é categoria do IBGE, e transformá-la
+          em número aqui seria inventar uma escala. <b>Atenção ao número de cidades
+          influenciadas:</b> municípios de um mesmo arranjo metropolitano herdam a contagem
+          do arranjo, então várias cidades vizinhas exibem o mesmo valor — ele descreve a
+          rede urbana a que a cidade pertence, não quantas cidades aquela cidade
+          especificamente polariza.</li>
+        <li><b>Captura do potencial de consumo</b> — camada de potencial de consumo do acervo, cruzada com a base de mercado. É a receita de farmácia somada das unidades territoriais do município dividida pelo potencial anual de consumo em drogarias de quem mora ali. O indicador é do MUNICÍPIO inteiro e se repete igual em todas as regiões da mesma cidade — não separa uma praça da outra. A tabela não traz esta coluna.</li><li><b>Saída de associado nas três regiões de Salvador com queda</b> — informado na sessão pela área de expansão em 25/11/2026. Sem registro em base — nenhum arquivo deste acervo confirma ou desmente.</li>
+      </ul>
+      <p class="vazio">Este documento não pontua praça e não ordena por qualidade: a ordenação é
+      por uma quantidade medida. A régua de viabilidade pertence ao produto.</p>
+    </section>
+<footer>
+  Órbita · Onde olhar · a partir de Amélia Rodrigues/BA ·
+  insumo para escolher onde analisar, não recomendação de abertura
+</footer></div></body></html>

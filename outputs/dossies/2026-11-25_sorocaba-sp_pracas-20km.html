@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Órbita · Onde olhar — Sorocaba/SP</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+/* Ressalva de qualidade do dado: fica do lado do numero que ela ressalva, e
+   nao na secao recolhida de lacunas — e defeito conhecido do registro, nao
+   coisa que o dossie deixou de saber. */
+.alerta-dado{margin:14px 0 0;padding:12px 14px;border-radius:9px;
+ background:#fdf3e8;border:1px solid #e3b887;font-size:13px;line-height:1.5}
+.alerta-dado ul{margin:7px 0 0;padding-left:19px}
+.alerta-dado li{margin:3px 0}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Onde olhar</div>
+  <div class="sub">Praças a conferir — <b>sem análise de ponto e sem score</b> ·
+    acervo de camadas de 2026-10-26 · cadastro de lojas de 2026-11-10 ·
+    população do Censo extraída em 2026-11-25</div>
+</header>
+<div class="faixa-end">A partir de Sorocaba/SP · raio de 20 km</div>
+<section class="topo">
+  <div class="gate" style="border-color:#6b2fb5">
+    <div class="rot">Ordenado por</div>
+    <div class="val" style="color:#6b2fb5">Mercado não atendido</div>
+    <div class="nota">receita que circula na praça sem passar pela rede</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Dentro de 20 km de Sorocaba há 5 praças onde a regra de expansão não barra a entrada de um grupo novo, e a escolhida é Jardim América — a maior região da cidade e a única grande sem receita da rede.</p>
+    <div class="meta">Solicitante: <b>empresário novo</b> ·
+      Modelo pretendido: <b>popular</b> ·
+      Praças listadas: <b>5</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">■</span> O que esta lista é, e o que ela não é</h2>
+  <p class="explica"><b>É o ponto de partida de uma análise, não o resultado dela.</b>
+  Nenhuma praça abaixo foi analisada: não houve gate de zoneamento em endereço nenhum,
+  não se olhou concorrência num raio, renda, população nem potencial de consumo. O que
+  está apurado aqui é outra coisa, e só ela — <b>onde a regra de expansão não barra a
+  entrada de um grupo novo</b>, e <b>quanto mercado farmacêutico circula ali hoje sem
+  passar pela rede</b>. Escolher entre duas praças desta lista ainda exige o dossiê de
+  cada uma. E "cabe no teto" é ausência de impedimento na contagem de grupos, não
+  liberação: o gate de verdade roda sobre um endereço, com bandeira e distância mínima,
+  e pode barrar um ponto dentro de uma praça que aparece aqui como disponível.</p>
+</section>
+<section>
+  <h2><span class="ic">→</span> Praças a conferir — onde a regra não barra a entrada</h2>
+  <p class="explica"><b>Isto é lista de onde vale rodar um dossiê, não recomendação de abertura.</b> Nenhuma destas praças foi analisada: o que foi apurado é que a regra de expansão não barra a entrada de um grupo novo nelas, e quanto mercado farmacêutico circula ali hoje sem passar pela rede. Mercado grande sem nós pode ser oportunidade ou praça já testada e perdida, e <b>esta apuração não separa os dois</b>: sob o mercado de cada linha vem quantas lojas a rede já tem na cidade e se a receita dela caiu ali — que é o que foi medido. A causa da queda não está em base nenhuma deste acervo. Cada linha é uma unidade de mercado, por isso a mesma cidade pode aparecer mais de uma vez, sempre nomeando a localidade — ou dizendo "município inteiro", quando a unidade cobre a cidade toda. A lista já considera que a bandeira pretendida é <b>popular</b>. Praça com mercado abaixo de R$ 5.000.000,00 não entra na lista — piso desta busca, premissa e não regra da casa.</p>
+  <p class="explica"><b>A lista está limitada a 20 km do endereço analisado</b>, medidos até o centro aproximado de cada município. Esse raio é premissa desta análise, não regra da casa: nenhuma fonte diz a que distância um empresário aceita operar. Sem ele, a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p>
+  <table><thead><tr><th>Praça</th><th>Distância</th><th>Mercado não atendido</th>
+  <th>Grupos / teto</th><th>Cresc.</th></tr></thead><tbody><tr><td><b>SOROCABA/SP</b><div class="nota">JARDIM AMERICA</div></td><td>0 km</td><td>R$ 416,3 milhões<div class="nota">8 loja(s) da rede na cidade</div></td><td>7 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>17,0%</td></tr><tr><td><b>SOROCABA/SP</b><div class="nota">VILA HARO</div></td><td>0 km</td><td>R$ 339,9 milhões<div class="nota">8 loja(s) da rede na cidade</div></td><td>7 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>13,0%</td></tr><tr><td><b>SOROCABA/SP</b><div class="nota">EDEN</div></td><td>0 km</td><td>R$ 256,4 milhões<div class="nota">8 loja(s) da rede na cidade</div></td><td>7 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>18,0%</td></tr><tr><td><b>VOTORANTIM/SP</b><div class="nota">PARQUE BELA VISTA</div></td><td>6 km</td><td>R$ 150,7 milhões<div class="nota">0 loja(s) da rede na cidade</div></td><td>0 de 3<div class="nota">cabe grupo novo — 0 de 3, 3 vaga(s)</div></td><td>20,0%</td></tr><tr><td><b>SOROCABA/SP</b><div class="nota">VILA BARAO</div></td><td>0 km</td><td>R$ 125,1 milhões<div class="nota">8 loja(s) da rede na cidade</div></td><td>7 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>7,0%</td></tr></tbody></table>
+  <p class="vazio"><b>Como a disponibilidade é apurada.</b> cabe grupo novo quando os grupos econômicos com loja ativa na cidade são MENOS que o teto da faixa — e, na faixa de 60 a 120 mil, o 2º grupo só entra com bandeira popular.
+  O grupo sai do responsável pelo GE no cadastro, deduplicado por NOME normalizado e não por CNPJ. Grafia divergente entre duas lojas do mesmo dono inventa um grupo e esconde uma praça que está disponível — ou seja, uma praça pode aparecer como indisponível
+  por grafia divergente no cadastro, e o caminho para confirmar é o CNPJ. Esta lista escolhe
+  a <b>praça</b>, não o ponto: cada uma ainda precisa do seu próprio dossiê.</p>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da lista</h2>
+  <div class="lente" style="border-color:#6b2fb5;background:#faf7fd"><p>A praça escolhida é Jardim América, em Sorocaba, pelo critério que o solicitante declarou: a maior região sem a rede. São R$ 416.288.197,39 de mercado farmacêutico no acumulado de doze meses, crescendo 17%, e nenhuma receita do grupo dentro — a unidade territorial inteira é de concorrentes. É a maior das quatro regiões de Sorocaba.</p><p>Sorocaba tem 723.682 habitantes no Censo 2022 e está na faixa de população em que a regra de expansão não fixa teto de grupos econômicos: a ocupação é decidida por market share. A cidade já tem 7 grupos instalados e captura 47,53% do próprio potencial anual de consumo em drogarias, que é de R$ 2.455.821.796,00.</p><p>Zero de receita da rede significa coisas opostas em duas das quatro regiões. Jardim América é a maior e cresce 17%. Vila Barão também está em zero, mas é a menor, com R$ 125.073.531,88, e cresce 7%. O mesmo número descreve um espaço grande em expansão num caso e um mercado pequeno e parado no outro.</p><p>Nas duas regiões onde a rede está, ela cresce menos que a praça. Em Vila Haro o mercado cresce 13% e a receita do grupo cresce 6%, sobre R$ 14.098.790,96 apurados; em Éden, 18% contra 16%, sobre R$ 15.580.406,18. A única bandeira do grupo presente em Sorocaba é a Bigfort.</p><p>Fora de Sorocaba, uma única praça entra no alcance declarado: Parque Bela Vista, em Votorantim, a 5,7 km, com R$ 150.677.909,97 de mercado sem a rede e crescimento de 20% — o maior desta lista. O município tem 127.923 habitantes, teto de 3 grupos econômicos e nenhum instalado, e captura 37,46% do próprio potencial.</p><p>A lista foi rodada para os dois modelos, popular e convencional, e devolveu exatamente as mesmas 5 praças na mesma ordem. Não é coincidência: a exigência de bandeira popular só existe numa faixa intermediária de população, e nenhuma destas praças está nela. Para esta decisão, o modelo pretendido não muda onde olhar.</p><p>Esta lista diz onde vale rodar um dossiê de ponto, e não onde abrir. A ordenação é por mercado não atendido, que é uma quantidade medida, nunca uma nota. Caber no teto é ausência de impedimento na contagem de grupos econômicos, não liberação: o gate de zoneamento roda sobre um endereço, com coordenada, e é lá que a distância mínima entre lojas e a alternância de bandeiras passam a valer.</p></div>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que esta lista NÃO sabe
+    <span class="qtd">13 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li>Qual é o total de mercado de Sorocaba. A base devolve a região Jardim América em duas linhas idênticas, de modo que a soma das unidades territoriais do município conta essa região duas vezes — e o share do grupo na cidade, que é calculado sobre essa soma, sai inflado junto. Por isso nenhum total municipal aparece neste documento, só as regiões uma a uma. Destrava com a correção da duplicidade na base de unidades territoriais.</li><li>Se o ponto passa no gate de zoneamento. Não há endereço nem coordenada, então nada foi avaliado: nem distância mínima entre lojas da rede, nem alternância de bandeiras, nem erro de cadastro de loja próxima. Caber na contagem de grupos é a única coisa que esta lista verifica, e ela não substitui o gate. Destrava com um endereço em Jardim América.</li><li>De quem seria o pedido. Não há solicitante definido, então este documento não afirma nada sobre canibalização: sem saber quem pede, loja da rede próxima não é nem conflito entre associados nem escolha estratégica de quem já opera. A vaga desta lista é sempre calculada para um grupo novo. Destrava com o nome do empresário e do responsável pelo GE no cadastro.</li><li>Qual é o share medido do grupo nestas regiões. A base de market share não cobre três das quatro unidades territoriais de Sorocaba e devolve zero medido nas outras duas, enquanto a receita mostra R$ 14.098.790,96 em Vila Haro e R$ 15.580.406,18 em Éden. Share ausente e share zero são coisas diferentes, e o share citado aqui é inferido da receita. Destrava com a base de market share cobrindo as unidades territoriais do município.</li><li>A que distância este empresário aceita operar. O alcance que filtra esta lista é premissa declarada pelo solicitante, não medida: nenhuma fonte diz a que distância alguém aceita operar. Com um alcance maior a lista passaria a incluir praças de Barueri e de Indaiatuba, as duas acima de Jardim América em mercado não atendido, e a escolha pelo critério de maior região sem a rede mudaria de cidade. Destrava com a definição do alcance operacional aceitável.</li><li>Onde fica o centro de Sorocaba, para efeito de distância. A âncora desta busca é um centroide aproximado, obtido pela mediana das coordenadas de 261 farmácias da cidade, com dispersão de 3,6 km entre elas. Serve para ordenar praças e dar ordem de grandeza, nunca para medir distância entre dois endereços — os 5,7 km até Votorantim são aproximação nessa escala. Destrava com a geometria oficial dos municípios.</li><li>O que acontece dentro de cada região. Unidade territorial de varejo não é bairro nem raio: Jardim América cobre uma área muito maior que o raio de análise de um dossiê de ponto, e o mercado dela é a soma de tudo que circula ali. Qual quarteirão dessa região tem demanda sem quem atenda é pergunta que esta lista não responde. Destrava com o dossiê de ponto sobre um endereço.</li><li>Quanta gente circula em cada região. Fluxo de passantes não existe em fonte nenhuma — nem nas bases do Órbita, nem no produto, nem em API pública. Numa escolha entre regiões de uma cidade de 723.682 habitantes, isso é o que separa corredor comercial de bairro dormitório, e nenhum número desta lista o distingue. Destrava com contagem em campo nos recortes candidatos.</li><li>Quais lojas do grupo saíram da rede nestas praças. A base de receita reflete a carteira atual do grupo, com o histórico retroagido: loja que saiu foi apagada para trás. Uma praça que aparece com zero pode nunca ter sido tentada ou ter sido tentada e perdida, e a base não distingue os dois casos. Destrava com o histórico de encerramentos da área de Expansão.</li><li><b>Como é cada praça por dentro.</b> A unidade desta lista é territorial e cobre a cidade ou uma parte dela, não um raio em volta de um endereço — população, renda, concorrência no raio e potencial de consumo seguem desconhecidos em todas. Destrava rodando o dossiê da praça escolhida.</li><li><b>Se a vaga vale para quem está perguntando.</b> A disponibilidade é calculada para a entrada de um grupo <b>novo</b>, e a apuração não sabe quem fez o pedido. Para solicitante que já responde por loja numa destas cidades, o pedido não acrescenta grupo e a leitura da linha é outra. Destrava informando em quais cidades ele já opera.</li><li><b>A que distância o empresário aceita operar.</b> O raio de 20 km é premissa desta busca, não regra da casa e não medida: nenhuma fonte do acervo responde isso. Praça boa logo depois do limite não aparece. Destrava com o raio que o solicitante aceita, informado por ele.</li><li><b>Se duas lojas do mesmo dono foram contadas como dois grupos.</b> O grupo é apurado pelo responsável registrado no cadastro, comparado por nome e não por CNPJ. Grafia divergente inventa um grupo e esconde uma praça que está disponível. Destrava conferindo o CNPJ das lojas da praça no cadastro.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar antes de escolher</h2>
+  <ul class="proc"><li>Levantar endereços candidatos dentro de Jardim América e obter a coordenada de cada um. É o que destrava tudo o que esta lista não responde: o gate de zoneamento, o raio de análise, a concorrência medida, os setores censitários e a implantação na quadra. Sem coordenada não existe dossiê de ponto, só retrato de região.</li><li>Definir quem é o empresário e obter o nome do responsável pelo GE como está no cadastro de lojas. Sem ele o relatório de ponto nem é gerado, e antes disso a leitura de canibalização fica sem base: as lojas da rede em Sorocaba são de terceiros ou do próprio solicitante conforme a resposta, e isso inverte o sentido de cada loja próxima.</li><li>Definir a bandeira pretendida. Ela escolhe qual régua de distância mínima o gate aplica — mais curta entre lojas de mesma bandeira, mais longa entre bandeiras diferentes — e em Sorocaba essa régua provavelmente incide, porque a rede já opera na cidade.</li><li>Conferir com quem mantém a base se Jardim América é mesmo uma região ou se as duas linhas idênticas são duplicidade de cadastro. Se forem duas regiões distintas com o mesmo nome, o mercado de cada uma é metade do que esta lista mostra na linha, e a escolha pelo critério de maior região sem a rede mudaria.</li><li>Checar em campo se Votorantim é alternativa real antes de descartá-la. Ela cresce 20%, o maior da lista, tem teto de 3 grupos e nenhum instalado, e fica a 5,7 km do centroide de Sorocaba — mas é município distinto, com gate próprio e regra de teto que Sorocaba não tem.</li></ul>
+</section>
+<footer>
+  Órbita · Onde olhar · a partir de Sorocaba/SP ·
+  insumo para escolher onde analisar, não recomendação de abertura
+</footer></div></body></html>

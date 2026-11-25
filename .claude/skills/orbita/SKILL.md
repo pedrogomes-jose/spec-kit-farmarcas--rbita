@@ -1,6 +1,6 @@
 ---
 name: orbita
-description: Conduz a análise de região ou de ponto comercial da Farmarcas como conversa - pergunta o mínimo para fixar o ponto, roda o gate de zoneamento e os dados, e discute os números com o analista, desafiando hipótese que o dado não sustenta, explicando o que cada camada significa e transformando lacuna em pergunta, até fechar o dossiê HTML no layout do Órbita, entregue na versão CURTA do relatório com a cópia completa gerada ao lado para conferência. Também atende quem ainda não tem ponto - a partir de uma cidade de referência, lista as praças onde a regra de expansão não barra a entrada de um grupo novo. Use quando o usuário disser 'vamos olhar essa região', 'me ajuda a analisar esse ponto', 'vale abrir aqui?', 'o que você acha dessa praça?', 'onde eu deveria olhar?', 'que praças valem olhar perto de X?', 'tô pensando em abrir um ponto', 'quero entender essa cidade', ou fornecer um endereço ou uma cidade pedindo contexto para abrir loja. Do NOT use quando o pedido for pelo roteiro direto, sem conversa ('gera o dossiê completo de X', 'roda a análise desse endereço') → use /analise-regiao-farmarcas; do NOT use quando o pedido for pela versão curta SEM conversa, a partir de um endereço já decidido → use /analise-regiao-farmarcas-enxuto; do NOT use para calcular o score de viabilidade 0–20 → o dossiê não pontua, por decisão de produto; do NOT use para escrever cards do board SQO → use /orbita-user-stories; do NOT use para discovery de produto → use /product-discovery.
+description: Conduz a análise de região ou de ponto comercial da Farmarcas como conversa - pergunta o mínimo para fixar o ponto, roda o gate de zoneamento e os dados, e discute os números com o analista, desafiando hipótese que o dado não sustenta, explicando o que cada camada significa e transformando lacuna em pergunta, até fechar o dossiê HTML no layout do Órbita, entregue na versão CURTA do relatório com a cópia completa gerada ao lado para conferência. Também atende quem ainda não tem ponto - a partir de uma cidade de referência, lista as praças onde a regra de expansão não barra a entrada de um grupo novo. Use quando o usuário disser 'vamos olhar essa região', 'me ajuda a analisar esse ponto', 'vale abrir aqui?', 'o que você acha dessa praça?', 'onde eu deveria olhar?', 'que praças valem olhar perto de X?', 'tô pensando em abrir um ponto', 'quero entender essa cidade', ou fornecer um endereço ou uma cidade pedindo contexto para abrir loja. Também atende o MAPEAMENTO de praças: 'vamos fazer um mapeamento', 'faz um mapeamento de X', 'quero fazer um estudo', 'faz um estudo da região', 'mapear onde dá para abrir' — e aí entrega a lista de praças, não o dossiê de ponto. O dossiê de ponto só sai com endereço; sem endereço o pedido é mapeamento, qualquer que seja a palavra usada. Do NOT use quando o pedido for pelo roteiro direto, sem conversa ('gera o dossiê completo de X', 'roda a análise desse endereço') → use /analise-regiao-farmarcas; do NOT use quando o pedido for pela versão curta SEM conversa, a partir de um endereço já decidido → use /analise-regiao-farmarcas-enxuto; do NOT use para calcular o score de viabilidade 0–20 → o dossiê não pontua, por decisão de produto; do NOT use para escrever cards do board SQO → use /orbita-user-stories; do NOT use para discovery de produto → use /product-discovery.
 ---
 
 # Órbita — a análise como conversa
@@ -43,6 +43,12 @@ Leia estas antes de qualquer outra coisa. Elas não cedem à conversa — a conv
   for já associado, `montar_relatorio.py` **aborta com erro fatal** sem o
   responsável pelo GE. Bandeira e modelo podem virar premissa declarada; estes
   três, não.
+  **Isso vale para o dossiê de ponto, e só para ele.** No mapeamento não há
+  solicitante: a vaga é calculada para um grupo novo, o documento declara que
+  não sabe quem pede e não afirma nada sobre canibalização. Perguntar perfil,
+  empresário, responsável pelo GE ou bandeira ali é cobrar o que o pedido ainda
+  não tem — e foi o que travou a conversa em 2026-11-25, quando as três
+  respostas vieram como "não tenho ainda".
 - **Nome de pessoa nunca entra em entregável.** O responsável pelo GE entra por
   linha de comando na geração, nunca gravado no JSON.
 - **Pergunta sem resposta trava a fase.** Toda pergunta sai numerada, no bloco
@@ -165,32 +171,122 @@ Sem contexto nenhum, abra assim — e só assim:
 Com contexto parcial, abra confirmando o que já entendeu em bullets e pergunte
 **só o que falta**.
 
-## Fase 0 — Prospecção *(só quando não há ponto nem cidade)*
+**O que decide o caminho é o endereço, não a palavra usada.**
+
+| O que veio | Para onde vai |
+|---|---|
+| endereço, ou endereço + coordenada | Fase A → dossiê de ponto |
+| "mapeamento", "estudo", "mapear", com ou sem cidade | Fase 0 → lista de praças |
+| só cidade, só região, ou nada | Fase 0 → lista de praças |
+
+Cidade sem endereço **não** é caso de dossiê: numa cidade de centenas de
+milhares de habitantes, a média entre um bairro central e um periférico não
+descreve nenhum dos dois. Diga isso e vá para a Fase 0 — não ofereça um perfil
+de cidade como se fosse análise de ponto.
+
+## Fase 0 — Mapeamento de praças *(sempre que não houver endereço)*
 
 **Objetivo:** sair de "onde eu deveria olhar?" para 1 a 3 praças escolhidas.
 
-**A âncora é obrigatória.** Sem coordenada de referência, a lista é função da UF
-e não do pedido — medido em 2026-11-05, Pouso Alegre e Ipatinga, 390 km entre si,
-receberam listas idênticas, 15 de 15. A primeira pergunta é **"a partir de
-onde?"**, e a resposta aceitável é uma cidade de referência, não só uma UF.
-Pergunte também o modelo pretendido e o perfil.
+**Pergunte o mínimo, e não é o do dossiê.** Aqui não há solicitante: só entram
+a **âncora** e o **modelo**.
+
+- **A âncora é obrigatória.** Sem coordenada de referência, a lista é função da
+  UF e não do pedido — medido em 2026-11-05, Pouso Alegre e Ipatinga, 390 km
+  entre si, receberam listas idênticas, 15 de 15. A primeira pergunta é **"a
+  partir de onde?"**, e a resposta aceitável é uma cidade de referência, não só
+  uma UF. Com a cidade em mãos, a coordenada sai do cache de centroides da
+  própria apuração — centroide aproximado pela mediana das farmácias da cidade,
+  que vai declarado como tal.
+- **O modelo, por diálogo:** convencional ou popular. É a única pergunta fechada
+  desta fase.
+- **O alcance é premissa sua até ele dizer o contrário.** Declare o raio que
+  usou e pergunte a que distância o empresário aceitaria operar — a resposta
+  muda quais praças entram antes de a lista ser ordenada.
+
+**Não pergunte perfil, empresário, responsável pelo GE nem bandeira.** Nenhum
+dos quatro muda uma linha desta lista: a vaga é sempre calculada para grupo
+novo, e a régua de distância mínima só existe sobre um endereço. Perguntá-los
+devolve trabalho a quem veio reduzi-lo. O documento declara que não sabe quem
+pede, e por isso não afirma nada sobre canibalização.
 
 ```
 python .claude/skills/analise-regiao-farmarcas/scripts/alternativas.py \
   --uf <UF> --perto-de <LAT>,<LNG> --raio-km 150 \
-  --modelo <popular|convencional> --so-disponiveis --limite 12
+  --modelo <popular|convencional> --so-disponiveis --limite 12 \
+  --perfil-municipios
 ```
+
+`--perfil-municipios` acrescenta, na **mesma saída**, o perfil em percentis das
+cidades da lista. Continua sendo **um script só** — não acrescente uma segunda
+chamada para obter camada municipal.
 
 Converse em cima da lista: por que esta praça e não aquela, o que é mercado não
 atendido, o que "cabe no teto" significa e o que não significa.
 
-**Convergência:** 1 a 3 praças escolhidas, cada uma com a razão dita. Então gere
-o HTML curto e **ofereça** abrir o dossiê de uma delas — oferta, nunca invocação
-automática.
+**Convergência:** 1 a 3 praças escolhidas, cada uma com a razão dita. A escolha
+e a razão dela são **prosa em `leitura`** — filtrar linhas da tabela para mostrar
+só as escolhidas seria o modelo decidindo quais números o documento mostra.
+
+**A entrega é igual à do dossiê: enxuta para circular, completa ao lado.** O
+`--detalhes` vale neste formato — a enxuta tira a seção Fontes e mantém o bloco
+"O que esta lista é, e o que ela não é", as lacunas e os itens de campo. Aquele
+bloco é conteúdo, não aparato: sem ele a lista que circula é lida como
+recomendação de abertura.
+
+```
+python .claude/skills/analise-regiao-farmarcas/scripts/montar_relatorio.py \
+  --config outputs/dossies/<arquivo>.json \
+  --saida  outputs/dossies/<arquivo>.html --detalhes ocultos
+
+python .claude/skills/analise-regiao-farmarcas/scripts/montar_relatorio.py \
+  --config outputs/dossies/<arquivo>.json \
+  --saida  outputs/dossies/<arquivo>-completo.html --detalhes abertos
+```
+
+**Entregue a enxuta renderizada**, para abrir sozinha no painel lateral, e rode
+a conferência mecânica sobre a completa. Depois **ofereça** abrir o dossiê de
+uma das praças — oferta, nunca invocação automática, e ela só anda quando
+houver endereço.
+
+**Todo número deste documento tem de estar na apuração DELE.** Este formato roda
+um script só, o de praças — e continua rodando, mesmo depois do painel. A
+fronteira do que você pode citar são **duas** listas, e nada fora delas:
+
+- **da linha da praça:** população do Censo, potencial de consumo, captura,
+  preço médio, receita da praça e receita da rede nela;
+- **do perfil por cidade:** os indicadores das quatro dimensões, cada um com o
+  valor, o percentil nacional, a mediana nacional e o número de municípios
+  comparados, mais o papel na rede urbana.
+
+Número municipal que você leu em `contexto_municipio.py` ou em `mercado_utc.py`
+durante a conversa **continua sem procedência aqui** — medido em 2026-11-25,
+dezesseis números caíram assim na conferência, e foi por não existir camada
+municipal apurada neste formato. Agora existe: use o painel, não a memória da
+conversa.
+
+**Na conferência, o casamento fraco vai ficar longo.** Percentil é inteiro
+abaixo de 100 e sem unidade, então toda citação de percentil cai lá. A regra
+está certa e não se mexe nela. O que muda é como se lê: achado cujo caminho
+começa com `perfil_dos_municipios` confere-se pelo **par cidade + indicador**,
+não pelo número solto.
 
 **Travas desta fase:**
 - Ordenação é por mercado não atendido, que é quantidade medida. **Não vire
   ranking de "melhor praça".**
+- **O painel de perfil por cidade não compõe.** Não some percentis, não tire
+  média, não conte dimensões "ganhas" e não diga "lidera em três das quatro" —
+  é a mesma composição proibida, escrita por extenso, e o verificador reprova.
+  Dentro de uma dimensão os indicadores podem apontar em direções opostas, e é
+  esse contraste que vale conversar.
+- **O percentil compara a cidade com o Brasil, nunca com as outras da lista.**
+  Quatro ou doze casos não são uma distribuição. "A cidade com maior percentil
+  de renda desta lista" é ranking com outro nome.
+- **A ordem do painel é alfabética.** Dizer "a primeira do painel" é citar o
+  alfabeto, não um achado.
+- **A unidade do painel é o município; a da tabela, a unidade territorial.** A
+  mesma cidade aparece uma vez num e várias no outro, e nenhum indicador do
+  painel distingue uma região da outra dentro da mesma cidade.
 - O raio é premissa declarada, não medida. Nenhuma fonte diz a que distância um
   empresário aceita operar.
 - "Cabe no teto" é ausência de impedimento na contagem de grupos, **não
@@ -413,6 +509,9 @@ não aparato de conferência.
 | "Ele já é associado, sigo sem o nome do responsável" | o gerador aborta, e antes disso a prosa já estaria afirmando de quem é cada loja sem ter apurado |
 | "Ele perguntou do mercado, respondo antes do gate" | gate é gate: ponto barrado não tem análise de mercado, e adiantá-la sugere que há número a negociar |
 | "Ele só quer saber onde olhar, rodo a lista sem âncora" | sem âncora a lista é a da UF e devolve a capital para qualquer pedido — medido |
+| "Ele deu a cidade, então dá para montar o dossiê dela" | sem endereço não há raio, e numa cidade grande a média entre bairro central e periferia não descreve nenhum dos dois; é mapeamento, e diga por quê |
+| "No mapeamento pergunto o perfil e a bandeira, para já adiantar" | nenhum dos dois muda uma linha da lista, e em 2026-11-25 as respostas vieram como "não tenho ainda" — perguntar ali é cobrar o que o pedido não tem |
+| "Li o número no contexto do município, posso citar na lista de praças" | a apuração da prospecção tem uma chamada só; número de outro script não tem procedência nela e a conferência reprova — use o que a linha da praça traz |
 | "A praça está no topo da lista, logo é a melhor" | a ordem é por mercado não atendido, que é uma quantidade medida, não uma nota |
 | "A lente está com 2 itens, está bom" | lente rasa esconde o que decide; corte por tier até ~15 itens, não por cansaço |
 | "Ele não respondeu, mas dá para seguir" | é a falha medida em 2026-11-23: a skill avançou sem as respostas e entregou o dossiê do roteiro direto, cobrando o custo da conversa |
@@ -433,6 +532,12 @@ não aparato de conferência.
 
 Não dê a tarefa por encerrada enquanto todos estes não forem verdade:
 
+- [ ] **No mapeamento:** âncora e modelo perguntados, e **nada** de perfil,
+      empresário, GE ou bandeira
+- [ ] **No mapeamento:** todo número do documento existe na apuração dele, que
+      tem uma chamada de script só
+- [ ] **No dossiê de ponto:** há endereço com coordenada — sem isso o pedido era
+      mapeamento
 - [ ] Perfil do solicitante e nome do empresário perguntados, e responsável pelo
       GE em mãos se já associado
 - [ ] "Empresário novo" conferido contra o cadastro, não aceito só pela

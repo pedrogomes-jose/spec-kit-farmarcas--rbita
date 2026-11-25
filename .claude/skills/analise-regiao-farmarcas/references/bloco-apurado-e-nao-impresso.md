@@ -113,6 +113,56 @@ O script aceitava o que o Overpass filtrou e publicava a distância do centroide
 e distância da mesma linha não conferem entre si. O que sai pelo corte é
 declarado (`fora_do_raio_pelo_centroide`), não sumido.
 
+### 5. O gerador afirma a EXPLICAÇÃO quando só mediu o fato
+
+`alternativas.py` montava, para cada praça com receita da rede em queda,
+"ATENÇÃO: a receita Farmarcas caiu aqui — **praça possivelmente já testada**", e
+o gerador repetia o rótulo na tabela. Três linhas acima, o mesmo laço declara:
+*"Frase montada a partir dos próprios números — é recomposição, não
+interpretação. Nenhum juízo entra aqui."*
+
+O que a base mede é a **queda**. "Praça já testada e perdida" é uma das causas
+possíveis dela, e o acervo não tem como separá-la de "loja ficou e encolheu" —
+não há histórico de entrada e saída de associado por praça. Pior: `_limites.carteira`
+diz que a base da IQVIA é a **carteira atual com histórico retroagido**, de modo
+que associado que saiu não aparece como queda, e sim some da série inteira. Pela
+própria construção da base, a leitura afirmada era a menos provável das duas.
+
+Medido em Amélia Rodrigues/BA, 2026-11-25: as três regiões de Salvador em
+retração (Itapoã-1, Vitória, Plataforma) não tiveram saída de associado nenhuma.
+A narrativa teve de escrever um parágrafo avisando que **a própria tabela
+enganava** quem lesse só ela — e isso resolve metade do problema, porque a tabela
+continuava enganando. Documento que declara o defeito e o mantém na tela não
+corrigiu nada; declarar não é consertar.
+
+→ Rótulo de tabela diz o que foi **medido**. Quando duas causas incompatíveis
+produzem o mesmo sinal, o gerador nomeia o sinal e diz que não separa as duas —
+nunca escolhe uma. A régua: se a narrativa precisa desmentir a tabela, o defeito
+é da tabela.
+
+### 6. O texto fixo promete um elemento que o layout não tem
+
+A abertura do formato de prospecção dizia "a coluna de presença mostra qual dos
+dois", e a tabela tem cinco colunas, nenhuma delas de presença — o dado vive
+numa `div.nota` dentro da célula de mercado. Texto fixo do gerador envelhece
+quando o layout muda, e ninguém relê a prosa ao mexer numa coluna. Vale para
+**todo** relatório gerado no formato, não para a rodada que o expôs.
+
+→ Prosa fixa que descreve o layout é dívida. Quando puder, descreva o dado
+("sob o mercado de cada linha vem…"), não o móvel onde ele está.
+
+### 7. Seção de origem fechada, prosa que usa camada de fora
+
+A seção Fontes do formato de prospecção tinha cinco `<li>` fixos e nenhum slot
+para a narrativa. As cinco cobrem o que a **tabela** usa — e a prosa se apoia em
+camada que a tabela não mostra: em Amélia Rodrigues, a captura do potencial de
+consumo sustentou dois parágrafos inteiros e não tinha onde ser declarada.
+
+→ `cfg["fontes"]` (opcional, texto solto ou `{titulo, fonte}`) entra **depois**
+das fixas, que o modelo não reordena nem remove. Número afirmado no corpo sem
+origem na seção que existe para dar origem é a lacuna mais cara de um formato,
+porque ela se parece com rigor.
+
 ## Onde a ressalva é posta decide se ela sobrevive aos três modos
 
 `--detalhes ocultos` não encolhe o documento por seção: ele apaga, do HTML
@@ -223,3 +273,39 @@ herdando a troca de unidade de quem a alimentou.
 
 → Texto de script é insumo de redação, não só log. Unidade errada ali reaparece
 no entregável com a assinatura do modelo.
+
+---
+
+## Caso resolvido na origem: `--perfil-municipios`
+
+`alternativas.py` é chamado por **três** formatos — dossiê completo, impedimento
+e prospecção —, e só a prospecção imprime o perfil por cidade. Emitir o bloco
+sempre criaria, de uma vez, dois casos da família que este documento descreve:
+dois formatos recebendo apuração que ninguém renderiza.
+
+A saída foi não produzir o bloco para quem não vai imprimi-lo. O perfil é
+**opt-in**, por flag, e os dois pontos de chamada que não a passam carregam o
+motivo escrito:
+
+- **dossiê completo** — o ponto já tem percentis municipais próprios, vindos da
+  apuração de contexto do município. Um painel das praças alternativas
+  competiria com a análise do endereço que é o assunto do documento.
+- **impedimento** — o formato é deliberadamente sem número de mercado do ponto
+  barrado. Quatro dimensões de perfil ali se leem como análise de consolação, e
+  a decisão de não as mostrar é consciente, não esquecimento.
+
+A regra que fica: quando um bloco serve a um formato só, a correção é **não
+emitir** para os outros, e não lembrar de não imprimir.
+
+## Defeito desta família, encontrado por uso em 2026-11-25
+
+A célula "Grupos/teto" da tabela de praças imprimia **"a cidade não tem teto"**
+sempre que o teto vinha nulo. Mas nulo tinha dois significados — cidade acima da
+faixa onde a regra impõe limite, ou população nunca apurada — e no segundo caso
+a frase aparecia colada em "disponibilidade não apurada", na mesma célula.
+
+Não era bloco apurado e não impresso: era bloco apurado e **traduzido errado**,
+porque a renderização decidia pela nulidade de um campo em vez de pelo campo que
+já carregava o motivo escrito. Variante da mesma família, e o teste é o mesmo:
+*o que o script sabe chegou inteiro à tela, ou chegou a conclusão de quem
+renderizou?*

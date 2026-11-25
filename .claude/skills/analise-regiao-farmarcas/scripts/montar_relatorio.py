@@ -66,9 +66,17 @@ Pouso Alegre e Ipatinga receberam listas idênticas, 15 de 15).
   "raio_km": 150, "modelo": "popular", "perfil": "novo",
   "resumo": "frase única: o que a lista mostra",
   "leitura": ["parágrafo", "parágrafo — aqui se escreve qual praça o analista escolheu e por quê"],
+  "fontes": ["texto solto", {"titulo": "Captura do potencial de consumo",
+                             "fonte": "camada de potencial de consumo do acervo de ..."}],
   "nao_sabe": ["lacuna explicada"],
   "campo": ["o que confirmar antes de escolher"]
 }
+
+`fontes` é opcional e existe porque a prosa desta lista se apoia em camada que a
+TABELA não mostra. As cinco linhas fixas da seção Fontes cobrem só o que a tabela
+usa; número afirmado na leitura sem origem declarada ali é lacuna que se parece
+com rigor. As linhas da narrativa entram DEPOIS das fixas, que o modelo não
+reordena nem remove.
 
 A tabela de praças vem inteira do script. A escolha do analista é PROSA, em
 `leitura` — filtrar linhas para mostrar só as escolhidas seria o modelo
@@ -1850,6 +1858,216 @@ def bloco_duas_leituras(zon: dict, vinculo_apurado: bool = True) -> str:
   econômicos.</p>"""
 
 
+def bloco_perfil_dos_municipios(alt: dict) -> str:
+    """Como é cada CIDADE da lista — valor e posição nacional, nunca nota.
+
+    Por que existe: a tabela de praças ordena por mercado não atendido, que é
+    quantidade medida, e o documento declarava que não mede qualidade de praça.
+    Isso empurrava a comparação para a prosa, onde ela virava ranking por
+    acidente — em 2026-11-25, duas passadas de auditoria foram gastas tirando do
+    texto "valem conferir primeiro" e "o motivo mais interessante".
+
+    Por que a unidade é o município e não a praça: NENHUMA destas camadas existe
+    por unidade territorial. Uma linha por praça repetiria valores idênticos em
+    todas as regiões da mesma cidade e sugeriria que foram avaliadas como praças
+    diferentes — o defeito já corrigido para a taxa de captura.
+
+    Por que não há cor de escala, seta, ícone de bom/ruim nem linha de total:
+    cada um deles converte o painel em nota num único commit. A ausência é a
+    decisão, não um esquecimento. A ordem é ALFABÉTICA, declarada no cabeçalho,
+    e não existe parâmetro de ordenação neste código.
+    """
+    perfil = (alt or {}).get("perfil_dos_municipios") or {}
+    cidades = perfil.get("municipios") or []
+    if not cidades:
+        return ""
+
+    dimensoes = ["Poder de compra", "Folga competitiva", "Dinamismo", "Centralidade urbana"]
+
+    def _ind(i: dict) -> str:
+        if i.get("erro"):
+            return (
+                f'<div class="ind"><span class="rot">{e(i.get("rotulo"))}</span>'
+                '<span class="val">—</span>'
+                '<span class="pn">sem cobertura</span></div>'
+            )
+        pctl = i.get("percentil")
+        unidade = i.get("unidade") or ""
+        valor = num(i.get("valor"), 1) if unidade != "cidades" else num(i.get("valor"))
+        return (
+            f'<div class="ind"><span class="rot">{e(i.get("rotulo"))}</span>'
+            f'<span class="val">{valor} {e(unidade)}</span>'
+            f'<span class="faixa-pct" title="percentil {pctl} — mediana nacional {num(i.get("mediana_nacional"), 1)} {e(unidade)}">'
+            f'<i style="left:{max(0, min(100, pctl))}%"></i></span>'
+            f'<span class="pn">p{pctl}</span></div>'
+        )
+
+    linhas = []
+    for c in cidades:
+        n_pracas = c.get("pracas_na_tabela") or 0
+        papel = (c.get("papel_na_rede_urbana") or {}).get("classificacao")
+        celulas = "".join(
+            "<td>" + "".join(_ind(i) for i in (c.get("dimensoes") or {}).get(d, [])) + "</td>"
+            for d in dimensoes
+        )
+        linhas.append(
+            f'<tr><td><b>{e(c.get("municipio"))}/{e(c.get("uf"))}</b>'
+            f'<div class="nota">{num(n_pracas)} linha(s) na tabela acima</div>'
+            + (f'<div class="nota">{e(papel)} na rede urbana</div>' if papel else "")
+            + texto_alertas_de_cadastro(c)
+            + "</td>" + celulas + "</tr>"
+        )
+
+    # O número de linhas da cidade mais repetida é CALCULADO, nunca escrito à
+    # mão. A primeira versão deste parágrafo dizia "Salvador ocupa sete linhas"
+    # e eram oito — número de modelo dentro do bloco que existe para impedir
+    # número de modelo.
+    maior = max(cidades, key=lambda c: c.get("pracas_na_tabela") or 0)
+    exemplo = (
+        f'{e(maior.get("municipio"))} ocupa {num(maior.get("pracas_na_tabela"))} linhas da '
+        f'tabela acima e uma só aqui, porque {num(maior.get("pracas_na_tabela"))} linhas iguais '
+        f'sugeririam {num(maior.get("pracas_na_tabela"))} praças avaliadas'
+        if (maior.get("pracas_na_tabela") or 0) > 1
+        else "cada cidade aparece uma vez"
+    )
+
+    return f"""<section class="painel">
+  <h2><span class="ic">◎</span> Como é cada cidade — valor e posição nacional</h2>
+  <p class="explica"><b>Aqui a unidade muda: cada linha é uma cidade, não uma praça.</b>
+  Estes indicadores são do município inteiro e seriam idênticos nas regiões da mesma
+  cidade — {exemplo}. Nenhum número desta seção pontua, nota ou ordena: cada indicador
+  aparece com o valor e com a posição dele na distribuição dos municípios brasileiros da
+  própria camada. <b>Nenhuma linha é melhor que outra</b>, e cidade com percentil alto em
+  três dimensões e baixo na quarta não é "três de quatro" — é uma cidade com um perfil, e
+  o perfil é o conteúdo.</p>
+  <p class="explica"><b>O que o percentil compara, e o que ele não compara.</b> Comparar
+  cada cidade com a distribuição nacional da própria camada é o referente que esta análise
+  usa. Comparar entre si os <b>percentis</b> destas cidades <b>não</b> é: quatro ou doze
+  casos não são uma distribuição, e ordená-los criaria uma régua de qualidade que não
+  existe. Contagens do cadastro — quantas lojas, quantos grupos — comparam-se à vontade,
+  porque são o que a lista mede. A ordem das
+  linhas é alfabética e não significa nada. Dentro de uma mesma dimensão os indicadores
+  podem apontar em direções opostas — renda baixa com consumo de farmácia alto é um achado,
+  e qualquer média entre os dois apagaria justamente ele.</p>
+  <p class="explica"><b>Três ressalvas que mudam a leitura.</b> A captura do potencial pode
+  ser baixa porque há mercado que ninguém atende <b>ou</b> porque a medição de mercado cobre
+  mal aquela praça — nada neste acervo separa os dois casos. <b>Habitantes por farmácia alto
+  tem a mesma ambiguidade</b>, e pela mesma razão: pode ser parque subdimensionado ou
+  cobertura parcial da base de farmácias. Essa base sustenta três dos indicadores deste
+  painel — habitantes por farmácia, o percentual de credenciadas e as classes de renda dos
+  domicílios —, então uma falha de cobertura nela afetaria os três juntos. E a razão de habitantes por
+  farmácia usa uma contagem de população que é estimativa, cerca de 4% acima do Censo 2022:
+  a <b>posição</b> na distribuição não é afetada, porque todas as cidades entram pela mesma
+  régua, mas o <b>valor</b> é, e ele não é comparável com a população do Censo que aparece
+  na tabela de praças acima.</p>
+  <table class="painel-mun">
+    <thead><tr>
+      <th>Município<div class="nota-th">ordem alfabética</div></th>
+      {''.join(f'<th>{e(d)}</th>' for d in dimensoes)}
+    </tr></thead>
+    <tbody>{''.join(linhas)}</tbody>
+  </table>
+</section>"""
+
+
+def _faixa_n(alt: dict) -> tuple:
+    """Menor e maior número de municípios comparados entre os indicadores.
+
+    Percentil sem o tamanho da distribuição não é reconferível, e aqui o tamanho
+    NÃO é constante: captura e crescimento municipal saem de uma base mais
+    estreita que as demais, e são justamente os mais citados na leitura. O
+    número existe na apuração desde o primeiro dia; faltava chegar ao
+    documento — a família de defeito de `bloco-apurado-e-nao-impresso.md`.
+    """
+    ns = [
+        i.get("municipios_comparados")
+        for c in (((alt or {}).get("perfil_dos_municipios") or {}).get("municipios") or [])
+        for itens in (c.get("dimensoes") or {}).values()
+        for i in itens
+        if i.get("municipios_comparados")
+    ]
+    return (min(ns), max(ns)) if ns else (0, 0)
+
+
+def _ponteiro_alertas(alt: dict) -> str:
+    """Uma linha sob a tabela dizendo que há ressalva de contagem logo abaixo.
+
+    Os alertas de cadastro são municipais e moram no perfil por cidade, para não
+    saírem oito vezes numa lista onde Salvador ocupa oito linhas. O preço disso é
+    assimetria: quem lê só a tabela encaminhada vê "39 loja(s) da rede na cidade"
+    sem marca nenhuma. Esta linha é o ponteiro — não repete o aviso, diz que ele
+    existe e onde.
+    """
+    cidades = ((alt or {}).get("perfil_dos_municipios") or {}).get("municipios") or []
+    com_alerta = [c for c in cidades if c.get("alertas_de_cadastro")]
+    if not com_alerta:
+        return ""
+    nomes = ", ".join(f"{e(c.get('municipio'))}/{e(c.get('uf'))}" for c in com_alerta)
+    return (
+        '<p class="vazio alerta-cad">⚠ A contagem de lojas e de grupos tem ressalva em '
+        f"{nomes} — está declarada na seção de perfil por cidade, logo abaixo.</p>"
+    )
+
+
+def texto_alertas_de_cadastro(m: dict) -> str:
+    """Onde o cadastro pode estar errando a contagem de lojas e grupos da cidade.
+
+    Sai só quando há o que dizer: alerta que aparece em toda linha deixa de ser
+    alerta e vira moldura.
+
+    Mora na seção de perfil por cidade, e não ao lado do número que qualifica na
+    tabela de praças — testado em 2026-11-25, onde Salvador ocupa sete linhas e
+    o mesmo aviso municipal saía sete vezes. É o mesmo defeito de valor
+    municipal replicado por unidade territorial que aquela seção existe para
+    resolver, e cometê-lo dentro da correção dele seria cômico.
+
+    Nunca nomeia loja, dono ou empresa: só contagem. Quem precisa saber QUAIS
+    lojas divergem abre o cadastro.
+    """
+    a = (m or {}).get("alertas_de_cadastro") or {}
+    if not a:
+        return ""
+    partes = []
+    div = a.get("divergencia_de_endereco") or {}
+    fora = div.get("lojas_daqui_com_endereco_popular_em_outra_cidade")
+    aqui = div.get("lojas_de_outra_cidade_com_endereco_popular_aqui")
+    if fora:
+        partes.append(
+            f"{num(fora)} loja(s) contada(s) aqui pelo endereço fiscal têm endereço de "
+            "operação em outra cidade"
+        )
+    if aqui:
+        partes.append(
+            f"{num(aqui)} loja(s) de outra cidade têm endereço de operação aqui e "
+            "<b>não</b> entram nesta contagem"
+        )
+    # A consequência, e não só o fato. A apuração já devolve o "e daí" — a loja
+    # pode estar atribuída à praça errada, o que mexe na contagem de GRUPOS e,
+    # com ela, na disponibilidade. Imprimir só o fato é a família de defeito de
+    # `references/bloco-apurado-e-nao-impresso.md`: o script sabe mais do que a
+    # tela mostra.
+    #
+    # E a consequência é condicional: onde a cidade não tem teto, a contagem de
+    # grupos não decide nada, e dizer isso ensina a ler o alerta na próxima
+    # cidade, onde ele decide.
+    if (fora or aqui) and partes:
+        tem_teto = m.get("teto_de_lojas") is not None
+        partes.append(
+            "isso mexeria na contagem de grupos e, em cidade com teto, na disponibilidade"
+            + ("" if tem_teto else " — esta cidade não tem teto, então aqui não muda")
+        )
+    sem = (a.get("lojas_sem_grupo_economico_no_cadastro") or {}).get("lojas")
+    if sem:
+        partes.append(
+            f"{num(sem)} loja(s) sem grupo econômico no cadastro — contam como loja, não "
+            "contam como grupo, e o teto pode estar sendo medido contra menos grupos do "
+            "que a cidade tem"
+        )
+    if not partes:
+        return ""
+    return '<div class="nota alerta-cad">⚠ ' + " · ".join(partes) + "</div>"
+
+
 def bloco_onde_mais_olhar(alt: dict, cfg: dict, contexto: str = "impedimento") -> str:
     """Praças onde a regra de zoneamento não barra.
 
@@ -1876,12 +2094,19 @@ def bloco_onde_mais_olhar(alt: dict, cfg: dict, contexto: str = "impedimento") -
     def _presenca(m: dict) -> str:
         """Quantas lojas a rede já tem na praça, e se a receita dela caiu lá.
 
-        O script avisa, no `motivo` de cada linha, que receita Farmarcas em queda
-        indica praça já testada e perdida — e esse aviso não chegava à tela. O
-        leitor que acabou de receber um "não" via, no topo da única lista
-        acionável do relatório, a maior praça do estado, sem saber que a rede já
-        opera nela com vinte lojas e vem encolhendo. A coluna de crescimento ao
-        lado é do MERCADO, e sozinha reforça a leitura errada.
+        Existe porque o leitor que acabou de receber um "não" via, no topo da
+        única lista acionável do relatório, a maior praça do estado, sem saber
+        que a rede já opera nela com vinte lojas e vem encolhendo. A coluna de
+        crescimento ao lado é do MERCADO, e sozinha reforça a leitura errada.
+
+        O que a nota diz é a MEDIDA, não a explicação dela. Até 2026-11-25 ela
+        fechava com "praça possivelmente já testada", que é uma das causas
+        possíveis da queda e não um fato apurado — e nenhuma base deste acervo
+        separa "associado saiu" de "loja ficou e encolheu". Em Salvador/BA, as
+        três regiões em retração não tiveram saída nenhuma, e a narrativa
+        precisou escrever que a própria tabela enganava quem lesse só ela.
+        Documento que declara que a sua tabela engana e deixa a tabela
+        enganando resolveu metade do problema; a outra metade é esta.
         """
         lojas = m.get("lojas_farmarcas_no_municipio")
         cf = m.get("crescimento_farmarcas")
@@ -1889,21 +2114,52 @@ def bloco_onde_mais_olhar(alt: dict, cfg: dict, contexto: str = "impedimento") -
             return ""
         txt = f"{num(lojas)} loja(s) da rede na cidade"
         if cf is not None and cf < 0:
-            txt += f" · receita da rede caiu {pct(abs(cf))} — praça possivelmente já testada"
+            txt += (
+                f" · receita da rede caiu {pct(abs(cf))} aqui"
+                " — a base não diz por quê"
+            )
+        # O alerta de cadastro NÃO sai aqui, e a tentação de pô-lo ao lado do
+        # número que ele qualifica foi testada e descartada em 2026-11-25: ele é
+        # municipal, e numa lista onde Salvador ocupa sete linhas o mesmo aviso
+        # saía sete vezes. Repetição nessa escala não é ênfase, é ruído — e é o
+        # mesmo defeito de valor municipal replicado por unidade territorial que
+        # a seção de perfil por cidade existe para resolver. O alerta mora lá,
+        # uma vez por cidade, logo abaixo desta tabela.
         return f"<div class=\"nota\">{txt}</div>"
+
+    def _grupos_teto(m: dict) -> str:
+        """A célula "N de T" — e o que fazer quando não há T.
+
+        O teto é nulo por DOIS motivos diferentes: a cidade está acima da faixa
+        onde a regra impõe limite de grupos, ou a população nunca foi apurada.
+        Até 2026-11-25 a célula imprimia "a cidade não tem teto" nos dois casos,
+        e no segundo isso aparecia colado em "disponibilidade não apurada" —
+        duas frases que se contradizem, na mesma célula, num documento cuja
+        única função é dizer onde a regra não barra.
+
+        Quem sabe a diferença é o campo de zoneamento, que já vem escrito do
+        script com um motivo por caso. Então a decisão passa a ser dele.
+        """
+        grupos = num(m.get("grupos_economicos_no_municipio"))
+        zon = m.get("zoneamento") or ""
+        nota = f"<div class=\"nota\">{e(zon)}</div>"
+        if m.get("teto_de_lojas") is not None:
+            return f"<td>{grupos} de {num(m.get('teto_de_lojas'))}{nota}</td>"
+        if "não apurada" in zon or "nao apurada" in zon:
+            return (
+                f"<td>{grupos} grupo(s)"
+                "<div class=\"nota\">teto não apurado</div>"
+                f"{nota}</td>"
+            )
+        return f"<td>{grupos} grupo(s)<div class=\"nota\">a cidade não tem teto</div>{nota}</td>"
 
     corpo = "".join(
         f"<tr><td><b>{e(m.get('municipio'))}/{e(m.get('uf'))}</b>"
         + f"<div class=\"nota\">{e(m.get('localidade') or 'município inteiro')}</div>"
         + f"</td><td>{(num(round(m['distancia_km']), 0, ' km')) if m.get('distancia_km') is not None else '—'}</td>"
         + f"<td>{e(m.get('escala_mercado_nao_atendido'))}{_presenca(m)}</td>"
-        + (
-            f"<td>{num(m.get('grupos_economicos_no_municipio'))} de {num(m.get('teto_de_lojas'))}"
-            if m.get("teto_de_lojas") is not None
-            else f"<td>{num(m.get('grupos_economicos_no_municipio'))} grupo(s)<div class=\"nota\">a cidade não tem teto</div>"
-        )
-        + f"<div class=\"nota\">{e(m.get('zoneamento'))}</div></td>"
-        f"<td>{pct(m.get('crescimento_mercado'))}</td></tr>"
+        + _grupos_teto(m)
+        + f"<td>{pct(m.get('crescimento_mercado'))}</td></tr>"
         for m in linhas_dados
     )
     nota_modelo = (
@@ -1952,8 +2208,11 @@ def bloco_onde_mais_olhar(alt: dict, cfg: dict, contexto: str = "impedimento") -
             "Nenhuma destas praças foi analisada: o que foi apurado é que a regra de "
             "expansão não barra a entrada de um grupo novo nelas, e quanto mercado "
             "farmacêutico circula ali hoje sem passar pela rede. Mercado grande sem nós "
-            "pode ser oportunidade ou praça já testada e perdida — a coluna de presença "
-            "mostra qual dos dois. Cada linha é uma unidade de mercado, por isso a mesma "
+            "pode ser oportunidade ou praça já testada e perdida, e <b>esta apuração não "
+            "separa os dois</b>: sob o mercado de cada linha vem quantas lojas a rede já tem "
+            "na cidade e se a receita dela caiu ali — que é o que foi medido. A causa da "
+            "queda não está em base nenhuma deste acervo. "
+            "Cada linha é uma unidade de mercado, por isso a mesma "
             "cidade pode aparecer mais de uma vez, sempre nomeando a localidade — ou "
             f"dizendo \"município inteiro\", quando a unidade cobre a cidade toda. {nota_modelo} {nota_piso}"
         )
@@ -1977,9 +2236,9 @@ def bloco_onde_mais_olhar(alt: dict, cfg: dict, contexto: str = "impedimento") -
   <table><thead><tr><th>Praça</th><th>Distância</th><th>Mercado não atendido</th>
   <th>Grupos / teto</th><th>Cresc.</th></tr></thead><tbody>{corpo}</tbody></table>
   <p class="vazio"><b>Como a disponibilidade é apurada.</b> {e(str(disp.get("_regra") or "").rstrip(". "))}.
-  O grupo sai do {e(str(disp.get("_apuracao_do_grupo") or "").lstrip(". "))} — ou seja, uma praça pode aparecer como indisponível
-  por grafia divergente no cadastro, e o caminho para confirmar é o CNPJ. Esta lista escolhe
+  O grupo sai do {e(str(disp.get("_apuracao_do_grupo") or "").lstrip(". "))} Esta lista escolhe
   a <b>praça</b>, não o ponto: cada uma ainda precisa do seu próprio dossiê.</p>
+  {_ponteiro_alertas(alt) if contexto == "prospeccao" else ""}
 </section>"""
 
 
@@ -2242,7 +2501,8 @@ def construir_prospeccao(cfg: dict) -> str:
     cidade de referência se escreve), `lat`, `lng`, `municipio`, `uf`,
     `codigo_ibge` — todos da REFERÊNCIA, não de um endereço —, mais `resumo`,
     `leitura` (lista de parágrafos), `nao_sabe` e `campo`. Opcional: `raio_km`,
-    `modelo`, `perfil`.
+    `modelo`, `perfil` e `fontes` — a origem de camada que a prosa usa e a
+    tabela não mostra (ver o cabeçalho do módulo).
 
     A tabela inteira vem do script. Quem escreve a narrativa escolhe praça na
     PROSA, nunca filtrando linhas: filtrar aqui seria o modelo decidindo quais
@@ -2260,6 +2520,11 @@ def construir_prospeccao(cfg: dict) -> str:
         "alternativas.py", "--uf", cfg["uf"], "--limite", 12,
         "--perto-de", f"{cfg['lat']},{cfg['lng']}", "--raio-km", raio,
         "--so-disponiveis",
+        # Único formato que pede o perfil por cidade, e continua sendo UMA
+        # chamada de script — é o invariante deste relatório, e o painel não o
+        # quebra: ele vem na mesma saída, entra na apuração gravada e tem
+        # procedência conferível como todo o resto.
+        "--perfil-municipios",
         *(("--modelo", cfg["modelo"]) if cfg.get("modelo") else ()),
     )
     listadas = len((alt or {}).get("melhores") or [])
@@ -2295,17 +2560,22 @@ def construir_prospeccao(cfg: dict) -> str:
     partes.append(f"""<section>
   <h2><span class="ic">■</span> O que esta lista é, e o que ela não é</h2>
   <p class="explica"><b>É o ponto de partida de uma análise, não o resultado dela.</b>
-  Nenhuma praça abaixo foi analisada: não houve gate de zoneamento em endereço nenhum,
-  não se olhou concorrência num raio, renda, população nem potencial de consumo. O que
-  está apurado aqui é outra coisa, e só ela — <b>onde a regra de expansão não barra a
-  entrada de um grupo novo</b>, e <b>quanto mercado farmacêutico circula ali hoje sem
-  passar pela rede</b>. Escolher entre duas praças desta lista ainda exige o dossiê de
-  cada uma. E "cabe no teto" é ausência de impedimento na contagem de grupos, não
+  Nenhuma praça abaixo foi analisada: não houve gate de zoneamento em endereço nenhum e
+  não se olhou concorrência num raio. Renda, população e potencial de consumo aparecem
+  mais adiante <b>por cidade</b>, e nessa granularidade não distinguem uma praça da outra
+  dentro do mesmo município. O que está apurado por praça é outra coisa, e só ela —
+  <b>onde a regra de expansão não barra a entrada de um grupo novo</b>, e <b>quanto
+  mercado farmacêutico circula ali hoje sem passar pela rede</b>. Escolher entre duas
+  praças desta lista ainda exige o dossiê de cada uma. E "cabe no teto" é ausência de impedimento na contagem de grupos, não
   liberação: o gate de verdade roda sobre um endereço, com bandeira e distância mínima,
   e pode barrar um ponto dentro de uma praça que aparece aqui como disponível.</p>
 </section>""")
 
     partes.append(bloco_onde_mais_olhar(alt, cfg, contexto="prospeccao"))
+    # Logo depois da tabela e ANTES da leitura: a narrativa precisa poder citar
+    # o que o leitor acabou de ver, e o contraste entre indicadores de uma mesma
+    # cidade é a matéria-prima dessa leitura.
+    partes.append(bloco_perfil_dos_municipios(alt))
 
     leitura = "".join(f"<p>{rico(limpar_tecnico(p))}</p>" for p in (cfg.get("leitura") or []))
     if leitura:
@@ -2319,9 +2589,11 @@ def construir_prospeccao(cfg: dict) -> str:
     # nao sabe. Nenhuma delas e visivel na tabela, e cada uma muda a decisao.
     lacunas.append(
         "<b>Como é cada praça por dentro.</b> A unidade desta lista é territorial e "
-        "cobre a cidade ou uma parte dela, não um raio em volta de um endereço — "
-        "população, renda, concorrência no raio e potencial de consumo seguem "
-        "desconhecidos em todas. Destrava rodando o dossiê da praça escolhida."
+        "cobre a cidade ou uma parte dela, não um raio em volta de um endereço. "
+        "Renda, população e potencial de consumo aparecem no perfil <b>por cidade</b>, "
+        "e nessa granularidade não distinguem uma praça da outra dentro do mesmo "
+        "município; <b>por praça</b> seguem desconhecidos, junto com a concorrência "
+        "no raio. Destrava rodando o dossiê da praça escolhida."
     )
     lacunas.append(
         "<b>Se a vaga vale para quem está perguntando.</b> A disponibilidade é calculada "
@@ -2337,10 +2609,17 @@ def construir_prospeccao(cfg: dict) -> str:
         "que o solicitante aceita, informado por ele."
     )
     lacunas.append(
-        "<b>Se duas lojas do mesmo dono foram contadas como dois grupos.</b> O grupo é "
-        "apurado pelo responsável registrado no cadastro, comparado por nome e não por "
-        "CNPJ. Grafia divergente inventa um grupo e esconde uma praça que está "
-        "disponível. Destrava conferindo o CNPJ das lojas da praça no cadastro."
+        # Esta lacuna descrevia o modo de falha da contagem por NOME do
+        # responsável, abandonada em 2026-11-25 em favor do identificador do
+        # grupo no cadastro. Mantida como estava, ela contradizia, duas seções
+        # abaixo, o que o rodapé da tabela e a seção Fontes passaram a dizer.
+        # O modo de falha que de fato sobrou é outro, e está na apuração.
+        "<b>Se alguma loja ficou fora da contagem de grupos.</b> A contagem usa o "
+        "identificador de grupo econômico do cadastro, e loja ativa sem esse "
+        "identificador preenchido conta como loja e <b>não</b> conta como grupo. Onde "
+        "isso acontece, a praça aparece com menos grupos do que tem — e pode aparecer "
+        "disponível sem estar. A lista declara, em cada cidade, quando há loja nessa "
+        "situação. Destrava conferindo o cadastro das lojas da praça."
     )
     vistas, unicas = set(), []
     for x in lacunas:
@@ -2363,27 +2642,96 @@ def construir_prospeccao(cfg: dict) -> str:
   <ul class="proc">{campo or "<li>—</li>"}</ul>
 </section>""")
 
-    partes.append(f"""<section>
-  <h2><span class="ic">§</span> Fontes</h2>
-  <ul class="proc">
-    <li><b>Mercado por unidade territorial e crescimento</b> — base de mercado farmacêutico
-      do instituto, no acervo de {e(dump)}. "Mercado não atendido" é a receita total da
-      unidade menos a receita da rede nela: é subtração de dois valores medidos, não
-      projeção de quanto se capturaria.</li>
-    <li><b>Lojas da rede, grupos econômicos e modelo de negócio</b> — cadastro de lojas
-      Farmarcas, extração de {e(B.DATA_DO_CADASTRO)}. Ocupam vaga as lojas ativas, montando
-      ou em transição.</li>
-    <li><b>População que corta a faixa do teto</b> — Censo 2022 do IBGE, pela API pública,
-      extração de {e(data_censo())}. Não vem do acervo de camadas.</li>
-    <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas,
-      páginas 4.5 e 6.1. A contagem do teto é por <b>grupos econômicos</b>, confirmada com a
-      área dona da regra em 29/10/2026.</li>
-    <li><b>Distância</b> — do centro aproximado de {e(referencia)} até o centro aproximado
-      de cada município. Serve para ordem de grandeza, nunca para medir trajeto.</li>
-  </ul>
-  <p class="vazio">Este documento não pontua praça e não ordena por qualidade: a ordenação é
-  por uma quantidade medida. A régua de viabilidade pertence ao produto.</p>
-</section>""")
+    # A copia enxuta desta lista tira a secao Fontes, igual a do dossie de
+    # ponto. O que ela NAO tira e o bloco "O que esta lista e, e o que ela nao
+    # e": la os paragrafos sao o conteudo, nao o aparato de conferencia, e uma
+    # lista que circula sem eles e lida como recomendacao de abertura — que e
+    # exatamente o que aquele bloco existe para impedir. Por isso esta funcao
+    # nao chama `aplicar_detalhes`, que removeria todo <p class="explica">.
+    # As cinco linhas fixas cobrem o que a TABELA usa, e só isso. A prosa da
+    # lista costuma apoiar-se em camada que a tabela não mostra — captura do
+    # potencial de consumo, por exemplo, sustentou dois parágrafos inteiros em
+    # Amélia Rodrigues/BA, 2026-11-25, e não tinha onde ser declarada: a seção
+    # era fechada e a narrativa não tinha slot. Número afirmado no corpo sem
+    # origem na seção que existe para dar origem é a lacuna mais cara deste
+    # formato, porque ela se parece com rigor.
+    #
+    # `fontes` é opcional e aceita as duas formas: texto solto, ou
+    # {"titulo": ..., "fonte": ...} para sair com o rótulo em negrito, como as
+    # fixas. O modelo escreve a linha; ele não reordena nem remove as fixas.
+    fontes_narrativa = []
+    for item in (cfg.get("fontes") or []):
+        if isinstance(item, dict):
+            titulo = limpar_tecnico(item.get("titulo") or "")
+            texto = limpar_tecnico(item.get("fonte") or item.get("texto") or "")
+            if not (titulo or texto):
+                continue
+            rotulo = f"<b>{e(titulo)}</b> — " if titulo else ""
+            fontes_narrativa.append(f"<li>{rotulo}{e(texto)}</li>")
+        else:
+            texto = limpar_tecnico(str(item))
+            if texto:
+                fontes_narrativa.append(f"<li>{e(texto)}</li>")
+    fontes_da_narrativa = "".join(fontes_narrativa)
+
+    if (cfg.get("_detalhes") or "recolhidos") != "ocultos":
+        partes.append(f"""<section>
+      <h2><span class="ic">§</span> Fontes</h2>
+      <ul class="proc">
+        <li><b>Mercado por unidade territorial e crescimento</b> — base de mercado farmacêutico
+          do instituto, no acervo de {e(dump)}. "Mercado não atendido" é a receita total da
+          unidade menos a receita da rede nela: é subtração de dois valores medidos, não
+          projeção de quanto se capturaria.</li>
+        <li><b>Lojas da rede, grupos econômicos e modelo de negócio</b> — cadastro de lojas
+          Farmarcas, extração de {e(B.DATA_DO_CADASTRO)}. Ocupam vaga as lojas ativas, montando
+          ou em transição; loja desativada não conta, e isso é premissa desta análise, não
+          texto da regra. A loja é atribuída à praça pela <b>cidade do endereço fiscal</b>,
+          comparada pelo nome do município e pela UF — divergência de grafia entre o cadastro
+          e a base de unidades territoriais zera a contagem sem avisar, e por isso a lista
+          declara, em cada praça, quando o endereço de operação aponta para outro município.
+          O grupo econômico é contado pelo <b>identificador do cadastro</b>, não pelo nome do
+          responsável.</li>
+        <li><b>População que corta a faixa do teto</b> — Censo 2022 do IBGE, pela API pública,
+          extração de {e(data_censo())}. Não vem do acervo de camadas.</li>
+        <li><b>Regras de zoneamento e de expansão</b> — documentação de processo da Farmarcas,
+          páginas 4.5 e 6.1. A contagem do teto é por <b>grupos econômicos</b>, confirmada com a
+          área dona da regra em 29/10/2026.</li>
+        <li><b>Distância</b> — do centro aproximado de {e(referencia)} até o centro aproximado
+          de cada município. Serve para ordem de grandeza, nunca para medir trajeto.</li>
+        <li><b>Perfil por cidade — como ler a posição nacional</b> — cada indicador é comparado
+          com a distribuição dos municípios brasileiros que têm aquele dado na camada, e
+          <b>esse total varia por indicador</b>: de {num(_faixa_n(alt)[0])} a
+          {num(_faixa_n(alt)[1])} municípios. Os dois de base mais estreita são a captura do
+          potencial e o crescimento do mercado municipal — percentil apurado contra menos
+          municípios é percentil mais frágil, e os dois aparecem na leitura.</li>
+        <li><b>Perfil por cidade — poder de compra</b> — camada de Renda Média por município e
+          base municipal de Potencial de Consumo, do acervo de {e(dump)}, mais as faixas de
+          classe econômica da base do Farmácia Popular. O consumo em drogarias é publicado
+          por habitante na própria base; as classes A, B1 e B2 são a soma das três faixas.</li>
+        <li><b>Perfil por cidade — folga competitiva</b> — habitantes por farmácia é a
+          população municipal dividida pelo total de farmácias da cidade na base do Farmácia
+          Popular. A captura é a receita somada das unidades territoriais do município
+          dividida pelo potencial de consumo anual dele — duas medidas, nenhuma projeção.
+          O percentual de farmácias credenciadas vem da mesma base do Farmácia Popular.</li>
+        <li><b>Perfil por cidade — dinamismo</b> — taxa de crescimento demográfico da camada
+          de Densidade Demográfica, e crescimento do mercado farmacêutico do município pela
+          soma da receita de todas as unidades territoriais dele, período atual contra
+          anterior. A soma é de receita, nunca média das taxas das unidades.</li>
+        <li><b>Perfil por cidade — centralidade urbana</b> — REGIC 2018 do IBGE para o papel
+          na rede urbana e para quantos municípios a cidade influencia, pela contagem que a
+          própria camada declara; percentual de população urbana da camada de Situação do
+          Território; densidade da camada de Densidade Demográfica. O papel na rede urbana
+          sai como rótulo e <b>sem</b> posição nacional: é categoria do IBGE, e transformá-la
+          em número aqui seria inventar uma escala. <b>Atenção ao número de cidades
+          influenciadas:</b> municípios de um mesmo arranjo metropolitano herdam a contagem
+          do arranjo, então várias cidades vizinhas exibem o mesmo valor — ele descreve a
+          rede urbana a que a cidade pertence, não quantas cidades aquela cidade
+          especificamente polariza.</li>
+        {fontes_da_narrativa}
+      </ul>
+      <p class="vazio">Este documento não pontua praça e não ordena por qualidade: a ordenação é
+      por uma quantidade medida. A régua de viabilidade pertence ao produto.</p>
+    </section>""")
 
     partes.append(f"""<footer>
   Órbita · Onde olhar · a partir de {e(referencia)} ·
@@ -2427,6 +2775,37 @@ h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
 .rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
 .val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
 .nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+/* Alerta de cadastro. Cor própria porque ele não descreve a praça: diz que o
+   número ao lado pode estar errado, e isso tem de se distinguir da nota comum
+   sem virar semáforo de qualidade — não há escala, só presença ou ausência. */
+.alerta-cad{color:#8a5a00}
+
+/* ---------------------------------------------------------------------------
+   Perfil por cidade.
+   O cabeçalho NÃO leva a faixa roxa da tabela de praças, e a seção tem borda e
+   ícone próprios: colada e igual, ela seria lida como continuação da lista e
+   herdaria a ordem por mercado, que é justamente o que não vale aqui.
+   A tira de percentil tem UMA matiz, sem escala de cor, sem seta e sem ícone
+   de bom/ruim — a ausência é a decisão. Colorir por faixa parece melhoria de
+   legibilidade e converte o painel em nota num único commit.
+   Não existe tfoot: linha de total ou de média seria a composição que o script
+   se recusa a emitir, reintroduzida pelo CSS. */
+section.painel{border-left:3px solid #2f6b8f;padding-left:14px}
+table.painel-mun{width:100%;border-collapse:collapse;margin-top:10px}
+table.painel-mun th{background:#eef3f6;color:#24323a;text-align:left;
+  font-size:12px;font-weight:700;padding:7px 9px;border-bottom:1px solid #cfdae1}
+table.painel-mun td{padding:8px 9px;border-bottom:1px solid #eef1f3;vertical-align:top}
+table.painel-mun .nota-th{font-weight:400;font-size:10.5px;color:#6b7c86;margin-top:2px}
+.painel-mun .ind{margin-bottom:7px;font-size:11.5px;line-height:1.35}
+.painel-mun .ind:last-child{margin-bottom:0}
+.painel-mun .rot{display:block;color:var(--fraco)}
+.painel-mun .val{font-weight:700;color:#24323a}
+.painel-mun .pn{color:#6b7c86;margin-left:5px}
+.painel-mun .faixa-pct{display:inline-block;position:relative;width:54px;height:4px;
+  background:#dfe6ea;border-radius:2px;margin:0 2px 0 6px;vertical-align:middle}
+.painel-mun .faixa-pct i{position:absolute;top:-2px;width:2px;height:8px;
+  background:#2f6b8f;border-radius:1px}
+@media print{section.painel{break-inside:avoid}}
 .lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
 .lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
 .lente p{margin:9px 0 0;text-align:justify}

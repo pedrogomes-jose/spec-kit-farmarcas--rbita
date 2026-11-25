@@ -42,6 +42,36 @@ Referências (ler quando indicado):
   Ela vale para o **2º grupo que entra** na praça, não para a 2ª loja contada. Loja
   adicional de grupo já presente recebe **alerta**, porque a página escreve "a 2ª
   loja" e não define esse caso.
+- **O painel de perfil por cidade não é nota.** Na lista de praças, cada cidade
+  ganha indicadores com valor e **posição na distribuição nacional da própria
+  camada** — o único referente que `references/benchmarks.md` permite. Não há
+  composto, não há ordenação por qualidade, não há recomendação de abertura, e
+  nenhum agregado é emitido: dentro de uma dimensão os indicadores podem apontar
+  em direções opostas, e a média apagaria o achado. **Só entra indicador per
+  capita, percentual ou razão** — total absoluto (IPC, PIB total, potencial
+  anual, população, receita) transformaria as quatro dimensões num ranking de
+  porte de cidade, onde a capital vence em tudo por construção. Teto: três
+  indicadores por dimensão; o quarto entra substituindo, não somando.
+- **A unidade do painel é o MUNICÍPIO; a da tabela de praças, a unidade
+  territorial.** Nenhuma camada socioeconômica existe por UTC, então uma linha
+  por praça repetiria valores idênticos em todas as regiões da mesma cidade e
+  sugeriria que foram avaliadas separadamente — é o defeito já corrigido para a
+  taxa de captura, quando Natal aparecia capturando 19%, 12%, 8% e 5% em
+  bairros diferentes. A mesma cidade aparece uma vez num bloco e várias no
+  outro, e o documento diz por quê.
+- **O grupo econômico é contado pelo IDENTIFICADOR do cadastro, não pelo nome
+  do responsável.** O nome é dado pessoal e quebra com grafia divergente: duas
+  lojas do mesmo dono escritas de dois jeitos viravam dois grupos, e um grupo a
+  mais barra um pedido que caberia. Loja ativa sem identificador conta como
+  loja e não conta como grupo — a lista declara isso por praça, para que "3
+  lojas, 0 grupos" não pareça erro de leitura.
+- **A loja é atribuída à praça pelo endereço FISCAL, e a divergência é
+  declarada.** O cadastro tem dois endereços por loja, e eles discordam: medido
+  em 2026-11-25, 60 das 1.934 lojas ativas tinham cidade de Receita diferente
+  da cidade do endereço popular. A contagem segue pelo fiscal, e cada cidade
+  declara quantas lojas podem estar contadas na praça errada — nos dois
+  sentidos, porque uma praça ganha loja que não está lá e outra perde loja que
+  está.
 - **Zoneamento é gate, não indicador.** Roda ANTES da análise de mercado. Se o
   veredito for `impedimento`, o dossiê **para** e devolve o impedimento com a
   regra citada. Não existe dossiê de mercado bonito que destrave um ponto que a

@@ -30,12 +30,29 @@ DEFAULT_DIR = r"C:\Users\zequi\Downloads\bases órbita"
 
 # Data do dump. Todo dossiê carimba isto: o dado NÃO se atualiza sozinho.
 DATA_DO_DUMP = "2026-10-26"
-# O cadastro de lojas tem extracao propria, mais antiga que o acervo. Ela era
-# literal escrita a mao em quatro pontos dos relatorios: na proxima atualizacao
-# do cadastro, um deles ficaria para tras e o relatorio carimbaria data velha
-# sem ninguem perceber — o envelhecimento silencioso que o proprio documento
-# alerta. Atualizar AQUI, num lugar so.
-DATA_DO_CADASTRO = "2026-11-10"
+# O cadastro de lojas tem extracao propria, com data diferente do acervo. Ela
+# era literal escrita a mao em quatro pontos dos relatorios, depois centralizada
+# aqui — e mesmo assim falhou do jeito previsto: em 2026-11-25 o cache era de
+# 10/11 e o comando documentado teria trazido a exportacao de 23/10 por cima,
+# com esta linha intacta, carimbando 10/11 num dado de 23/10.
+#
+# Agora a data vem do ARQUIVO: `preparar_cadastro_lojas.py` grava o sidecar
+# `cache/cadastro_lojas.meta.json` com a data lida do nome da exportacao, e a
+# constante abaixo e so o ultimo recurso — cache antigo, gerado antes do
+# sidecar existir. Atualizar o cadastro passa a ser rodar o conversor, so.
+_DATA_DO_CADASTRO_FALLBACK = "2026-11-10"
+
+
+def _data_do_cadastro() -> str:
+    caminho = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache", "cadastro_lojas.meta.json")
+    try:
+        with open(caminho, encoding="utf-8") as fh:
+            return json.load(fh).get("data_do_cadastro") or _DATA_DO_CADASTRO_FALLBACK
+    except Exception:
+        return _DATA_DO_CADASTRO_FALLBACK
+
+
+DATA_DO_CADASTRO = _data_do_cadastro()
 
 ERRO_PLANILHA = ('{"error":"#N/A"}', "#N/A", "---", "")
 
@@ -176,6 +193,85 @@ def indexar_por_municipio(prefixo: str) -> dict:
         if cod:
             saida[cod] = linha
     return saida
+
+
+# ---------------------------------------------------------------------------
+# Percentil nacional — o único referente que a casa permite
+# ---------------------------------------------------------------------------
+# Número municipal isolado não decide nada: "renda de R$ 453,17" não é boa nem
+# ruim. "Percentil 38 dos 5.565 municípios" é. E é o referente PERMITIDO: régua
+# absoluta ("renda boa é acima de X") e nota composta estão proibidas em
+# references/benchmarks.md, porque a régua de viabilidade pertence ao produto.
+#
+# Mora aqui, e não dentro de um script, pelo mesmo motivo de `cnpjs_do_cadastro`
+# logo abaixo: mais de um script precisa da MESMA resposta. Quando cada um
+# respondia por conta própria, dois devolviam mercados diferentes para o mesmo
+# raio e nada dizia qual valia.
+
+_CACHE_DISTRIBUICAO = {}
+
+
+def distribuicao_municipal(prefixo: str, campo) -> dict:
+    """`{código IBGE: valor}` de uma base municipal, pronto para virar percentil.
+
+    `campo` é o nome de uma coluna OU um callable que recebe a linha inteira e
+    devolve número ou None — é o callable que destrava indicador composto de
+    várias colunas (somar as faixas de classe econômica, por exemplo) sem
+    precisar de uma base nova.
+
+    O cache é por processo e existe por uma conta simples: o painel consulta a
+    mesma distribuição uma vez por município listado, e sem ele cada base de
+    ~5,5 mil linhas seria relida doze vezes para devolver sempre o mesmo dict.
+    """
+    chave = (prefixo, campo if isinstance(campo, str) else getattr(campo, "__name__", repr(campo)))
+    if chave in _CACHE_DISTRIBUICAO:
+        return _CACHE_DISTRIBUICAO[chave]
+
+    extrair = (lambda linha: num(linha.get(campo))) if isinstance(campo, str) else campo
+    valores = {}
+    for cod, linha in indexar_por_municipio(prefixo).items():
+        try:
+            v = extrair(linha)
+        except Exception:
+            v = None
+        if v is not None:
+            valores[cod] = v
+    _CACHE_DISTRIBUICAO[chave] = valores
+    return valores
+
+
+def percentil_em(valores: dict, codigo: str, *, leitura: str = "", fonte: str = "") -> dict:
+    """Posição de um município na distribuição nacional já montada.
+
+    Devolve o mesmo contrato que o dossiê de ponto já consome há meses, para que
+    nada na conferência nem na redação mude de forma.
+
+    Município ausente devolve `erro` em vez de omitir a chave: indicador que
+    some da tela faz o painel parecer completo quando não está.
+    """
+    alvo = valores.get(str(codigo).strip())
+    if alvo is None:
+        return {"erro": f"município ausente em {fonte or 'base'}"}
+    ordenados = sorted(valores.values())
+    abaixo = sum(1 for v in ordenados if v < alvo)
+    return {
+        "valor": alvo,
+        "percentil": round(100.0 * abaixo / len(ordenados)),
+        "mediana_nacional": round(ordenados[len(ordenados) // 2], 2),
+        "municipios_comparados": len(ordenados),
+        "_leitura": leitura or "percentil alto = acima da maioria dos municípios",
+        "_fonte": fonte,
+    }
+
+
+def percentil_municipal(prefixo: str, campo, codigo: str, maior_e_melhor: bool = True) -> dict:
+    """Atalho para o par distribuição + posição, com a assinatura de sempre."""
+    return percentil_em(
+        distribuicao_municipal(prefixo, campo),
+        codigo,
+        leitura=("percentil alto = acima da maioria" if maior_e_melhor else "percentil alto = abaixo da maioria"),
+        fonte=f"{prefixo}.{campo if isinstance(campo, str) else getattr(campo, '__name__', 'derivado')}",
+    )
 
 
 def eh_farmarcas(nome_pdv: str) -> bool:

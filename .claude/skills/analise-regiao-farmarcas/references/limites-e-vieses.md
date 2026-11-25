@@ -128,3 +128,47 @@ duas** sempre que elas discordam.
 `all_expansion.analysis_data` e `contratos_expansao` têm nome e e-mail de
 empresários, consultores e analistas. Os scripts descartam esses campos; o
 dossiê nunca os reproduz, nem citando parecer histórico.
+
+## 14. A captura do potencial não separa duas causas
+
+A captura é a receita somada das unidades territoriais do município dividida
+pelo potencial de consumo anual da população que mora ali. Numerador e
+denominador não têm a mesma fronteira, e o mesmo número sai de causas
+incompatíveis: mercado que ninguém atende, população que compra em outro
+município, ou cobertura parcial da base de mercado naquela praça.
+
+O acervo **não separa as três**. Captura baixa é convite a conferir a praça, não
+conclusão sobre ela — e o relatório diz isso ao lado do número, não em seção
+recolhida.
+
+## 15. O perfil por cidade não herda a defasagem do Censo 2010
+
+Vale registrar o que **não** é viés, porque copiar uma lacuna que não existe é
+tão ruim quanto esconder uma que existe. Nenhum indicador do perfil por cidade
+vem de camada setorial: todos são municipais. A defasagem do Censo 2010, que
+atinge renda, densidade e classe econômica por setor censitário, não toca esse
+bloco.
+
+O viés que **está** lá é outro: a razão de habitantes por farmácia usa a
+população do dump, estimativa cerca de 4% acima do Censo 2022. A **posição** na
+distribuição não herda o viés, porque numerador e denominador vêm da mesma base
+para todos os municípios comparados. O **valor** herda, e não é comparável com a
+população do Censo que aparece na tabela de praças do mesmo documento. Nada é
+reescalado: declara-se a defasagem, não se corrige por conta própria.
+
+## 16. O cadastro tem dois endereços por loja, e eles discordam
+
+Cada loja traz endereço da Receita (fiscal) e endereço popular. A contagem de
+lojas por praça usa o fiscal — e medido em 2026-11-25, **60 das 1.934 lojas
+ativas** tinham cidade de Receita diferente da cidade do popular; 7 estavam sem
+o popular preenchido.
+
+São 3,1%, irrelevantes no agregado e decisivos numa praça pequena: uma loja a
+mais ou a menos muda a contagem de grupos, que muda o teto, que muda se a praça
+aparece como disponível. A divergência é declarada por cidade, nas duas
+direções — uma praça ganha loja que não está lá, outra perde loja que está.
+
+E há um modo de falha silencioso no mesmo lugar: lojas e grupos casam por **nome
+de município + UF**, enquanto população e potencial casam por **código IBGE**.
+Grafia divergente entre o cadastro e a base de unidades territoriais zera a
+contagem de lojas sem emitir aviso nenhum.

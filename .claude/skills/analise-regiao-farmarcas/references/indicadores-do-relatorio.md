@@ -389,3 +389,61 @@ raio** e que nenhum indicador de área do relatório captura.
 A contagem declarada pela base entra como conferência. Quando as duas
 divergem, **as duas saem** e a divergência é o achado — não se escolhe uma em
 silêncio.
+
+---
+
+# Perfil por cidade — lista de praças
+
+Bloco do relatório "Onde olhar" (formato prospecção). A unidade é o **município**,
+e não a unidade territorial: nenhuma destas camadas existe por UTC. Cada
+indicador sai com valor, percentil na distribuição nacional da própria camada,
+mediana nacional e número de municípios comparados.
+
+**Regra de corte:** só per capita, percentual ou razão. Total absoluto é proxy
+de porte e ordenaria as quatro dimensões por tamanho de cidade. Teto de três
+indicadores por dimensão.
+
+| Dimensão | Indicador | Base | Campo | Unidade |
+|---|---|---|---|---|
+| Poder de compra | renda domiciliar per capita | camada Renda Média por município | `Renda_media_domic_per_capita` | R$ |
+| Poder de compra | consumo em drogarias por habitante | base municipal de Potencial de Consumo | `3ConsumoMedioDrogarias(p/habitante)R$` | R$/ano |
+| Poder de compra | domicílios nas classes A, B1 e B2 | base do Farmácia Popular | `A(%)` + `B1(%)` + `B2(%)` | % |
+| Folga competitiva | habitantes por farmácia | camada População × base do Farmácia Popular | derivado | hab |
+| Folga competitiva | captura do potencial pelo varejo medido | base de crescimento por UTC × Potencial de Consumo | derivado | % |
+| Folga competitiva | farmácias credenciadas ao Farmácia Popular | base do Farmácia Popular | `%farmaciascredenciadasaoFarmaciaPopnacidade` | % |
+| Dinamismo | crescimento demográfico | camada Densidade Demográfica | `TaxadeCrescimentoDemografico(%aa)` | % a.a. |
+| Dinamismo | crescimento do mercado farmacêutico do município | base de crescimento por UTC | derivado | % |
+| Centralidade | municípios que este influencia | REGIC 2018 | `municipiosInfluenciados` | cidades |
+| Centralidade | população urbana | camada Situação do Território | `03-PopulacaoUrbana%` | % |
+| Centralidade | densidade demográfica | camada Densidade Demográfica | `DensidadeDemografica` | hab/km² |
+| Centralidade | papel na rede urbana | REGIC 2018 | `classificacaoRegic` | rótulo, **sem percentil** |
+
+## As duas fórmulas derivadas
+
+**Habitantes por farmácia** = população municipal do dump ÷ total de farmácias
+da cidade na base do Farmácia Popular. Percentil **alto = menos saturado**. A
+população do dump é usada no numerador para manter a distribuição internamente
+coerente; o viés de ~4% contra o Censo 2022 atinge o valor, não a posição.
+
+**Captura do potencial** = soma da receita atual de todas as UTCs do município
+÷ potencial de consumo anual do município × 100. A soma é de **receita**, nunca
+média das taxas das UTCs — média de razão não é a razão do agregado, e uma UTC
+minúscula em disparada faria a cidade inteira parecer crescer.
+
+**Crescimento do mercado do município** = (soma da receita atual ÷ soma da
+receita anterior − 1) × 100, pelas UTCs do município. É **municipal**, enquanto
+a coluna de crescimento da tabela de praças é **por UTC**: dois números
+parecidos na mesma tela, medindo recortes diferentes, e cada rótulo nomeia o
+seu.
+
+## Três coisas que ficaram de fora, e por quê
+
+- **PIB per capita**: passa na regra de corte, mas em cidade industrial ou de
+  mineração mede o valor agregado da planta, não a carteira de quem entra na
+  loja.
+- **Variação de empregos** (`movimentacao_economica`): a base não declara o
+  período em lugar nenhum. Percentual de variação sem janela é número que
+  parece medida. Entra quando o período for estabelecido.
+- **`classificacaoRegic` e `hierarquia` como número**: são categóricos. A régua
+  dessa escala pertence ao IBGE, e convertê-la em percentil aqui seria inventar
+  uma.

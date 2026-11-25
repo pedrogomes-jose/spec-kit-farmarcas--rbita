@@ -97,10 +97,24 @@ def sem_marcacao(txt: str) -> str:
     return _html.unescape(re.sub(r"<[^>]+>", " ", txt or ""))
 
 
+_DATA_DDMMAAAA = re.compile(
+    r"\b(?:0?[1-9]|[12][0-9]|3[01])/(?:0?[1-9]|1[0-2])/(?:19|20)\d{2}\b"
+)
+
+
 def numeros_do_texto(txt: str, onde: str):
-    """Extrai todo número escrito, com moeda, percentual e escala."""
+    """Extrai todo número escrito, com moeda, percentual e escala.
+
+    Data em dd/mm/aaaa sai antes da extração. Ela não é medida: nomeia QUANDO
+    algo foi dito ou extraído, e nenhum script devolve o dia e o mês de uma
+    conversa. O ano solto já era tratado assim em `checar_procedencia`; o dia e
+    o mês escapavam e voltavam como "sem origem" — medido em 2026-11-25, uma
+    atribuição de sessão datada reprovou quatro vezes, duas por parágrafo. Deixar
+    como estava ensinaria a tirar a data da frase para o documento fechar limpo,
+    que é perder precisão de atribuição para agradar o conferidor.
+    """
     achados = []
-    for m in _NUMERO.finditer(sem_marcacao(txt)):
+    for m in _NUMERO.finditer(_DATA_DDMMAAAA.sub(" — ", sem_marcacao(txt))):
         moeda, cru, sufixo = m.group(1), m.group(2), (m.group(3) or "").strip().lower()
         if "," in cru:
             casas = len(cru.split(",")[1])
@@ -350,6 +364,26 @@ _PONTUACAO = (
     (r"\bponto\s+(?:aprovado|recomendado|reprovado)\b", "o dossiê não recomenda"),
     (r"\b(?:recomendamos|recomenda-se)\s+(?:abrir|a abertura)", "o dossiê não recomenda"),
     (r"\bviabilidade\s+(?:alta|m[ée]dia|baixa)\b", "é a régua com outro nome"),
+    # Composição do painel de percentis, em número OU em palavras.
+    #
+    # O painel se recusa a emitir agregado: não há média de percentis, não há
+    # contagem de dimensões "ganhas", não há tfoot. Mas a prosa alcança o que o
+    # script não emite, e "lidera em três das quatro dimensões" é exatamente o
+    # número composto que a decisão de produto proíbe — escrito por extenso,
+    # passa por toda checagem de procedência, porque nenhum dígito é inventado.
+    #
+    # As duas últimas famílias são as que mais pegam: ordinal de painel e
+    # contagem de dimensões. Foram a forma que o ranking tomou em 2026-11-25,
+    # quando a auditoria o tirou da prosa duas vezes.
+    (r"\bm[ée]dia\s+dos\s+percentis\b", "o painel não compõe"),
+    (r"\bpercentil\s+m[ée]dio\b", "o painel não compõe"),
+    (r"\bsoma\s+dos\s+percentis\b", "o painel não compõe"),
+    (r"\b[íi]ndice\s+de\s+(?:atratividade|potencial|qualidade)\b", "é a régua com outro nome"),
+    (r"\b(?:melhor|pior)\s+(?:pra[çc]a|cidade|munic[íi]pio)\b", "o documento não ordena por qualidade"),
+    (r"\blidera\s+em\s+(?:uma|duas|tr[êe]s|quatro|\d)\b", "contagem de dimensões é composição"),
+    (r"\b(?:uma|duas|tr[êe]s|quatro|\d)\s+d(?:as|e)\s+(?:quatro|4)\s+dimens[õo]es\b", "contagem de dimensões é composição"),
+    (r"\bno\s+topo\s+do\s+painel\b", "o painel é alfabético — não há topo"),
+    (r"\branking\s+de\s+(?:munic[íi]pios|cidades|pra[çc]as)\b", "o documento não ranqueia"),
 )
 
 _FERRAMENTA = (

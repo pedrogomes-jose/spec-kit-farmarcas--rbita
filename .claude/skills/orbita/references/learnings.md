@@ -6,6 +6,169 @@ uso real — aprendizado de teste e aprendizado de campo não valem o mesmo.
 
 ---
 
+## 2026-11-25 — mapeamento Amélia Rodrigues/BA, e o painel de perfil por cidade
+
+`PROCEDENCIA: uso real conduzido pelo PM. Mapeamento entregue, depois três
+passadas de auditoria e uma mudança de produto no meio.`
+
+**O que nasceu desta rodada**
+
+- **Painel de perfil por cidade.** O documento declarava que não mede qualidade
+  de praça, e isso empurrava a comparação para a prosa, onde ela virava ranking
+  por acidente. Agora cada cidade da lista ganha onze indicadores com valor e
+  **percentil nacional da própria camada** — o único referente que a casa
+  permite. Uma linha por município, não por praça: nenhuma dessas camadas existe
+  por unidade territorial, e uma linha por praça repetiria o mesmo valor oito
+  vezes para Salvador.
+- **Contagem de grupo econômico por identificador**, não por nome do
+  responsável. O PM pediu "conte pelo número do GE" e eu respondi que o campo
+  não existia — **estava errado**: eu tinha olhado só a exportação da pasta das
+  bases. Havia uma mais nova, com a coluna. Lição: antes de dizer que um campo
+  não existe, olhar todas as exportações, não a que o script acha primeiro.
+- **O conversor do cadastro passou a escolher o arquivo.** O comando
+  documentado, sem argumento, teria rebaixado o cache em 18 dias e perdido a
+  coluna nova, enquanto a constante de data no código continuaria anunciando a
+  data antiga. Agora ele procura a exportação mais recente que tenha todas as
+  colunas, aborta dizendo o que falta, e grava a data lida do nome do arquivo.
+
+**O que o painel pegou que três camadas de conferência não pegaram**
+
+Eu escrevi "Salvador ocupa sete das doze linhas". São **oito**. O erro passou
+pela conferência mecânica (o número existia na apuração), passou pelo auditor
+duas vezes, e só caiu quando o painel contou sozinho e imprimiu 8 ao lado.
+**Regra que nasce daí: número de contagem não se escreve à mão em prosa quando
+o script já o tem.** O parágrafo-ponte do painel calcula; os outros dois pontos
+que eu tinha escrito à mão foram os que sobreviveram à correção, e o auditor
+teve de pegá-los na passada seguinte — com o documento afirmando 8 em três
+lugares e 7 em dois, que é pior que o erro original.
+
+**O modo de falha mais caro desta rodada: a correção que envelhece o vizinho**
+
+Trocar a contagem de grupo para o identificador deixou, duas seções abaixo, uma
+lacuna do gerador afirmando que a contagem era por nome — e um rodapé que
+concluía "ou seja, confirme pelo CNPJ" a partir do critério abandonado três
+linhas antes. É a mesma família do preço médio da passada anterior: **toda
+lacuna fixa do gerador é uma afirmação sobre o que o documento não sabe, e
+quando o documento passa a saber, ela mente.** Antes de fechar uma mudança,
+varrer as lacunas fixas procurando a que ela acabou de tornar falsa.
+
+Duas outras lacunas diziam que renda, população e potencial de consumo eram
+desconhecidos — e o painel acabara de publicá-los. O que continua desconhecido é
+a versão **por praça**, não o indicador.
+
+**Consequência apurada e não propagada**
+
+O script devolvia, no alerta de cadastro, que loja atribuída à praça errada
+"muda a contagem de grupos e, com ela, a disponibilidade". O gerador imprimia só
+o fato. É a família do `bloco-apurado-e-nao-impresso.md` aplicada a texto, e não
+a número. E a consequência era **condicional**: onde a cidade não tem teto, não
+muda nada — dizer isso ensina a ler o alerta na próxima cidade, onde decide.
+
+**Ancorar no país não salva uma frase que compara dois casos**
+
+Escrevi que o parque de Salvador é "menos adensado que o de Lauro de Freitas",
+citando p75 e p21. Os percentis ancoram os números; o sujeito da frase continua
+sendo a comparação entre as duas cidades, que é o que o painel declara inválido.
+**Aposto não muda o que a oração afirma.** A redação que salva descreve cada
+cidade contra a distribuição e diz, em voz alta, que a diferença entre elas não
+é leitura que quatro casos sustentem.
+
+No caminho inverso, a regra do painel estava absoluta demais — "comparar as
+cidades desta lista entre si não é referente válido" — enquanto a leitura
+comparava contagens do cadastro quatro vezes, legitimamente. Estreitada para os
+**percentis**, que é o que ela de fato protege. Documento que se desobedece à
+vista ensina o leitor a ignorá-lo.
+
+**"E daí?" tem de nomear a decisão que muda**
+
+O achado do Farmácia Popular — credenciamento no quintil inferior nas quatro
+cidades — era verdadeiro, bem apurado, e não movia nada: um indicador uniforme
+nas quatro não separa praça nenhuma. Ou ganha consequência concreta, ou vira
+frase de contexto sem parágrafo próprio. **Parágrafo próprio promete
+consequência.**
+
+**Percentil sem o N não é reconferível**
+
+O tamanho da distribuição varia por indicador — de 5.249 a 5.571 municípios — e
+os dois de base mais estreita (captura e crescimento municipal) são os mais
+citados na leitura. O número estava na apuração desde o início e não chegava ao
+documento.
+
+**O que vigiar na próxima rodada**
+
+- **O nome "Folga competitiva" afirma folga**, e um dos seus três indicadores
+  declara, na própria apuração, "é PERFIL DO PARQUE, não folga". A dimensão
+  contradiz o indicador pelo rótulo. **Decidido pelo PM em 2026-11-25: fica como
+  está.** O risco é conhecido e aceito — o texto do painel declara que o
+  credenciamento é perfil do parque e que a razão de habitantes por farmácia é
+  ambígua, então a ressalva está no documento mesmo com o rótulo afirmando
+  folga. Vigiar se algum leitor lê a dimensão inteira como espaço livre; se
+  acontecer, a correção é o rótulo, não mais texto.
+- **Casamento fraco subiu para 43 entradas.** Percentil é inteiro sem unidade, e
+  a regra está certa — o risco é a lista ficar longa o bastante para ninguém ler.
+  Conferir pelo par cidade+indicador, não pelo número.
+- **Se alguém colorir a tira de percentil por faixa**, o painel vira nota num
+  commit. A matiz única é a decisão, não um esquecimento.
+
+---
+
+
+
+## 2026-11-25 — mapeamento de praças: Sorocaba/SP
+
+`PROCEDENCIA: uso real conduzido pelo PM. Sem endereco, sem solicitante. Lista
+de pracas entregue.`
+
+**O que não funcionou, e virou mudança de fluxo**
+
+- **A Fase 0 estava escrita para o caso errado.** O escopo dizia "só quando não
+  há ponto nem cidade", e o pedido veio com cidade e sem endereço — que é o caso
+  mais comum de quem está escolhendo onde abrir. A skill caiu na Fase A e
+  perguntou perfil, empresário, responsável pelo GE e bandeira. As três últimas
+  voltaram como **"não tenho ainda"**, porque não havia solicitante: era
+  exploração antes de haver dono do pedido.
+- **Nenhuma das quatro perguntas muda uma linha da lista de praças.** A vaga é
+  sempre calculada para grupo novo e a régua de distância mínima só existe sobre
+  um endereço. Perguntá-las ali é cobrar o que o pedido não tem. Agora a Fase 0
+  pergunta duas coisas: âncora e modelo.
+- **Dezesseis números caíram na conferência de uma vez.** Escrevi na lista de
+  praças a população do dump, a saturação da cidade, os limiares da regra em
+  metros e valores de uma rodada de praças com outro raio. Todos vieram de
+  script nesta sessão — mas o formato de prospecção roda **uma chamada só**, a
+  de praças, e é contra a apuração dele que a conferência confere. Regra que
+  nasce daí: na prospecção, cite o que a linha da praça traz — população do
+  Censo, potencial, captura, preço médio, receita da praça e receita da rede.
+- **Inventei precisão uma vez e fiz um ranking de cabeça outra.** Transformei o
+  rótulo "R$ 150,7 milhões" em centavos e escrevi "a segunda que mais cresce"
+  comparando dois números apurados. Peguei os dois relendo, antes de gerar.
+
+**O que funcionou**
+
+- Conferir o nome do responsável pelo GE contra o cadastro continua pagando: em
+  Lontras desmentiu a declaração do solicitante, e aqui a ausência dele foi o
+  sinal de que o caso não era dossiê de ponto.
+- A trava de pergunta obrigatória segurou a conversa no lugar certo: as três
+  respostas "não tenho ainda" viraram decisão de fluxo, não premissa silenciosa.
+
+**Defeito de gerador encontrado por uso**
+
+- **`--detalhes` não estava ligado no formato de prospecção.** As duas cópias
+  saíam byte a byte idênticas, e havia seção de Fontes para tirar. Corrigido com
+  uma ressalva que o caso de impedimento já tinha: a enxuta tira as Fontes e
+  **mantém** o bloco "O que esta lista é, e o que ela não é" — lá o parágrafo é
+  o conteúdo, e uma lista que circula sem ele é lida como recomendação de
+  abertura, que é exatamente o que aquele bloco existe para impedir.
+
+**Defeito de base encontrado por uso**
+
+- **Jardim América aparece duas vezes nas unidades territoriais de Sorocaba**,
+  com valores idênticos. O script declara 5 UTCs e distintas são 4. O total do
+  município é somado linha a linha, então conta a região duas vezes, e o share
+  da rede, calculado sobre esse total, sai inflado junto. Por isso o documento
+  não publicou nenhum total municipal — só as regiões uma a uma.
+
+---
+
 ## 2026-11-23 — primeira rodada com o protocolo de perguntas: Gurupi/TO
 
 `PROCEDENCIA: uso real conduzido pelo PM, logo após a mudança. Gate em alerta,

@@ -60,3 +60,19 @@ como a sua procedência.
 | O score 0–20 do produto | **o dossiê não pontua.** A régua tem dono (executivos) e vive no produto; reproduzi-la aqui cria dois números para a mesma pergunta |
 | Porte do mercado local como previsor de faturamento | medido: correlação **−0,003** (p = 0,97) com o faturamento da loja |
 | Média simples de qualquer série mensal da IQVIA | o dado mensal oscila mais de 5× em 36 de 182 lojas — só mediana e proporção |
+| **As outras praças da mesma lista** | quatro ou doze casos não são uma distribuição. É o mesmo erro de "o dobro do ponto anterior", com mais linhas: comparar as cidades do painel entre si cria uma régua de qualidade que o dado não sustenta, e ordená-las por qualquer percentil é ranking com outro nome. O referente de cada indicador é o país |
+| **Qualquer composição entre percentis** | média, soma ou contagem de "dimensões ganhas". Dentro de uma mesma dimensão os indicadores podem apontar em direções opostas — renda baixa com consumo de farmácia alto é um achado —, e compor apaga exatamente o que vale conversar. Vale para número e para texto: "lidera em três das quatro" é a composição escrita por extenso |
+
+### Aplicação canônica do referente de percentil
+
+O **perfil por cidade** da lista de praças é a forma que esta regra toma no
+produto: cada indicador sai com o valor, o percentil na distribuição nacional
+dos municípios brasileiros da própria camada, a mediana nacional e quantos
+municípios entraram na comparação. Nada mais.
+
+Regra de corte que o acompanha: **só entra indicador per capita, percentual ou
+razão**. Total absoluto — IPC, PIB total, potencial de consumo anual, população,
+receita do município — é proxy de porte, e um painel com qualquer um deles
+ordena as cidades por tamanho em todas as dimensões ao mesmo tempo. O leitor
+conclui "a capital é melhor em tudo", que é a régua de qualidade entrando pela
+porta dos fundos.

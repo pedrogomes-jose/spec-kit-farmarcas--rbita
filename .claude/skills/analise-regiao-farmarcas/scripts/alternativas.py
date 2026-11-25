@@ -180,6 +180,47 @@ def partes_da_utc(nome: str) -> tuple:
     return pedacos[1], "-".join(pedacos[2:])
 
 
+def alertas_do_cadastro(chave, sem_grupo: dict, popular_fora: dict, popular_aqui: dict):
+    """O que, no cadastro, pode estar errando a contagem desta praça.
+
+    Devolve `None` quando não há nada a dizer — alerta que aparece em toda linha
+    deixa de ser alerta e passa a ser ruído de rodapé.
+
+    Nunca carrega nome de pessoa nem de empresa: só contagem. Quem precisa saber
+    QUAIS lojas divergem abre o cadastro; o relatório diz que existem e o que
+    isso faz com o número ao lado.
+    """
+    fora = popular_fora.get(chave, 0)
+    aqui = popular_aqui.get(chave, 0)
+    sem = sem_grupo.get(chave, 0)
+    if not (fora or aqui or sem):
+        return None
+
+    saida = {}
+    if fora or aqui:
+        saida["divergencia_de_endereco"] = {
+            "lojas_daqui_com_endereco_popular_em_outra_cidade": fora or None,
+            "lojas_de_outra_cidade_com_endereco_popular_aqui": aqui or None,
+            "_leitura": (
+                "a contagem de lojas desta praça usa o endereço da Receita, que é fiscal. "
+                "Estas lojas têm endereço popular em município diferente, e podem estar "
+                "contadas na praça errada — o que muda a contagem de grupos e, com ela, "
+                "a disponibilidade"
+            ),
+        }
+    if sem:
+        saida["lojas_sem_grupo_economico_no_cadastro"] = {
+            "lojas": sem,
+            "_leitura": (
+                "lojas ativas sem identificador de grupo preenchido. Elas contam como loja "
+                "e não contam como grupo, então a praça pode aparecer com mais lojas do que "
+                "grupos sem que isso seja erro de leitura — é falta de cadastro, e o teto "
+                "pode estar sendo calculado contra um número de grupos menor que o real"
+            ),
+        }
+    return saida
+
+
 def teto_de_lojas(pop: int):
     if pop <= 60_000:
         return 1
@@ -223,6 +264,219 @@ def disponibilidade(pop, teto, n_grupos: int, modelo: str | None):
 # dentro do raio. Sem teto seria uma chamada por candidato da UF; com ele, as
 # maiores pracas do raio entram apuradas e o resto espera a vez. B.populacao_
 # censo_2022 grava o que busca, entao da segunda rodada em diante sai do cache.
+# ---------------------------------------------------------------------------
+# Perfil das cidades da lista — valor e posição nacional, nunca nota
+# ---------------------------------------------------------------------------
+# A lista de praças ordena por mercado não atendido, que é quantidade medida, e
+# o documento declara que não mede qualidade de praça. Isso empurrava a
+# comparação para a PROSA, onde ela virava ranking por acidente: em 2026-11-25
+# duas passadas de auditoria foram gastas tirando do texto "valem conferir
+# primeiro", "o motivo mais interessante" e "olhar depois das duas primeiras".
+#
+# A saída é dar ao analista indicadores comparáveis, com o único referente que a
+# casa permite (references/benchmarks.md): a posição de cada cidade na
+# distribuição nacional da própria camada. Sem composto, sem ordenação nova.
+#
+# REGRA DE CORTE, e ela é o que impede o painel de virar ranking de porte:
+# só entra indicador PER CAPITA, PERCENTUAL ou RAZÃO. Nunca total absoluto.
+# IPC, PIB total, potencial anual, população e receita do município são todos
+# proxies de tamanho — com qualquer um deles, as quatro dimensões ordenariam as
+# cidades por porte ao mesmo tempo e o leitor concluiria "a capital é melhor em
+# tudo". Teto: três indicadores por dimensão; o quarto entra substituindo.
+#
+# A unidade é o MUNICÍPIO, não a UTC. Nenhuma destas camadas existe por unidade
+# territorial: numa cidade com várias UTCs, todas as linhas levariam valores
+# idênticos — foi o defeito já corrigido para a taxa de captura, quando Natal
+# aparecia capturando 19%, 12%, 8% e 5% em bairros diferentes.
+
+def _classes_ab(linha) -> float | None:
+    """Domicílios nas classes A + B1 + B2, em %. Derivado de três colunas."""
+    partes = [B.num(linha.get(c)) for c in ("A(%)", "B1(%)", "B2(%)")]
+    if any(p is None for p in partes):
+        return None
+    return sum(partes)
+
+
+# (dimensão, rótulo, unidade, base, campo, leitura do percentil, fator)
+#
+# `fator` é só de APRESENTAÇÃO: várias colunas do acervo guardam percentual como
+# fração (0,23 para 23%), e imprimir "0,2 %" ao lado de uma mediana de "0,2 %"
+# não diz nada e ainda parece erro de ordem de grandeza. O percentil não muda —
+# multiplicar todo mundo pela mesma constante não reordena nada.
+INDICADORES_DO_PERFIL = [
+    ("Poder de compra", "renda domiciliar per capita", "R$",
+     "renda_media_municipio", "Renda_media_domic_per_capita",
+     "percentil alto = renda acima da maioria dos municípios", 1),
+    ("Poder de compra", "consumo em drogarias por habitante", "R$/ano",
+     "potencial_de_consumo", "3ConsumoMedioDrogarias(p/habitante)R$",
+     "percentil alto = gasta mais em farmácia por pessoa que a maioria", 1),
+    ("Poder de compra", "domicílios nas classes A, B1 e B2", "%",
+     "dados_farmacia_popular", _classes_ab,
+     "percentil alto = mais domicílios de renda alta que a maioria", 100),
+
+    ("Folga competitiva", "habitantes por farmácia", "hab",
+     None, "habitantes_por_farmacia",
+     "percentil alto = MENOS saturado: mais gente para cada farmácia", 1),
+    ("Folga competitiva", "captura do potencial pelo varejo medido", "%",
+     None, "captura",
+     "percentil alto = mais do potencial da população já passa por farmácia medida", 1),
+    ("Folga competitiva", "farmácias credenciadas ao Farmácia Popular", "%",
+     "dados_farmacia_popular", "%farmaciascredenciadasaoFarmaciaPopnacidade",
+     "percentil alto = parque mais credenciado; é PERFIL DO PARQUE, não folga", 100),
+
+    ("Dinamismo", "crescimento demográfico", "% a.a.",
+     "densidade_demografica", "TaxadeCrescimentoDemografico(%aa)",
+     "percentil alto = cresce mais que a maioria dos municípios", 1),
+    ("Dinamismo", "crescimento do mercado farmacêutico do município", "%",
+     None, "crescimento_municipal",
+     "percentil alto = mercado da cidade cresceu mais que o da maioria", 1),
+
+    ("Centralidade urbana", "municípios que este influencia", "cidades",
+     "regic_2018_municipio", "municipiosInfluenciados",
+     "percentil alto = polo de mais cidades do entorno", 1),
+    ("Centralidade urbana", "população urbana", "%",
+     "situacao_territorio_municipio", "03-PopulacaoUrbana%",
+     "percentil alto = população mais urbana que a maioria", 100),
+    ("Centralidade urbana", "densidade demográfica", "hab/km²",
+     "densidade_demografica", "DensidadeDemografica",
+     "percentil alto = mais gente por km² que a maioria", 1),
+]
+
+# Fora de propósito, e o motivo escrito para ninguém reintroduzir:
+# - PIB per capita: passa na regra de corte, mas em cidade industrial ou de
+#   mineração mede o valor agregado da planta, não a carteira de quem entra na
+#   loja. Três por dimensão já é o teto de leitura.
+# - Variação de empregos (`movimentacao_economica`): a base NÃO declara o
+#   período em lugar nenhum. Percentual de variação sem janela é número que
+#   parece medida. Entra quando o período for estabelecido.
+# - `classificacaoRegic` e `hierarquia`: são categóricos, e saem como RÓTULO sem
+#   percentil. A régua dessa escala pertence ao IBGE; convertê-la em número aqui
+#   seria inventar uma.
+
+
+def _distribuicoes_derivadas():
+    """As três distribuições nacionais que não são coluna de base.
+
+    Montadas numa passada só sobre as bases de UTC, porque captura e crescimento
+    municipal compartilham o mesmo somatório de receita por município.
+    """
+    import contexto_municipio as CM
+
+    hab_farm = CM.habitantes_por_farmacia()
+
+    # Receita por MUNICÍPIO = soma das UTCs dele. Nunca média das taxas das
+    # UTCs: média de razão não é a razão do agregado, e a cidade com uma UTC
+    # minúscula em disparada sairia crescendo muito.
+    utc_mun = {}
+    for linha in B.ler("closeup_utc_varejo"):
+        uid = (linha.get("id_utc_var") or "").strip()
+        if uid:
+            utc_mun[uid] = (linha.get("codigo_mun") or "").strip()
+
+    atual, anterior = {}, {}
+    for linha in B.ler("mat_anterior_x_atual_utc_crescimento"):
+        # A coluna de ligação desta base chama `utc_id_varejo`, e não
+        # `id_utc_var` como em `closeup_utc_varejo`. Usar o nome errado não
+        # quebra nada: devolve dicionário vazio, e todo município sai "sem
+        # cobertura" como se a camada não o alcançasse. Pegou na primeira
+        # rodada, em 2026-11-25, porque as quatro cidades saíram sem captura.
+        cod = utc_mun.get((linha.get("utc_id_varejo") or "").strip())
+        if not cod:
+            continue
+        atual[cod] = atual.get(cod, 0.0) + (B.num(linha.get("receita_atual_total")) or 0.0)
+        anterior[cod] = anterior.get(cod, 0.0) + (B.num(linha.get("receita_anterior_total")) or 0.0)
+
+    potenciais = potencial_por_municipio()
+    captura = {}
+    for cod, rec in atual.items():
+        pot = (potenciais.get(cod) or {}).get("ano")
+        if pot and pot > 0:
+            captura[cod] = 100.0 * rec / pot
+
+    crescimento = {
+        cod: 100.0 * (rec / anterior[cod] - 1.0)
+        for cod, rec in atual.items()
+        if anterior.get(cod)
+    }
+    return {
+        "habitantes_por_farmacia": hab_farm,
+        "captura": captura,
+        "crescimento_municipal": crescimento,
+    }
+
+
+def perfil_dos_municipios(candidatos: list) -> dict:
+    """Uma entrada por município da lista, com os indicadores em percentil.
+
+    Município, e não praça: quem decidiu isso foi o dado. Nenhuma destas camadas
+    existe por unidade territorial, então uma linha por praça repetiria o mesmo
+    valor sete vezes para Salvador e sugeriria sete cidades avaliadas.
+
+    Não emite agregado nenhum — nem média de percentis, nem contagem de
+    dimensões "ganhas". Dentro de uma mesma dimensão os indicadores podem
+    apontar em direções opostas (renda alta com consumo de drogaria baixo é um
+    achado), e qualquer composição apaga justamente isso.
+    """
+    derivadas = _distribuicoes_derivadas()
+    regic = B.indexar_por_municipio("regic_2018_municipio")
+
+    por_municipio = {}
+    for c in candidatos:
+        cod = c.get("codigo_ibge")
+        if not cod:
+            continue
+        reg = por_municipio.setdefault(
+            cod,
+            {
+                "municipio": c.get("municipio"),
+                "uf": c.get("uf"),
+                "codigo_ibge": cod,
+                "pracas_na_tabela": 0,
+                "alertas_de_cadastro": c.get("alertas_de_cadastro"),
+                # Viaja junto porque a consequência do alerta de cadastro é
+                # CONDICIONAL: onde não há teto, a contagem de grupos não decide
+                # nada, e quem renderiza precisa saber disso para não anunciar
+                # um risco que naquela cidade não existe.
+                "teto_de_lojas": c.get("teto_de_lojas"),
+                "papel_na_rede_urbana": None,
+                "dimensoes": {},
+                "sem_cobertura": [],
+            },
+        )
+        reg["pracas_na_tabela"] += 1
+
+    for cod, reg in por_municipio.items():
+        linha_regic = regic.get(cod) or {}
+        classe = (linha_regic.get("classificacaoRegic") or "").strip()
+        if classe:
+            reg["papel_na_rede_urbana"] = {
+                "classificacao": classe,
+                "_sem_percentil": "categoria ordinal do IBGE — virar número aqui seria inventar escala",
+            }
+        for dimensao, rotulo, unidade, base, campo, leitura, fator in INDICADORES_DO_PERFIL:
+            valores = derivadas[campo] if base is None else B.distribuicao_municipal(base, campo)
+            fonte = f"derivado.{campo}" if base is None else f"{base}.{campo if isinstance(campo, str) else 'derivado'}"
+            resultado = B.percentil_em(valores, cod, leitura=leitura, fonte=fonte)
+            resultado["rotulo"] = rotulo
+            resultado["unidade"] = unidade
+            if resultado.get("erro"):
+                reg["sem_cobertura"].append(rotulo)
+            elif fator != 1:
+                # Escala de apresentação, aplicada DEPOIS do percentil.
+                resultado["valor"] = round(resultado["valor"] * fator, 2)
+                resultado["mediana_nacional"] = round(resultado["mediana_nacional"] * fator, 2)
+            reg["dimensoes"].setdefault(dimensao, []).append(resultado)
+
+    return {
+        "_unidade": "MUNICÍPIO, não unidade territorial — nenhuma destas camadas existe por UTC, e uma linha por praça repetiria o mesmo valor em todas as regiões da mesma cidade",
+        "_referente": "distribuição nacional dos municípios brasileiros da própria camada. Comparar as cidades desta lista entre si NÃO é referente válido: doze casos não são uma distribuição",
+        "_sem_composicao": "nenhum agregado é emitido — nem média de percentis, nem contagem de dimensões. Dentro de uma dimensão os indicadores podem apontar em direções opostas, e compor apaga o achado",
+        "_vies_da_populacao": "a razão de habitantes por farmácia usa a população do dump, estimativa ~4% acima do Censo 2022. A POSIÇÃO não herda o viés (numerador e denominador da mesma base, para todos os municípios); o VALOR herda, e não é comparável com a população do Censo que aparece na tabela de praças",
+        "_ressalva_da_captura": "captura baixa pode ser mercado não capturado OU cobertura fraca do painel do instituto naquela praça. O acervo não separa os dois",
+        "municipios": [por_municipio[c] for c in sorted(por_municipio, key=lambda k: (por_municipio[k]["municipio"] or "", por_municipio[k]["uf"] or ""))],
+    }
+
+
 LIMITE_APURACAO_NO_RAIO = 25
 
 
@@ -268,6 +522,12 @@ def main() -> int:
                     help="descarta pracas alem deste raio (exige --perto-de)")
     ap.add_argument("--ordenar", choices=["mercado", "distancia"], default="mercado",
                     help="criterio de ordenacao; distancia exige --perto-de")
+    # Opt-in, e nao sempre, porque `alternativas.py` e chamado por tres
+    # formatos de relatorio e so a prospeccao imprime o painel. Bloco que o
+    # script devolve e o gerador nao imprime e divida — ver
+    # references/bloco-apurado-e-nao-impresso.md.
+    ap.add_argument("--perfil-municipios", action="store_true",
+                    help="acrescenta o perfil em percentis das cidades da lista")
     args = ap.parse_args()
 
     ancora = None
@@ -296,11 +556,30 @@ def main() -> int:
 
     # lojas ativas por município
     lojas = {}
-    # GRUPOS, nao lojas: e o grupo que ocupa vaga no teto. A deduplicacao e por
-    # NOME do responsavel normalizado, nao por CNPJ — mesma fragilidade do gate,
-    # e aqui ela decide quais pracas aparecem na lista. Grafia divergente entre
-    # duas lojas do mesmo dono inventa um grupo e esconde uma praca disponivel.
+    # GRUPOS, nao lojas: e o grupo que ocupa vaga no teto. A chave e o ID
+    # numerico do grupo economico no cadastro.
+    #
+    # Ate 2026-11-25 a deduplicacao era pelo NOME do responsavel normalizado, e
+    # a fragilidade estava escrita aqui mesmo: grafia divergente entre duas
+    # lojas do mesmo dono inventava um grupo e escondia uma praca disponivel,
+    # num campo que e dado pessoal. A coluna `Grupo Economico` existe na
+    # exportacao e e numerica — na exportacao de 10/11, 499 grupos pelo id
+    # contra 499 pelo nome, nenhum grupo com responsavel variando entre lojas e
+    # nenhum responsavel em mais de um grupo. Hoje as duas chaves dao o mesmo
+    # resultado; a troca nao muda numero nenhum, fecha o modo de falha e tira
+    # nome de pessoa da chave de contagem.
     grupos = {}
+    # Loja ativa sem id de grupo preenchido. Sem isto, cidade com tres lojas e
+    # nenhum grupo parece erro de leitura e nao falta de cadastro.
+    sem_grupo = {}
+    # A contagem de praca usa a cidade do endereco da RECEITA, que e fiscal. O
+    # cadastro tambem tem o endereco POPULAR, e os dois divergem: medido em
+    # 2026-11-25, 60 das lojas ativas apontavam para municipios diferentes. A
+    # divergencia conta nos dois sentidos — uma praca ganha loja que nao esta
+    # la, outra perde loja que esta — e numa praca pequena uma loja muda a
+    # contagem de grupo, que muda o teto, que muda a disponibilidade.
+    popular_fora = {}  # lojas desta cidade cujo endereco popular e em outra
+    popular_aqui = {}  # lojas de outra cidade cujo endereco popular e aqui
     # Bandeiras ja presentes: a faixa 60-120 mil exige que o 2o grupo entre com
     # bandeira popular, entao a praca pode ter vaga e mesmo assim estar fechada
     # para quem pretende bandeira convencional.
@@ -312,9 +591,19 @@ def main() -> int:
             (loja.get("Estado - Endereço Receita") or "").strip().upper(),
         )
         lojas[chave] = lojas.get(chave, 0) + 1
-        ge = B.normalizar(loja.get("Nome do responsável pelo GE", ""))
+        ge = (loja.get("Grupo Econômico") or "").strip()
         if ge:
             grupos.setdefault(chave, set()).add(ge)
+        else:
+            sem_grupo[chave] = sem_grupo.get(chave, 0) + 1
+
+        cidade_pop = B.normalizar(loja.get("Cidade - Endereço Popular", ""))
+        uf_pop = (loja.get("Estado - Endereço Popular") or "").strip().upper()
+        # Popular em branco nao e divergencia: e ausencia de dado, e tratar como
+        # divergencia encheria o relatorio de alerta que nao significa nada.
+        if cidade_pop and (cidade_pop, uf_pop) != chave:
+            popular_fora[chave] = popular_fora.get(chave, 0) + 1
+            popular_aqui[(cidade_pop, uf_pop)] = popular_aqui.get((cidade_pop, uf_pop), 0) + 1
 
     censo = {}
     if os.path.exists(CACHE_CENSO):
@@ -349,6 +638,9 @@ def main() -> int:
         ativas = lojas.get(_chave_mun, 0)
         n_grupos = len(grupos.get(_chave_mun, ()))
         disp, motivo = disponibilidade(pop, teto, n_grupos, args.modelo)
+        _alertas = alertas_do_cadastro(
+            _chave_mun, sem_grupo, popular_fora, popular_aqui
+        )
 
         pot = potenciais.get(meta["codigo_ibge"]) or {}
         pot_ano = pot.get("ano")
@@ -371,6 +663,7 @@ def main() -> int:
                 "crescimento_farmarcas": B.num(linha.get("crescimento_farmarcas")),
                 "lojas_farmarcas_no_municipio": ativas,
                 "grupos_economicos_no_municipio": n_grupos,
+                "alertas_de_cadastro": _alertas,
                 "potencial_consumo_drogarias_ano_R$": pot_ano,
                 "potencial_consumo_drogarias_mes_R$": pot.get("mes"),
                 "_potencial_e": "do MUNICÍPIO inteiro — não existe potencial por UTC nas bases",
@@ -431,7 +724,23 @@ def main() -> int:
         if c["preco_medio_por_unidade_R$"]:
             pedacos.append(f"preço médio de R$ {c['preco_medio_por_unidade_R$']:.2f} por unidade".replace(".", ","))
         if c["crescimento_farmarcas"] is not None and c["crescimento_farmarcas"] < 0:
-            pedacos.append("ATENÇÃO: a receita Farmarcas caiu aqui — praça possivelmente já testada")
+            # O que a base mede é a QUEDA. "Praça já testada e perdida" é uma
+            # explicação possível para ela, e não a única — e esta frase dizia
+            # a explicação, não a medida, contra a regra declarada três linhas
+            # acima ("nenhum juízo entra aqui").
+            #
+            # Duas razões para a leitura antiga ser a menos provável das duas:
+            # a base é a carteira ATUAL da rede com histórico retroagido (ver
+            # `_limites.carteira`), então associado que SAIU não aparece como
+            # queda — ele some da série inteira; e, medido em Salvador/BA em
+            # 2026-11-25, as três regiões em retração (Itapoã-1, Vitória e
+            # Plataforma) não tiveram saída de associado nenhuma: é loja que
+            # continua operando e encolheu. Nenhuma base deste acervo separa os
+            # dois casos, e por isso o script não escolhe.
+            pedacos.append(
+                f"ATENÇÃO: a receita da rede caiu {abs(c['crescimento_farmarcas']) * 100:.0f}% aqui "
+                "— a base não diz por quê, e saída de associado não é a única explicação"
+            )
         c["escala_mercado_nao_atendido"] = escala(c["mercado_nao_atendido_R$"])
         c["motivo"] = "; ".join(pedacos) + "."
 
@@ -509,6 +818,12 @@ def main() -> int:
     for c in candidatos[: args.limite]:
         apurar_zoneamento(c, args.modelo)
 
+    melhores = (
+        [c for c in candidatos if c["disponivel_para_grupo_novo"]][: args.limite]
+        if args.so_disponiveis
+        else candidatos[: args.limite]
+    )
+
     B.emitir(
         {
             "filtro": {
@@ -517,12 +832,12 @@ def main() -> int:
                 "receita_minima_R$": args.min_receita,
             },
             "utcs_avaliadas": len(candidatos),
-            "melhores": [c for c in candidatos if c["disponivel_para_grupo_novo"]][: args.limite]
-            if args.so_disponiveis
-            else candidatos[: args.limite],
+            "melhores": melhores,
+            # So existe quando pedido: ver o comentario da flag.
+            "perfil_dos_municipios": perfil_dos_municipios(melhores) if args.perfil_municipios else None,
             "_disponibilidade": {
                 "_regra": "cabe grupo novo quando os grupos econômicos com loja ativa na cidade são MENOS que o teto da faixa — e, na faixa de 60 a 120 mil, o 2º grupo só entra com bandeira popular",
-                "_apuracao_do_grupo": "responsável pelo GE no cadastro, deduplicado por NOME normalizado e não por CNPJ. Grafia divergente entre duas lojas do mesmo dono inventa um grupo e esconde uma praça que está disponível",
+                "_apuracao_do_grupo": "identificador de grupo econômico do cadastro de lojas. Até 2026-11-25 a contagem deduplicava pelo NOME do responsável, que quebra com grafia divergente — duas lojas do mesmo dono escritas de dois jeitos viravam dois grupos, e um grupo a mais barra um pedido que caberia. Loja ativa sem identificador preenchido conta como loja e não conta como grupo, e isso é declarado por praça",
                 "_modelo_informado": args.modelo or "não informado — a restrição da faixa 60 a 120 mil não foi aplicada",
                 "_filtro_aplicado": bool(args.so_disponiveis),
             },
@@ -558,8 +873,12 @@ def main() -> int:
             },
             "_leitura": (
                 "lista de onde vale rodar um dossiê, não recomendação de abertura. "
-                "Mercado grande sem nós pode ser oportunidade OU praça já testada e perdida — "
-                "a coluna crescimento_farmarcas negativa é o segundo caso"
+                "Mercado grande sem nós pode ser oportunidade OU praça já testada e perdida, "
+                "e esta apuração NÃO separa os dois: `crescimento_farmarcas` negativo mede "
+                "queda de receita da rede na praça, não saída de associado. A base é a "
+                "carteira atual com histórico retroagido, então quem saiu não aparece como "
+                "queda — some da série. Para separar, é preciso o histórico de entrada e "
+                "saída de associado por praça, que não está neste acervo"
             ),
             "_limites": {
                 "zoneamento": "conclusivo para as praças listadas, que puxam o Censo da API quando falta cache; praça fora do limite pode sair sem apuração. A contagem é de GRUPOS econômicos, não de lojas, e a vaga é calculada para um grupo NOVO — para quem já opera na praça a leitura é outra. Vaga aqui é ausência de impedimento na contagem, não liberação: o gate roda no ponto, por zoneamento.py",

@@ -1,0 +1,40 @@
+{
+  "tipo": "prospeccao",
+  "referencia": "Sorocaba/SP",
+  "lat": -23.4929,
+  "lng": -47.46687,
+  "municipio": "Sorocaba",
+  "uf": "SP",
+  "codigo_ibge": "3552205",
+  "raio_km": 20,
+  "modelo": "popular",
+  "perfil": "novo",
+  "resumo": "Dentro de 20 km de Sorocaba há 5 praças onde a regra de expansão não barra a entrada de um grupo novo, e a escolhida é Jardim América — a maior região da cidade e a única grande sem receita da rede.",
+  "leitura": [
+    "A praça escolhida é Jardim América, em Sorocaba, pelo critério que o solicitante declarou: a maior região sem a rede. São R$ 416.288.197,39 de mercado farmacêutico no acumulado de doze meses, crescendo 17%, e nenhuma receita do grupo dentro — a unidade territorial inteira é de concorrentes. É a maior das quatro regiões de Sorocaba.",
+    "Sorocaba tem 723.682 habitantes no Censo 2022 e está na faixa de população em que a regra de expansão não fixa teto de grupos econômicos: a ocupação é decidida por market share. A cidade já tem 7 grupos instalados e captura 47,53% do próprio potencial anual de consumo em drogarias, que é de R$ 2.455.821.796,00.",
+    "Zero de receita da rede significa coisas opostas em duas das quatro regiões. Jardim América é a maior e cresce 17%. Vila Barão também está em zero, mas é a menor, com R$ 125.073.531,88, e cresce 7%. O mesmo número descreve um espaço grande em expansão num caso e um mercado pequeno e parado no outro.",
+    "Nas duas regiões onde a rede está, ela cresce menos que a praça. Em Vila Haro o mercado cresce 13% e a receita do grupo cresce 6%, sobre R$ 14.098.790,96 apurados; em Éden, 18% contra 16%, sobre R$ 15.580.406,18. A única bandeira do grupo presente em Sorocaba é a Bigfort.",
+    "Fora de Sorocaba, uma única praça entra no alcance declarado: Parque Bela Vista, em Votorantim, a 5,7 km, com R$ 150.677.909,97 de mercado sem a rede e crescimento de 20% — o maior desta lista. O município tem 127.923 habitantes, teto de 3 grupos econômicos e nenhum instalado, e captura 37,46% do próprio potencial.",
+    "A lista foi rodada para os dois modelos, popular e convencional, e devolveu exatamente as mesmas 5 praças na mesma ordem. Não é coincidência: a exigência de bandeira popular só existe numa faixa intermediária de população, e nenhuma destas praças está nela. Para esta decisão, o modelo pretendido não muda onde olhar.",
+    "Esta lista diz onde vale rodar um dossiê de ponto, e não onde abrir. A ordenação é por mercado não atendido, que é uma quantidade medida, nunca uma nota. Caber no teto é ausência de impedimento na contagem de grupos econômicos, não liberação: o gate de zoneamento roda sobre um endereço, com coordenada, e é lá que a distância mínima entre lojas e a alternância de bandeiras passam a valer."
+  ],
+  "nao_sabe": [
+    "Qual é o total de mercado de Sorocaba. A base devolve a região Jardim América em duas linhas idênticas, de modo que a soma das unidades territoriais do município conta essa região duas vezes — e o share do grupo na cidade, que é calculado sobre essa soma, sai inflado junto. Por isso nenhum total municipal aparece neste documento, só as regiões uma a uma. Destrava com a correção da duplicidade na base de unidades territoriais.",
+    "Se o ponto passa no gate de zoneamento. Não há endereço nem coordenada, então nada foi avaliado: nem distância mínima entre lojas da rede, nem alternância de bandeiras, nem erro de cadastro de loja próxima. Caber na contagem de grupos é a única coisa que esta lista verifica, e ela não substitui o gate. Destrava com um endereço em Jardim América.",
+    "De quem seria o pedido. Não há solicitante definido, então este documento não afirma nada sobre canibalização: sem saber quem pede, loja da rede próxima não é nem conflito entre associados nem escolha estratégica de quem já opera. A vaga desta lista é sempre calculada para um grupo novo. Destrava com o nome do empresário e do responsável pelo GE no cadastro.",
+    "Qual é o share medido do grupo nestas regiões. A base de market share não cobre três das quatro unidades territoriais de Sorocaba e devolve zero medido nas outras duas, enquanto a receita mostra R$ 14.098.790,96 em Vila Haro e R$ 15.580.406,18 em Éden. Share ausente e share zero são coisas diferentes, e o share citado aqui é inferido da receita. Destrava com a base de market share cobrindo as unidades territoriais do município.",
+    "A que distância este empresário aceita operar. O alcance que filtra esta lista é premissa declarada pelo solicitante, não medida: nenhuma fonte diz a que distância alguém aceita operar. Com um alcance maior a lista passaria a incluir praças de Barueri e de Indaiatuba, as duas acima de Jardim América em mercado não atendido, e a escolha pelo critério de maior região sem a rede mudaria de cidade. Destrava com a definição do alcance operacional aceitável.",
+    "Onde fica o centro de Sorocaba, para efeito de distância. A âncora desta busca é um centroide aproximado, obtido pela mediana das coordenadas de 261 farmácias da cidade, com dispersão de 3,6 km entre elas. Serve para ordenar praças e dar ordem de grandeza, nunca para medir distância entre dois endereços — os 5,7 km até Votorantim são aproximação nessa escala. Destrava com a geometria oficial dos municípios.",
+    "O que acontece dentro de cada região. Unidade territorial de varejo não é bairro nem raio: Jardim América cobre uma área muito maior que o raio de análise de um dossiê de ponto, e o mercado dela é a soma de tudo que circula ali. Qual quarteirão dessa região tem demanda sem quem atenda é pergunta que esta lista não responde. Destrava com o dossiê de ponto sobre um endereço.",
+    "Quanta gente circula em cada região. Fluxo de passantes não existe em fonte nenhuma — nem nas bases do Órbita, nem no produto, nem em API pública. Numa escolha entre regiões de uma cidade de 723.682 habitantes, isso é o que separa corredor comercial de bairro dormitório, e nenhum número desta lista o distingue. Destrava com contagem em campo nos recortes candidatos.",
+    "Quais lojas do grupo saíram da rede nestas praças. A base de receita reflete a carteira atual do grupo, com o histórico retroagido: loja que saiu foi apagada para trás. Uma praça que aparece com zero pode nunca ter sido tentada ou ter sido tentada e perdida, e a base não distingue os dois casos. Destrava com o histórico de encerramentos da área de Expansão."
+  ],
+  "campo": [
+    "Levantar endereços candidatos dentro de Jardim América e obter a coordenada de cada um. É o que destrava tudo o que esta lista não responde: o gate de zoneamento, o raio de análise, a concorrência medida, os setores censitários e a implantação na quadra. Sem coordenada não existe dossiê de ponto, só retrato de região.",
+    "Definir quem é o empresário e obter o nome do responsável pelo GE como está no cadastro de lojas. Sem ele o relatório de ponto nem é gerado, e antes disso a leitura de canibalização fica sem base: as lojas da rede em Sorocaba são de terceiros ou do próprio solicitante conforme a resposta, e isso inverte o sentido de cada loja próxima.",
+    "Definir a bandeira pretendida. Ela escolhe qual régua de distância mínima o gate aplica — mais curta entre lojas de mesma bandeira, mais longa entre bandeiras diferentes — e em Sorocaba essa régua provavelmente incide, porque a rede já opera na cidade.",
+    "Conferir com quem mantém a base se Jardim América é mesmo uma região ou se as duas linhas idênticas são duplicidade de cadastro. Se forem duas regiões distintas com o mesmo nome, o mercado de cada uma é metade do que esta lista mostra na linha, e a escolha pelo critério de maior região sem a rede mudaria.",
+    "Checar em campo se Votorantim é alternativa real antes de descartá-la. Ela cresce 20%, o maior da lista, tem teto de 3 grupos e nenhum instalado, e fica a 5,7 km do centroide de Sorocaba — mas é município distinto, com gate próprio e regra de teto que Sorocaba não tem."
+  ]
+}
