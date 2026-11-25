@@ -15,3 +15,11 @@ __pycache__/
 # script (CNPJ, receita por loja, cadastro). Serve para conferir o dossie na
 # maquina de quem gerou e nao tem por que entrar no historico do repositorio.
 outputs/dossies/*.apuracao.json
+
+# Exportacoes das skills em .zip. Ficam fora do historico por dois motivos: o
+# bundle da analise-regiao-farmarcas empacota o diretorio `cache/` inteiro, que
+# esta ignorado logo acima porque carrega o cadastro de lojas com nome de
+# responsavel pelo GE — dado pessoal, e ignorado por CAMINHO, regra que um zip
+# contorna por dentro. O mesmo bundle leva 7,6 MB de base da IQVIA. Exportacao
+# e artefato de distribuicao: a fonte e o diretorio da skill, versionado aqui.
+*.zip
