@@ -2516,9 +2516,20 @@ def construir_prospeccao(cfg: dict) -> str:
     """
     dump = B.DATA_DO_DUMP
     raio = cfg.get("raio_km") or RAIO_PRACAS_KM
+    # "Manter na cidade" nao e raio pequeno: a distancia da lista e de centroide
+    # de municipio a centroide de municipio, entao todas as regioes da cidade de
+    # referencia estao a mesma distancia e nenhum raio separa uma da outra. Com
+    # `so_municipio`, o recorte e por codigo IBGE e o script NAO cai para a UF
+    # quando sobra pouco — lista curta ou vazia e a resposta, nao um motivo para
+    # devolver a UF inteira sem avisar.
+    so_municipio = bool(cfg.get("so_municipio"))
+    if so_municipio and not cfg.get("codigo_ibge"):
+        raise SystemExit("ERRO: so_municipio exige codigo_ibge no config")
+    recorte = (("--so-municipio", cfg["codigo_ibge"]) if so_municipio
+               else ("--raio-km", raio))
     alt = rodar(
         "alternativas.py", "--uf", cfg["uf"], "--limite", 12,
-        "--perto-de", f"{cfg['lat']},{cfg['lng']}", "--raio-km", raio,
+        "--perto-de", f"{cfg['lat']},{cfg['lng']}", *recorte,
         "--so-disponiveis",
         # Único formato que pede o perfil por cidade, e continua sendo UMA
         # chamada de script — é o invariante deste relatório, e o painel não o
@@ -2536,7 +2547,7 @@ def construir_prospeccao(cfg: dict) -> str:
     acervo de camadas de {dump} · cadastro de lojas de {B.DATA_DO_CADASTRO} ·
     população do Censo extraída em {data_censo()}</div>
 </header>
-<div class="faixa-end">A partir de {e(referencia)} · raio de {num(raio)} km</div>
+<div class="faixa-end">A partir de {e(referencia)} · {"somente neste município" if so_municipio else f"raio de {num(raio)} km"}</div>
 <section class="topo">
   <div class="gate" style="border-color:#6b2fb5">
     <div class="rot">Ordenado por</div>
@@ -2603,6 +2614,11 @@ def construir_prospeccao(cfg: dict) -> str:
         "cidades ele já opera."
     )
     lacunas.append(
+        "<b>O que ficou fora desta cidade.</b> O recorte é o município de "
+        f"{e(referencia)}, por escolha de quem pediu, e não uma medida: praça melhor "
+        "na cidade vizinha não aparece aqui, por perto que seja. Destrava rodando a "
+        "mesma busca com um raio em volta da cidade."
+        if so_municipio else
         f"<b>A que distância o empresário aceita operar.</b> O raio de {num(raio)} km é "
         "premissa desta busca, não regra da casa e não medida: nenhuma fonte do acervo "
         "responde isso. Praça boa logo depois do limite não aparece. Destrava com o raio "

@@ -520,6 +520,13 @@ def main() -> int:
                     help="coordenada do ponto pedido; calcula a distancia ate cada praca")
     ap.add_argument("--raio-km", type=float,
                     help="descarta pracas alem deste raio (exige --perto-de)")
+    # "Manter na cidade" nao e um raio pequeno. A distancia aqui e de centroide
+    # de municipio a centroide de municipio, entao TODA regiao da cidade de
+    # referencia tem a mesma distancia: nenhum raio separa uma regiao dela da
+    # outra, e um raio pequeno ou pega a cidade inteira ou nao pega nada. O
+    # recorte por cidade e por codigo IBGE, e e exclusivo com --raio-km.
+    ap.add_argument("--so-municipio", metavar="CODIGO_IBGE",
+                    help="mantem apenas as pracas deste municipio; nao cai para a UF quando o resultado e curto")
     ap.add_argument("--ordenar", choices=["mercado", "distancia"], default="mercado",
                     help="criterio de ordenacao; distancia exige --perto-de")
     # Opt-in, e nao sempre, porque `alternativas.py` e chamado por tres
@@ -540,6 +547,10 @@ def main() -> int:
             return 2
     if (args.ordenar == "distancia" or args.raio_km) and not ancora:
         print("ERRO: --ordenar distancia e --raio-km exigem --perto-de", file=sys.stderr)
+        return 2
+    if args.so_municipio and args.raio_km:
+        print("ERRO: --so-municipio e --raio-km sao recortes concorrentes; escolha um",
+              file=sys.stderr)
         return 2
 
     # UTC -> município
@@ -772,6 +783,35 @@ def main() -> int:
             if c.get("motivo"):
                 c["motivo"] = f"a {c['distancia_km']:.0f} km do ponto pedido; " + c["motivo"]
 
+    # --- so esta cidade
+    # Sem queda para a UF: aqui o pedido NAO e "pracas perto", e sim "pracas
+    # nesta cidade". Lista vazia e resposta — significa que nenhuma regiao do
+    # municipio passa no piso de receita ou na regra de zoneamento, e trocar
+    # isso pela UF inteira responderia outra pergunta sem avisar.
+    so_municipio = None
+    if args.so_municipio:
+        cod = args.so_municipio.strip()
+        dentro_cidade = [c for c in candidatos if c["codigo_ibge"] == cod]
+        for c in sorted(dentro_cidade, key=lambda x: -x["mercado_nao_atendido_R$"])[:LIMITE_APURACAO_NO_RAIO]:
+            apurar_zoneamento(c, args.modelo)
+        uteis_cidade = ([c for c in dentro_cidade if c["disponivel_para_grupo_novo"]]
+                        if args.so_disponiveis else dentro_cidade)
+        so_municipio = {
+            "codigo_ibge": cod,
+            "municipio": (dentro_cidade[0]["municipio"] if dentro_cidade else None),
+            "utcs_do_municipio_no_acervo": len(dentro_cidade),
+            "pracas_que_sobram": len(uteis_cidade),
+            "_sem_queda_para_a_uf": True,
+            "_se_vazio": None if uteis_cidade else (
+                "nenhuma regiao deste municipio sobrou: ou nenhuma alcanca o piso de "
+                f"R$ {args.min_receita:,.0f}".replace(",", ".")
+                + " de receita de mercado, ou a regra de zoneamento nao deixa entrar grupo "
+                "novo em nenhuma delas. A lista vazia E o achado — o caminho e o dossie de "
+                "um ponto da cidade, que roda o gate sobre um endereco"
+            ),
+        }
+        candidatos = dentro_cidade
+
     disponiveis_no_raio = None
     if args.raio_km:
         dentro = [c for c in candidatos if c.get("distancia_km") is not None
@@ -847,6 +887,7 @@ def main() -> int:
                 if args.ordenar == "distancia"
                 else "mercado não atendido = receita total da UTC menos a receita Farmarcas"
             ),
+            "_so_municipio": so_municipio,
             "_proximidade": {
                 "ancora": {"lat": ancora[0], "lng": ancora[1]} if ancora else None,
                 "raio_km_pedido": args.raio_km,

@@ -31,6 +31,37 @@ h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
 .rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
 .val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
 .nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+/* Alerta de cadastro. Cor própria porque ele não descreve a praça: diz que o
+   número ao lado pode estar errado, e isso tem de se distinguir da nota comum
+   sem virar semáforo de qualidade — não há escala, só presença ou ausência. */
+.alerta-cad{color:#8a5a00}
+
+/* ---------------------------------------------------------------------------
+   Perfil por cidade.
+   O cabeçalho NÃO leva a faixa roxa da tabela de praças, e a seção tem borda e
+   ícone próprios: colada e igual, ela seria lida como continuação da lista e
+   herdaria a ordem por mercado, que é justamente o que não vale aqui.
+   A tira de percentil tem UMA matiz, sem escala de cor, sem seta e sem ícone
+   de bom/ruim — a ausência é a decisão. Colorir por faixa parece melhoria de
+   legibilidade e converte o painel em nota num único commit.
+   Não existe tfoot: linha de total ou de média seria a composição que o script
+   se recusa a emitir, reintroduzida pelo CSS. */
+section.painel{border-left:3px solid #2f6b8f;padding-left:14px}
+table.painel-mun{width:100%;border-collapse:collapse;margin-top:10px}
+table.painel-mun th{background:#eef3f6;color:#24323a;text-align:left;
+  font-size:12px;font-weight:700;padding:7px 9px;border-bottom:1px solid #cfdae1}
+table.painel-mun td{padding:8px 9px;border-bottom:1px solid #eef1f3;vertical-align:top}
+table.painel-mun .nota-th{font-weight:400;font-size:10.5px;color:#6b7c86;margin-top:2px}
+.painel-mun .ind{margin-bottom:7px;font-size:11.5px;line-height:1.35}
+.painel-mun .ind:last-child{margin-bottom:0}
+.painel-mun .rot{display:block;color:var(--fraco)}
+.painel-mun .val{font-weight:700;color:#24323a}
+.painel-mun .pn{color:#6b7c86;margin-left:5px}
+.painel-mun .faixa-pct{display:inline-block;position:relative;width:54px;height:4px;
+  background:#dfe6ea;border-radius:2px;margin:0 2px 0 6px;vertical-align:middle}
+.painel-mun .faixa-pct i{position:absolute;top:-2px;width:2px;height:8px;
+  background:#2f6b8f;border-radius:1px}
+@media print{section.painel{break-inside:avoid}}
 .lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
 .lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
 .lente p{margin:9px 0 0;text-align:justify}

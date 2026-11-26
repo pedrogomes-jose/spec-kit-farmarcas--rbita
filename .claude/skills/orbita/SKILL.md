@@ -33,28 +33,36 @@ Leia estas antes de qualquer outra coisa. Elas não cedem à conversa — a conv
   dono. Vale para o ponto e para a praça: a lista de prospecção ordena por uma
   quantidade medida, não classifica. A conversa provoca e descreve — não emite
   veredito de viabilidade, não dá nota, não recomenda abrir.
-- **Perfil, empresário e responsável pelo GE não viram premissa.** Sem saber se
-  é empresário novo ou já associado, o dossiê não sabe se a loja Farmarcas
-  vizinha é conflito entre associados ou escolha estratégica dele. **Quem é o
-  empresário se pergunta sempre, inclusive quando ele se declara novo**: grupo
-  econômico é o empresário que responde pelas lojas, a contagem do teto
-  deduplica por nome e não por CNPJ, e sem o nome não há como checar se ele já
-  está no cadastro com outra grafia — o erro que barra pedido que caberia. E se
-  for já associado, `montar_relatorio.py` **aborta com erro fatal** sem o
-  responsável pelo GE. Bandeira e modelo podem virar premissa declarada; estes
-  três, não.
+- **Perfil e empresário não viram premissa.** Sem saber se é empresário novo ou
+  já associado, o dossiê não sabe se a loja Farmarcas vizinha é conflito entre
+  associados ou escolha estratégica dele. **Quem é o empresário se pergunta
+  sempre, inclusive quando ele se declara novo**: o nome é o que permite checar
+  se ele já está no cadastro antes de aceitar "novo" como fato. E se for já
+  associado, `montar_relatorio.py` **aborta com erro fatal** sem esse nome.
+  Bandeira e modelo podem virar premissa declarada; estes dois, não.
+  **Empresário e responsável pelo grupo econômico são a mesma pessoa.** É uma
+  pergunta só, e a resposta serve às duas coisas: o campo do cadastro se chama
+  "responsável pelo GE" e é o empresário que responde pelas lojas. Perguntar
+  duas vezes faz o analista repetir o nome que acabou de dar — foi o que
+  aconteceu em 2026-11-24, quando a segunda resposta foi "mesma pessoa".
   **Isso vale para o dossiê de ponto, e só para ele.** No mapeamento não há
   solicitante: a vaga é calculada para um grupo novo, o documento declara que
   não sabe quem pede e não afirma nada sobre canibalização. Perguntar perfil,
   empresário, responsável pelo GE ou bandeira ali é cobrar o que o pedido ainda
   não tem — e foi o que travou a conversa em 2026-11-25, quando as três
   respostas vieram como "não tenho ainda".
-- **Nome de pessoa nunca entra em entregável.** O responsável pelo GE entra por
-  linha de comando na geração, nunca gravado no JSON.
-- **Pergunta sem resposta trava a fase.** Toda pergunta sai numerada, no bloco
-  final do turno, e nenhuma fase converge enquanto houver uma sem resposta
-  explícita. "Não sei" e "pula" são respostas — viram lacuna declarada; o
-  silêncio não é. Nunca siga porque "dá para seguir": seguir sem as respostas
+- **Nome de pessoa circula na conversa e nunca no entregável.** São dois
+  lugares com regras opostas, e confundi-los custa dos dois lados. **Na
+  conversa, diga os nomes**: o analista precisa saber quem opera naquela cidade,
+  de que grupo é a loja da esquina e se o empresário do pedido já aparece no
+  cadastro — esconder isso dele tira a informação que a conversa existe para
+  trazer. **No entregável, nenhum nome**: nem no HTML, nem no JSON da narrativa,
+  que é arquivo versionado do repositório. O responsável pelo GE entra por
+  `--ge` na linha de comando da geração, e é a conferência mecânica que verifica
+  que nenhum nome do cadastro vazou para o corpo.
+- **Pergunta sem resposta trava a fase.** Toda pergunta sai em **seletor**, uma
+  por cartão, e nenhuma fase converge enquanto houver uma sem resposta
+  explícita. "Não sei" é resposta — vira lacuna declarada; o silêncio não é. Nunca siga porque "dá para seguir": seguir sem as respostas
   entrega o dossiê que o roteiro direto já entregaria, cobrando o custo da
   conversa. Os detalhes estão em `## Protocolo de perguntas`.
 - **Lacuna é conteúdo, não rodapé.** Na conversa ela vira pergunta; no documento,
@@ -80,16 +88,18 @@ Leia estas antes de qualquer outra coisa. Elas não cedem à conversa — a conv
 
 ## O ritmo, e onde ele vale
 
-- **Coleta (Fases 0 e A): 1–3 perguntas por turno.** O analista ainda não tem
-  nada na mesa, e um bloco de dez perguntas é formulário. Construa cada pergunta
-  sobre a resposta anterior, e **nunca pergunte o que ele já disse**.
+- **Coleta (Fases 0 e A): 1–3 perguntas por turno, uma por cartão de seletor.**
+  O analista ainda não tem nada na mesa, e um bloco de dez perguntas é
+  formulário. Construa cada pergunta sobre a resposta anterior, e **nunca
+  pergunte o que ele já disse**.
 - **Provocação (Fase C): sem cota.** O dado já está posto. Provoque o quanto ele
   exigir — uma provocação por achado que muda a leitura, nenhuma por obrigação de
   formato. Três achados, três provocações; sete achados, sete; nenhum achado,
   nenhuma, e a fase avança. O que corta não é a quantidade, é o filtro `muda:` do
   `## Protocolo de perguntas`. A restrição de legibilidade virou regra de lugar:
-  toda provocação sai **numerada, no bloco final do turno**, e as da mesma camada
-  ficam adjacentes.
+  toda provocação vai **em cartão de seletor**, no máximo quatro por chamada, as
+  da mesma camada juntas. Passando de quatro, vão as quatro de maior
+  consequência e as outras esperam o turno seguinte — a sobra não evapora.
 - **Render do estado a cada turno da Fase C**, para ele corrigir antes de você
   avançar:
 
@@ -97,7 +107,7 @@ Leia estas antes de qualquer outra coisa. Elas não cedem à conversa — a conv
 Ponto: <endereço> · <município>/<UF>   Solicitante: <novo|já associado>
 Gate: <veredito>                        Já rodou: área, concorrência, mercado
 Falta para fechar: <o que ainda não tem número, fonte e comparação>
-Perguntas abertas: P3, P7
+Sem resposta: <os assuntos das perguntas que ficaram em aberto>
 ```
 
 - **O que o analista não souber vira marcador**, nunca silêncio:
@@ -112,28 +122,54 @@ Governa todas as fases. Medido em 2026-11-23: perguntas diluídas na prosa depoi
 do gate **não foram vistas**, e a skill avançou sem elas — o dossiê saiu igual ao
 do roteiro direto, pagando o custo da conversa sem a contrapartida dela.
 
-**Onde a pergunta aparece.** Nunca no meio da prosa. Toda pergunta aberta sai num
-bloco único, sempre o **último** do turno:
+**Onde a pergunta aparece: no seletor, sempre.** Toda pergunta vai pela
+ferramenta de escolha do app (`AskUserQuestion`) — impossível de não ver,
+impossível de pular, e respondida com um clique. O bloco numerado `P1/P2` está
+**aposentado**: ele resolveu a pergunta que ninguém via, mas trocou o problema
+por outro, medido no uso em 2026-11-25 — responder "P1 - ... / P2 - ..." é
+digitar, e a conversa inteira vira parede de texto. Prosa solta continua
+proibida; o bloco numerado só volta onde o seletor não estiver disponível.
 
-```
-### Perguntas — responda por número
+**Uma pergunta por cartão.** O diálogo aceita até quatro cartões numa chamada e
+cada cartão é **uma** pergunta. Nunca junte duas num cartão ("qual o modelo e
+até onde você opera?"), e nunca peça resposta por número em texto. Quando as
+perguntas dependem umas das outras, mande uma e espere: a resposta da primeira
+muda as opções da segunda.
 
-P1. [Concorrência] <pergunta>   · muda: <o que no dossiê depende da resposta>
-P2. [População] <pergunta>      · muda: <...>
-```
+**As opções de todo cartão.** Até quatro, e duas delas são fixas:
 
-Os números são **estáveis na sessão**: P3 continua sendo P3 no turno seguinte, e
-o turno seguinte reapresenta **só as pendentes**, com os mesmos números.
-Renumerar quebra a resposta de quem responde por número.
+| Opção | O que significa |
+|---|---|
+| as respostas reais | **no máximo duas**, porque o teto do app é quatro opções |
+| **Não sei** | vira lacuna declarada, com o que a destravaria |
+| **Recomendar** | "me ajuda a decidir" — você responde com uma recomendação |
+
+O app acrescenta sozinho um campo de escrita livre, e **o rótulo dele não se
+renomeia** — é "Outros", e é por onde o analista digita o que as opções não
+cobrem. Por isso o texto da pergunta diz que dá para escrever ali, sempre que a
+resposta puder ser um valor qualquer: "ou escreva a distância".
+
+**O que "Recomendar" pode responder, e o que não pode.** Ele é um pedido de
+ajuda para decidir, não um pedido de veredito. **Pode**: escolher entre as
+opções do próprio cartão e dizer por quê, com o que já foi apurado nesta sessão;
+dizer que raio cobre o que ele descreveu; dizer qual modelo a regra de
+zoneamento favorece naquela faixa de população; dizer qual lacuna fecha mais
+coisa de uma vez; dizer que o certo é rodar X antes de decidir. **Não pode**:
+ordenar praças por qualidade, dizer qual conferir primeiro, dar nota, dizer se
+vale abrir. A régua de viabilidade pertence ao produto e tem dono — e a lista de
+praças ordena por quantidade medida justamente para não virar ranking. Se a
+recomendação honesta depender de número que ainda não rodou, **a recomendação é
+rodar**, não estimar.
 
 **O que bloqueia.** Nenhuma fase converge enquanto houver pergunta sem resposta
-explícita. "Não sei", "pula" e "depois" **são** respostas válidas: viram lacuna
-declarada em `nao_sabe` ou `campo`, com o que a destravaria. O que não é resposta
-é o silêncio — respondeu P1 e P2 e ignorou P3, o turno seguinte abre
-reapresentando P3, e a Fase C não fecha.
+explícita. "Não sei" e o que ele escrever **são** respostas: viram lacuna
+declarada em `nao_sabe` ou `campo`, com o que a destravaria. O que não é
+resposta é o cartão ignorado — aí ele volta no turno seguinte, e a Fase C não
+fecha.
 
 **Filtro de admissão — só pergunta que refina.** Toda pergunta carrega o campo
-`muda:` escrito. Se não for possível preenchê-lo com um item de lente, uma
+`muda:`, que agora mora na descrição da opção ou no texto do cartão, não num
+sufixo de linha. Se não for possível preenchê-lo com um item de lente, uma
 lacuna, uma premissa, o raio ou o gate, **a pergunta não entra**. Ficam de fora:
 curiosidade sobre o lugar, confirmação do que o dado na mesa já responde,
 ressalva de método (isso é lacuna, não conversa) e pedido de veredito.
@@ -144,19 +180,46 @@ são obrigatórias por processo, e o levantamento de geradores de fluxo é uma
 delas. Perguntar ao analista o que aquela etapa existe para produzir devolve
 trabalho a quem veio reduzi-lo, e trava a conversa esperando uma resposta que
 ninguém tem agora. Esse assunto **nasce em `campo`**, com o que muda conforme o
-resultado, e nunca no bloco de perguntas. Medido em 2026-11-23: perguntei que
-equipamentos de saúde existem em 500 m; a resposta foi "espere a etapa de
-geração de fluxo", que é a resposta certa — a pergunta é que estava no lugar
-errado. O teste: **se existe uma etapa do processo cujo produto é essa
-resposta, o item é de campo, não de conversa.**
+resultado, e nunca em cartão. Medido em 2026-11-23: perguntei que equipamentos
+de saúde existem em 500 m; a resposta foi "espere a etapa de geração de fluxo",
+que é a resposta certa — a pergunta é que estava no lugar errado. O teste: **se
+existe uma etapa do processo cujo produto é essa resposta, o item é de campo,
+não de conversa.**
 
-**Fechada vai por diálogo.** Pergunta com conjunto de opções conhecido — perfil
-novo ou já associado, popular ou convencional, ponto novo/mudança/conversão, raio
-de 300 m ou 500 m, gerar o dossiê ou puxar mais um assunto — usa a ferramenta de
-escolha do app (`AskUserQuestion`): impossível de não ver, impossível de pular.
-Pergunta aberta — bandeira pretendida, o que ele viu em campo, hipótese a
-desafiar — vai pelo bloco numerado. Onde o diálogo não estiver disponível, ela
-cai no bloco numerado; **nunca** em prosa solta.
+## Como mostrar número na conversa
+
+Quem lê é o analista de Expansão, e o que ele recebe hoje são blocos de texto
+com números dentro. **Camada que é conjunto de números não vai em prosa.**
+
+| O que você tem | Como mostra |
+|---|---|
+| 3 ou mais linhas comparáveis (praças, concorrentes, faixas) | **tabela markdown** na sua resposta |
+| série, distribuição, composição, percentil | **gráfico**, por `show_widget` |
+| um ou dois números | **frase** — gráfico de duas barras é enfeite |
+| um número contra um limite (saturação, teto) | frase com a comparação junto |
+
+**A tabela vai na resposta, nunca dentro do widget** — é o próprio guia da
+ferramenta que manda isso, e tabela em markdown já sai legível. O widget é para
+o gráfico.
+
+**A leitura continua ao lado do desenho.** O gráfico substitui o despejo de
+números, não a frase que diz o que aquilo significa — "ensinar a camada enquanto
+mostra" é a razão de esta skill existir, e um gráfico sem leitura devolve ao
+analista o trabalho de interpretar sozinho, que é exatamente o que ele já faz
+hoje.
+
+**E aqui a trava de número fica por sua conta.** A conferência mecânica lê o
+dossiê, não a conversa: nada confere o que você desenha num gráfico. Por isso,
+no desenho:
+
+- **só entra valor que saiu de script nesta sessão**, igual ao resto;
+- **nenhuma conta dentro do widget** além de arredondar e formatar. Percentual,
+  diferença, média e razão calculados em JavaScript são número do modelo com
+  outra roupa;
+- **nenhuma ordenação que vire ranking de qualidade.** Barra ordenada por
+  mercado não atendido é a medida; barra ordenada por "melhor praça" é a régua
+  que tem dono;
+- **a fonte vai no texto que acompanha**, como em qualquer número desta skill.
 
 ## Abertura
 
@@ -198,11 +261,39 @@ a **âncora** e o **modelo**.
   uma UF. Com a cidade em mãos, a coordenada sai do cache de centroides da
   própria apuração — centroide aproximado pela mediana das farmácias da cidade,
   que vai declarado como tal.
-- **O modelo, por diálogo:** convencional ou popular. É a única pergunta fechada
-  desta fase.
-- **O alcance é premissa sua até ele dizer o contrário.** Declare o raio que
-  usou e pergunte a que distância o empresário aceitaria operar — a resposta
-  muda quais praças entram antes de a lista ser ordenada.
+- **O modelo:** convencional ou popular, em cartão. Com Não sei e Recomendar —
+  na faixa de 60 a 120 mil habitantes a regra exige que o 2º grupo seja popular,
+  e dizer isso é recomendação legítima, não veredito.
+- **O alcance é pergunta, não premissa sua.** Pergunte até onde ele aceita
+  operar, em cartão, com estas opções:
+
+  | Opção | O que faz |
+  |---|---|
+  | **Só nesta cidade** | `--so-municipio <CODIGO_IBGE>` — as regiões do próprio município |
+  | **Até 15 km** | `--raio-km 15` |
+  | **Não sei** | fica com 15 km, declarado como premissa, e vira lacuna |
+  | **Recomendar** | você responde com a distância que cobre o que ele descreveu |
+
+  No campo de escrita livre ele digita qualquer distância — diga isso no texto
+  do cartão. **Raio grande responde outra pergunta:** de 80 km para cima a lista
+  vira a da região, e ordenar por mercado absoluto devolve sempre a cidade
+  maior. Medido em 2026-11-25: a 80 km de Amélia Rodrigues, sete das doze linhas
+  eram Salvador.
+
+**"Só nesta cidade" não é raio pequeno, e o script trata separado.** A distância
+da lista vai de centroide de município a centroide de município, então **todas**
+as regiões da cidade de referência estão à mesma distância — nenhum raio separa
+uma região dela da outra, e um raio curto pega a cidade inteira ou não pega
+nada. Por isso o recorte é por código IBGE. Duas consequências a dizer ao
+analista:
+
+- a coluna de distância sai **0 km em todas as linhas**, porque é a distância da
+  cidade até ela mesma — não é a distância do bairro ao centro;
+- **lista curta ou vazia é a resposta**, e o script não cai para a UF inteira
+  como faz quando um raio devolve menos de três praças. Vazia significa que
+  nenhuma região da cidade alcança o piso de R$ 5 milhões de receita de mercado,
+  ou que a regra não deixa entrar grupo novo em nenhuma — e o caminho então é o
+  dossiê de um ponto da cidade, que roda o gate sobre um endereço.
 
 **Não pergunte perfil, empresário, responsável pelo GE nem bandeira.** Nenhum
 dos quatro muda uma linha desta lista: a vaga é sempre calculada para grupo
@@ -212,10 +303,16 @@ pede, e por isso não afirma nada sobre canibalização.
 
 ```
 python .claude/skills/analise-regiao-farmarcas/scripts/alternativas.py \
-  --uf <UF> --perto-de <LAT>,<LNG> --raio-km 150 \
+  --uf <UF> --perto-de <LAT>,<LNG> \
+  <--raio-km 15 | --so-municipio CODIGO_IBGE> \
   --modelo <popular|convencional> --so-disponiveis --limite 12 \
   --perfil-municipios
 ```
+
+`--raio-km` e `--so-municipio` são recortes concorrentes e o script recusa os
+dois juntos. No JSON da narrativa, "só nesta cidade" é `"so_municipio": true`,
+que exige `codigo_ibge` — e aí a faixa do documento diz "somente neste
+município" em vez do raio.
 
 `--perfil-municipios` acrescenta, na **mesma saída**, o perfil em percentis das
 cidades da lista. Continua sendo **um script só** — não acrescente uma segunda
@@ -298,17 +395,23 @@ não pelo número solto.
 
 **Objetivo:** fixar o ponto e obter o que o gate exige.
 
-Pergunte 1–3 por turno, pelo canal que o `## Protocolo de perguntas` manda.
-**Por diálogo**, porque o conjunto de opções é conhecido: empresário novo ou já
-associado · popular ou convencional · ponto novo, mudança de ponto ou conversão.
-**Pelo bloco numerado**, porque são abertas: endereço ou cidade · bandeira
-pretendida · **quem é o empresário** · responsável pelo GE, se já associado.
+Pergunte 1–3 por turno, **uma por cartão de seletor**, como manda o
+`## Protocolo de perguntas`. O que esta fase precisa coletar:
+
+| Pergunta | Opções do cartão |
+|---|---|
+| empresário novo ou já associado | as duas · Não sei · Recomendar |
+| **quem é o empresário** | escrita livre — diga no texto que é para digitar o nome |
+| ponto novo, mudança de ponto ou conversão | as três · Não sei |
+| popular ou convencional | as duas · Não sei · Recomendar |
+| bandeira pretendida | escrita livre · Não sei · Recomendar |
 
 **O empresário se pergunta sempre**, inclusive quando o perfil é novo — ver
-`references/zoneamento-e-perfil.md`, seção 1. Com o nome em mãos, confira se ele
-já aparece no cadastro antes de aceitar "novo" como fato: o grupo deduplica por
-nome normalizado, e grafia divergente inventa ou funde grupo. O nome serve à
-apuração e **nunca entra no entregável**.
+`references/zoneamento-e-perfil.md`, seção 1. **É uma pergunta só**: empresário
+e responsável pelo grupo econômico são a mesma pessoa, e perguntar as duas faz
+ele repetir o nome. Com o nome em mãos, confira contra o cadastro antes de
+aceitar "novo" como fato. **Diga o que achou, com nome**: a conversa é o lugar
+onde nome de pessoa circula. O entregável não é.
 
 **Sem coordenada não há raio.** Com só a cidade, diga que o resultado é perfil de
 cidade — não disfarce.
@@ -321,7 +424,8 @@ O código IBGE sai daí. **Nunca de memória**: código errado traz a populaçã
 outra cidade e muda a faixa de zoneamento inteira.
 
 **Convergência:** `lat`, `lng`, `municipio`, `uf` e `codigo_ibge` resolvidos;
-perfil respondido; responsável pelo GE em mãos se o perfil for `existente`.
+perfil respondido; nome do empresário em mãos — ele é o `--ge` da geração se o
+perfil for `existente`.
 
 ## Fase B — Gate de zoneamento
 
@@ -355,9 +459,13 @@ categoria inteira de geradores de fluxo — um calçadão a 56 m do ponto — e 
 uma lente afirmar o contrário do que o dado mostrava, além de deixar de fora o
 indicador de saturação e os percentis nacionais que a apuração já traz prontos.
 
-Três movimentos — e eles se dividem entre **o corpo do turno** e **o bloco final
-de perguntas**. Medido em 2026-11-23: provocação colada em cada camada, espalhada
+Três movimentos — e eles se dividem entre **o corpo do turno** e **os cartões de
+pergunta**. Medido em 2026-11-23: provocação colada em cada camada, espalhada
 por um turno longo, vira garimpo e não é respondida.
+
+**Traga as camadas desenhadas.** Este é o turno mais denso da conversa, e é onde
+a regra de `## Como mostrar número na conversa` mais pesa: praças, concorrentes,
+faixas etárias e percentis vão em tabela ou gráfico, com a leitura ao lado.
 
 Fica no corpo, junto do número:
 
@@ -366,17 +474,16 @@ Fica no corpo, junto do número:
    conhecimento prévio exigido do analista, que é o objetivo do produto — e é
    afirmação, não pergunta, então fica onde o número está.
 
-Vai para o bloco numerado no fim do turno, cada item marcado com a camada de onde
-saiu:
+Vai para os cartões de pergunta, cada um dizendo de que camada saiu:
 
 2. **Desafiar a hipótese que o dado não sustenta.** "Você está contando com o
    fluxo da avenida, e isso não está em base nenhuma — como você checaria?"
 3. **Transformar lacuna em pergunta.** "Ninguém sabe o fluxo aqui — vale uma
    contagem em campo antes de seguir?"
 
-O bloco segue a ordem em que as camadas foram apresentadas, e as perguntas da
-mesma camada ficam adjacentes. Cada uma com o campo `muda:` preenchido — sem ele,
-a pergunta não entra.
+Os cartões seguem a ordem em que as camadas foram apresentadas, e os da mesma
+camada ficam juntos. Cada um com o `muda:` preenchido — sem ele, a pergunta não
+entra. No máximo quatro por chamada; o resto espera o turno seguinte.
 
 Leia `references/provocacoes.md` para o que perguntar em cima de cada camada.
 
@@ -387,8 +494,8 @@ para lacuna, e o limite de método de item de confiança média vira lacuna tamb
 
 **Convergência:** as quatro lentes com itens de três campos, cortadas por
 confiança e tier até caber em ~15 itens, mais `nao_sabe` e `campo` não vazios —
-e **nenhuma pergunta do bloco sem resposta explícita**. Com pendência, a fase não
-fecha: reapresente as pendentes com os mesmos números.
+e **nenhum cartão sem resposta explícita**. Com pendência, a fase não fecha:
+reapresente as pendentes.
 
 **Ao fechar, mostre o que montou — e só então pergunte.** Não gere sozinho, e
 não pergunte no escuro: perguntar "gero ou quer puxar mais algum assunto?" logo
@@ -515,7 +622,12 @@ não aparato de conferência.
 | "A praça está no topo da lista, logo é a melhor" | a ordem é por mercado não atendido, que é uma quantidade medida, não uma nota |
 | "A lente está com 2 itens, está bom" | lente rasa esconde o que decide; corte por tier até ~15 itens, não por cansaço |
 | "Ele não respondeu, mas dá para seguir" | é a falha medida em 2026-11-23: a skill avançou sem as respostas e entregou o dossiê do roteiro direto, cobrando o custo da conversa |
-| "Pergunto no meio do parágrafo, fica mais natural" | pergunta no meio da prosa não foi vista em teste; o lugar dela é o bloco final, numerada |
+| "Pergunto no meio do parágrafo, fica mais natural" | pergunta no meio da prosa não foi vista em teste; o lugar dela é o cartão de seletor |
+| "Mando as perguntas numeradas em texto, que cabe mais" | responder "P1 - ... / P2 - ..." é digitação, e o analista disse isso em 2026-11-25; cartão se responde com um clique |
+| "Junto duas perguntas num cartão só, para economizar" | o cartão tem uma resposta; duas perguntas nele devolvem metade da informação e você não sabe qual metade |
+| "Ele pediu recomendação, digo qual praça vale mais a pena" | recomendar caminho de análise é ajuda; ordenar praça por qualidade é a régua que tem dono, e foi removida à mão de dois relatórios |
+| "Desenho o gráfico com a conta feita no JavaScript" | conta no widget é número do modelo com outra roupa, e a conferência não enxerga a conversa |
+| "São três números, faço um gráfico para ficar bonito" | gráfico de duas ou três barras é enfeite; três linhas comparáveis são tabela, um número é frase |
 | "Essa pergunta é interessante, mesmo sem mudar nada" | pergunta que não muda item, lacuna ou premissa gasta a atenção das que mudam |
 | "Renumero as perguntas a cada turno" | ele responde por número; renumerar quebra a resposta dele |
 | "Pergunto se pode gerar sem mostrar o que montei" | ele acabou de atravessar o turno mais denso da conversa e vai responder "pode" por cansaço; sem ver as lentes e as lacunas, a autorização não é revisão |
@@ -523,7 +635,9 @@ não aparato de conferência.
 | "Deixo `resumo_perguntas` vazio, as lacunas já estão listadas" | lista de lacuna descreve; a seção de perguntas convida, e é a única parte do resumo que pede resposta. Sem ela o analista responde "pode gerar" por cansaço, que é a falha que o resumo existe para evitar |
 | "Ele pediu mais um assunto, gero o dossiê e aviso depois" | o resumo que ele aprovou descrevia outro documento; emende o JSON, regrave o resumo e pergunte de novo |
 | "Pergunto o que a etapa de campo vai levantar, para adiantar" | se existe uma etapa obrigatória cujo produto é essa resposta, perguntar devolve trabalho a quem veio reduzi-lo; o item nasce em `campo` |
-| "Ele se declarou empresário novo, não preciso do nome" | novo é o que ele diz ser, o cadastro é quem confirma — e a contagem do teto deduplica por nome, onde uma grafia divergente barra pedido que caberia |
+| "Ele se declarou empresário novo, não preciso do nome" | novo é o que ele diz ser, e o cadastro é quem confirma |
+| "Pergunto o empresário e depois o responsável pelo GE" | são a mesma pessoa; a segunda pergunta só faz ele repetir o nome |
+| "Não digo o nome do grupo na conversa, por LGPD" | a regra é sobre o entregável; na conversa o analista precisa saber quem opera na cidade, e escondê-lo tira a informação que a conversa existe para trazer |
 | "Gero só a enxuta, que é o que ele vai circular" | a conferência e o auditor rodam sobre a completa, onde está a tabela de Fontes; sem ela, o auditor reprova tudo por falta de procedência |
 | "Gero só a completa e ofereço a enxuta se ele pedir" | nesta skill a enxuta é o entregável, não uma oferta — a conversa já fez o papel que a seção de Fontes faz no documento |
 | "A conversa foi boa, escrevo o dossiê em markdown" | o entregável é sempre HTML gerado por script — markdown à mão reabre a porta para número que o modelo formatou sozinho |
@@ -532,14 +646,17 @@ não aparato de conferência.
 
 Não dê a tarefa por encerrada enquanto todos estes não forem verdade:
 
-- [ ] **No mapeamento:** âncora e modelo perguntados, e **nada** de perfil,
-      empresário, GE ou bandeira
+- [ ] **No mapeamento:** âncora, modelo e alcance perguntados, e **nada** de
+      perfil, empresário, GE ou bandeira
+- [ ] **No mapeamento:** se o alcance foi "só nesta cidade", o documento diz que
+      a distância de 0 km é da cidade até ela mesma, e lista curta não virou
+      lista da UF
 - [ ] **No mapeamento:** todo número do documento existe na apuração dele, que
       tem uma chamada de script só
 - [ ] **No dossiê de ponto:** há endereço com coordenada — sem isso o pedido era
       mapeamento
-- [ ] Perfil do solicitante e nome do empresário perguntados, e responsável pelo
-      GE em mãos se já associado
+- [ ] Perfil do solicitante e nome do empresário perguntados — **uma pergunta
+      só**, porque o empresário é o responsável pelo GE
 - [ ] "Empresário novo" conferido contra o cadastro, não aceito só pela
       declaração do solicitante
 - [ ] Gate rodado **antes** de qualquer script de mercado, e veredito comunicado
@@ -553,8 +670,12 @@ Não dê a tarefa por encerrada enquanto todos estes não forem verdade:
 - [ ] `verificar_dossie.py` fechou sem reprovação
 - [ ] Nenhuma pergunta ficou sem resposta explícita; as não respondidas viraram
       lacuna dizendo o que destravaria
-- [ ] Toda pergunta feita tinha o campo `muda:` preenchido, e nenhuma saiu solta
-      no meio da prosa
+- [ ] Toda pergunta saiu em cartão de seletor, uma por cartão, com `muda:`
+      preenchido — nenhuma em prosa solta nem numerada em texto
+- [ ] Todo cartão trouxe **Não sei**, e **Recomendar** onde cabia recomendação
+- [ ] Camada com três ou mais linhas comparáveis foi mostrada em tabela ou
+      gráfico, com a leitura ao lado
+- [ ] Nenhum número desenhado num gráfico veio de conta feita no widget
 - [ ] O resumo de fechamento foi gerado em `<arquivo>-resumo.html` e entregue
       renderizado, com `resumo_gate` e `resumo_perguntas` preenchidos no JSON
 - [ ] O script do resumo não emitiu aviso de campo faltando

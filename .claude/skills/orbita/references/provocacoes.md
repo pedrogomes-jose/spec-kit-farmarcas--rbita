@@ -16,9 +16,10 @@ pergunta exigir um dado que você não tem, a frase é **"não sei ainda — pos
 rodar X"**, e aí você roda.
 
 **Onde ela sai, e o que precisa carregar.** A provocação não fica colada na
-camada: ela nasce no bloco `### Perguntas — responda por número` no fim do turno,
+camada: ela nasce em **cartão de seletor** (`AskUserQuestion`), um por pergunta,
 marcada com a camada de origem e com o campo `muda:` preenchido — o que no dossiê
-depende da resposta. Sem esse campo a pergunta não entra. A leitura da camada
+depende da resposta. Todo cartão traz **Não sei**, e **Recomendar** quando houver
+recomendação honesta a dar. Sem esse campo a pergunta não entra. A leitura da camada
 (o que o indicador significa, contra o que se compara) continua no corpo, junto
 do número: aquilo é afirmação, não pergunta. As regras completas estão em
 `## Protocolo de perguntas`, no `SKILL.md` desta skill.
@@ -182,4 +183,5 @@ em queda é o segundo caso.
 | "Deve ter uns X mil moradores aí" | número do modelo; diga "não sei ainda" e rode o script |
 | Listar cinco ressalvas de método seguidas | ressalva de método é lacuna, não conversa; a conversa é sobre o lugar |
 | Pergunta sem o campo `muda:` preenchido | se você não sabe dizer o que muda no dossiê conforme a resposta, ela não refina nada e rouba a atenção das que refinam |
-| Provocação no meio do parágrafo da camada | medido em 2026-11-23: espalhadas pelo turno, não foram respondidas; o lugar é o bloco numerado no fim |
+| Provocação no meio do parágrafo da camada | medido em 2026-11-23: espalhadas pelo turno, não foram respondidas; o lugar é o cartão de seletor |
+| Provocação numerada em texto, para responder por P1/P2 | medido em 2026-11-25: responder por número é digitação, e a conversa vira parede de texto |

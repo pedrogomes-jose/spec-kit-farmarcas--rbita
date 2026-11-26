@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Órbita · Av. Gov. Sarney, 558 - Nova Santa Inês, Santa Inês/MA, 65300-000</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+/* Alerta de cadastro. Cor própria porque ele não descreve a praça: diz que o
+   número ao lado pode estar errado, e isso tem de se distinguir da nota comum
+   sem virar semáforo de qualidade — não há escala, só presença ou ausência. */
+.alerta-cad{color:#8a5a00}
+
+/* ---------------------------------------------------------------------------
+   Perfil por cidade.
+   O cabeçalho NÃO leva a faixa roxa da tabela de praças, e a seção tem borda e
+   ícone próprios: colada e igual, ela seria lida como continuação da lista e
+   herdaria a ordem por mercado, que é justamente o que não vale aqui.
+   A tira de percentil tem UMA matiz, sem escala de cor, sem seta e sem ícone
+   de bom/ruim — a ausência é a decisão. Colorir por faixa parece melhoria de
+   legibilidade e converte o painel em nota num único commit.
+   Não existe tfoot: linha de total ou de média seria a composição que o script
+   se recusa a emitir, reintroduzida pelo CSS. */
+section.painel{border-left:3px solid #2f6b8f;padding-left:14px}
+table.painel-mun{width:100%;border-collapse:collapse;margin-top:10px}
+table.painel-mun th{background:#eef3f6;color:#24323a;text-align:left;
+  font-size:12px;font-weight:700;padding:7px 9px;border-bottom:1px solid #cfdae1}
+table.painel-mun td{padding:8px 9px;border-bottom:1px solid #eef1f3;vertical-align:top}
+table.painel-mun .nota-th{font-weight:400;font-size:10.5px;color:#6b7c86;margin-top:2px}
+.painel-mun .ind{margin-bottom:7px;font-size:11.5px;line-height:1.35}
+.painel-mun .ind:last-child{margin-bottom:0}
+.painel-mun .rot{display:block;color:var(--fraco)}
+.painel-mun .val{font-weight:700;color:#24323a}
+.painel-mun .pn{color:#6b7c86;margin-left:5px}
+.painel-mun .faixa-pct{display:inline-block;position:relative;width:54px;height:4px;
+  background:#dfe6ea;border-radius:2px;margin:0 2px 0 6px;vertical-align:middle}
+.painel-mun .faixa-pct i{position:absolute;top:-2px;width:2px;height:8px;
+  background:#2f6b8f;border-radius:1px}
+@media print{section.painel{break-inside:avoid}}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+/* Ressalva de qualidade do dado: fica do lado do numero que ela ressalva, e
+   nao na secao recolhida de lacunas — e defeito conhecido do registro, nao
+   coisa que o dossie deixou de saber. */
+.alerta-dado{margin:14px 0 0;padding:12px 14px;border-radius:9px;
+ background:#fdf3e8;border:1px solid #e3b887;font-size:13px;line-height:1.5}
+.alerta-dado ul{margin:7px 0 0;padding-left:19px}
+.alerta-dado li{margin:3px 0}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Dossiê de Região</div>
+  <div class="sub">Leitura de região para análise de ponto — <b>sem score</b> ·
+    dump de 2026-10-26 · cadastro de lojas de 2026-11-10</div>
+</header>
+<div class="faixa-end">Av. Gov. Sarney, 558 - Nova Santa Inês, Santa Inês/MA, 65300-000</div>
+<section class="topo">
+  <div class="gate" style="border-color:#b07d00">
+    <div class="rot">Zoneamento</div>
+    <div class="val" style="color:#b07d00">Alerta</div>
+    <div class="nota">60–120 mil → até 2 grupos econômicos, o 2º grupo de bandeira popular, distância mínima</div>
+    <div class="nota" style="margin-top:6px;color:#b07d00">com o pedido a cidade fica com 4 loja(s) Farmarcas, distribuídas entre 2 grupo(s) econômico(s), numa faixa cujo teto é de 2 grupo(s) econômico(s)</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Esquina de avenida no centro de Santa Inês, numa das praças mais povoadas de farmácia do país, com uma rede nacional a 19 m e a receita da rede Farmarcas em queda dentro de um mercado municipal que cresce.</p>
+    <div class="meta">Solicitante: <b>já associado</b> ·
+      Bandeira: <b>Ultra Popular</b> (popular) ·
+      População do município (Censo 2022): <b>85.014</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da região</h2>
+  <div class="swot-eixo"><span>A favor</span><span>Contra</span></div><div class="swot"><div class="lente" style="border-color:#0f7b45;background:#e8f6ee"><div class="lente-tit" style="color:#0f7b45">Forças</div><p class="abertura">O miolo de 300 m é a parte densa e de maior renda de uma cidade que é polo regional, e o ponto está na esquina onde o comércio do centro se concentra.</p><p><b>O raio de 300 m tem 6.849,2 habitantes por km², contra 1.421,7 no raio de 5 km</b> Pelas camadas setoriais do Censo 2010, são 1.927,9 moradores e 543,9 domicílios no círculo menor, com renda de R$ 1.412,00 por habitante contra R$ 762,83 no anel de 5 km. O potencial de consumo em drogarias no raio de 300 m é de R$ 3.251.359,84, com 38,6% em medicamentos e 61,4% em higiene, beleza e nutrição.</p><p><b>O ponto é esquina, a 18 m do cruzamento da Avenida Governador Sarney com a Avenida Luís Muniz e a Rua da Pedra Branca</b> São duas faces de exposição. Em volta, dentro de 500 m, o mapa registra 9 equipamentos de ensino — a faculdade mais próxima a 81 m —, 3 de saúde, com uma clínica a 267 m e hospitais a 309 m e 388 m, 2 agências bancárias a 170 m e 198 m, e 8 de lazer e culto, com a igreja matriz a 75 m. De supermercado e de equipamento de transporte, nenhum registro.</p><p><b>A cidade é polo de 12 municípios que somam 297.061 habitantes</b> Classificada como Centro Sub-Regional A, Santa Inês atende demanda de rotina em comércio e serviços básicos de Santa Luzia (58.634), Zé Doca (41.681), Bom Jardim (33.832), Pindaré-Mirim (32.558), Monção (28.516), Alto Alegre do Pindaré (26.227), Pio XII (22.376), Igarapé do Meio (14.414), São João do Carú (12.297), Bela Vista do Maranhão (12.133), Satubinha (8.761) e Tufilândia (5.632).</p></div><div class="lente" style="border-color:#b4503c;background:#fdeee9"><div class="lente-tit" style="color:#b4503c">Fragilidades</div><p class="abertura">A praça já tem farmácia demais para a gente que mora nela, a única loja de rede do entorno de 300 m está colada no ponto, e a rede Farmarcas vem perdendo receita justamente onde o mercado cresce.</p><p><b>A farmácia mais próxima está a 19 m e disputa o mesmo cliente</b> É uma Pague Menos, na mesma Avenida Governador Sarney — a 19 m pela camada de concorrentes e a 15 m pelo mapa colaborativo. Pela régua de canal, a loja média ABRAFARMA no Maranhão fatura R$ 792.043,63 por mês, contra R$ 39.157,58 da loja média independente, e 4 das 5 farmácias do raio de 300 m são independentes. O entorno de 300 m soma R$ 948.673,95 por mês pela mesma régua.</p><p><b>Santa Inês tem 772,9 habitantes por farmácia, no percentil 4 nacional</b> A razão usa a população do Censo 2022 sobre as 110 farmácias da cidade; com a população estimada do acervo, são 802,9 habitantes por farmácia e percentil 5. A mediana entre 5.541 municípios brasileiros é de 1.492,6. O perfil de renda da praça é o de uma cidade onde classe D/E responde por 39,85% dos domicílios e C2 por 25,71%.</p><p><b>A receita da rede na praça caiu 11% enquanto o mercado sem ela subiu 14%</b> O mercado farmacêutico de Santa Inês passou de R$ 116.889.430,98 para R$ 128.320.720,80, crescimento de 9,78%. Dentro dele, a receita Farmarcas foi de R$ 21.854.216,70 para R$ 19.552.781,13, e a receita sem Farmarcas de R$ 95.035.214,28 para R$ 108.767.939,67.</p><p><b>A renda domiciliar per capita do município é de R$ 201,99, no percentil 6 nacional</b> A mediana entre 5.565 municípios brasileiros é de R$ 456,30. O desenvolvimento municipal acompanha: o índice Firjan de 0,5326 fica no percentil 29, contra mediana nacional de 0,61.</p></div><div class="lente" style="border-color:#1a5fb4;background:#e9f0fb"><div class="lente-tit" style="color:#1a5fb4">Oportunidades</div><p class="abertura">Três coisas estão em aberto nesta praça e dependem de ação de quem abrir: o credenciamento que quase ninguém tem, a régua de preço que a rede pratica e a última vaga de grupo da cidade.</p><p><b>Credenciar ao Farmácia Popular é alavanca livre numa cidade que gasta R$ 68.526.976 em medicamentos</b> Das 110 farmácias de Santa Inês, 2 são credenciadas — 1,8%. Quem deixa o espaço aberto é o próprio parque local, e o credenciamento é ação da loja: é o que se habilita no ato, sem depender do ponto nem do imóvel.</p><p><b>Entrar com a régua de preço da rede, que é R$ 22,38 por unidade contra R$ 33,63 dos concorrentes do mesmo brick</b> O preço médio por unidade na região é de R$ 31,11, contra R$ 27,32 no Maranhão inteiro — é praça de mix mais caro ou de menos pressão de desconto que o estado. Quem está deixando o espaço aberto são os concorrentes do brick, que praticam R$ 33,63 por unidade enquanto a rede pratica R$ 22,38 no mesmo recorte.</p><p><b>Ocupar a segunda e última vaga de grupo econômico da praça</b> Na faixa de 60 a 120 mil habitantes o teto é de 2 grupos econômicos, e Santa Inês tem hoje 1 grupo. Com este pedido o solicitante entra como o 2º, e enquanto ocupar essa vaga nenhum outro grupo econômico entra na cidade pela rede Farmarcas — o que a regra de expansão não alcança é a entrada de concorrente de fora dela.</p></div><div class="lente" style="border-color:#8b3a62;background:#fbeaf2"><div class="lente-tit" style="color:#8b3a62">Dificuldades</div><p class="abertura">O pedido chega como grupo novo numa praça que já tem dono dentro da rede, e entra num mercado cuja composição deixa pouca margem para errar o mix.</p><p><b>As 3 lojas Farmarcas de Santa Inês respondem a outro associado, e o pedido entra como grupo novo</b> O solicitante é associado, mas não opera nesta cidade: o cadastro não registra loja dele aqui. A loja da rede mais próxima com coordenada está a 1.145 m do ponto, e é do outro grupo — que opera com a mesma bandeira pretendida e responde por 11% do mercado da unidade territorial, contra 5% da Maxi Popular. É exatamente o conflito entre associados que a regra de expansão existe para evitar, e alguém vai ter de arbitrá-lo — enquanto não for arbitrado, o pedido não anda.</p><p><b>O mix da praça concentra 54% em prescrição, e as categorias que mais crescem somam 5% da cesta</b> Depois da prescrição vêm MIP e OTC com 19%. As que mais crescem são nutrição e suplementos, com alta de 23% sobre 2% da cesta, e cuidados, com alta de 22% sobre 3%. Santa Inês tem uma única unidade territorial, então não há outra região da cidade onde compensar: o mix de entrada é montado contra a categoria mais disputada da praça.</p></div></div>
+</section>
+<section>
+  <h2><span class="ic">◉</span> Detalhes da região analisada</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">População na área</div><div class="val">1.928 habitantes</div><div class="nota">6 setores censitários no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Raio de estudo</div><div class="val">300 m</div><div class="nota">comparado também a 5.000 m</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Domicílios</div><div class="val">544</div><div class="nota">3,56 moradores por domicílio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo</div><div class="val">R$ 3.251.359,84</div><div class="nota">drogarias, rateado pela fração de cada setor no raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Método de rateio</div><div class="val">proporcional por área</div><div class="nota">cobertura do círculo: 100,0% · 6 setores</div></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Contexto macroeconômico</h2>
+  
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Densidade demográfica</div><div class="val">6.849 hab/km²</div><div class="nota">média dos setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média por habitante</div><div class="val">R$ 1.412,00</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Renda média domiciliar</div><div class="val">R$ 2.450,18</div><div class="nota">setores do raio</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Verticalização</div><div class="val">3,5%</div><div class="nota">domicílios em apartamento — casas x apartamentos</div></div>
+    
+  </div>
+  <h3>Cidades que têm este município como polo</h3>
+  
+  <table><thead><tr><th>Município</th><th>População</th><th>Papel na rede urbana</th></tr></thead>
+  <tbody><tr><td>Santa Luzia/MA</td><td>58.634</td><td>Centro Local</td></tr><tr><td>Zé Doca/MA</td><td>41.681</td><td>Centro de Zona B</td></tr><tr><td>Bom Jardim/MA</td><td>33.832</td><td>Centro Local</td></tr><tr><td>Pindaré-Mirim/MA</td><td>32.558</td><td>Centro Local</td></tr><tr><td>Monção/MA</td><td>28.516</td><td>Centro Local</td></tr><tr><td>Alto Alegre do Pindaré/MA</td><td>26.227</td><td>Centro Local</td></tr><tr><td>Pio XII/MA</td><td>22.376</td><td>Centro Local</td></tr><tr><td>Igarapé do Meio/MA</td><td>14.414</td><td>Centro Local</td></tr><tr><td>São João do Carú/MA</td><td>12.297</td><td>Centro Local</td></tr><tr><td>Bela Vista do Maranhão/MA</td><td>12.133</td><td>Centro Local</td></tr><tr><td>Satubinha/MA</td><td>8.761</td><td>Centro Local</td></tr><tr><td>Tufilândia/MA</td><td>5.632</td><td>Centro Local</td></tr></tbody></table>
+  <p class='vazio'>Somadas, essas cidades têm <b>297.061 habitantes</b>. É público que não mora no raio e que nenhum indicador de área deste relatório conta.</p>
+</section>
+<section>
+  <h2><span class="ic">$</span> Microterritório e concorrência</h2>
+  <div class="cards">
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais na cidade</div><div class="val">R$ 6.341.561,17</div><div class="nota">22 lojas com faixa declarada no município · soma de rótulos de faixa — o campo tem 8 valores, um por faixa, e classifica a loja em vez de medir a venda</div></div>
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Média da faixa por loja</div><div class="val">—</div><div class="nota">média mensal dos rótulos de faixa das lojas do raio — não é faturamento medido</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Vendas totais no raio</div><div class="val">—</div><div class="nota">soma das faixas de 0 lojas classificadas · o campo tem 8 valores, um por faixa — classifica a loja, não mede a venda</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Concorrentes em 300 m</div><div class="val">5</div><div class="nota">70 em 5.000 m</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Lojas Farmarcas no raio</div><div class="val">0</div><div class="nota">pelo cadastro de lojas (CNPJ + coordenada) — atenção: 2 loja(s) do município estão sem coordenada e não entram nesta conta</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Preço médio no brick</div><div class="val">R$ 31,11</div><div class="nota">UF: R$ 27,32 · receita a preço de consumidor ÷ unidades vendidas · fonte: base de faturamento por brick da IQVIA</div></div>
+  </div>
+  <div class='alerta-dado'><b>Erro provável de cadastro nos números acima.</b> A checagem de qualidade do dado encontrou registro de concorrente cadastrado em cidade que o raio não alcança. Ele <b>entra</b> na contagem de concorrentes, na soma por régua de canal e na faixa de faturamento desta seção — o número pode estar um a mais por registro listado. Conferir o endereço do CNPJ antes de usar a contagem como definitiva.<ul><li><b>3</b> registro(s) no raio de 5.000 m: Viana a 1.713 m (independente); Pindare Mirim a 507 m (independente); Buriticupu a 1.023 m (independente)</li></ul></div>
+  <h3>Quanto vende uma loja — três fontes independentes</h3>
+  
+  <h4>Concorrentes da praça — em que faixa de faturamento eles caem</h4>
+  
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Faixa mais baixa ocupada</div><div class="val">R$ 89.997,73</div><div class="nota">faixa, entre as 22 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Faixa mediana</div><div class="val">R$ 126.120,99</div><div class="nota">faixa, entre as 22 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Faixa mais alta ocupada</div><div class="val">R$ 1.336.854,12</div><div class="nota">faixa, entre as 22 lojas do município classificadas · o campo tem 8 valores, um por faixa — não mede a loja</div></div>
+  </div>
+  <h4>Mercado do raio — régua medida por canal</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mercado em 300 m</div><div class="val">R$ 948.673,95</div><div class="nota">5 de 5 lojas em 300 m · fonte: receita e PDVs por canal da IQVIA</div></div>
+    <div class="card" style="border-left-color:#b4503c"><div class="rot">Mercado em 5.000 m</div><div class="val">R$ 4.786.179,15</div><div class="nota">62 de 70 lojas em 5.000 m · 8 sem canal reconhecido, fora da soma · fonte: receita e PDVs por canal da IQVIA</div></div>
+  </div>
+  <table><thead><tr><th>Canal</th><th>Por loja/mês</th><th>Lojas em 300 m</th><th>Lojas em 5.000 m</th></tr></thead><tbody><tr class="tem"><td>ABRAFARMA</td><td>R$ 792.043,63</td><td>1</td><td>3</td></tr><tr><td>Grupo Farmarcas</td><td>R$ 561.401,74</td><td>—</td><td>—</td></tr><tr><td>FEBRAFAR</td><td>R$ 157.549,40</td><td>—</td><td>—</td></tr><tr class="tem"><td>Associações e franquias</td><td>R$ 138.908,62</td><td>—</td><td>1</td></tr><tr><td>Outras redes corporativas</td><td>R$ 125.381,12</td><td>—</td><td>—</td></tr><tr class="tem"><td>Independentes</td><td>R$ 39.157,58</td><td>4</td><td>58</td></tr></tbody></table>
+  
+
+  <h4>Lojas do grupo — receita medida · Ultra Popular em MA</h4>
+  <div class="cards">
+    <div class="card" style="border-left-color:#1a5fb4"><div class="rot">Menor receita medida</div><div class="val">R$ 58.633,59</div><div class="nota">90 loja(s) do grupo em MA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#0f7b45"><div class="rot">Receita mediana medida</div><div class="val">R$ 556.652,10</div><div class="nota">90 loja(s) do grupo em MA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#c0397a"><div class="rot">Maior receita medida</div><div class="val">R$ 2.613.181,71</div><div class="nota">90 loja(s) do grupo em MA, receita apurada por instituto e cruzada por CNPJ · fonte: base de faturamento da IQVIA e cadastro de lojas</div></div>
+    <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Mesma bandeira, rede inteira</div><div class="val">R$ 442.847,15</div><div class="nota">mediana de 890 loja(s) · mesma fonte, recorte nacional</div></div>
+  </div>
+
+  <h3>Venda mensal aproximada — raio de estudo</h3>
+  <table><thead><tr><th>Máxima</th><th>Mínima</th><th>Classificação</th><th>Concorrentes no raio</th></tr></thead><tbody><tr><td>Acima</td><td>R$ 1.336.854,12</td><td><span class="faixa f1">1</span></td><td>—</td></tr><tr><td>R$ 1.336.854,11</td><td>R$ 846.655,41</td><td><span class="faixa f2">2</span></td><td>—</td></tr><tr><td>R$ 846.655,40</td><td>R$ 549.075,62</td><td><span class="faixa f3">3</span></td><td>—</td></tr><tr><td>R$ 549.075,61</td><td>R$ 388.442,64</td><td><span class="faixa f4">4</span></td><td>—</td></tr><tr><td>R$ 388.442,63</td><td>R$ 271.181,25</td><td><span class="faixa f5">5</span></td><td>—</td></tr><tr><td>R$ 271.181,24</td><td>R$ 162.244,26</td><td><span class="faixa f6">6</span></td><td>—</td></tr><tr><td>R$ 162.244,25</td><td>R$ 89.997,74</td><td><span class="faixa f7">7</span></td><td>—</td></tr><tr><td>R$ 89.997,74</td><td>Abaixo</td><td><span class="faixa f8">8</span></td><td>—</td></tr></tbody></table>
+</section>
+<section>
+  <h2><span class="ic">◷</span> Potencial de consumo da região analisada</h2>
+  
+  <div class="split">
+    <div class="split-cards">
+      <div class="card" style="border-left-color:#6b2fb5"><div class="rot">Potencial de consumo total</div><div class="val">R$ 3.251.359,84</div><div class="nota">médio potencial de captura</div></div>
+      <div class="card" style="border-left-color:#3b7ddd"><div class="rot">Medicamentos</div><div class="val">R$ 1.255.873,50</div><div class="nota">38,6% do total</div></div>
+      <div class="card" style="border-left-color:#e8558f"><div class="rot">Higiene, Beleza &amp; Nutrição</div><div class="val">R$ 1.995.486,34</div><div class="nota">61,4% do total</div></div>
+    </div>
+    <div class="split-graf">
+      <svg viewBox="0 0 180 180" width="190" height="190" role="img"
+  aria-label="Medicamentos 39%, Higiene, Beleza &amp; Nutrição 61%">
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#e8558f" stroke-width="34"/>
+  <circle cx="90" cy="90" r="70" fill="none" stroke="#3b7ddd" stroke-width="34"
+     stroke-dasharray="169.77 270.05" transform="rotate(-90 90 90)"/>
+</svg>
+      <div class="legenda"><span class="p azul"></span>Medicamentos
+        <span class="p rosa"></span>Higiene, Beleza &amp; Nutrição</div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">⚑</span> Geradores de fluxo em 500 m</h2>
+  
+  
+  <table><thead><tr><th>Categoria e por que gera fluxo</th><th>Em 500 m</th><th>Mais próximo</th><th>Exemplos nomeados</th></tr></thead><tbody><tr><td><b>Saude</b><div class='nota'>consulta e exame trazem paciente e acompanhante, muitos com receita na mão ao sair</div></td><td>3</td><td>267 m</td><td>Medical Santa Inês, Medplaza Hospital Dia</td></tr><tr><td><b>Creche Escola</b><div class='nota'>entrada e saída concentram pais e responsáveis em horário fixo, todo dia útil</div></td><td>9</td><td>81 m</td><td>FAC, SENAC, Centro de Ensino Neusa de Carvalho Bastos</td></tr><tr><td><b>Mercado Supermercado</b><div class='nota'>compra de rotina puxa a mesma pessoa várias vezes por semana</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Banco Loteria</b><div class='nota'>fila e pagamento prendem a pessoa no quarteirão, e o idoso é público de medicamento contínuo</div></td><td>2</td><td>170 m</td><td>Caixa Econômica Federal, Banco da Amazônia</td></tr><tr><td><b>Transporte</b><div class='nota'>ponto e terminal despejam fluxo de passagem — o passante que não mora nem trabalha aqui</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Coletiva</b><div class='nota'>prédio concentra muita gente em pouca área, com compra de conveniência a pé</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Moradia Individual</b><div class='nota'>casa indica bairro residencial, de compra planejada e menos passagem</div></td><td>0</td><td>—</td><td></td></tr><tr><td><b>Comercio Servicos</b><div class='nota'>densidade comercial é o que faz a rua ter movimento ao longo do dia</div></td><td>9</td><td>15 m</td><td>Pague Menos, Globo, Bengô Açaí</td></tr><tr><td><b>Lazer Culto</b><div class='nota'>igreja, praça e academia concentram fluxo em horários e dias específicos</div></td><td>8</td><td>75 m</td><td>Igreja Matriz, Praça da Matriz, Área de Lazer Municipal</td></tr></tbody></table><p class='vazio'>Equipamento sem nome no mapa entra na contagem e fica fora da coluna de exemplos. Cobertura é colaborativa: ausência aqui não é ausência no mundo.</p>
+</section>
+<section>
+  <h2><span class="ic">↗</span> Onde mais olhar — mesma UF</h2>
+  <table><thead><tr><th>Praça (município — localidade) e por que olhar</th><th>Mercado não atendido</th><th>Potencial e captura do município</th><th>Preço médio</th><th>Cresc.</th><th>Lojas</th><th>Zoneamento</th></tr></thead><tbody><tr><td><b>PINHEIRO/MA</b><div class='nota'>a 130 km do ponto pedido; mercado de R$ 69,6 milhões sem receita nossa dentro, no município; 3 loja(s) Farmarcas já na cidade; mercado crescendo 15%; 65% do potencial anual do município já capturado; preço médio de R$ 26,74 por unidade; ATENÇÃO: a receita da rede caiu 9% aqui — a base não diz por quê, e saída de associado não é a única explicação.</div></td><td><b>R$ 69,6 milhões</b><div class='nota'>R$ 69.647.507</div></td><td>R$ 138.082.982<div class='nota'>potencial anual do município · captura de 65,2% pelo município</div></td><td>R$ 26,74<div class='nota'>por unidade</div></td><td>15,0%</td><td>3</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 1 de 2, 1 vaga(s)</td></tr><tr><td><b>BACABAL/MA</b><div class='nota'>a 92 km do ponto pedido; mercado de R$ 67,7 milhões sem receita nossa dentro, no município; 7 loja(s) Farmarcas já na cidade; mercado crescendo 10%; 64% do potencial anual do município já capturado; preço médio de R$ 27,15 por unidade.</div></td><td><b>R$ 67,7 milhões</b><div class='nota'>R$ 67.675.411</div></td><td>R$ 184.601.440<div class='nota'>potencial anual do município · captura de 63,6% pelo município</div></td><td>R$ 27,15<div class='nota'>por unidade</div></td><td>10,0%</td><td>7</td><td style='color:#6c6878;font-weight:600'>sem vaga — 2 grupo(s) para um teto de 2</td></tr><tr><td><b>SANTA LUZIA/MA</b><div class='nota'>a 47 km do ponto pedido; mercado de R$ 62,5 milhões sem receita nossa dentro, no município; 2 loja(s) Farmarcas já na cidade; mercado crescendo 22%; 172% do potencial anual do município já capturado; preço médio de R$ 26,55 por unidade; ATENÇÃO: a receita da rede caiu 11% aqui — a base não diz por quê, e saída de associado não é a única explicação.</div></td><td><b>R$ 62,5 milhões</b><div class='nota'>R$ 62.451.836</div></td><td>R$ 49.886.683<div class='nota'>potencial anual do município · captura de 171,6% pelo município</div></td><td>R$ 26,55<div class='nota'>por unidade</div></td><td>22,0%</td><td>2</td><td style='color:#6c6878;font-weight:600'>sem vaga — 1 grupo(s) para um teto de 1</td></tr><tr><td><b>ITAPECURU MIRIM/MA</b><div class='nota'>a 117 km do ponto pedido; mercado de R$ 51,5 milhões sem receita nossa dentro, no município; 1 loja(s) Farmarcas já na cidade; mercado crescendo 16%; 85% do potencial anual do município já capturado.</div></td><td><b>R$ 51,5 milhões</b><div class='nota'>R$ 51.540.350</div></td><td>R$ 71.631.127<div class='nota'>potencial anual do município · captura de 85,2% pelo município</div></td><td>—<div class='nota'>por unidade</div></td><td>16,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>cabe grupo novo — 1 de 2, 1 vaga(s)</td></tr><tr><td><b>PEDREIRAS/MA</b><div class='nota'>a 133 km do ponto pedido; mercado de R$ 49,5 milhões sem receita nossa dentro, no município; 2 loja(s) Farmarcas já na cidade; mercado crescendo 14%; 86% do potencial anual do município já capturado; preço médio de R$ 27,76 por unidade; ATENÇÃO: a receita da rede caiu 1% aqui — a base não diz por quê, e saída de associado não é a única explicação.</div></td><td><b>R$ 49,5 milhões</b><div class='nota'>R$ 49.467.219</div></td><td>R$ 70.532.305<div class='nota'>potencial anual do município · captura de 86,1% pelo município</div></td><td>R$ 27,76<div class='nota'>por unidade</div></td><td>14,0%</td><td>2</td><td style='color:#6c6878;font-weight:600'>sem vaga — 1 grupo(s) para um teto de 1</td></tr><tr><td><b>COROATÁ/MA</b><div class='nota'>a 148 km do ponto pedido; mercado de R$ 43,7 milhões sem receita nossa dentro, no município; 1 loja(s) Farmarcas já na cidade; mercado crescendo 11%; 82% do potencial anual do município já capturado; preço médio de R$ 24,67 por unidade.</div></td><td><b>R$ 43,7 milhões</b><div class='nota'>R$ 43.718.400</div></td><td>R$ 80.557.065<div class='nota'>potencial anual do município · captura de 81,8% pelo município</div></td><td>R$ 24,67<div class='nota'>por unidade</div></td><td>11,0%</td><td>1</td><td style='color:#6c6878;font-weight:600'>sem vaga — 1 grupo(s) para um teto de 1</td></tr></tbody></table><p class='vazio'>Lista de onde vale rodar um dossiê, não recomendação de abertura. Mercado grande sem a rede dentro pode ser praça aberta ou praça já testada e perdida — crescimento Farmarcas negativo é o segundo caso. UTC não é raio nem bairro: serve para escolher a praça, não o ponto.</p><p class='vazio'><b>A lista está limitada a 150 km deste endereço</b>, medidos até o centro aproximado de cada município — premissa desta análise, não regra da casa. Sem esse limite a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p><p class='vazio'>Preço médio em branco quando o nome do município aparece abreviado na base de preço e o casamento por nome falha — é ausência da chave, não do dado. Atinge sobretudo as capitais.</p>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que este dossiê NÃO sabe
+    <span class="qtd">33 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li>Fluxo de passantes. Quantas pessoas passam pela calçada da Avenida Governador Sarney não existe em base nenhuma — nem no acervo do Órbita, nem no produto, nem em fonte pública. Importa demais neste ponto porque ele é esquina de avenida em centro comercial consolidado, e é justamente o ponto de rua comercial que o dossiê mais subestima: os moradores do raio de 300 m são 1.927,9, e quem compra numa esquina dessas em boa parte não mora ali. Destrava com contagem de passantes em campo, por faixa de horário e dia da semana.</li><li>A que distância estão as duas lojas Farmarcas sem coordenada no cadastro. São uma Ultra Popular e uma Maxi Popular, as duas registradas no Centro. Importa porque o limiar da regra de expansão é diferente para cada uma: 300 m para a Ultra Popular, que é a bandeira pretendida, e 500 m para a Maxi Popular. Para as duas a distância mínima ficou declarada como regra sem veredito. A camada de concorrentes registra uma Drogaria Ultra Popular na Rua do Comércio, 614, que pode ser uma delas, mas a coordenada que a camada lhe dá é a mesma de outros registros do Centro — é posição de bairro, não de endereço. Destrava com a geocodificação dos endereços das duas lojas no cadastro.</li><li>Por que a receita da rede na praça caiu 11%. A base de mercado mede queda de receita, não saída de associado, e é a carteira atual com histórico retroagido — associado que saiu da rede some da série em vez de aparecer como queda. Importa porque a leitura muda inteira conforme a causa: perda de share para o concorrente, encolhimento de uma operação específica ou simples recomposição de carteira são três histórias diferentes para o mesmo número. Destrava com o histórico de entrada e saída de associado por praça, que não está neste acervo.</li><li>Se o share da rede na unidade territorial é zero medido ou ausência de medição. A base de market share devolve 0,0% para a unidade territorial de Santa Inês, enquanto o share calculado a partir da receita é de 15,24% — e a mesma base registra Ultra Popular em 11% e Maxi Popular em 5% na composição por bandeira. As duas leituras não podem estar certas ao mesmo tempo. Importa porque share zero e share não medido levam a conclusões opostas sobre a presença da rede na praça. Destrava com a base de market share completa por unidade territorial.</li><li>Qual é a periodicidade do potencial de consumo. A camada não declara se o valor de R$ 3.251.359,84 no raio de 300 m é mensal ou anual, e o teste de ordem de grandeza aponta valor anual. Importa porque o mesmo documento traz o mercado do raio pela régua de canal em R$ 948.673,95 por mês, e ler os dois na mesma periodicidade erra por doze vezes. Destrava com a documentação da camada ou com a reconstrução do indicador a partir do dado bruto.</li><li>Se existe supermercado ou mercado no raio de 500 m. O mapa colaborativo não registra nenhum, e ao mesmo tempo há um cruzamento com a Rua do Mercado Municipal a 44,8 m do ponto. Importa porque compra de rotina é o gerador que traz a mesma pessoa várias vezes por semana, e a ausência dele muda a leitura do entorno. Destrava com verificação em campo ou com a camada de estabelecimentos por CNPJ geocodificada.</li><li>Quantas farmácias existem de fato no raio de 300 m. A camada de concorrentes registra 5, mas o mapa colaborativo registra uma segunda farmácia a 28 m que não aparece entre as 5, e a própria camada tem 18 registros sem coordenada que não entram em raio nenhum. Importa porque é sobre essa contagem que se dimensiona o entorno de 300 m pela régua de canal. Destrava com a geocodificação dos registros sem coordenada e a conferência cruzada com o cadastro da Receita.</li><li>Qual coordenada é a do endereço da farmácia mais próxima. A camada de concorrentes a põe a 19 m do ponto e o mapa colaborativo a 15 m. Importa porque é a loja que mais pesa na leitura deste ponto, e a diferença entre as duas leituras é da ordem da largura da calçada. Destrava com a conferência do endereço no local.</li><li>O quanto as camadas do raio envelheceram. População, renda, densidade e potencial de consumo do raio saem das camadas setoriais do acervo, que são do Censo 2010. Importa porque a cidade cresce 0,18% ao ano e o centro pode ter adensado ou esvaziado de forma diferente da média: se a mudança foi na borda, o erro é pequeno; se o Centro verticalizou, é grande, e a verticalização medida no raio é de 3,54%. Destrava com os agregados por setor censitário do Censo 2022.</li><li>A unidade dos campos de renda das camadas setoriais. Não há apuração própria dizendo se os valores de renda do setor censitário estão em reais nominais da data do censo ou em reais corrigidos. Importa porque lê-los na moeda errada é erro de ordem de grandeza, não de alguns pontos percentuais, e a renda por habitante do raio é um dos números que mais pesam na leitura deste ponto. Destrava com a documentação da camada ou com a reconstrução do indicador a partir do dado bruto do IBGE.</li><li>O quanto a razão de habitantes por farmácia é comparável com a distribuição usada. A posição de percentil 4 põe o numerador do Censo 2022 contra uma distribuição nacional montada com a população estimada do acervo, que é aproximação. Importa porque é a posição nacional, e não o valor absoluto, que sustenta a leitura de saturação da praça. Destrava com a distribuição nacional recalculada sobre a população do Censo 2022.</li><li>Em qual brick o ponto cai. O acervo não diz: o casamento foi pelo nome do município, e dois bricks de Santa Inês entraram na conta, o do Centro e o de Santa Filomena. Importa porque é desse recorte que sai o preço médio por unidade, e o preço de um bairro central não é o de um bairro periférico. Destrava com a malha geográfica dos bricks, que o acervo não traz.</li><li>O que há no terço do raio de 5 km sem setor censitário. A cobertura do círculo de 5 km é de 66,08%, contra 99,99% no raio de 300 m. Importa porque população, renda e potencial do anel largo descrevem menos território do que o raio sugere, e a parte faltante é zona rural, onde a densidade é outra. Destrava com a malha completa de setores rurais do município.</li><li>Quanto varia o faturamento dentro de cada canal. A régua de canal traz a receita de uma loja média do canal no estado e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Importa porque duas farmácias independentes do mesmo quarteirão podem diferir várias vezes entre si, e é sobre quatro independentes que se dimensiona o entorno de 300 m. Destrava com faturamento por CNPJ da região.</li><li>Em que canal cada rede nomeada se encaixa. O enquadramento das redes corporativas com nome próprio é critério de método desta análise, não campo da base — e ler a mesma rede como ABRAFARMA ou como outra rede corporativa muda a referência de porte dela em mais de duas vezes. Importa porque a loja mais próxima do ponto está classificada numa dessas redes, com confiança apenas média no mapeamento. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li>Se o pedido é ponto novo, mudança de ponto ou conversão. A informação não veio na solicitação, e o dossiê não assume nenhuma das três. Importa porque mudança de ponto traz um período com duas lojas abertas dividindo a mesma praça, e conversão traz uma operação já existente com clientela formada — nenhum dos dois efeitos está dimensionado aqui. Destrava com a confirmação do tipo de operação na solicitação.</li><li>Área de venda, aluguel comercial e custo de ocupação do imóvel. Nenhum dos três tem fonte: área de venda depende de um faturamento por metro quadrado que o analista forneça, e aluguel comercial por município não existe em fonte pública verificável. Importa porque o custo de ocupação é o que separa uma receita boa de uma operação que fecha. Destrava com o aluguel pesquisado no local e a régua de faturamento por metro quadrado da rede.</li><li>Quantas lojas do cadastro não podem ter a distância mínima checada. Das 2.808 lojas do cadastro, 1.844 têm coordenada utilizável — 66%. Importa porque a checagem de distância mínima deste ponto só alcança as lojas com coordenada, e o terço restante é lacuna e não ausência de risco. Destrava com a geocodificação do cadastro de lojas.</li><li>Três registros do anel de 5 km estão cadastrados em cidades que o raio não alcança: um em Viana, um em Pindaré-Mirim e um em Buriticupu. São erros prováveis de cadastro, e cada um deles entra ou sai da contagem de concorrentes do anel conforme a correção. Destrava com a conferência do endereço desses três registros na camada de concorrentes.</li><li>Zoneamento — cobertura de coordenada no cadastro de lojas — fora dessa fatia não há como medir distância entre lojas, nem confirmar em que cidade cada uma está. Destrava com o preenchimento da coordenada no cadastro, que é base interna e não depende de fonte externa.</li><li>Zoneamento — quais status ocupam vaga no teto é premissa adotada aqui, não texto da regra — se loja desativada passasse a contar, cidades hoje dentro do teto passariam a estourá-lo. Destrava com a definição escrita na regra.</li><li>Zoneamento — a regra escreve as faixas de população com limites sobrepostos — exatamente nos cortes, duas faixas descrevem a mesma cidade e o teto fica ambíguo. Destrava com a correção da página.</li><li>Zoneamento — a regra afirma que popular e convencional seguem critérios diferentes sem dizer quais — só a exigência explícita da faixa de 60 a 120 mil habitantes foi aplicada. Destrava com o detalhamento da página.</li><li>Concorrência — dispersão dentro do canal: a base traz a média do canal e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Duas farmácias independentes no mesmo quarteirão podem diferir várias vezes entre si, e isso não aparece. Destrava com faturamento por CNPJ da região.</li><li>Concorrência — enquadramento das redes nomeadas: em que canal cada rede corporativa nomeada se encaixa é critério do método desta análise, não campo da base. Ler a mesma rede como ABRAFARMA ou como outra rede corporativa muda a referência de porte dela em mais de duas vezes. Destrava com a classificação de canal por CNPJ na própria base do instituto.</li><li>Concorrência — 32 lojas da rede, no cadastro inteiro, têm coordenada fora do território brasileiro e são descartadas para não medir distância errada. Destrava com a correção do cadastro.</li><li>Concorrência — 3.700 registros da camada, em todo o país, foram descartados por coordenada fora do território brasileiro — parte deles pode ser desta região e está fora da contagem. Destrava com a correção da coordenada na origem.</li><li>Concorrência — camada Farmácias Populares 2025: só endereço. Sem ela não dá para localizar no raio quem já é credenciado ao Farmácia Popular. Destrava geocodificando os endereços da camada.</li><li>Concorrência — camada Bancos: só endereço. Sem ela falta um gerador de fluxo relevante — fila de banco prende a pessoa no quarteirão. Destrava geocodificando os endereços.</li><li>Concorrência — camada Clínicas Oftalmológicas: só endereço. Sem ela falta um gerador de fluxo de saúde no entorno. Destrava geocodificando os endereços.</li><li>Concorrência — camada Barreiras Geográficas: polígono/linha ficou no asset, não no CSV. Num ponto de passagem é o que diria se a via corta ou conecta os dois lados da área de influência. Destrava recuperando os polígonos da camada.</li><li>Concorrência — camada Setor Censitário: polígono ficou no asset — habilita na Fase 2 com a malha do IBGE. A geometria dos setores vem do asset do Órbita, não do próprio arquivo; é ela que sustenta população, renda e potencial no raio.</li><li>Mercado por UTC — base de cobertura de PDVs por UTC (IQVIA): UTC ausente nesta base. Sem ela não se sabe se o crescimento da receita veio da mesma loja ou de abertura e fechamento de PDV. Destrava com a cobertura de PDVs da UTC na base da IQVIA.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar em campo</h2>
+  <ul class="proc"><li>Contar passantes na calçada da Avenida Governador Sarney, por faixa de horário e dia útil contra sábado, e levantar os geradores de fluxo do entorno. É a etapa que produz o que nenhuma base deste dossiê responde. Se o fluxo for alto, a leitura de saturação da praça muda de peso: a loja passa a disputar quem passa e não só quem mora no raio.</li><li>Localizar e geocodificar as duas lojas Farmarcas do Centro que estão sem coordenada no cadastro — uma Ultra Popular e uma Maxi Popular. Se a Ultra Popular estiver a menos de 300 m do ponto, ou a Maxi Popular a menos de 500 m, a regra de distância mínima passa a ter veredito e pode mudar o resultado do gate de zoneamento.</li><li>Corrigir no cadastro a coordenada da loja Conectadas de Açailândia, que hoje cai a 581 m deste ponto. Enquanto não for corrigida, qualquer análise de ponto nesta região vai contar uma loja da rede que não está aqui.</li><li>Verificar em campo se há supermercado ou mercado de bairro dentro de 500 m, em especial no cruzamento com a Rua do Mercado Municipal, a 44,8 m. Havendo, o entorno deixa de ser lido como centro de serviços e passa a ter o gerador de compra de rotina, que é o que traz a mesma pessoa várias vezes por semana.</li><li>Levantar o aluguel pedido e a área de venda do imóvel. Sem os dois, o custo de ocupação não entra no dossiê, e é ele que decide se a receita que a praça comporta sobra ou não no fim do mês.</li></ul>
+</section>
+
+
+<footer>
+  Órbita · Dossiê de Região · Av. Gov. Sarney, 558 - Nova Santa Inês, Santa Inês/MA, 65300-000 · coordenada informada pelo solicitante na abertura da análise, não geocodificada nesta sessão · acervo de 2026-10-26
+</footer></div></body></html>

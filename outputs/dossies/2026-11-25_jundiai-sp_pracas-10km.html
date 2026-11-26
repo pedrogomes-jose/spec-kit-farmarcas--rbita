@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Órbita · Onde olhar — Jundiaí/SP</title>
+<style>
+:root{--roxo:#5b2a8c;--linha:#e3e1e8;--texto:#1d1b22;--fraco:#6c6878;--fundo:#f6f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);
+ font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.pag{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.marca{font-size:22px;font-weight:700;color:var(--roxo)}
+.sub{color:var(--fraco);font-size:13px}
+.faixa-end{background:var(--roxo);color:#fff;padding:11px 16px;border-radius:8px;
+ font-weight:600;font-size:13.5px;letter-spacing:.2px}
+.topo{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;margin:14px 0 26px}
+.gate,.resumo{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px 16px}
+.gate{border-left:5px solid #444}
+.gate .val{font-size:24px;font-weight:700;margin:2px 0}
+.resumo p{margin:4px 0 10px;font-size:16px}
+.meta{font-size:12.5px;color:var(--fraco)}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;margin-bottom:16px}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h3{font-size:14px;margin:20px 0 8px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:7px;background:var(--roxo);color:#fff;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.card{background:#fff;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+ border-radius:8px;padding:11px 13px}
+.rot{font-size:11.5px;color:var(--fraco);text-transform:uppercase;letter-spacing:.5px}
+.val{font-size:19px;font-weight:700;margin-top:3px;word-break:break-word}
+.nota{font-size:11.5px;color:var(--fraco);margin-top:4px}
+/* Alerta de cadastro. Cor própria porque ele não descreve a praça: diz que o
+   número ao lado pode estar errado, e isso tem de se distinguir da nota comum
+   sem virar semáforo de qualidade — não há escala, só presença ou ausência. */
+.alerta-cad{color:#8a5a00}
+
+/* ---------------------------------------------------------------------------
+   Perfil por cidade.
+   O cabeçalho NÃO leva a faixa roxa da tabela de praças, e a seção tem borda e
+   ícone próprios: colada e igual, ela seria lida como continuação da lista e
+   herdaria a ordem por mercado, que é justamente o que não vale aqui.
+   A tira de percentil tem UMA matiz, sem escala de cor, sem seta e sem ícone
+   de bom/ruim — a ausência é a decisão. Colorir por faixa parece melhoria de
+   legibilidade e converte o painel em nota num único commit.
+   Não existe tfoot: linha de total ou de média seria a composição que o script
+   se recusa a emitir, reintroduzida pelo CSS. */
+section.painel{border-left:3px solid #2f6b8f;padding-left:14px}
+table.painel-mun{width:100%;border-collapse:collapse;margin-top:10px}
+table.painel-mun th{background:#eef3f6;color:#24323a;text-align:left;
+  font-size:12px;font-weight:700;padding:7px 9px;border-bottom:1px solid #cfdae1}
+table.painel-mun td{padding:8px 9px;border-bottom:1px solid #eef1f3;vertical-align:top}
+table.painel-mun .nota-th{font-weight:400;font-size:10.5px;color:#6b7c86;margin-top:2px}
+.painel-mun .ind{margin-bottom:7px;font-size:11.5px;line-height:1.35}
+.painel-mun .ind:last-child{margin-bottom:0}
+.painel-mun .rot{display:block;color:var(--fraco)}
+.painel-mun .val{font-weight:700;color:#24323a}
+.painel-mun .pn{color:#6b7c86;margin-left:5px}
+.painel-mun .faixa-pct{display:inline-block;position:relative;width:54px;height:4px;
+  background:#dfe6ea;border-radius:2px;margin:0 2px 0 6px;vertical-align:middle}
+.painel-mun .faixa-pct i{position:absolute;top:-2px;width:2px;height:8px;
+  background:#2f6b8f;border-radius:1px}
+@media print{section.painel{break-inside:avoid}}
+.lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
+.lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.lente p{margin:9px 0 0;text-align:justify}
+.lente p.abertura{font-size:15.5px;margin-top:7px}
+.lente b{font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot .lente{margin-bottom:0}
+.swot .lente p{text-align:left;font-size:14.5px}
+.swot .lente p.abertura{font-size:15px}
+.swot-eixo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}
+.swot-eixo span{font-size:11px;color:var(--fraco);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--roxo);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--linha)}
+tr.tem td{background:#fbf9ff;font-weight:600}
+.faixa{display:inline-block;min-width:26px;text-align:center;border-radius:4px;
+ padding:1px 7px;color:#fff;font-weight:700;font-size:12px;background:#888}
+.f1{background:#e3b505}.f2{background:#1f9d55}.f3{background:#e8730c}.f4{background:#2563eb}
+.f5{background:#06b6d4}.f6{background:#dc2626}.f7{background:#7c3aed}.f8{background:#a3a635}
+.split{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.split-cards{display:grid;gap:10px}
+.split-graf{text-align:center}
+.legenda{font-size:12px;color:var(--fraco);margin-top:6px}
+.p{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 12px}
+.azul{background:#3b7ddd}.rosa{background:#e8558f}
+.vazio{color:var(--fraco);font-size:12.5px;margin-top:9px}
+/* Ressalva de qualidade do dado: fica do lado do numero que ela ressalva, e
+   nao na secao recolhida de lacunas — e defeito conhecido do registro, nao
+   coisa que o dossie deixou de saber. */
+.alerta-dado{margin:14px 0 0;padding:12px 14px;border-radius:9px;
+ background:#fdf3e8;border:1px solid #e3b887;font-size:13px;line-height:1.5}
+.alerta-dado ul{margin:7px 0 0;padding-left:19px}
+.alerta-dado li{margin:3px 0}
+sup.ref{color:var(--roxo);font-weight:700;font-size:11px;margin-left:2px}
+table.fontes td{vertical-align:top;font-size:13px}
+table.fontes td.n{color:var(--roxo);font-weight:700;width:34px}
+ul.proc{margin:0;padding-left:19px;font-size:13.5px}
+ul.proc li{margin:4px 0}
+.explica{background:#faf9fc;border-left:3px solid var(--roxo);border-radius:0 6px 6px 0;
+ padding:10px 13px;margin:0 0 14px;font-size:13.5px;color:#3a3744;text-align:justify}
+td .nota{margin-top:2px;max-width:330px}
+.lacunas ul{margin:0;padding-left:19px}.lacunas li{margin:5px 0}
+details.lacunas{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.lacunas>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.lacunas>summary::-webkit-details-marker{display:none}
+details.lacunas>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.lacunas>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.lacunas:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.lacunas[open]>summary .seta::after{content:"ocultar ▾"}
+details.lacunas>.corpo-lac{margin-top:14px}
+/* Fontes: mesma regra da secao de lacunas, em bloco proprio. Ela e o lastro do
+   dossie e nao sai do documento — so deixa de ocupar a tela inteira no fim. */
+details.recolhido{background:#fff;border:1px solid var(--linha);border-radius:10px;
+ padding:18px;margin-bottom:16px}
+details.recolhido>summary{font-size:17px;font-weight:700;display:flex;align-items:center;
+ gap:9px;cursor:pointer;list-style:none;margin:0}
+details.recolhido>summary::-webkit-details-marker{display:none}
+details.recolhido>summary .qtd{font-size:12px;font-weight:600;color:var(--fraco)}
+details.recolhido>summary .seta{margin-left:auto;font-size:12px;font-weight:600;color:var(--roxo)}
+details.recolhido:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.recolhido[open]>summary .seta::after{content:"ocultar ▾"}
+details.recolhido>.corpo-rec{margin-top:14px}
+/* Explicacao de bloco: o rotulo fica a vista, o texto a um clique. Discreta de
+   proposito — ela acompanha um numero, nao disputa com ele. */
+details.explica-rec{background:#faf9fc;border-left:3px solid var(--roxo);
+ border-radius:0 6px 6px 0;padding:8px 13px;margin:0 0 14px}
+details.explica-rec>summary{display:flex;align-items:center;gap:9px;cursor:pointer;
+ list-style:none;font-size:12.5px;font-weight:700;color:var(--roxo)}
+details.explica-rec>summary::-webkit-details-marker{display:none}
+details.explica-rec>summary .seta{margin-left:auto;font-size:11px;font-weight:600;
+ color:var(--fraco)}
+details.explica-rec:not([open])>summary .seta::after{content:"mostrar ▸"}
+details.explica-rec[open]>summary .seta::after{content:"ocultar ▾"}
+details.explica-rec>.corpo-exp{margin-top:8px;font-size:13.5px;color:#3a3744;
+ text-align:justify}
+/* Impressao abre o bloco: em PDF nao ha clique, e lacuna que some do papel
+   volta a ser lacuna silenciada. Vale igual para Fontes e para as explicacoes:
+   no papel elas sao exatamente o que alguem conferindo o dossie procura. */
+@media print{details.lacunas>.corpo-lac,details.recolhido>.corpo-rec,
+ details.explica-rec>.corpo-exp{display:block!important;
+ content-visibility:visible!important}details.lacunas>summary .seta,
+ details.recolhido>summary .seta,details.explica-rec>summary .seta{display:none}}
+footer{color:var(--fraco);font-size:12px;text-align:center;padding:10px 4px}
+@media(max-width:760px){.topo,.split,.swot{grid-template-columns:1fr}.swot-eixo{display:none}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}
+ .swot .lente{break-inside:avoid}}
+</style></head>
+<body><div class="pag"><header>
+  <div class="marca">Órbita · Onde olhar</div>
+  <div class="sub">Praças a conferir — <b>sem análise de ponto e sem score</b> ·
+    acervo de camadas de 2026-10-26 · cadastro de lojas de 2026-11-10 ·
+    população do Censo extraída em 2026-11-25</div>
+</header>
+<div class="faixa-end">A partir de Jundiaí/SP · raio de 10 km</div>
+<section class="topo">
+  <div class="gate" style="border-color:#6b2fb5">
+    <div class="rot">Ordenado por</div>
+    <div class="val" style="color:#6b2fb5">Mercado não atendido</div>
+    <div class="nota">receita que circula na praça sem passar pela rede</div>
+  </div>
+  <div class="resumo">
+    <div class="rot">Em uma linha</div>
+    <p>Dentro de 10 km de Jundiaí há 3 praças onde a regra de expansão não barra a entrada de um grupo novo — duas unidades territoriais de Jundiaí e Jardim América, em Várzea Paulista —, e nenhuma delas foi escolhida: o pedido ainda não tem solicitante nem endereço.</p>
+    <div class="meta">Solicitante: <b>não informado</b> ·
+      Modelo pretendido: <b>não informado</b> ·
+      Praças listadas: <b>3</b></div>
+  </div>
+</section>
+<section>
+  <h2><span class="ic">■</span> O que esta lista é, e o que ela não é</h2>
+  <p class="explica"><b>É o ponto de partida de uma análise, não o resultado dela.</b>
+  Nenhuma praça abaixo foi analisada: não houve gate de zoneamento em endereço nenhum e
+  não se olhou concorrência num raio. Renda, população e potencial de consumo aparecem
+  mais adiante <b>por cidade</b>, e nessa granularidade não distinguem uma praça da outra
+  dentro do mesmo município. O que está apurado por praça é outra coisa, e só ela —
+  <b>onde a regra de expansão não barra a entrada de um grupo novo</b>, e <b>quanto
+  mercado farmacêutico circula ali hoje sem passar pela rede</b>. Escolher entre duas
+  praças desta lista ainda exige o dossiê de cada uma. E "cabe no teto" é ausência de impedimento na contagem de grupos, não
+  liberação: o gate de verdade roda sobre um endereço, com bandeira e distância mínima,
+  e pode barrar um ponto dentro de uma praça que aparece aqui como disponível.</p>
+</section>
+<section>
+  <h2><span class="ic">→</span> Praças a conferir — onde a regra não barra a entrada</h2>
+  <p class="explica"><b>Isto é lista de onde vale rodar um dossiê, não recomendação de abertura.</b> Nenhuma destas praças foi analisada: o que foi apurado é que a regra de expansão não barra a entrada de um grupo novo nelas, e quanto mercado farmacêutico circula ali hoje sem passar pela rede. Mercado grande sem nós pode ser oportunidade ou praça já testada e perdida, e <b>esta apuração não separa os dois</b>: sob o mercado de cada linha vem quantas lojas a rede já tem na cidade e se a receita dela caiu ali — que é o que foi medido. A causa da queda não está em base nenhuma deste acervo. Cada linha é uma unidade de mercado, por isso a mesma cidade pode aparecer mais de uma vez, sempre nomeando a localidade — ou dizendo "município inteiro", quando a unidade cobre a cidade toda. O modelo pretendido não foi informado, então a exigência de bandeira popular do 2º grupo na faixa de 60 a 120 mil <b>não</b> foi aplicada ao filtro. Praça com mercado abaixo de R$ 5.000.000,00 não entra na lista — piso desta busca, premissa e não regra da casa.</p>
+  <p class="explica"><b>A lista está limitada a 10 km do endereço analisado</b>, medidos até o centro aproximado de cada município. Esse raio é premissa desta análise, não regra da casa: nenhuma fonte diz a que distância um empresário aceita operar. Sem ele, a lista devolveria as maiores praças da UF para qualquer ponto do estado.</p>
+  <table><thead><tr><th>Praça</th><th>Distância</th><th>Mercado não atendido</th>
+  <th>Grupos / teto</th><th>Cresc.</th></tr></thead><tbody><tr><td><b>JUNDIAI/SP</b><div class="nota">CIDADE SANTOS DUMONT</div></td><td>0 km</td><td>R$ 391,7 milhões<div class="nota">2 loja(s) da rede na cidade · receita da rede caiu 10,0% aqui — a base não diz por quê</div></td><td>1 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>22,0%</td></tr><tr><td><b>JUNDIAI/SP</b><div class="nota">município inteiro</div></td><td>0 km</td><td>R$ 389,5 milhões<div class="nota">2 loja(s) da rede na cidade</div></td><td>1 grupo(s)<div class="nota">a cidade não tem teto</div><div class="nota">sem teto (acima de 200 mil habitantes)</div></td><td>11,0%</td></tr><tr><td><b>VARZEA PAULISTA/SP</b><div class="nota">JARDIM AMERICA</div></td><td>6 km</td><td>R$ 88,5 milhões<div class="nota">0 loja(s) da rede na cidade</div></td><td>0 de 2<div class="nota">cabe grupo novo — 0 de 2, 2 vaga(s)</div></td><td>12,0%</td></tr></tbody></table>
+  <p class="vazio"><b>Como a disponibilidade é apurada.</b> cabe grupo novo quando os grupos econômicos com loja ativa na cidade são MENOS que o teto da faixa — e, na faixa de 60 a 120 mil, o 2º grupo só entra com bandeira popular.
+  O grupo sai do identificador de grupo econômico do cadastro de lojas. Até 2026-11-25 a contagem deduplicava pelo NOME do responsável, que quebra com grafia divergente — duas lojas do mesmo dono escritas de dois jeitos viravam dois grupos, e um grupo a mais barra um pedido que caberia. Loja ativa sem identificador preenchido conta como loja e não conta como grupo, e isso é declarado por praça Esta lista escolhe
+  a <b>praça</b>, não o ponto: cada uma ainda precisa do seu próprio dossiê.</p>
+  
+</section>
+<section class="painel">
+  <h2><span class="ic">◎</span> Como é cada cidade — valor e posição nacional</h2>
+  <p class="explica"><b>Aqui a unidade muda: cada linha é uma cidade, não uma praça.</b>
+  Estes indicadores são do município inteiro e seriam idênticos nas regiões da mesma
+  cidade — JUNDIAI ocupa 2 linhas da tabela acima e uma só aqui, porque 2 linhas iguais sugeririam 2 praças avaliadas. Nenhum número desta seção pontua, nota ou ordena: cada indicador
+  aparece com o valor e com a posição dele na distribuição dos municípios brasileiros da
+  própria camada. <b>Nenhuma linha é melhor que outra</b>, e cidade com percentil alto em
+  três dimensões e baixo na quarta não é "três de quatro" — é uma cidade com um perfil, e
+  o perfil é o conteúdo.</p>
+  <p class="explica"><b>O que o percentil compara, e o que ele não compara.</b> Comparar
+  cada cidade com a distribuição nacional da própria camada é o referente que esta análise
+  usa. Comparar entre si os <b>percentis</b> destas cidades <b>não</b> é: quatro ou doze
+  casos não são uma distribuição, e ordená-los criaria uma régua de qualidade que não
+  existe. Contagens do cadastro — quantas lojas, quantos grupos — comparam-se à vontade,
+  porque são o que a lista mede. A ordem das
+  linhas é alfabética e não significa nada. Dentro de uma mesma dimensão os indicadores
+  podem apontar em direções opostas — renda baixa com consumo de farmácia alto é um achado,
+  e qualquer média entre os dois apagaria justamente ele.</p>
+  <p class="explica"><b>Três ressalvas que mudam a leitura.</b> A captura do potencial pode
+  ser baixa porque há mercado que ninguém atende <b>ou</b> porque a medição de mercado cobre
+  mal aquela praça — nada neste acervo separa os dois casos. <b>Habitantes por farmácia alto
+  tem a mesma ambiguidade</b>, e pela mesma razão: pode ser parque subdimensionado ou
+  cobertura parcial da base de farmácias. Essa base sustenta três dos indicadores deste
+  painel — habitantes por farmácia, o percentual de credenciadas e as classes de renda dos
+  domicílios —, então uma falha de cobertura nela afetaria os três juntos. E a razão de habitantes por
+  farmácia usa uma contagem de população que é estimativa, cerca de 4% acima do Censo 2022:
+  a <b>posição</b> na distribuição não é afetada, porque todas as cidades entram pela mesma
+  régua, mas o <b>valor</b> é, e ele não é comparável com a população do Censo que aparece
+  na tabela de praças acima.</p>
+  <table class="painel-mun">
+    <thead><tr>
+      <th>Município<div class="nota-th">ordem alfabética</div></th>
+      <th>Poder de compra</th><th>Folga competitiva</th><th>Dinamismo</th><th>Centralidade urbana</th>
+    </tr></thead>
+    <tbody><tr><td><b>JUNDIAI/SP</b><div class="nota">2 linha(s) na tabela acima</div><div class="nota">Capital Regional C na rede urbana</div></td><td><div class="ind"><span class="rot">renda domiciliar per capita</span><span class="val">729,8 R$</span><span class="faixa-pct" title="percentil 85 — mediana nacional 456,3 R$"><i style="left:85%"></i></span><span class="pn">p85</span></div><div class="ind"><span class="rot">consumo em drogarias por habitante</span><span class="val">312,6 R$/ano</span><span class="faixa-pct" title="percentil 100 — mediana nacional 135,0 R$/ano"><i style="left:100%"></i></span><span class="pn">p100</span></div><div class="ind"><span class="rot">domicílios nas classes A, B1 e B2</span><span class="val">39,8 %</span><span class="faixa-pct" title="percentil 100 — mediana nacional 17,0 %"><i style="left:100%"></i></span><span class="pn">p100</span></div></td><td><div class="ind"><span class="rot">habitantes por farmácia</span><span class="val">1.870,1 hab</span><span class="faixa-pct" title="percentil 72 — mediana nacional 1.492,6 hab"><i style="left:72%"></i></span><span class="pn">p72</span></div><div class="ind"><span class="rot">captura do potencial pelo varejo medido</span><span class="val">45,0 %</span><span class="faixa-pct" title="percentil 60 — mediana nacional 39,7 %"><i style="left:60%"></i></span><span class="pn">p60</span></div><div class="ind"><span class="rot">farmácias credenciadas ao Farmácia Popular</span><span class="val">23,3 %</span><span class="faixa-pct" title="percentil 41 — mediana nacional 29,0 %"><i style="left:41%"></i></span><span class="pn">p41</span></div></td><td><div class="ind"><span class="rot">crescimento demográfico</span><span class="val">1,5 % a.a.</span><span class="faixa-pct" title="percentil 90 — mediana nacional 0,1 % a.a."><i style="left:90%"></i></span><span class="pn">p90</span></div><div class="ind"><span class="rot">crescimento do mercado farmacêutico do município</span><span class="val">16,4 %</span><span class="faixa-pct" title="percentil 68 — mediana nacional 12,5 %"><i style="left:68%"></i></span><span class="pn">p68</span></div></td><td><div class="ind"><span class="rot">municípios que este influencia</span><span class="val">0 cidades</span><span class="faixa-pct" title="percentil 0 — mediana nacional 0,0 cidades"><i style="left:0%"></i></span><span class="pn">p0</span></div><div class="ind"><span class="rot">população urbana</span><span class="val">96,9 %</span><span class="faixa-pct" title="percentil 94 — mediana nacional 71,0 %"><i style="left:94%"></i></span><span class="pn">p94</span></div><div class="ind"><span class="rot">densidade demográfica</span><span class="val">1.080,0 hab/km²</span><span class="faixa-pct" title="percentil 98 — mediana nacional 24,9 hab/km²"><i style="left:98%"></i></span><span class="pn">p98</span></div></td></tr><tr><td><b>VARZEA PAULISTA/SP</b><div class="nota">1 linha(s) na tabela acima</div><div class="nota">Capital Regional C na rede urbana</div></td><td><div class="ind"><span class="rot">renda domiciliar per capita</span><span class="val">710,1 R$</span><span class="faixa-pct" title="percentil 83 — mediana nacional 456,3 R$"><i style="left:83%"></i></span><span class="pn">p83</span></div><div class="ind"><span class="rot">consumo em drogarias por habitante</span><span class="val">242,8 R$/ano</span><span class="faixa-pct" title="percentil 94 — mediana nacional 135,0 R$/ano"><i style="left:94%"></i></span><span class="pn">p94</span></div><div class="ind"><span class="rot">domicílios nas classes A, B1 e B2</span><span class="val">27,5 %</span><span class="faixa-pct" title="percentil 87 — mediana nacional 17,0 %"><i style="left:87%"></i></span><span class="pn">p87</span></div></td><td><div class="ind"><span class="rot">habitantes por farmácia</span><span class="val">2.660,1 hab</span><span class="faixa-pct" title="percentil 93 — mediana nacional 1.492,6 hab"><i style="left:93%"></i></span><span class="pn">p93</span></div><div class="ind"><span class="rot">captura do potencial pelo varejo medido</span><span class="val">25,4 %</span><span class="faixa-pct" title="percentil 23 — mediana nacional 39,7 %"><i style="left:23%"></i></span><span class="pn">p23</span></div><div class="ind"><span class="rot">farmácias credenciadas ao Farmácia Popular</span><span class="val">28,9 %</span><span class="faixa-pct" title="percentil 51 — mediana nacional 29,0 %"><i style="left:51%"></i></span><span class="pn">p51</span></div></td><td><div class="ind"><span class="rot">crescimento demográfico</span><span class="val">0,7 % a.a.</span><span class="faixa-pct" title="percentil 72 — mediana nacional 0,1 % a.a."><i style="left:72%"></i></span><span class="pn">p72</span></div><div class="ind"><span class="rot">crescimento do mercado farmacêutico do município</span><span class="val">11,6 %</span><span class="faixa-pct" title="percentil 45 — mediana nacional 12,5 %"><i style="left:45%"></i></span><span class="pn">p45</span></div></td><td><div class="ind"><span class="rot">municípios que este influencia</span><span class="val">0 cidades</span><span class="faixa-pct" title="percentil 0 — mediana nacional 0,0 cidades"><i style="left:0%"></i></span><span class="pn">p0</span></div><div class="ind"><span class="rot">população urbana</span><span class="val">99,7 %</span><span class="faixa-pct" title="percentil 99 — mediana nacional 71,0 %"><i style="left:99%"></i></span><span class="pn">p99</span></div><div class="ind"><span class="rot">densidade demográfica</span><span class="val">3.415,4 hab/km²</span><span class="faixa-pct" title="percentil 99 — mediana nacional 24,9 hab/km²"><i style="left:99%"></i></span><span class="pn">p99</span></div></td></tr></tbody>
+  </table>
+</section>
+<section>
+  <h2><span class="ic">◆</span> Leitura da lista</h2>
+  <div class="lente" style="border-color:#6b2fb5;background:#faf7fd"><p>O alcance desta lista é de 10 km, e esse número é premissa do pedido, não medida. O filtro de proximidade só se aplica quando encontra pelo menos 3 praças disponíveis dentro do raio; com 10 km encontrou exatamente 3, e foi aplicado. Abaixo de 6,2 km — a distância da praça mais afastada desta lista — restariam 2, o filtro se desligaria sozinho e a lista voltaria a cobrir São Paulo inteiro, que é o oposto do recorte pedido.</p><p>Jundiaí tem 443.221 habitantes no Censo 2022 e está acima do limite de população em que a regra de expansão fixa teto de grupos econômicos: na faixa dela não há teto, e a contagem não barra a entrada de ninguém. A cidade já tem 2 lojas da rede, respondendo a 1 grupo econômico. O potencial anual de consumo em drogarias do município é de R$ 1.746.790.930,00, dos quais o varejo medido captura 44,96% — restam R$ 961.388.961,42 não capturados. O preço médio por unidade no brick da cidade é de R$ 37,31.</p><p>A cidade aparece em duas unidades territoriais, e o mesmo município conta duas histórias diferentes. Em Cidade Santos Dumont o mercado farmacêutico é de R$ 395.939.795,69 no acumulado de doze meses e cresce 22%, mas a receita da rede ali é de R$ 4.265.438,57 e caiu 10% no período — share de 1,08%, com R$ 391.674.357,12 circulando sem passar pelo grupo. Na outra unidade, o mercado é de R$ 389.462.172,89, cresce 11% e a receita da rede é zero: a praça inteira é de concorrentes. Atenção ao rótulo dessa segunda linha na tabela acima: ela aparece como &quot;município inteiro&quot;, mas não é — é uma das duas unidades territoriais de Jundiaí, e recebe esse rótulo só porque o nome dela na base de unidades territoriais vem sem o sufixo de localidade. O município somado é de R$ 785.401.968,58, que é a receita sobre a qual a captura de 44,96% é calculada.</p><p>Contra a distribuição nacional dos municípios brasileiros, o consumo em drogarias por habitante em Jundiaí é de R$ 312,60 por ano, no percentil 100 de 5.571 municípios, onde a mediana nacional é de R$ 135,02; os domicílios das classes A, B1 e B2 são 39,79% do total, também no percentil 100, contra mediana nacional de 17,00%. A renda domiciliar per capita, de R$ 729,77, fica no percentil 85 de 5.565 municípios, sobre mediana de R$ 456,30. É gasto de farmácia por pessoa no topo da distribuição do país.</p><p>A mesma cidade é menos clara quando se olha o espaço competitivo, e os indicadores da dimensão apontam para lados diferentes — o que é achado, não ruído. Há 1.870 habitantes para cada farmácia — medido sobre a população estimada do acervo, não sobre o Censo —, no percentil 72 de 5.541 municípios, sobre mediana nacional de 1.492,56: parque menos saturado que o da maioria. Mas a captura do potencial pelo varejo medido, de 44,96%, está no percentil 60 de 5.249 municípios, sobre mediana de 39,66% — parte relevante desse potencial já passa por farmácia medida. E 23,29% das farmácias da cidade são credenciadas ao Farmácia Popular, percentil 41 de 5.541 municípios, abaixo da mediana nacional de 29,00%; isso é perfil do parque instalado, não folga de mercado.</p><p>O crescimento demográfico de Jundiaí é de 1,51% ao ano, percentil 90 de 5.571 municípios, sobre mediana nacional de 0,13%, e o mercado farmacêutico do município cresceu 16,39%, percentil 68 de 5.249 municípios, sobre mediana de 12,47%. A população é 96,86% urbana, percentil 94, e a densidade é de 1.080,01 habitantes por km², percentil 98 de 5.571 municípios, onde a mediana nacional é de 24,93.</p><p>Várzea Paulista é a terceira praça da lista, a 6,2 km do centroide de Jundiaí. São 115.771 habitantes no Censo 2022, teto de 2 grupos econômicos e nenhum instalado — 2 vagas, e nenhuma loja da rede na cidade. Jardim América é a única unidade territorial do município nesta apuração: a receita da praça e a do município são o mesmo valor, R$ 88.537.393,36, que cresce 12% e não tem nenhum real do grupo dentro. O município captura 25,39% do próprio potencial anual de R$ 348.765.203,00, no percentil 23 de 5.249 municípios, sobre mediana nacional de 39,66% — e tem 2.660 habitantes por farmácia, medidos sobre a população estimada do acervo, no percentil 93 de 5.541 municípios. O preço médio por unidade no brick do município é de R$ 26,37.</p><p>Nenhuma praça foi escolhida neste documento, e isso é declaração, não omissão: o pedido é exploratório, sem solicitante definido e sem endereço, e a escolha é do analista. A ordenação da tabela é por mercado não atendido, que é uma quantidade medida e nunca uma nota — a primeira linha é a de maior mercado circulando sem a rede, e nada além disso. E caber na contagem de grupos é ausência de impedimento, não liberação: o gate de zoneamento roda sobre um endereço, com coordenada, e é lá que a distância mínima entre lojas e a alternância de bandeiras passam a valer.</p></div>
+</section>
+<details class="lacunas">
+  <summary><span class="ic">!</span> O que esta lista NÃO sabe
+    <span class="qtd">14 itens</span><span class="seta"></span></summary>
+  <div class="corpo-lac"><ul><li>Por que a receita da rede caiu em Cidade Santos Dumont. O mercado da praça cresceu 22% e a receita do grupo recuou 10% no mesmo período, e a apuração declara que não sabe separar queda de desempenho de saída de associado: a base é a carteira atual com histórico retroagido, então loja que saiu some da série em vez de aparecer como queda. A diferença decide se essa praça é espaço aberto ou praça já testada e perdida. Destrava com o histórico de entrada e saída de associado por praça, que a área de Expansão tem e este acervo não.</li><li>Que pedaço de Jundiaí é a unidade territorial que a tabela rotula como município inteiro. Ela é uma das duas unidades da cidade e não o município, mas a base a nomeia sem localidade, e por isso o documento não consegue dizer que parte de Jundiaí ela cobre — só que não é a mesma coberta por Cidade Santos Dumont. Enquanto isso não for resolvido, o rótulo dessa linha deve ser lido como o nome da unidade, nunca como abrangência. Destrava com o polígono das unidades territoriais de varejo, ou com o nome completo dela na base de origem.</li><li>Que pedaço de Jundiaí é cada unidade territorial. O documento nomeia Cidade Santos Dumont e a unidade que responde pelo restante do município, mas a apuração não traz a geometria de nenhuma das duas — a coluna de geometria do acervo guarda só a palavra que descreve o tipo do polígono. Sem isso não se sabe onde, no mapa de Jundiaí, está o mercado sem receita da rede, que é justamente a pergunta que levaria a um endereço. Destrava com o polígono das unidades territoriais de varejo.</li><li>Qual bandeira e qual modelo o pedido pretende. Nada foi informado, e por isso a restrição que exige bandeira popular do 2º grupo numa faixa intermediária de população não foi aplicada nesta lista. Para estas três praças o efeito prático é nulo — Jundiaí não tem teto e Várzea Paulista está com zero grupos instalados, de modo que a exigência não incide em nenhuma delas —, mas a declaração vale porque a restrição só incide em praça de faixa intermediária de população que já tenha um grupo instalado, e nenhuma das três está nessa situação. Destrava com a bandeira e o modelo pretendidos.</li><li>O que as 2 lojas da rede em Jundiaí significam para quem fizer o pedido. Este documento não afirma nada sobre canibalização: sem saber quem pede, loja da rede próxima não é nem conflito entre associados nem escolha estratégica de quem já opera a cidade. A vaga desta lista é sempre calculada para a entrada de um grupo novo, e para quem já responde por loja em Jundiaí a leitura é outra. Destrava com o nome do empresário e do responsável pelo GE como estão no cadastro.</li><li>Se há ponto que passa no gate de zoneamento em qualquer uma das três praças. Não há endereço nem coordenada, então nada foi avaliado: nem distância mínima entre lojas da rede, nem alternância de bandeiras, nem erro de cadastro de loja próxima. Caber na contagem de grupos é a única coisa que esta lista verifica. Destrava com um endereço e a coordenada dele.</li><li>Onde fica o centro de Jundiaí, para efeito de distância. A âncora desta busca é um centroide aproximado, obtido pela farmácia real mais próxima da mediana das coordenadas de 183 farmácias da cidade, com dispersão de 2,6 km entre elas. Serve para ordenar praças e dar ordem de grandeza, nunca para medir distância entre dois endereços — os 6,2 km até Várzea Paulista são aproximação nessa escala. Destrava com a geometria oficial dos municípios.</li><li>Quanta gente circula em cada praça. Fluxo de passantes não existe em fonte nenhuma — nem no acervo, nem no produto, nem em API pública. Numa cidade de 443.221 habitantes, com duas unidades territoriais de mercado quase do mesmo tamanho, é o que separa corredor comercial de bairro dormitório, e nenhum número desta lista o distingue. Destrava com contagem em campo nos recortes candidatos.</li><li>Quantas cidades Jundiaí e Várzea Paulista de fato polarizam. A camada de rede urbana registra zero municípios influenciados para as duas, mas essa contagem é herdada do arranjo metropolitano a que cada cidade pertence — ela descreve a rede urbana em volta, não o quanto aquele município específico puxa gente de fora. Como parte do mercado de uma farmácia pode vir de quem mora noutra cidade, essa diferença importa, e a camada não a resolve. O mesmo vale para o rótulo de classificação: as duas cidades aparecem na mesma categoria da camada, que descreve o arranjo urbano a que pertencem e não o papel de cada município isoladamente. Destrava com uma medida de polarização por município.</li><li>Se a captura baixa de Várzea Paulista é mercado livre ou painel fraco. O município captura 25,39% do próprio potencial, no percentil 23 nacional, e a apuração declara que não separa as duas explicações: pode ser potencial que ninguém atende, ou pode ser cobertura fraca do painel do instituto naquela praça. As duas levam a decisões opostas. Destrava com a cobertura do painel por município.</li><li><b>Como é cada praça por dentro.</b> A unidade desta lista é territorial e cobre a cidade ou uma parte dela, não um raio em volta de um endereço. Renda, população e potencial de consumo aparecem no perfil <b>por cidade</b>, e nessa granularidade não distinguem uma praça da outra dentro do mesmo município; <b>por praça</b> seguem desconhecidos, junto com a concorrência no raio. Destrava rodando o dossiê da praça escolhida.</li><li><b>Se a vaga vale para quem está perguntando.</b> A disponibilidade é calculada para a entrada de um grupo <b>novo</b>, e a apuração não sabe quem fez o pedido. Para solicitante que já responde por loja numa destas cidades, o pedido não acrescenta grupo e a leitura da linha é outra. Destrava informando em quais cidades ele já opera.</li><li><b>A que distância o empresário aceita operar.</b> O raio de 10 km é premissa desta busca, não regra da casa e não medida: nenhuma fonte do acervo responde isso. Praça boa logo depois do limite não aparece. Destrava com o raio que o solicitante aceita, informado por ele.</li><li><b>Se alguma loja ficou fora da contagem de grupos.</b> A contagem usa o identificador de grupo econômico do cadastro, e loja ativa sem esse identificador preenchido conta como loja e <b>não</b> conta como grupo. Onde isso acontece, a praça aparece com menos grupos do que tem — e pode aparecer disponível sem estar. A lista declara, em cada cidade, quando há loja nessa situação. Destrava conferindo o cadastro das lojas da praça.</li></ul></div>
+</details>
+<section>
+  <h2><span class="ic">✓</span> Para confirmar antes de escolher</h2>
+  <ul class="proc"><li>Levantar endereços candidatos nas duas unidades territoriais de Jundiaí e obter a coordenada de cada um. É o que destrava tudo o que esta lista não responde: o gate de zoneamento, o raio de análise, a concorrência medida, os setores censitários e a implantação na quadra. Sem coordenada não existe dossiê de ponto, só retrato de região.</li><li>Checar com a área de Expansão o que houve com a receita da rede em Cidade Santos Dumont. Se foi saída de associado, a praça tem vaga e histórico — e o motivo da saída é o que decide se vale voltar. Se foi perda de desempenho das lojas que continuam lá, a leitura é de disputa em curso, com 2 lojas da rede na cidade a defender.</li><li>Levantar os geradores de fluxo e o perfil de rua dos recortes candidatos. Esta é etapa obrigatória do processo e o documento não a antecipa: nenhum número desta lista distingue um corredor comercial de um bairro dormitório dentro da mesma unidade territorial, e é essa diferença que separa dois endereços com o mesmo mercado em volta. Conforme o resultado, a decisão muda de lado: endereço com gerador de fluxo a poucos metros sustenta venda de passagem e aceita aluguel mais alto; endereço sem nenhum depende do morador do raio, e aí o que decide é a densidade residencial, não o mercado da unidade territorial.</li><li>Definir quem é o empresário e obter o nome do responsável pelo GE como está no cadastro de lojas. Sem ele o relatório de ponto nem é gerado, e antes disso a leitura de canibalização fica sem base: as 2 lojas da rede em Jundiaí são de terceiros ou do próprio solicitante conforme a resposta, e isso inverte o sentido de cada loja próxima.</li><li>Decidir se Várzea Paulista é alternativa real ou ruído do raio. Ela entrou porque o filtro de proximidade exige 3 praças e Jundiaí sozinha tem 2 — não porque alguém pediu para olhar lá. É município distinto, com teto de 2 grupos, gate próprio e 2 vagas, e o recorte que o pedido declarou era Jundiaí. Se a resposta for que o escopo é Jundiaí mesmo, a lista útil tem 2 linhas e o próximo passo é um endereço numa delas; se Várzea entrar no escopo, ela é a única das três praças com teto, e passa a existir uma restrição de contagem de grupos que Jundiaí não tem.</li></ul>
+</section>
+<footer>
+  Órbita · Onde olhar · a partir de Jundiaí/SP ·
+  insumo para escolher onde analisar, não recomendação de abertura
+</footer></div></body></html>

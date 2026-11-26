@@ -27,11 +27,10 @@ sentidos:
 - o solicitante se declara novo e de fato é — mas opera em outro município, e
   ser da casa não dá vaga nesta praça.
 
-A fragilidade que torna isso decisivo está documentada adiante: o grupo é
-deduplicado por **nome normalizado, não por CNPJ**. Duas grafias do mesmo dono
-viram dois grupos e barram um pedido que caberia; a mesma falha, ao contrário,
-funde dois donos distintos num grupo só. Sem o nome do empresário em mãos, não
-há nem como suspeitar de nenhum dos dois casos.
+Sem o nome não há nem como suspeitar de nenhum dos dois casos — é ele que se
+procura no cadastro. **Empresário e responsável pelo grupo econômico são a mesma
+pessoa**, e por isso é uma pergunta só: o campo do cadastro se chama
+`Nome do responsável pelo GE` e nomeia quem responde pelas lojas do grupo.
 
 **O nome não entra no entregável.** Ele é dado pessoal (LGPD) e tem o mesmo
 tratamento do responsável pelo GE: serve à apuração, entra por linha de comando
@@ -57,10 +56,13 @@ sobra apenas o alerta de densidade. Um solicitante que **não** opera nesta cida
 entra como grupo novo, mesmo já sendo associado em outro município — ser da casa
 não dá vaga, estar na praça sim.
 
-**Grupo econômico é o `Nome do responsável pelo GE` do cadastro, deduplicado por
-nome normalizado — não por CNPJ.** Agora que é ele que barra, essa fragilidade
-decide: duas lojas do mesmo dono com grafia divergente viram dois grupos e barram
-um pedido que caberia. Todo dossiê declara isso onde a contagem aparece.
+**A contagem de grupos sai do identificador de grupo econômico do cadastro**,
+e não mais do nome do responsável — a dedupliação por nome normalizado foi
+abandonada em 2026-11-25, porque grafia divergente partia um dono em dois grupos
+e barrava pedido que caberia. O modo de falha que sobrou é outro e menor: **loja
+ativa sem identificador preenchido conta como loja e não conta como grupo**, o
+que erra para o lado de deixar passar, nunca de barrar. Todo dossiê declara isso
+onde a contagem aparece, praça a praça.
 
 ---
 

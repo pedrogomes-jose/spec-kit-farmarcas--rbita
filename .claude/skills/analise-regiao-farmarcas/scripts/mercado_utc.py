@@ -39,17 +39,44 @@ def main() -> int:
     args = ap.parse_args()
     codigo = args.codigo_ibge.strip()
 
-    utcs = []
+    # A chave é `id_utc_var`, e o dump repete linha: a mesma UTC aparece duas ou
+    # três vezes no mesmo município, com geometria diferente e id igual. Sem
+    # deduplicar aqui, `somar()` lá embaixo percorre ESTA lista e soma o valor
+    # da UTC repetida uma vez por linha — a receita do município sai inflada
+    # pela receita inteira da UTC duplicada.
+    #
+    # Medido em 2026-11-26, sobre o dump de 2026-10-26: 21 dos 5.570 municípios
+    # têm linha repetida, 35 linhas a mais no total, e entre eles estão São
+    # Paulo (+7), Rio de Janeiro, Belo Horizonte e Manaus (+3 cada), Brasília
+    # (+2), Salvador e Olinda (+1). Em Sorocaba/SP a receita publicada era
+    # R$ 1.583.662.561,73 contra R$ 1.167.374.364,34 reais — R$ 416.288.197,39
+    # a mais, exatamente a receita de Jardim América, contada duas vezes. O
+    # pior caso proporcional é Carapicuíba/SP: três linhas para UMA UTC, com a
+    # receita triplicada.
+    #
+    # Que a base somada (`mat_anterior_x_atual_utc_crescimento`) tenha uma linha
+    # por id NÃO protege — e essa foi a leitura errada que atrasou este
+    # conserto. Quem duplica não é a base somada: é a lista que a consulta.
+    #
+    # A primeira linha é a mantida, e as descartadas são DECLARADAS abaixo:
+    # a geometria pode diferir entre elas, e este script não escolhe geometria.
+    utcs, vistos, repetidas = [], set(), []
     for linha in B.ler("closeup_utc_varejo"):
-        if (linha.get("codigo_mun") or "").strip() == codigo:
-            utcs.append(
-                {
-                    "utc_id_varejo": (linha.get("id_utc_var") or "").strip(),
-                    "nome": (linha.get("nome_utc_v") or "").strip(),
-                    "municipio": (linha.get("municipio") or "").strip(),
-                    "uf": (linha.get("uf") or "").strip(),
-                }
-            )
+        if (linha.get("codigo_mun") or "").strip() != codigo:
+            continue
+        uid = (linha.get("id_utc_var") or "").strip()
+        registro = {
+            "utc_id_varejo": uid,
+            "nome": (linha.get("nome_utc_v") or "").strip(),
+            "municipio": (linha.get("municipio") or "").strip(),
+            "uf": (linha.get("uf") or "").strip(),
+        }
+        if uid and uid in vistos:
+            repetidas.append(registro)
+            continue
+        if uid:
+            vistos.add(uid)
+        utcs.append(registro)
 
     if not utcs:
         B.emitir({"erro": f"nenhuma UTC encontrada para o código IBGE {codigo}"})
@@ -65,6 +92,20 @@ def main() -> int:
     }
     indices = {}
     lacunas = []
+    if repetidas:
+        nomes = ", ".join(sorted({r["nome"] or r["utc_id_varejo"] for r in repetidas}))
+        lacunas.append(
+            {
+                "base": "closeup_utc_varejo",
+                "motivo": (
+                    f"{len(repetidas)} linha(s) repetida(s) neste município, com id de UTC já "
+                    f"presente ({nomes}) — descartadas da soma para a receita do município não "
+                    "contar a mesma UTC duas vezes. Fica a pergunta de qual geometria é a "
+                    "correta, que este script não escolhe. Destrava com a correção da "
+                    "duplicidade na origem do acervo"
+                ),
+            }
+        )
     for rotulo, prefixo in bases.items():
         try:
             indices[rotulo] = indexar_por_utc(prefixo)
@@ -147,6 +188,15 @@ def main() -> int:
             "precisao_geografica": precisao,
             "qtd_utcs": len(utcs),
             "utcs": utcs,
+            "linhas_repetidas_descartadas": {
+                "total": len(repetidas),
+                "_criterio": "id_utc_var já visto neste município; a primeira linha é a mantida",
+                "_leitura": (
+                    "duplicidade do dump, não UTC a mais. Entravam na soma da receita do "
+                    "município e no contador de UTCs — ver as lacunas"
+                ),
+                "itens": repetidas,
+            } if repetidas else None,
             "mercado_municipio_somado_utcs": mercado_municipio,
             "faturamento_closeup_PARCIAL": fat,
             "_aviso_closeup": "uma linha por município carregando o id de UMA UTC — parcial, não é o total do município",

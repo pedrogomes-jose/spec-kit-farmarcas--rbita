@@ -1,0 +1,173 @@
+{
+  "endereco": "Av. Gov. Sarney, 558 - Nova Santa Inês, Santa Inês/MA, 65300-000",
+  "lat": -3.656088,
+  "lng": -45.37641,
+  "origem_da_coordenada": "informada pelo solicitante na abertura da análise, não geocodificada nesta sessão",
+  "raio_principal": 300,
+  "raio_amplo": 5000,
+  "codigo_ibge": "2109908",
+  "municipio": "Santa Inês",
+  "uf": "MA",
+  "bandeira": "Ultra Popular",
+  "modelo": "popular",
+  "perfil": "existente",
+  "ge": "",
+  "receita_por_m2": null,
+
+  "resumo": "Esquina de avenida no centro de Santa Inês, numa das praças mais povoadas de farmácia do país, com uma rede nacional a 19 m e a receita da rede Farmarcas em queda dentro de um mercado municipal que cresce.",
+
+  "resumo_gate": "Zoneamento em alerta: na faixa de 60 a 120 mil habitantes o teto é de 2 grupos econômicos, o solicitante entra como 2º grupo com bandeira popular e a regra não barra — ficam o alerta de densidade e a distância mínima não checada para duas lojas sem coordenada no cadastro.",
+
+  "resumo_perguntas": [
+    {
+      "titulo": "A que distância estão as duas lojas da rede que o cadastro não localiza?",
+      "texto": "São uma Ultra Popular e uma Maxi Popular, ambas no Centro e ambas sem coordenada. Para a Ultra Popular o limiar da regra é de 300 m, porque é a bandeira pretendida; para a Maxi Popular é de 500 m. Hoje a distância mínima entra como regra não avaliada para as duas; com os endereços geocodificados ela vira veredito, e pode mudar o resultado do gate."
+    },
+    {
+      "titulo": "Por que a receita da rede em Santa Inês caiu 11% enquanto o resto do mercado subiu 14%?",
+      "texto": "A base mede queda de receita, não saída de associado, e é a carteira atual com histórico retroagido — quem saiu some da série em vez de aparecer como queda. Com a causa nomeada, isso vira item de Dificuldades com o obstáculo concreto; sem ela, fica como lacuna e o dossiê não diz se o problema é de praça, de operação ou de carteira."
+    },
+    {
+      "titulo": "Existe supermercado ou mercado no raio de 500 m?",
+      "texto": "O mapa colaborativo não registra nenhum, e ao mesmo tempo há um cruzamento com a Rua do Mercado Municipal a 44,8 m do ponto. Compra de rotina é o gerador que traz a mesma pessoa várias vezes por semana — se houver um e o mapa não o tiver, a leitura do entorno muda de centro de serviços para centro de abastecimento."
+    }
+  ],
+
+  "lentes": {
+    "Forças": {
+      "abertura": "O miolo de 300 m é a parte densa e de maior renda de uma cidade que é polo regional, e o ponto está na esquina onde o comércio do centro se concentra.",
+      "itens": [
+        {
+          "titulo": "O raio de 300 m tem 6.849,2 habitantes por km², contra 1.421,7 no raio de 5 km",
+          "texto": "Pelas camadas setoriais do Censo 2010, são 1.927,9 moradores e 543,9 domicílios no círculo menor, com renda de R$ 1.412,00 por habitante contra R$ 762,83 no anel de 5 km. O potencial de consumo em drogarias no raio de 300 m é de R$ 3.251.359,84, com 38,6% em medicamentos e 61,4% em higiene, beleza e nutrição.",
+          "fonte": "camadas setoriais do acervo do Órbita sobre a malha de setores censitários do IBGE"
+        },
+        {
+          "titulo": "O ponto é esquina, a 18 m do cruzamento da Avenida Governador Sarney com a Avenida Luís Muniz e a Rua da Pedra Branca",
+          "texto": "São duas faces de exposição. Em volta, dentro de 500 m, o mapa registra 9 equipamentos de ensino — a faculdade mais próxima a 81 m —, 3 de saúde, com uma clínica a 267 m e hospitais a 309 m e 388 m, 2 agências bancárias a 170 m e 198 m, e 8 de lazer e culto, com a igreja matriz a 75 m. De supermercado e de equipamento de transporte, nenhum registro.",
+          "fonte": "malha viária e equipamentos do OpenStreetMap"
+        },
+        {
+          "titulo": "A cidade é polo de 12 municípios que somam 297.061 habitantes",
+          "texto": "Classificada como Centro Sub-Regional A, Santa Inês atende demanda de rotina em comércio e serviços básicos de Santa Luzia (58.634), Zé Doca (41.681), Bom Jardim (33.832), Pindaré-Mirim (32.558), Monção (28.516), Alto Alegre do Pindaré (26.227), Pio XII (22.376), Igarapé do Meio (14.414), São João do Carú (12.297), Bela Vista do Maranhão (12.133), Satubinha (8.761) e Tufilândia (5.632).",
+          "fonte": "REGIC 2018, do IBGE"
+        }
+      ]
+    },
+
+    "Fragilidades": {
+      "abertura": "A praça já tem farmácia demais para a gente que mora nela, a única loja de rede do entorno de 300 m está colada no ponto, e a rede Farmarcas vem perdendo receita justamente onde o mercado cresce.",
+      "itens": [
+        {
+          "titulo": "A farmácia mais próxima está a 19 m e disputa o mesmo cliente",
+          "texto": "É uma Pague Menos, na mesma Avenida Governador Sarney — a 19 m pela camada de concorrentes e a 15 m pelo mapa colaborativo. Pela régua de canal, a loja média ABRAFARMA no Maranhão fatura R$ 792.043,63 por mês, contra R$ 39.157,58 da loja média independente, e 4 das 5 farmácias do raio de 300 m são independentes. O entorno de 300 m soma R$ 948.673,95 por mês pela mesma régua.",
+          "fonte": "camada Concorrentes 2025, equipamentos do OpenStreetMap e base de receita e PDVs por canal da IQVIA"
+        },
+        {
+          "titulo": "Santa Inês tem 772,9 habitantes por farmácia, no percentil 4 nacional",
+          "texto": "A razão usa a população do Censo 2022 sobre as 110 farmácias da cidade; com a população estimada do acervo, são 802,9 habitantes por farmácia e percentil 5. A mediana entre 5.541 municípios brasileiros é de 1.492,6. O perfil de renda da praça é o de uma cidade onde classe D/E responde por 39,85% dos domicílios e C2 por 25,71%.",
+          "fonte": "camadas de população e do Farmácia Popular do acervo do Órbita e Censo 2022 do IBGE"
+        },
+        {
+          "titulo": "A receita da rede na praça caiu 11% enquanto o mercado sem ela subiu 14%",
+          "texto": "O mercado farmacêutico de Santa Inês passou de R$ 116.889.430,98 para R$ 128.320.720,80, crescimento de 9,78%. Dentro dele, a receita Farmarcas foi de R$ 21.854.216,70 para R$ 19.552.781,13, e a receita sem Farmarcas de R$ 95.035.214,28 para R$ 108.767.939,67.",
+          "fonte": "base de crescimento por unidade territorial da IQVIA"
+        },
+        {
+          "titulo": "A renda domiciliar per capita do município é de R$ 201,99, no percentil 6 nacional",
+          "texto": "A mediana entre 5.565 municípios brasileiros é de R$ 456,30. O desenvolvimento municipal acompanha: o índice Firjan de 0,5326 fica no percentil 29, contra mediana nacional de 0,61.",
+          "fonte": "camadas de renda média e Firjan do acervo do Órbita"
+        }
+      ]
+    },
+
+    "Oportunidades": {
+      "abertura": "Três coisas estão em aberto nesta praça e dependem de ação de quem abrir: o credenciamento que quase ninguém tem, a régua de preço que a rede pratica e a última vaga de grupo da cidade.",
+      "itens": [
+        {
+          "titulo": "Credenciar ao Farmácia Popular é alavanca livre numa cidade que gasta R$ 68.526.976 em medicamentos",
+          "texto": "Das 110 farmácias de Santa Inês, 2 são credenciadas — 1,8%. Quem deixa o espaço aberto é o próprio parque local, e o credenciamento é ação da loja: é o que se habilita no ato, sem depender do ponto nem do imóvel.",
+          "fonte": "camada de dados do Farmácia Popular do acervo do Órbita"
+        },
+        {
+          "titulo": "Entrar com a régua de preço da rede, que é R$ 22,38 por unidade contra R$ 33,63 dos concorrentes do mesmo brick",
+          "texto": "O preço médio por unidade na região é de R$ 31,11, contra R$ 27,32 no Maranhão inteiro — é praça de mix mais caro ou de menos pressão de desconto que o estado. Quem está deixando o espaço aberto são os concorrentes do brick, que praticam R$ 33,63 por unidade enquanto a rede pratica R$ 22,38 no mesmo recorte.",
+          "fonte": "base de faturamento por brick da IQVIA"
+        },
+        {
+          "titulo": "Ocupar a segunda e última vaga de grupo econômico da praça",
+          "texto": "Na faixa de 60 a 120 mil habitantes o teto é de 2 grupos econômicos, e Santa Inês tem hoje 1 grupo. Com este pedido o solicitante entra como o 2º, e enquanto ocupar essa vaga nenhum outro grupo econômico entra na cidade pela rede Farmarcas — o que a regra de expansão não alcança é a entrada de concorrente de fora dela.",
+          "fonte": "regras oficiais de zoneamento e expansão da Farmarcas e cadastro de lojas"
+        }
+      ]
+    },
+
+    "Dificuldades": {
+      "abertura": "O pedido chega como grupo novo numa praça que já tem dono dentro da rede, e entra num mercado cuja composição deixa pouca margem para errar o mix.",
+      "itens": [
+        {
+          "titulo": "As 3 lojas Farmarcas de Santa Inês respondem a outro associado, e o pedido entra como grupo novo",
+          "texto": "O solicitante é associado, mas não opera nesta cidade: o cadastro não registra loja dele aqui. A loja da rede mais próxima com coordenada está a 1.145 m do ponto, e é do outro grupo — que opera com a mesma bandeira pretendida e responde por 11% do mercado da unidade territorial, contra 5% da Maxi Popular. É exatamente o conflito entre associados que a regra de expansão existe para evitar, e alguém vai ter de arbitrá-lo — enquanto não for arbitrado, o pedido não anda.",
+          "fonte": "cadastro de lojas e regras oficiais de zoneamento e expansão da Farmarcas"
+        },
+        {
+          "titulo": "O mix da praça concentra 54% em prescrição, e as categorias que mais crescem somam 5% da cesta",
+          "texto": "Depois da prescrição vêm MIP e OTC com 19%. As que mais crescem são nutrição e suplementos, com alta de 23% sobre 2% da cesta, e cuidados, com alta de 22% sobre 3%. Santa Inês tem uma única unidade territorial, então não há outra região da cidade onde compensar: o mix de entrada é montado contra a categoria mais disputada da praça.",
+          "fonte": "base de mix de categorias por unidade territorial da IQVIA"
+        }
+      ]
+    }
+  },
+
+  "nao_sabe": [
+    "Fluxo de passantes. Quantas pessoas passam pela calçada da Avenida Governador Sarney não existe em base nenhuma — nem no acervo do Órbita, nem no produto, nem em fonte pública. Importa demais neste ponto porque ele é esquina de avenida em centro comercial consolidado, e é justamente o ponto de rua comercial que o dossiê mais subestima: os moradores do raio de 300 m são 1.927,9, e quem compra numa esquina dessas em boa parte não mora ali. Destrava com contagem de passantes em campo, por faixa de horário e dia da semana.",
+
+    "A que distância estão as duas lojas Farmarcas sem coordenada no cadastro. São uma Ultra Popular e uma Maxi Popular, as duas registradas no Centro. Importa porque o limiar da regra de expansão é diferente para cada uma: 300 m para a Ultra Popular, que é a bandeira pretendida, e 500 m para a Maxi Popular. Para as duas a distância mínima ficou declarada como regra sem veredito. A camada de concorrentes registra uma Drogaria Ultra Popular na Rua do Comércio, 614, que pode ser uma delas, mas a coordenada que a camada lhe dá é a mesma de outros registros do Centro — é posição de bairro, não de endereço. Destrava com a geocodificação dos endereços das duas lojas no cadastro.",
+
+    "Por que a receita da rede na praça caiu 11%. A base de mercado mede queda de receita, não saída de associado, e é a carteira atual com histórico retroagido — associado que saiu da rede some da série em vez de aparecer como queda. Importa porque a leitura muda inteira conforme a causa: perda de share para o concorrente, encolhimento de uma operação específica ou simples recomposição de carteira são três histórias diferentes para o mesmo número. Destrava com o histórico de entrada e saída de associado por praça, que não está neste acervo.",
+
+    "Se o share da rede na unidade territorial é zero medido ou ausência de medição. A base de market share devolve 0,0% para a unidade territorial de Santa Inês, enquanto o share calculado a partir da receita é de 15,24% — e a mesma base registra Ultra Popular em 11% e Maxi Popular em 5% na composição por bandeira. As duas leituras não podem estar certas ao mesmo tempo. Importa porque share zero e share não medido levam a conclusões opostas sobre a presença da rede na praça. Destrava com a base de market share completa por unidade territorial.",
+
+    "Qual é a periodicidade do potencial de consumo. A camada não declara se o valor de R$ 3.251.359,84 no raio de 300 m é mensal ou anual, e o teste de ordem de grandeza aponta valor anual. Importa porque o mesmo documento traz o mercado do raio pela régua de canal em R$ 948.673,95 por mês, e ler os dois na mesma periodicidade erra por doze vezes. Destrava com a documentação da camada ou com a reconstrução do indicador a partir do dado bruto.",
+
+    "Se existe supermercado ou mercado no raio de 500 m. O mapa colaborativo não registra nenhum, e ao mesmo tempo há um cruzamento com a Rua do Mercado Municipal a 44,8 m do ponto. Importa porque compra de rotina é o gerador que traz a mesma pessoa várias vezes por semana, e a ausência dele muda a leitura do entorno. Destrava com verificação em campo ou com a camada de estabelecimentos por CNPJ geocodificada.",
+
+    "Quantas farmácias existem de fato no raio de 300 m. A camada de concorrentes registra 5, mas o mapa colaborativo registra uma segunda farmácia a 28 m que não aparece entre as 5, e a própria camada tem 18 registros sem coordenada que não entram em raio nenhum. Importa porque é sobre essa contagem que se dimensiona o entorno de 300 m pela régua de canal. Destrava com a geocodificação dos registros sem coordenada e a conferência cruzada com o cadastro da Receita.",
+
+    "Qual coordenada é a do endereço da farmácia mais próxima. A camada de concorrentes a põe a 19 m do ponto e o mapa colaborativo a 15 m. Importa porque é a loja que mais pesa na leitura deste ponto, e a diferença entre as duas leituras é da ordem da largura da calçada. Destrava com a conferência do endereço no local.",
+
+    "O quanto as camadas do raio envelheceram. População, renda, densidade e potencial de consumo do raio saem das camadas setoriais do acervo, que são do Censo 2010. Importa porque a cidade cresce 0,18% ao ano e o centro pode ter adensado ou esvaziado de forma diferente da média: se a mudança foi na borda, o erro é pequeno; se o Centro verticalizou, é grande, e a verticalização medida no raio é de 3,54%. Destrava com os agregados por setor censitário do Censo 2022.",
+
+    "A unidade dos campos de renda das camadas setoriais. Não há apuração própria dizendo se os valores de renda do setor censitário estão em reais nominais da data do censo ou em reais corrigidos. Importa porque lê-los na moeda errada é erro de ordem de grandeza, não de alguns pontos percentuais, e a renda por habitante do raio é um dos números que mais pesam na leitura deste ponto. Destrava com a documentação da camada ou com a reconstrução do indicador a partir do dado bruto do IBGE.",
+
+    "O quanto a razão de habitantes por farmácia é comparável com a distribuição usada. A posição de percentil 4 põe o numerador do Censo 2022 contra uma distribuição nacional montada com a população estimada do acervo, que é aproximação. Importa porque é a posição nacional, e não o valor absoluto, que sustenta a leitura de saturação da praça. Destrava com a distribuição nacional recalculada sobre a população do Censo 2022.",
+
+    "Em qual brick o ponto cai. O acervo não diz: o casamento foi pelo nome do município, e dois bricks de Santa Inês entraram na conta, o do Centro e o de Santa Filomena. Importa porque é desse recorte que sai o preço médio por unidade, e o preço de um bairro central não é o de um bairro periférico. Destrava com a malha geográfica dos bricks, que o acervo não traz.",
+
+    "O que há no terço do raio de 5 km sem setor censitário. A cobertura do círculo de 5 km é de 66,08%, contra 99,99% no raio de 300 m. Importa porque população, renda e potencial do anel largo descrevem menos território do que o raio sugere, e a parte faltante é zona rural, onde a densidade é outra. Destrava com a malha completa de setores rurais do município.",
+
+    "Quanto varia o faturamento dentro de cada canal. A régua de canal traz a receita de uma loja média do canal no estado e não a distribuição dentro dele: não há mínimo, máximo nem quartil por loja. Importa porque duas farmácias independentes do mesmo quarteirão podem diferir várias vezes entre si, e é sobre quatro independentes que se dimensiona o entorno de 300 m. Destrava com faturamento por CNPJ da região.",
+
+    "Em que canal cada rede nomeada se encaixa. O enquadramento das redes corporativas com nome próprio é critério de método desta análise, não campo da base — e ler a mesma rede como ABRAFARMA ou como outra rede corporativa muda a referência de porte dela em mais de duas vezes. Importa porque a loja mais próxima do ponto está classificada numa dessas redes, com confiança apenas média no mapeamento. Destrava com a classificação de canal por CNPJ na própria base do instituto.",
+
+    "Se o pedido é ponto novo, mudança de ponto ou conversão. A informação não veio na solicitação, e o dossiê não assume nenhuma das três. Importa porque mudança de ponto traz um período com duas lojas abertas dividindo a mesma praça, e conversão traz uma operação já existente com clientela formada — nenhum dos dois efeitos está dimensionado aqui. Destrava com a confirmação do tipo de operação na solicitação.",
+
+    "Área de venda, aluguel comercial e custo de ocupação do imóvel. Nenhum dos três tem fonte: área de venda depende de um faturamento por metro quadrado que o analista forneça, e aluguel comercial por município não existe em fonte pública verificável. Importa porque o custo de ocupação é o que separa uma receita boa de uma operação que fecha. Destrava com o aluguel pesquisado no local e a régua de faturamento por metro quadrado da rede.",
+
+    "Quantas lojas do cadastro não podem ter a distância mínima checada. Das 2.808 lojas do cadastro, 1.844 têm coordenada utilizável — 66%. Importa porque a checagem de distância mínima deste ponto só alcança as lojas com coordenada, e o terço restante é lacuna e não ausência de risco. Destrava com a geocodificação do cadastro de lojas.",
+
+    "Três registros do anel de 5 km estão cadastrados em cidades que o raio não alcança: um em Viana, um em Pindaré-Mirim e um em Buriticupu. São erros prováveis de cadastro, e cada um deles entra ou sai da contagem de concorrentes do anel conforme a correção. Destrava com a conferência do endereço desses três registros na camada de concorrentes."
+  ],
+
+  "campo": [
+    "Contar passantes na calçada da Avenida Governador Sarney, por faixa de horário e dia útil contra sábado, e levantar os geradores de fluxo do entorno. É a etapa que produz o que nenhuma base deste dossiê responde. Se o fluxo for alto, a leitura de saturação da praça muda de peso: a loja passa a disputar quem passa e não só quem mora no raio.",
+
+    "Localizar e geocodificar as duas lojas Farmarcas do Centro que estão sem coordenada no cadastro — uma Ultra Popular e uma Maxi Popular. Se a Ultra Popular estiver a menos de 300 m do ponto, ou a Maxi Popular a menos de 500 m, a regra de distância mínima passa a ter veredito e pode mudar o resultado do gate de zoneamento.",
+
+    "Corrigir no cadastro a coordenada da loja Conectadas de Açailândia, que hoje cai a 581 m deste ponto. Enquanto não for corrigida, qualquer análise de ponto nesta região vai contar uma loja da rede que não está aqui.",
+
+    "Verificar em campo se há supermercado ou mercado de bairro dentro de 500 m, em especial no cruzamento com a Rua do Mercado Municipal, a 44,8 m. Havendo, o entorno deixa de ser lido como centro de serviços e passa a ter o gerador de compra de rotina, que é o que traz a mesma pessoa várias vezes por semana.",
+
+    "Levantar o aluguel pedido e a área de venda do imóvel. Sem os dois, o custo de ocupação não entra no dossiê, e é ele que decide se a receita que a praça comporta sobra ou não no fim do mês."
+  ]
+}

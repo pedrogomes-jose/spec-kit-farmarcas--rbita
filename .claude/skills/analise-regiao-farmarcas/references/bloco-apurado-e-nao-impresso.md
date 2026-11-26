@@ -163,6 +163,60 @@ das fixas, que o modelo não reordena nem remove. Número afirmado no corpo sem
 origem na seção que existe para dar origem é a lacuna mais cara de um formato,
 porque ela se parece com rigor.
 
+### 8. A base não duplica; quem duplica é a lista que a consulta
+
+`closeup_utc_varejo` repete linha: a mesma UTC aparece duas ou três vezes no
+mesmo município, com geometria diferente e `id_utc_var` igual. Dois dos três
+leitores montam dicionário por id e a repetição some sozinha. O terceiro,
+`mercado_utc.py`, montava **lista** — e o `somar()` percorria essa lista lendo
+um bloco que fora juntado por id, de modo que o valor da UTC repetida entrava
+uma vez por linha.
+
+Medido em 2026-11-26, sobre o dump de 2026-10-26: **21 dos 5.570 municípios**,
+35 linhas a mais, **R$ 7,49 bilhões** de receita fantasma somados.
+
+| Município | antes | depois | fator |
+|---|---|---|---|
+| Carapicuíba/SP | R$ 791,8 mi | R$ 263,9 mi | **3,00×** |
+| Santa Bárbara d'Oeste/SP · Camboriú/SC | | | 2,00× |
+| Sorocaba/SP | R$ 1,584 bi | R$ 1,167 bi | 1,36× |
+| São Paulo/SP | R$ 24,33 bi | R$ 21,77 bi | 1,12× |
+
+E não parava na receita: `qtd_utcs` contava linhas, `precisao_geografica`
+escrevia "o município tem 5 UTCs" onde havia 4, e em Carapicuíba o ramo
+*"exata — o município tem uma única UTC"* era **inalcançável**, porque a única
+UTC da cidade chegava como três.
+
+O share saía **menor**, não maior, e a direção importa: a UTC repetida de
+Sorocaba tem receita zero da rede, então só o denominador dobrava — 1,87%
+contra 2,54% reais.
+
+→ Duas lições, e a segunda custou três rodadas:
+
+1. **Deduplicar na leitura, pela chave da base**, e declarar o que foi
+   descartado (`linhas_repetidas_descartadas` + lacuna). Descarte silencioso
+   trocaria um número errado por outro número sem rastro.
+2. **"A base somada tem uma linha por id" não protege nada.** Essa foi a
+   formulação que atrasou o conserto: ela é verdadeira e irrelevante, porque
+   quem conta duas vezes é a coleção que consulta a base, não a base. Para
+   conferir um efeito, leia **quem lê**, com que chave, e o que itera a soma —
+   `len(lista)` e `len(set(ids))` respondem em uma linha.
+
+### 9. Conceder também é afirmar
+
+Este item não é de código. O caso acima levou três rodadas porque, das duas
+sessões envolvidas, uma inventou o mecanismo, a outra o refutou com medida, e
+então **concedeu** um "nada contado em dobro ali" depois de ler metade do
+script — o bloco de receita municipal, que de fato não duplica, parando antes
+do `somar()` trinta linhas abaixo.
+
+Concordar sem medir tem o mesmo custo que afirmar sem medir, e é mais difícil
+de pegar, porque ninguém audita uma concordância. Acertar as rodadas anteriores
+aumenta o risco: a confiança acumulada é exatamente o que dispensa a conferência.
+
+→ Antes de conceder "não é defeito", rode a medida que mostraria o defeito. Se
+não houver uma, a resposta é "não medi", não "não é".
+
 ## Onde a ressalva é posta decide se ela sobrevive aos três modos
 
 `--detalhes ocultos` não encolhe o documento por seção: ele apaga, do HTML

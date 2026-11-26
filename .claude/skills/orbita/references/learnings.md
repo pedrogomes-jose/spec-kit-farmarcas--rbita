@@ -6,6 +6,48 @@ uso real — aprendizado de teste e aprendizado de campo não valem o mesmo.
 
 ---
 
+## 2026-11-26 — o seletor substitui o bloco numerado
+
+`PROCEDENCIA: pedido do PM depois de tres rodadas de uso real.`
+
+- **O bloco `P1/P2` resolveu um problema e criou outro.** Ele nasceu em
+  2026-11-23 porque pergunta diluída na prosa não era vista. Vista ela passou a
+  ser; respondida com conforto, não — "P1 - ... / P2 - ..." é digitação, e três
+  rodadas depois o analista pediu para acabar com isso. Toda pergunta passa a
+  sair em cartão de seletor, uma por cartão, no máximo quatro por chamada.
+- **Duas opções fixas em todo cartão: "Não sei" e "Recomendar".** A primeira já
+  era resposta válida e agora é botão. A segunda é nova e tem limite escrito:
+  recomendar caminho de análise sim, ordenar praça por qualidade não — essa é a
+  régua que tem dono, e foi retirada à mão de dois relatórios em 2026-11-25.
+- **O rótulo "Outros" do app não se renomeia.** O pedido era que ele virasse
+  "Não sei"; o campo é do app e serve para escrever. Então "Não sei" entrou como
+  opção explícita e o texto do cartão convida a escrever no campo livre.
+- **Empresário e responsável pelo GE viraram uma pergunta só.** São a mesma
+  pessoa; perguntar duas vezes fazia o analista repetir o nome, como em
+  2026-11-24 ("mesma pessoa").
+- **Nome de pessoa: a regra passou a ter dois lados.** Na conversa, diga — o
+  analista precisa saber quem opera na cidade. No entregável, nunca. Antes a
+  regra era só a segunda metade, e isso empobrecia a conversa sem proteger nada
+  a mais.
+- **Os raios estavam grandes demais e faltava "só nesta cidade".** A opção de
+  cidade não é raio pequeno: a distância da lista é de centroide de município a
+  centroide de município, então nenhum raio separa uma região da cidade das
+  outras. Virou `--so-municipio`, por código IBGE, sem queda para a UF quando a
+  lista sai curta — lista vazia é a resposta.
+- **Camada com três ou mais linhas comparáveis passa a sair em tabela ou
+  gráfico.** Com uma trava manual junto: a conferência mecânica lê o dossiê, não
+  a conversa, então nada confere o que vai num gráfico. Só valor de script, e
+  nenhuma conta dentro do widget.
+
+**Defeito de conferidor encontrado por uso**
+
+- **`índice de potencial de consumo` era reprovado como "a régua com outro
+  nome".** É o nome de uma camada do acervo, com valor medido. O padrão passou a
+  exigir que "potencial" não venha seguido de "de consumo"; "índice de potencial"
+  solto continua reprovando.
+
+---
+
 ## 2026-11-25 — mapeamento Amélia Rodrigues/BA, e o painel de perfil por cidade
 
 `PROCEDENCIA: uso real conduzido pelo PM. Mapeamento entregue, depois três
@@ -159,13 +201,27 @@ de pracas entregue.`
   o conteúdo, e uma lista que circula sem ele é lida como recomendação de
   abertura, que é exatamente o que aquele bloco existe para impedir.
 
-**Defeito de base encontrado por uso**
+**Uma lacuna que afirmou um efeito sem medir — Jardim América, Sorocaba**
 
-- **Jardim América aparece duas vezes nas unidades territoriais de Sorocaba**,
-  com valores idênticos. O script declara 5 UTCs e distintas são 4. O total do
-  município é somado linha a linha, então conta a região duas vezes, e o share
-  da rede, calculado sobre esse total, sai inflado junto. Por isso o documento
-  não publicou nenhum total municipal — só as regiões uma a uma.
+- **O caso técnico inteiro está em** `analise-regiao-farmarcas/references/
+  bloco-apurado-e-nao-impresso.md`, **itens 8 e 9**: a UTC repetida no dump, os
+  21 municípios atingidos, os R$ 7,49 bilhões de receita fantasma e o conserto.
+  Não repito aqui — duas versões da mesma lição divergem com o tempo.
+- **O que é desta skill:** eu escrevi, na seção de lacunas de um entregável, que
+  a soma do município contava a região duas vezes **e que o share saía inflado**.
+  A primeira metade estava certa e eu não tinha medido; a segunda estava errada
+  — a UTC repetida tem receita zero da rede, então só o denominador dobra e o
+  share sai **menor**. Depois, contestado, concedi que nada disso existia —
+  também sem medir.
+- **A trava de número não pega isto.** A frase não tem número novo: tem
+  **mecanismo**. `verificar_dossie.py` confere procedência de valor, não de
+  causa, e uma lacuna bem escrita sobre um efeito inexistente passa limpa.
+- **A régua:** lacuna que afirma um efeito — "conta duas vezes", "infla o
+  share", "subestima" — é afirmação sobre o caminho do dado, e se confere lendo
+  quem lê a base, com que chave, e o que itera a soma. Sem essa leitura, declare
+  só o que viu ("a base traz a região em duas linhas") e pare ali. **O JSON do
+  dossiê de Sorocaba ainda carrega a versão com a direção errada**, por decisão
+  do PM de não mexer nele.
 
 ---
 
