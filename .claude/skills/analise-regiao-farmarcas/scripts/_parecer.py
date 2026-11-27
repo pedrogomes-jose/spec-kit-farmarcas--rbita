@@ -15,9 +15,11 @@ O que este módulo É:
   + uma linha de porquê, de forma determinística.
 
 O que ele NÃO é, e não pode virar:
-- score, nota ou recomendação. O parecer é POR NÚMERO e nunca se soma,
-  nunca se conta ("três indicadores bons"), nunca se tira média, e nunca ordena
-  praças. A régua de viabilidade 0–20 continua com o produto;
+- score, nota ou recomendação. O parecer é POR INDICADOR e nunca se soma,
+  nunca se conta ("três indicadores bons"), nunca se tira média, nunca ordena
+  praças e nunca julga o ponto, a cidade, a praça, o município ou a região
+  ("cidade boa", "ponto ruim"). A régua de viabilidade 0–20 continua com o
+  produto;
 - faixa absoluta ("renda boa é acima de R$ X"). O referente é sempre a
   distribuição (percentil nacional) ou um recorte da região (município, UF,
   anel maior) — nunca um valor fixo escrito aqui;

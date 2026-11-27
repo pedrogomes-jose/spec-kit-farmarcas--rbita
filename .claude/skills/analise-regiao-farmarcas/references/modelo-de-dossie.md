@@ -304,8 +304,10 @@ apetite. Sem nome de pessoa.>
   "Bom", "Na média", "Ruim" (possível dificuldade), "Ambíguo" e "Sem
   referência" são o vocabulário permitido (decisão do PM em 2026-11-27), pela
   tabela de direção de `scripts/_parecer.py`. Nunca somados, contados ou
-  usados para ordenar: "três indicadores bons" é nota. Ver `benchmarks.md`,
-  `## Parecer por número`.
+  usados para ordenar: "três indicadores bons" é nota. E nunca um juízo sobre
+  o ponto, a cidade, a praça, o município ou a região: "a cidade é boa" ou
+  "o ponto é ruim" são veredito, e a conferência reprova. Ver
+  `benchmarks.md`, `## Parecer por número`.
 - **"Para conversar com o empresário" é roteiro, não questionário.** De 10 a
   15 perguntas, cada uma partindo de um número do documento, escritas para o
   analista dizer em voz alta. Passam pelo **teste do respondente**: se o

@@ -444,7 +444,9 @@ _PONTUACAO = (
     (r"\branking\s+de\s+(?:munic[íi]pios|cidades|pra[çc]as)\b", "o documento não ranqueia"),
     # O parecer por número (2026-11-27) é permitido; somá-lo não. "Bom" e
     # "ruim" soltos passam — o que reprova é contar, saldar ou tirar maioria
-    # dos pareceres, que é a nota reintroduzida por extenso.
+    # dos pareceres, que é a nota reintroduzida por extenso. Juízo sobre o
+    # ponto, a cidade, a praça, o município ou a região ("cidade boa", "o
+    # ponto é ruim") é a mesma proibição e mora em checar_juizo_do_lugar.
     (r"\b(?:\d+|uma|um|dois|duas|tr[êe]s|quatro|cinco|seis|sete|oito|nove|dez|maioria\s+dos)\s+indicadores?\s+(?:s[ãa]o\s+|est[ãa]o\s+)?(?:bons|ruins|positivos|negativos|favor[áa]veis|desfavor[áa]veis)\b",
      "parecer é por número: contar pareceres é nota"),
     (r"\bsaldo\s+(?:positivo|negativo|dos\s+pareceres|dos\s+indicadores)\b", "parecer é por número: saldo é nota"),
@@ -473,10 +475,156 @@ def corpo_do_relatorio(texto_html: str) -> str:
 # gerador escreve para declarar a regra — e um verificador que reprova a propria
 # regra ensina a ignorar o aviso.
 _NEGADO = re.compile(
-    r"(?:n[ãa]o\s+(?:h[áa]|tem|traz|existe|pontua|atribui|d[áa])|sem|nem|nenhum[ao]?)"
+    r"(?:n[ãa]o\s+(?:h[áa]|tem|traz|existe|pontua|atribui|d[áa]|julga)|sem|nem|nenhum[ao]?)"
     r"[^.;:]{0,40}$",
     re.I,
 )
+
+
+# Parecer é só do indicador. Frases que julgam o ponto, a cidade, a praça, o
+# município ou a região como um todo ("cidade boa", "o ponto é ruim", "a praça
+# é favorável") são a nota com outro nome. O conferidor pega a forma escrita;
+# "A renda do município é ruim" passa, porque o juízo é do indicador.
+_LUGAR = r"(?:pontos?|endere[çc]os?|cidades?|munic[íi]pios?|pra[çc]as?|regi[õo]es|regioes|regi[ãa]o)"
+_JUIZO_LUGAR = (
+    r"(?:bom|boa|bons|boas|ruim|ruins|"
+    r"favor[áa]vel(?:es)?|desfavor[áa]vel(?:es)?|"
+    r"positiv[oa]s?|negativ[oa]s?|"
+    r"promissor(?:a|es)?|atrativ[oa]s?|"
+    r"vi[áa]vel(?:es)?|invi[áa]vel(?:es)?|"
+    r"melhor(?:es)?|pior(?:es)?)"
+)
+_AGREGADO_LUGAR = (
+    r"(?:perfil|panorama|quadro|leitura|conjunto|saldo|veredito|veredicto|nota|placar)"
+)
+
+# "renda do município é ruim" — o juízo é do indicador, não do lugar.
+_INDICADOR_ANTES_DO_LUGAR = re.compile(
+    r"(?:renda|pib|ipc|ifdm|pre[çc]o|consumo|potencial|captura|densidade|"
+    r"popula[çc][ãa]o|habitantes|crescimento|percentil|posi[çc][ãa]o|"
+    r"n[úu]mero|indicador|valor|m[ée]dia|mediana|faixa|classes?|"
+    r"faturamento|receita|share|satura[çc][ãa]o|mercado|aluguel|"
+    r"credenciadas?|farm[áa]cias?|lojas?|concorrentes?|dist[âa]ncia|"
+    r"fluxo|implanta[çc][ãa]o|desenvolvimento|"
+    r"poder\s+de\s+compra|folga\s+competitiva|dinamismo|centralidade)"
+    r"(?:[^.;:]{0,40})"
+    r"\s+(?:do|da|no|na|de|em|pelo|pela|deste|desta|desse|dessa)\s+$",
+    re.I,
+)
+
+_LUGAR_VERBO_JUIZO = re.compile(
+    r"\b(?:(?:o|a|os|as|este|esta|estes|estas|esse|essa|esses|essas|"
+    r"aquele|aquela|aqueles|aquelas|deste|desta|desse|dessa|"
+    r"neste|nesta|nesse|nessa)\s+)?(?P<lugar>" + _LUGAR + r")"
+    r"\s+(?:é|s[ãa]o|est[áa]|est[ãa]o|foi|foram|parece(?:m)?|saiu|sa[ií]ram|saem|"
+    r"fica(?:m)?|anda(?:m)?|revela-se|mostra-se|mostrou-se|revelou-se)"
+    r"\s+(?:(?:um|uma|muito|bem|bastante|pouco)\s+)*(?P<juizo>" + _JUIZO_LUGAR + r")\b",
+    re.I,
+)
+_LUGAR_JUIZO = re.compile(
+    r"\b(?P<lugar>" + _LUGAR + r")\s+(?P<juizo>" + _JUIZO_LUGAR + r")\b", re.I,
+)
+_JUIZO_DEPOIS_LUGAR = re.compile(
+    r"\b(?P<juizo>" + _JUIZO_LUGAR + r")\s+(?P<lugar>" + _LUGAR + r")\b", re.I,
+)
+_E_UM_LUGAR_JUIZO = re.compile(
+    r"\bé\s+uma?\s+(?:(?P<juizo1>" + _JUIZO_LUGAR + r")\s+)?(?P<lugar>" + _LUGAR + r")"
+    r"(?:\s+(?P<juizo2>" + _JUIZO_LUGAR + r"))?\b",
+    re.I,
+)
+_AGREGADO_JUIZO_DO_LUGAR = re.compile(
+    r"\b" + _AGREGADO_LUGAR + r"\s+(?P<juizo>" + _JUIZO_LUGAR + r")\s+"
+    r"(?:do|da|de|deste|desta|desse|dessa)\s+(?P<lugar>" + _LUGAR + r")\b",
+    re.I,
+)
+_AGREGADO_DO_LUGAR_E_JUIZO = re.compile(
+    r"\b" + _AGREGADO_LUGAR + r"\s+(?:do|da|de|deste|desta|desse|dessa)\s+(?P<lugar>" + _LUGAR + r")"
+    r"\s+(?:é|est[áa]|parece|saiu|fica)\s+(?P<juizo>" + _JUIZO_LUGAR + r")\b",
+    re.I,
+)
+
+_MOTIVO_JUIZO_LUGAR = (
+    "parecer é só do indicador: não se julga ponto, cidade, praça, município nem região"
+)
+
+
+def _sem_acento(txt: str) -> str:
+    return "".join(
+        c for c in unicodedata.normalize("NFD", txt.lower())
+        if unicodedata.category(c) != "Mn"
+    )
+
+
+def _lugar_genero_numero(lugar: str) -> tuple[str, str]:
+    l = _sem_acento(lugar)
+    if l in {"cidades", "pracas", "regioes"}:
+        return "f", "p"
+    if l in {"pontos", "enderecos", "municipios"}:
+        return "m", "p"
+    if l in {"cidade", "praca", "regiao"}:
+        return "f", "s"
+    if l in {"ponto", "endereco", "municipio"}:
+        return "m", "s"
+    return "?", "?"
+
+
+def _juizo_combina_com_lugar(juizo: str, lugar: str) -> bool:
+    """Evita casar o chip 'Bom' com o indicador seguinte 'municípios que…'."""
+    g, n = _lugar_genero_numero(lugar)
+    j = _sem_acento(juizo)
+    inv_s = {"ruim", "favoravel", "desfavoravel", "viavel", "inviavel", "melhor", "pior"}
+    inv_p = {"ruins", "favoraveis", "desfavoraveis", "viaveis", "inviaveis", "melhores", "piores"}
+    masc_s = {"bom", "positivo", "negativo", "promissor", "atrativo"} | inv_s
+    fem_s = {"boa", "positiva", "negativa", "promissora", "atrativa"} | inv_s
+    masc_p = {"bons", "positivos", "negativos", "promissores", "atrativos"} | inv_p
+    fem_p = {"boas", "positivas", "negativas", "promissoras", "atrativas"} | inv_p
+    if n == "s" and g == "m":
+        return j in masc_s
+    if n == "s" and g == "f":
+        return j in fem_s
+    if n == "p" and g == "m":
+        return j in masc_p
+    if n == "p" and g == "f":
+        return j in fem_p
+    return True
+
+
+def checar_juizo_do_lugar(corpo: str):
+    """Reprova frase que dá parecer ao ponto, à cidade, à praça ou à região."""
+    achados = []
+    vistos = set()
+    padroes = (
+        (_LUGAR_VERBO_JUIZO, False),
+        (_LUGAR_JUIZO, True),
+        (_JUIZO_DEPOIS_LUGAR, True),
+        (_E_UM_LUGAR_JUIZO, True),
+        (_AGREGADO_JUIZO_DO_LUGAR, False),
+        (_AGREGADO_DO_LUGAR_E_JUIZO, False),
+    )
+    for pat, exige_acordo in padroes:
+        for m in pat.finditer(corpo):
+            gd = m.groupdict()
+            juizos = [gd[k] for k in ("juizo", "juizo1", "juizo2") if gd.get(k)]
+            if pat is _E_UM_LUGAR_JUIZO and not juizos:
+                continue
+            lugar = gd.get("lugar") or ""
+            if exige_acordo and lugar and juizos and not any(
+                _juizo_combina_com_lugar(j, lugar) for j in juizos
+            ):
+                continue
+            inicio, fim = max(0, m.start() - 60), min(len(corpo), m.end() + 60)
+            prefixo = corpo[inicio:m.start()]
+            if _NEGADO.search(prefixo):
+                continue
+            if _INDICADOR_ANTES_DO_LUGAR.search(corpo[max(0, m.start() - 80):m.start()]):
+                continue
+            chave = (m.start(), m.group(0).lower())
+            if chave in vistos:
+                continue
+            vistos.add(chave)
+            contexto = re.sub(r"\s+", " ", corpo[inicio:fim]).strip()
+            achados.append((m.group(0), _MOTIVO_JUIZO_LUGAR, contexto))
+    return achados
 
 
 def checar_padroes(corpo: str, padroes, respeitar_negacao=False):
@@ -537,6 +685,7 @@ def main() -> int:
     corpo = corpo_do_relatorio(pagina)
     nomes = checar_nome_de_pessoa(corpo, cfg, args.ge)
     pontuacao = checar_padroes(corpo, _PONTUACAO, respeitar_negacao=True)
+    pontuacao.extend(checar_juizo_do_lugar(corpo))
     ferramenta = checar_padroes(corpo, _FERRAMENTA)
     pareceres = checar_pareceres(cfg)
 
@@ -623,7 +772,8 @@ def main() -> int:
         print(f"   REPROVA  {trecho!r} — {porque}")
         print(f"            …{contexto}…")
     if not pontuacao:
-        print("   O dossiê não pontua, não nota, não recomenda e não soma pareceres.")
+        print("   O dossiê não pontua, não nota, não recomenda, não soma pareceres")
+        print("   e não julga o ponto, a cidade, a praça, o município nem a região.")
     print()
 
     print(f"6. FERRAMENTA NO CORPO — {len(ferramenta)} achado(s)")

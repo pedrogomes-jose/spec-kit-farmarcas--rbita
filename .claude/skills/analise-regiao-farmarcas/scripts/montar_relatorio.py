@@ -53,8 +53,9 @@ O RÓTULO não é escrito pelo modelo: sai de `_parecer.py`, pela direção do
 indicador na tabela da casa contra o percentil ou a posição. Indicador fora da
 tabela sai "Sem referência" (ou "Ambíguo", se o modelo disser). Um `porque`
 escrito pelo modelo é aceito e passa pela conferência de número como qualquer
-texto da narrativa. O parecer é por número: não se soma, não se conta, não
-ordena e não recomenda.
+texto da narrativa. O parecer é por número, e só do indicador: não se soma,
+não se conta, não ordena, não recomenda e nunca julga o ponto, a cidade, a
+praça, o município ou a região.
 
 `provocacoes_empresario` é a seção "Para conversar com o empresário": o que o
 analista provavelmente não sabe responder e o empresário sabe — história da
@@ -589,13 +590,14 @@ _ROTULO_MUNICIPAL = {
 
 
 def bloco_parecer_municipal(ctx: dict, modelo: str | None = None) -> str:
-    """O município contra o país, com o parecer de cada número.
+    """Cada indicador do município contra o país, com o parecer daquele número.
 
     Os percentis já vinham na apuração de `contexto_municipio` e só chegavam ao
     documento quando a prosa os citava. Aqui cada um sai com valor, mediana
     nacional, posição e o parecer — bom, na média ou ruim pela direção daquele
     indicador; ambíguo quando a casa não tem direção defensável. Sem linha de
-    total e sem contagem de "bons": o parecer é por número.
+    total, sem contagem de "bons" e sem juízo sobre o município: o parecer é
+    por número, nunca sobre o lugar.
     """
     linhas = []
     for chave, (rot, unidade) in _ROTULO_MUNICIPAL.items():
@@ -621,12 +623,13 @@ def bloco_parecer_municipal(ctx: dict, modelo: str | None = None) -> str:
         )
     if not linhas:
         return ""
-    return f"""<h3>O município contra o país — e se o número é bom ou ruim</h3>
+    return f"""<h3>Cada indicador do município contra o país — se aquele número é bom ou ruim</h3>
   <p class="explica"><b>Como ler o parecer.</b> A posição é o percentil do município na
   distribuição nacional da própria camada. O parecer diz se essa posição é boa ou ruim
   <b>para aquele indicador</b> — a mesma posição pode ser boa num e ruim noutro — e
   "Ambíguo" quando a casa não tem direção defensável. É um parecer por número: não se
-  soma, não vira nota e não recomenda abrir.</p>
+  soma, não vira nota, não recomenda abrir e não é um parecer sobre o município —
+  o rótulo fala só daquele indicador.</p>
   <table class="parecer-tab"><thead><tr><th>Indicador</th><th>Valor</th><th>Mediana nacional</th>
   <th>Posição</th><th>Parecer</th></tr></thead><tbody>{"".join(linhas)}</tbody></table>"""
 
@@ -689,7 +692,8 @@ def chip_parecer(par: dict | None, com_porque: bool = True) -> str:
     """Rótulo de parecer de UM número, com o porquê em uma linha.
 
     Não é nota: não existe escala contínua, não existe soma e não existe linha
-    de total. Cada chip fala de um número contra o referente dele.
+    de total. Cada chip fala de um número contra o referente dele, nunca do
+    ponto, da cidade, da praça ou do município.
     """
     if not par or not par.get("rotulo"):
         return ""
@@ -2148,9 +2152,10 @@ def bloco_perfil_dos_municipios(alt: dict) -> str:
   dos municípios brasileiros da própria camada e um <b>parecer</b>: se aquela posição é
   boa, na média ou ruim <b>para aquele indicador</b> — percentil alto é bom em renda e
   seria ruim num indicador em que mais é pior —, ou "Ambíguo" quando a casa não tem
-  direção defensável. O parecer é por número e não pontua a cidade: <b>nenhuma linha é
-  melhor que outra</b>, e cidade com pareceres bons em três dimensões e ruim na quarta não
-  é "três de quatro" — é uma cidade com um perfil, e o perfil é o conteúdo.</p>
+  direção defensável. O parecer é por número e não pontua a cidade, a praça nem o
+  município: <b>nenhuma linha é melhor que outra</b>, e indicadores de três dimensões
+  de um lado e da quarta de outro não viram um placar — o perfil, indicador a
+  indicador, é o conteúdo.</p>
   <p class="explica"><b>O que o percentil compara, e o que ele não compara.</b> Comparar
   cada cidade com a distribuição nacional da própria camada é o referente que esta análise
   usa. Comparar entre si os <b>percentis</b> destas cidades <b>não</b> é: quatro ou doze
@@ -2828,13 +2833,13 @@ def construir_prospeccao(cfg: dict) -> str:
     )
     lacunas.append(
         "<b>O que ficou fora desta cidade.</b> O recorte é o município de "
-        f"{e(referencia)}, por escolha de quem pediu, e não uma medida: praça melhor "
-        "na cidade vizinha não aparece aqui, por perto que seja. Destrava rodando a "
+        f"{e(referencia)}, por escolha de quem pediu, e não uma medida: praça "
+        "da cidade vizinha não aparece aqui, por perto que seja. Destrava rodando a "
         "mesma busca com um raio em volta da cidade."
         if so_municipio else
         f"<b>A que distância o empresário aceita operar.</b> O raio de {num(raio)} km é "
         "premissa desta busca, não regra da casa e não medida: nenhuma fonte do acervo "
-        "responde isso. Praça boa logo depois do limite não aparece. Destrava com o raio "
+        "responde isso. Praça que caberia logo depois do limite não aparece. Destrava com o raio "
         "que o solicitante aceita, informado por ele."
     )
     lacunas.append(

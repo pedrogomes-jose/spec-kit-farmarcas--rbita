@@ -390,7 +390,7 @@ A contagem declarada pela base entra como conferência. Quando as duas
 divergem, **as duas saem** e a divergência é o achado — não se escolhe uma em
 silêncio.
 
-## O município contra o país — parecer por número
+## Cada indicador do município contra o país — parecer por número
 
 Bloco do dossiê de ponto, dentro do contexto macroeconômico (desde 2026-11-27).
 Os percentis municipais que `contexto_municipio.py` já apurava — renda
@@ -400,7 +400,8 @@ número de municípios comparados) e o **parecer** de cada um, por
 `scripts/_parecer.py`. IPC e PIB per capita saem **Ambíguo**: o primeiro é
 total, proxy de porte, e porte não prevê faturamento (correlação medida
 −0,003); o segundo mede a planta em cidade industrial. Nenhum total, nenhuma
-contagem de pareceres.
+contagem de pareceres, e nenhum juízo sobre o município: o parecer é do
+indicador, nunca do lugar.
 
 ---
 

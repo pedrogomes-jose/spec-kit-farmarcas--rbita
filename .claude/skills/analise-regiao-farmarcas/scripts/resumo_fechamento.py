@@ -30,7 +30,8 @@ Os mesmos da narrativa do dossiê, mais dois que só o resumo usa:
 `provocacoes_empresario` (o mesmo campo que o dossiê usa) sai aqui também, em
 "O que vai para a conversa com o empresário": o analista aprova o roteiro antes
 de levá-lo. E cada item de lente com `parecer` mostra o rótulo — calculado pela
-tabela de direção da casa, igual ao dossiê.
+tabela de direção da casa, igual ao dossiê. O rótulo é do indicador, nunca
+do ponto ou da cidade.
 
 `resumo_perguntas` é a seção que justifica o resumo existir: as outras descrevem,
 essa convida. Sem ela o script avisa, porque um resumo que só descreve devolve o

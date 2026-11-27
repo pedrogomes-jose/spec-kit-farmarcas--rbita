@@ -51,6 +51,10 @@ contradiga a tabela.
 - **score, nota ou recomendação**: a régua 0–20 continua com o produto;
 - **ordenação de praças ou cidades**: o parecer compara um número com o seu
   referente, nunca uma cidade com a outra;
+- **juízo sobre o ponto, a cidade, a praça, o município ou a região**
+  ("cidade boa", "ponto ruim", "a praça é favorável", "o município é
+  desfavorável"): o rótulo fala só do indicador, nunca do lugar, e nunca se
+  agrega para julgá-lo;
 - **faixa absoluta**: nenhum "renda boa é acima de R$ X" — o corte é posição na
   distribuição ou no recorte comparado;
 - **direção inventada**: indicador fora da tabela sai "Sem referência"; direção

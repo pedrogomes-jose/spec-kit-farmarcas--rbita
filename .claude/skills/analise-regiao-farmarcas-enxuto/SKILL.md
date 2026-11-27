@@ -18,7 +18,8 @@ original, do Step 0 ao Step 6, sem exceção**:
 Todas as regras valem aqui sem alteração — o gate de zoneamento antes de
 qualquer mercado, a pergunta obrigatória sobre o perfil do solicitante, nenhum
 número fora de script, o dossiê não pontua (mas cada número com referente tem
-parecer bom/ruim, por número e sem soma), nenhum nome de pessoa, lacuna
+parecer bom/ruim, só do indicador, sem soma e nunca um juízo do ponto ou da
+cidade), nenhum nome de pessoa, lacuna
 sempre declarada, o quadrante SWOT, os dois raios, e as provocações ao
 empresário em `provocacoes_empresario`. Os scripts são os mesmos
 arquivos, em `../analise-regiao-farmarcas/scripts/`.

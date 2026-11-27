@@ -48,7 +48,8 @@ Referências (ler quando indicado):
   `references/benchmarks.md` permite — e o **parecer** de cada um (Bom / Na
   média / Ruim, Ambíguo, Sem referência), pela direção do indicador em
   `scripts/_parecer.py` — decisão do PM em 2026-11-27, que reverte a matiz única.
-  Não há composto, não há ordenação por qualidade, não há recomendação de abertura, e
+  O rótulo é do indicador, nunca da cidade. Não há composto, não há ordenação por
+  qualidade, não há recomendação de abertura, e
   nenhum agregado é emitido: dentro de uma dimensão os indicadores podem apontar
   em direções opostas, e a média apagaria o achado. **Só entra indicador per
   capita, percentual ou razão** — total absoluto (IPC, PIB total, potencial
@@ -203,7 +204,7 @@ Referências (ler quando indicado):
   aceita operar —, e vai escrito no relatório com essa palavra.
 - **Dentro do raio, a ordenação continua sendo por mercado.** Ordenar por
   distância pura foi testado e é pior: devolve o vilarejo mais próximo e esconde
-  a praça boa a 80 km. O par que funciona é **filtrar por alcance, depois
+  a praça que cabe a 80 km. O par que funciona é **filtrar por alcance, depois
   ordenar por mercado** — foi assim que Poços de Caldas e Varginha apareceram.
 - **Raio sem praça disponível é achado, não falha.** Quando não há praça
   disponível dentro do raio, o filtro se desliga sozinho, a lista volta a cobrir
@@ -280,9 +281,10 @@ Referências (ler quando indicado):
   dificuldade), **Ambíguo** ou **Sem referência**, pela tabela de direção de
   `scripts/_parecer.py`, com corte por tercil da distribuição — posição, nunca
   faixa absoluta. No item da lente, o campo `parecer` informa indicador e
-  posição; o rótulo sai do script. **O parecer é por número**: não se soma, não
-  se conta, não se salda, não ordena praça e não recomenda — a conferência
-  mecânica reprova as formas escritas disso.
+  posição; o rótulo sai do script. **O parecer é só do indicador**: não se soma,
+  não se conta, não se salda, não ordena praça, não recomenda e **nunca julga o
+  ponto, a cidade, a praça, o município ou a região** — "cidade boa" ou "ponto
+  ruim" são veredito, e a conferência mecânica reprova as formas escritas disso.
 - **O que só o empresário sabe vai para o dossiê, não para o analista.**
   História da praça, por que uma loja fechou ou a receita caiu, concorrência
   vista de dentro, intenção e apetite: o analista provavelmente não sabe, e
@@ -684,7 +686,8 @@ lente ficar vazia por falta de fonte.
 | Tentação | Por que não |
 |---|---|
 | "Faço uma nota de 0 a 10 só para resumir" | é a régua de novo, com outro nome |
-| "Três indicadores bons e um ruim: resumo como praça boa" | parecer é por número; contar ou saldar pareceres é a nota escrita por extenso, e a conferência reprova |
+| "Três indicadores bons e um ruim: resumo como praça boa" | parecer é só do indicador; contar ou saldar pareceres — ou julgar a praça — é a nota escrita por extenso, e a conferência reprova |
+| "A cidade é boa" / "o ponto é ruim" / "a praça é favorável" | o parecer nunca é do lugar; é do indicador contra o referente dele |
 | "Deixo só o percentil, quem lê sabe se é bom" | não sabe: percentil 28 é bom num indicador e ruim noutro. Diga o parecer |
 | "Pergunto ao usuário por que a receita da rede caiu" | quem sabe é o empresário; vira `provocacoes_empresario` e sai no dossiê |
 | "O usuário não disse o perfil, assumo empresário novo" | é a pergunta que muda a leitura de canibalização — pergunte |
@@ -773,7 +776,7 @@ lente ficar vazia por falta de fonte.
 | "Região é o que o raio alcança" | região é a CIDADE do ponto; o raio em divisa vira macrorregião |
 | "Listo a cidade sem dizer qual UTC é" | sem a localidade, a mesma cidade repetida parece oportunidade duplicada |
 | "Listo as maiores praças da UF, que são as melhores oportunidades" | sem âncora no ponto a lista vira função do estado: dois pedidos a 390 km um do outro recebiam listas idênticas, e nenhuma praça a menos de 150 km de nenhum dos dois |
-| "Ordeno por distância, assim fica perto do empresário" | testado e pior: devolve o vilarejo mais próximo e esconde a praça boa a 80 km. Filtre por alcance, depois ordene por mercado |
+| "Ordeno por distância, assim fica perto do empresário" | testado e pior: devolve o vilarejo mais próximo e esconde a praça que cabe a 80 km. Filtre por alcance, depois ordene por mercado |
 | "Nenhuma praça cabe no raio, então deixo a tabela vazia" | tabela vazia não é resposta; desligue o filtro, mostre a UF e DECLARE que não há praça perto — é esse o achado |
 | "A distância até a praça é precisa, saiu de cálculo" | é mediana das farmácias da cidade, porque o acervo não tem coordenada de município; serve para ordenar, não para medir endereço |
 | "Captura da UTC = receita dela ÷ potencial da cidade" | numerador e denominador em recortes diferentes; captura é municipal |

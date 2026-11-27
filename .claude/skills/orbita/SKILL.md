@@ -41,7 +41,10 @@ Leia estas antes de qualquer outra coisa. Elas não cedem à conversa — a conv
   (`.claude/skills/analise-regiao-farmarcas/scripts/_parecer.py`): **Bom**,
   **Na média**, **Ruim** (possível dificuldade), **Ambíguo** quando a casa não
   tem direção defensável, **Sem referência** quando não há referente coerente.
-  Nunca faixa absoluta, nunca número inventado.
+  Nunca faixa absoluta, nunca número inventado. **O parecer é só do indicador,
+  nunca do ponto, da cidade, da praça, do município ou da região** — não existe
+  "cidade boa" ou "ponto ruim", e somar pareceres para julgar o lugar é a nota
+  com outro nome; a conferência reprova as formas escritas disso.
 - **Perfil e empresário não viram premissa.** Sem saber se é empresário novo ou
   já associado, o dossiê não sabe se a loja Farmarcas vizinha é conflito entre
   associados ou escolha estratégica dele. **Quem é o empresário se pergunta
@@ -704,7 +707,8 @@ não aparato de conferência.
 | "Pergunta aberta sobre a concorrência rende conversa" | rende "não sei"; ou vira pergunta fechada que o analista responde, ou vai ao empresário |
 | "Guardo trinta provocações para o empresário, assim nada se perde" | lista longa vira questionário; alvo de 10 a 15, teto de 15 |
 | "Percentil 28 fala por si" | não fala: é bom num indicador e ruim noutro, e é exatamente o que o analista não sabe — diga o parecer |
-| "Três indicadores bons e um ruim: dá para dizer que a praça é boa" | é a nota com outro nome; o parecer é por número, e a conferência reprova contagem e saldo de pareceres |
+| "Três indicadores bons e um ruim: dá para dizer que a praça é boa" | é a nota com outro nome; o parecer é só do indicador, nunca do lugar, e a conferência reprova contagem, saldo e juízo sobre ponto, cidade ou praça |
+| "A cidade é boa" / "o ponto é ruim" / "essa praça é favorável" | o rótulo fala de um número contra o referente dele, não do lugar |
 | "Escrevo 'Bom' no parecer, o indicador não está na tabela mas é óbvio" | sem direção declarada o rótulo é palpite; sai "Sem referência", e a direção nova entra na tabela por decisão do PM |
 | "Essa pergunta é interessante, mesmo sem mudar nada" | pergunta que não muda item, lacuna ou premissa gasta a atenção das que mudam |
 | "Renumero as perguntas a cada turno" | ele responde por número; renumerar quebra a resposta dele |

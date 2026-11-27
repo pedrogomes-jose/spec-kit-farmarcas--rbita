@@ -151,7 +151,8 @@ texto: buraco na matriz é informação, e tirar a caixa desalinha as outras tr�
 O parecer não decide a lente. Um número "Bom" costuma estar em Forças, mas o
 quadrante continua sendo escolhido pelo que o item afirma — e um "Ruim" em
 Oportunidades é possível quando o item é a alavanca contra ele. O que não se
-faz é contar pareceres por quadrante.
+faz é contar pareceres por quadrante, nem transformar o conjunto num juízo
+sobre o ponto, a cidade ou a praça: o parecer é só do indicador.
 
 ## Tier de decisão
 

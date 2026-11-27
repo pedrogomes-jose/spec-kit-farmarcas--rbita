@@ -74,8 +74,9 @@ Regras que valem para qualquer análise de dado neste projeto:
   2026-11-27 (decisão do PM), todo número com referente sai com parecer — Bom,
   Na média, Ruim, Ambíguo ou Sem referência —, por posição no percentil ou no
   recorte da região e pela direção do indicador
-  (`analise-regiao-farmarcas/scripts/_parecer.py`). Parecer é por número: não
-  se soma, não se conta, não ordena e não recomenda.
+  (`analise-regiao-farmarcas/scripts/_parecer.py`). Parecer é só do indicador:
+  não se soma, não se conta, não ordena, não recomenda e nunca julga o ponto,
+  a cidade, a praça, o município ou a região.
 - **O que só o empresário sabe não se pergunta ao analista.** Vira a seção
   "Para conversar com o empresário" do dossiê (de 10 a 15 perguntas), que o
   analista leva à reunião com ele.

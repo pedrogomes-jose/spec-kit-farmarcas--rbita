@@ -41,9 +41,11 @@ aprendizado de uso: é mudança de produto, a ser observada nas próximas rodada
 
 **O que vigiar**
 
-- **Parecer lido como nota da cidade.** Se alguém escrever ou ler "a cidade tem
-  mais bons que ruins", a decisão virou o que ela proíbe. O conferidor pega a
-  forma escrita; a lida, só o auditor.
+- **Parecer lido como nota da cidade, do ponto ou da praça.** O parecer é só
+  do indicador, nunca do lugar, e nunca se agrega para julgá-lo. Se alguém
+  escrever "a cidade é boa", "o ponto é ruim", "a praça é favorável" ou "a
+  cidade tem mais bons que ruins", a decisão virou o que ela proíbe. O
+  conferidor pega a forma escrita; a lida, só o auditor.
 - **Direção discutível na tabela.** Densidade demográfica entrou como "mais é
   melhor" por analogia à urbanização, sem regra escrita da casa; habitantes por
   farmácia entrou como "mais é melhor" com a ressalva de cobertura da base.
