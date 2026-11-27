@@ -6,6 +6,53 @@ uso real — aprendizado de teste e aprendizado de campo não valem o mesmo.
 
 ---
 
+## 2026-11-27 — o analista não responde pelo empresário, e todo número ganha parecer
+
+`PROCEDENCIA: decisão do PM (Pedro), em duas mensagens de 2026-11-27. Não é
+aprendizado de uso: é mudança de produto, a ser observada nas próximas rodadas.`
+
+- **Pergunta que só o empresário sabe saiu da conversa e entrou no dossiê.** A
+  skill perguntava ao analista coisas que ele provavelmente não sabe — por que a
+  receita da rede caiu, quem disputa o cliente de verdade, se o bairro mudou
+  desde 2010, se o solicitante aceita operar a X km. A resposta era "não sei", a
+  fase travava esperando quem não estava na conversa, e o fato — relevante —
+  sumia do documento como lacuna genérica. Agora vale o **teste do
+  respondente**: se o "não sei" do analista é assunto da conversa com o
+  empresário, a pergunta vira item de `provocacoes_empresario` (tema, achado,
+  pergunta, o que muda) e sai na seção "Para conversar com o empresário". Alvo
+  de 10 a 15, teto de 15 — o PM pediu explicitamente para não virar lista de
+  30 ou 40.
+- **O dossiê agora vai ao empresário.** A regra antiga dizia que ele não ia. O
+  PM decidiu o contrário: o analista apresenta o documento ao empresário, e as
+  provocações existem para essa conversa. Nome de pessoa continua fora.
+- **Parecer por número.** "Percentil 28" não dizia ao analista se era bom ou
+  ruim, e a resposta depende do indicador. Cada número com referente passa a
+  sair com **Bom / Na média / Ruim**, ou **Ambíguo / Sem referência**, pela
+  tabela de direção em `analise-regiao-farmarcas/scripts/_parecer.py`. O corte
+  é por tercil da distribuição (posição, não valor absoluto); o que muda entre
+  indicadores é a direção. Sem score, sem recomendação, sem soma nem contagem de
+  pareceres — o conferidor reprova "três indicadores bons", "saldo positivo" e
+  "maioria dos indicadores".
+- **O painel de perfil por cidade ganhou rótulo — revertendo a decisão de
+  2026-11-25.** A "matiz única, sem ícone de bom/ruim" era decisão do PM e foi
+  revista pelo PM em 2026-11-27: cada indicador do painel sai com o chip de
+  parecer. A tira de percentil continua com uma matiz só (ela mostra posição,
+  não qualidade), a ordem continua alfabética, e não há linha de total.
+
+**O que vigiar**
+
+- **Parecer lido como nota da cidade.** Se alguém escrever ou ler "a cidade tem
+  mais bons que ruins", a decisão virou o que ela proíbe. O conferidor pega a
+  forma escrita; a lida, só o auditor.
+- **Direção discutível na tabela.** Densidade demográfica entrou como "mais é
+  melhor" por analogia à urbanização, sem regra escrita da casa; habitantes por
+  farmácia entrou como "mais é melhor" com a ressalva de cobertura da base.
+  Se o PM discordar, muda uma linha em `_parecer.py`.
+- **Provocações genéricas.** "Como está o movimento?" serve a qualquer praça.
+  Toda provocação tem de partir de um achado desta sessão.
+
+---
+
 ## 2026-11-26 — o seletor substitui o bloco numerado
 
 `PROCEDENCIA: pedido do PM depois de tres rodadas de uso real.`

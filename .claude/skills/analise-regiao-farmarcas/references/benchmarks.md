@@ -16,6 +16,46 @@ de preferência:
 
 O histórico de análises **não** é referente: ver a seção abaixo.
 
+## Parecer por número — bom ou ruim contra o referente
+
+Decisão do PM em 2026-11-27. O referente transformava o número numa frase
+("percentil 28"), mas a frase ainda exigia do leitor saber se 28 é bom ou ruim
+**naquele indicador** — e a resposta muda de um para outro: percentil 28 de
+renda é ruim; num indicador em que menos é melhor, seria bom. É o conhecimento
+prévio que o produto existe para tirar do analista.
+
+Por isso todo número que tem referente sai com um **parecer**:
+
+| Rótulo | Quando |
+|---|---|
+| **Bom** | o número está do lado favorável do referente, pela direção do indicador |
+| **Na média** | percentil no terço do meio, ou em linha com o recorte comparado |
+| **Ruim** | do lado desfavorável — possível dificuldade |
+| **Ambíguo** | a casa não tem direção defensável para o indicador (ex.: captura do potencial, credenciamento ao Farmácia Popular, classes A/B, totais de porte) |
+| **Sem referência** | não há referente coerente (ex.: contagem de concorrentes num raio, categoria do REGIC) |
+
+**De onde vem o rótulo.** Da tabela de direção em `scripts/_parecer.py`: cada
+indicador tem uma direção (mais é melhor, menos é melhor, ambíguo, ou que
+depende do modelo da bandeira) e o motivo dela, apoiado nas lentes da casa e
+nesta página. O corte por percentil é por **tercil da distribuição** — posição,
+nunca valor absoluto. Contra um recorte da região (município, UF, anel maior),
+vale a posição acima/abaixo. O rótulo é calculado pelo script; o modelo só diz
+qual indicador e qual posição, e a conferência mecânica reprova rótulo que
+contradiga a tabela.
+
+**O que o parecer não pode virar** — e a conferência mecânica reprova:
+
+- **soma, contagem, saldo ou maioria de pareceres** ("três indicadores bons",
+  "saldo positivo", "a maioria dos indicadores é ruim"): é a nota reintroduzida
+  por extenso;
+- **score, nota ou recomendação**: a régua 0–20 continua com o produto;
+- **ordenação de praças ou cidades**: o parecer compara um número com o seu
+  referente, nunca uma cidade com a outra;
+- **faixa absoluta**: nenhum "renda boa é acima de R$ X" — o corte é posição na
+  distribuição ou no recorte comparado;
+- **direção inventada**: indicador fora da tabela sai "Sem referência"; direção
+  nova entra na tabela por decisão do PM, com o motivo escrito.
+
 ## Um dossiê não se apoia em outro
 
 A tentação é grande justamente porque o analista anterior **é** o leitor: ele
@@ -56,8 +96,8 @@ como a sua procedência.
 | **O histórico de análises** | o parecer não prediz desfecho, e o dossiê descreve a região e não as decisões anteriores sobre ela |
 | **Outro dossiê já feito** | um dossiê é lido isolado, por quem pode nunca ter visto o outro. E dois pontos específicos não formam distribuição: "o dobro do ponto anterior" não diz se o número é alto ou baixo, só que é diferente de um caso. Vale para menção explícita e para eco ("ao contrário de um calçadão central") |
 | **O Centro de Franca/SP como referência de comparação** | proibido por decisão do PM em 2026-10-27, em qualquer situação. Franca aparece nas referências apenas como **caso de erro de dado** (falso positivo de bandeira, cadastro em cidade errada, população do dump × Censo) — isso é evidência de defeito, não régua |
-| Faixas absolutas de "renda boa" / "população suficiente" | é exatamente o conhecimento prévio que a descoberta aponta como causa do problema (`orbita-descoberta-analise-pontos.md:34`) |
-| O score 0–20 do produto | **o dossiê não pontua.** A régua tem dono (executivos) e vive no produto; reproduzi-la aqui cria dois números para a mesma pergunta |
+| Faixas absolutas de "renda boa" / "população suficiente" | um valor fixo escrito aqui seria conhecimento prévio cristalizado e envelheceria em silêncio. O juízo de bom/ruim é permitido (ver `## Parecer por número`), mas sempre por **posição** contra o referente — percentil ou recorte da região —, nunca contra um corte absoluto |
+| O score 0–20 do produto | **o dossiê não pontua.** A régua tem dono (executivos) e vive no produto; reproduzi-la aqui cria dois números para a mesma pergunta. O parecer por número não é score: não se soma, não se conta e não recomenda |
 | Porte do mercado local como previsor de faturamento | medido: correlação **−0,003** (p = 0,97) com o faturamento da loja |
 | Média simples de qualquer série mensal da IQVIA | o dado mensal oscila mais de 5× em 36 de 182 lojas — só mediana e proporção |
 | **As outras praças da mesma lista** | quatro ou doze casos não são uma distribuição. É o mesmo erro de "o dobro do ponto anterior", com mais linhas: comparar as cidades do painel entre si cria uma régua de qualidade que o dado não sustenta, e ordená-las por qualquer percentil é ranking com outro nome. O referente de cada indicador é o país |
@@ -67,8 +107,9 @@ como a sua procedência.
 
 O **perfil por cidade** da lista de praças é a forma que esta regra toma no
 produto: cada indicador sai com o valor, o percentil na distribuição nacional
-dos municípios brasileiros da própria camada, a mediana nacional e quantos
-municípios entraram na comparação. Nada mais.
+dos municípios brasileiros da própria camada, a mediana nacional, quantos
+municípios entraram na comparação e o **parecer** daquele número (desde
+2026-11-27). Nada mais — nenhum agregado entre eles.
 
 Regra de corte que o acompanha: **só entra indicador per capita, percentual ou
 razão**. Total absoluto — IPC, PIB total, potencial de consumo anual, população,

@@ -33,8 +33,33 @@ Formato do `--config` (JSON):
     "Fragilidades": {...}, "Oportunidades": {...}, "Dificuldades": {...}
   },
   "nao_sabe": ["item", "item"],
-  "campo": ["item"]
+  "campo": ["item"],
+  "provocacoes_empresario": [{
+    "tema": "camada ou lente de onde saiu",
+    "achado": "o número apurado nesta sessão que motiva a pergunta",
+    "pergunta": "a pergunta que o analista leva ao empresário",
+    "o_que_muda": "o que a resposta muda na leitura"
+  }]
 }
+
+Cada item de lente pode trazer um `parecer` — o número está bom ou ruim contra
+o referente dele (decisão do PM em 2026-11-27):
+
+  "parecer": {"indicador": "renda_por_habitante", "posicao": "acima",
+              "referente": "anel de 5 km"}
+  "parecer": {"indicador": "habitantes_por_farmacia", "percentil": 91}
+
+O RÓTULO não é escrito pelo modelo: sai de `_parecer.py`, pela direção do
+indicador na tabela da casa contra o percentil ou a posição. Indicador fora da
+tabela sai "Sem referência" (ou "Ambíguo", se o modelo disser). Um `porque`
+escrito pelo modelo é aceito e passa pela conferência de número como qualquer
+texto da narrativa. O parecer é por número: não se soma, não se conta, não
+ordena e não recomenda.
+
+`provocacoes_empresario` é a seção "Para conversar com o empresário": o que o
+analista provavelmente não sabe responder e o empresário sabe — história da
+praça, concorrência vista de dentro, intenção, apetite. Alvo de 10 a 15 itens,
+teto de 15. Aceita string solta no lugar do objeto. Vale nos três formatos.
 
 O gate decide QUAL relatório sai, e o formato é HTML nos dois casos. Quando o
 zoneamento devolve `impedimento`, nenhum script de mercado roda e a narrativa
@@ -48,7 +73,8 @@ com aviso:
   "o_que_mudaria": ["o que, se fosse outro, destravaria"],
   "alertas_cadastro": ["o que no cadastro erraria o teto junto"],
   "nao_sabe": ["lacuna explicada"],
-  "campo": ["o que confirmar, e o que muda conforme a resposta"]
+  "campo": ["o que confirmar, e o que muda conforme a resposta"],
+  "provocacoes_empresario": ["...mesmo formato do dossiê completo"]
 }
 
 Há um terceiro relatório, e ele não depende do gate porque não há ponto: a lista
@@ -69,7 +95,8 @@ Pouso Alegre e Ipatinga receberam listas idênticas, 15 de 15).
   "fontes": ["texto solto", {"titulo": "Captura do potencial de consumo",
                              "fonte": "camada de potencial de consumo do acervo de ..."}],
   "nao_sabe": ["lacuna explicada"],
-  "campo": ["o que confirmar antes de escolher"]
+  "campo": ["o que confirmar antes de escolher"],
+  "provocacoes_empresario": ["...mesmo formato do dossiê completo"]
 }
 
 `fontes` é opcional e existe porque a prosa desta lista se apoia em camada que a
@@ -97,6 +124,7 @@ import sys
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import _bases as B  # noqa: E402
+import _parecer as PAR  # noqa: E402
 
 # Raio de busca das praças alternativas, em quilômetros. É PREMISSA DECLARADA,
 # não medida: nenhuma fonte diz a que distância um empresário aceita operar.
@@ -552,6 +580,57 @@ def bloco_implantacao(implant: dict) -> str:
     return f'<p class="explica">{texto}</p>'
 
 
+_ROTULO_MUNICIPAL = {
+    "renda_media_domic_per_capita": ("Renda domiciliar per capita", "R$"),
+    "ipc": ("Índice de potencial de consumo (IPC)", 4),
+    "pib_per_capita": ("PIB per capita", "R$"),
+    "ifdm": ("Desenvolvimento municipal (IFDM)", 4),
+}
+
+
+def bloco_parecer_municipal(ctx: dict, modelo: str | None = None) -> str:
+    """O município contra o país, com o parecer de cada número.
+
+    Os percentis já vinham na apuração de `contexto_municipio` e só chegavam ao
+    documento quando a prosa os citava. Aqui cada um sai com valor, mediana
+    nacional, posição e o parecer — bom, na média ou ruim pela direção daquele
+    indicador; ambíguo quando a casa não tem direção defensável. Sem linha de
+    total e sem contagem de "bons": o parecer é por número.
+    """
+    linhas = []
+    for chave, (rot, unidade) in _ROTULO_MUNICIPAL.items():
+        d = ((ctx or {}).get("percentis") or {}).get(chave) or {}
+        if not d or d.get("erro") or d.get("percentil") is None:
+            continue
+        par = PAR.parecer(PAR.CHAVE_DO_PERCENTIL_MUNICIPAL[chave], d.get("percentil"), modelo=modelo)
+        valor = brl(d.get("valor")) if unidade == "R$" else num(d.get("valor"), unidade)
+        mediana = brl(d.get("mediana_nacional")) if unidade == "R$" else num(d.get("mediana_nacional"), unidade)
+        linhas.append(
+            f"<tr><td>{e(rot)}</td><td>{valor}</td><td>{mediana}</td>"
+            f"<td>p{num(d.get('percentil'))} de {num(d.get('municipios_comparados'))}</td>"
+            f"<td>{chip_parecer(par)}</td></tr>"
+        )
+    sat = (ctx or {}).get("saturacao") or {}
+    if sat and not sat.get("erro") and sat.get("percentil") is not None:
+        par = PAR.parecer("habitantes_por_farmacia", sat.get("percentil"), modelo=modelo)
+        linhas.append(
+            f"<tr><td>Habitantes por farmácia</td><td>{num(sat.get('habitantes_por_farmacia'), 1)}</td>"
+            f"<td>{num(sat.get('mediana_nacional'), 1)}</td>"
+            f"<td>p{num(sat.get('percentil'))} de {num(sat.get('municipios_comparados'))}</td>"
+            f"<td>{chip_parecer(par)}</td></tr>"
+        )
+    if not linhas:
+        return ""
+    return f"""<h3>O município contra o país — e se o número é bom ou ruim</h3>
+  <p class="explica"><b>Como ler o parecer.</b> A posição é o percentil do município na
+  distribuição nacional da própria camada. O parecer diz se essa posição é boa ou ruim
+  <b>para aquele indicador</b> — a mesma posição pode ser boa num e ruim noutro — e
+  "Ambíguo" quando a casa não tem direção defensável. É um parecer por número: não se
+  soma, não vira nota e não recomenda abrir.</p>
+  <table class="parecer-tab"><thead><tr><th>Indicador</th><th>Valor</th><th>Mediana nacional</th>
+  <th>Posição</th><th>Parecer</th></tr></thead><tbody>{"".join(linhas)}</tbody></table>"""
+
+
 def bloco_influencia(ctx: dict) -> str:
     """As cidades que têm este município como polo, nomeadas e com população.
 
@@ -599,8 +678,116 @@ def bloco_influencia(ctx: dict) -> str:
 # joga contra. Lido assim, cada linha é um par que se contrapõe.
 ORDEM_SWOT = ("Forças", "Fragilidades", "Oportunidades", "Dificuldades")
 
+# Teto e alvo da seção "Para conversar com o empresário" — decisão do PM em
+# 2026-11-27: entre 10 e 15, nunca uma lista de 30 ou 40. Lista longa demais
+# vira questionário e o empresário responde as três primeiras.
+PROVOCACOES_ALVO_MIN = 10
+PROVOCACOES_TETO = 15
 
-def bloco_lentes(lentes: dict, fontes: list) -> str:
+
+def chip_parecer(par: dict | None, com_porque: bool = True) -> str:
+    """Rótulo de parecer de UM número, com o porquê em uma linha.
+
+    Não é nota: não existe escala contínua, não existe soma e não existe linha
+    de total. Cada chip fala de um número contra o referente dele.
+    """
+    if not par or not par.get("rotulo"):
+        return ""
+    r = par["rotulo"]
+    classe = PAR.CLASSE.get(r, "p-semref")
+    porque = limpar_tecnico(par.get("porque") or "")
+    dica = porque + (f" · {par['motivo']}" if par.get("motivo") and par.get("motivo") not in porque else "")
+    linha = f' <span class="parecer-porque">{rico(porque)}</span>' if (com_porque and porque) else ""
+    return f'<span class="parecer {classe}" title="{e(dica)}">{e(r)}</span>{linha}'
+
+
+def resolver_parecer(bruto, modelo: str | None = None, onde: str = "") -> dict | None:
+    """Transforma o `parecer` escrito na narrativa no parecer que sai no HTML.
+
+    O rótulo é do script. Se o modelo escreveu um rótulo que a tabela de direção
+    contradiz, vale o da tabela e o aviso diz onde — rótulo é a parte do parecer
+    que precisa ser reconferível, e só o é se sair de regra.
+    """
+    if not bruto:
+        return None
+    if isinstance(bruto, str):
+        bruto = {"rotulo": bruto}
+    chave = (bruto.get("indicador") or "").strip()
+    escrito = (bruto.get("rotulo") or "").strip()
+    porque_modelo = (bruto.get("porque") or "").strip()
+    if chave in PAR.DIRECAO:
+        calc = PAR.parecer(
+            chave, bruto.get("percentil"), bruto.get("posicao"), modelo,
+            referente=bruto.get("referente") or "municípios do país",
+        )
+        if escrito and escrito != calc["rotulo"]:
+            print(
+                f"AVISO: parecer de '{onde}' escrito como '{escrito}', mas a direção "
+                f"de '{chave}' na tabela da casa dá '{calc['rotulo']}'. Vale o da tabela.",
+                file=sys.stderr,
+            )
+        if porque_modelo:
+            calc["porque"] = porque_modelo
+        return calc
+    # Indicador fora da tabela: não há direção da casa, então não há Bom/Ruim.
+    rot = escrito if escrito in (PAR.AMBIGUO, PAR.SEM_REFERENCIA) else PAR.SEM_REFERENCIA
+    if escrito and escrito not in (PAR.AMBIGUO, PAR.SEM_REFERENCIA):
+        print(
+            f"AVISO: parecer de '{onde}' diz '{escrito}' para um indicador fora da "
+            f"tabela de direção ('{chave or 'sem indicador'}'). Saiu como "
+            f"'{PAR.SEM_REFERENCIA}': rótulo bom/ruim só com direção declarada.",
+            file=sys.stderr,
+        )
+    return {"rotulo": rot, "porque": porque_modelo or "sem direção declarada na tabela da casa para este indicador", "indicador": chave}
+
+
+def _provocacao_campos(p) -> dict:
+    if isinstance(p, str):
+        return {"tema": "", "achado": "", "pergunta": p, "o_que_muda": ""}
+    return {k: (p.get(k) or "") for k in ("tema", "achado", "pergunta", "o_que_muda")}
+
+
+def bloco_provocacoes(cfg: dict, formato: str = "ponto") -> str:
+    """Seção "Para conversar com o empresário".
+
+    Decisão do PM em 2026-11-27: o analista leva este documento ao empresário,
+    e a conversa com a skill não deve gastar a atenção dele com o que ele
+    provavelmente não sabe — história da praça, concorrência vista de dentro,
+    intenção e apetite do empresário. Essas perguntas não somem: viram o roteiro
+    desta seção. Cada uma parte de um número apurado, e o texto é escrito para
+    ser lido em voz alta na reunião.
+    """
+    itens = [_provocacao_campos(p) for p in (cfg.get("provocacoes_empresario") or [])]
+    itens = [i for i in itens if i["pergunta"]]
+    if not itens:
+        return ""
+    lis = []
+    for n, i in enumerate(itens, 1):
+        tema = f'<span class="prov-tema">{e(limpar_tecnico(i["tema"]))}</span>' if i["tema"] else ""
+        achado = f'<div class="prov-achado">{rico(limpar_tecnico(i["achado"]))}</div>' if i["achado"] else ""
+        muda = (
+            f'<div class="prov-muda"><b>O que a resposta muda:</b> {rico(limpar_tecnico(i["o_que_muda"]))}</div>'
+            if i["o_que_muda"] else ""
+        )
+        lis.append(
+            f'<li><div class="prov-perg"><span class="prov-n">{n}</span>{tema}'
+            f'<b>{rico(limpar_tecnico(i["pergunta"]))}</b></div>{achado}{muda}</li>'
+        )
+    intro = {
+        "ponto": "o que este dossiê levanta e só quem vai operar o ponto sabe responder",
+        "impedimento": "o que esta checagem levanta e só o empresário sabe responder — inclusive sobre as praças onde a regra não barra",
+        "prospeccao": "o que esta lista levanta e só o empresário sabe responder antes de escolher a praça",
+    }.get(formato, "o que só o empresário sabe responder")
+    return f"""<section class="provocacoes">
+  <h2><span class="ic">?</span> Para conversar com o empresário</h2>
+  <p class="prov-intro">Roteiro para a conversa do analista com o empresário: {intro}.
+  Cada pergunta parte de um número deste documento. Não é questionário — a resposta é dele,
+  e é ela que completa a leitura.</p>
+  <ol class="prov">{"".join(lis)}</ol>
+</section>"""
+
+
+def bloco_lentes(lentes: dict, fontes: list, modelo: str | None = None) -> str:
     """Rende as quatro lentes como QUADRANTE SWOT de texto corrido.
 
     Texto corrido e não bullet: bullet empilha afirmações soltas; parágrafo
@@ -639,9 +826,13 @@ def bloco_lentes(lentes: dict, fontes: list) -> str:
             if fonte:
                 fontes.append((nome, limpar_tecnico(i.get("titulo", "")), fonte))
                 marca = f'<sup class="ref">{len(fontes)}</sup>'
+            # Parecer do número principal do item: bom ou ruim contra o
+            # referente dele. Rótulo do script, nunca do modelo.
+            par = resolver_parecer(i.get("parecer"), modelo, onde=f"{nome} — {(i.get('titulo') or '')[:40]}")
+            chip = f'<span class="parecer-linha">{chip_parecer(par)}</span>' if par else ""
             corpo += (
                 f'<p><b>{rico(limpar_tecnico(i.get("titulo")))}</b> '
-                f'{rico(limpar_tecnico(i.get("texto")))}{marca}</p>'
+                f'{rico(limpar_tecnico(i.get("texto")))}{marca}{chip}</p>'
             )
         if not corpo:
             corpo = '<p class="vazio">Nada a registrar nesta lente.</p>'
@@ -1223,7 +1414,7 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     # --- leitura (4 lentes)
     partes.append(f"""<section>
   <h2><span class="ic">◆</span> Leitura da região</h2>
-  {bloco_lentes(cfg.get('lentes', {}), fontes)}
+  {bloco_lentes(cfg.get('lentes', {}), fontes, cfg.get('modelo'))}
 </section>""")
 
     # --- detalhes da região
@@ -1256,6 +1447,7 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
     {cards_ocupacao}
   </div>
   {bloco_influencia(ctx)}
+  {bloco_parecer_municipal(ctx, cfg.get("modelo"))}
 </section>""")
 
     # --- microterritório
@@ -1645,6 +1837,7 @@ def construir(cfg: dict, zon: dict | None = None) -> str:
   <h2><span class="ic">✓</span> Para confirmar em campo</h2>
   <ul class="proc">{campo or "<li>—</li>"}</ul>
 </section>
+{bloco_provocacoes(cfg, "ponto")}
 """); partes.append(bloco_fontes(fontes, dump, limpar_tecnico(cfg.get("origem_da_coordenada")) or "", modo)); partes.append(f"""<footer>
   Órbita · Dossiê de Região · {e(cfg['endereco'])}{rodape_proc}
 </footer>""")
@@ -1858,6 +2051,19 @@ def bloco_duas_leituras(zon: dict, vinculo_apurado: bool = True) -> str:
   econômicos.</p>"""
 
 
+def _chip_do_painel(i: dict) -> str:
+    chave = PAR.CHAVE_DO_ROTULO_DO_PAINEL.get(i.get("rotulo") or "")
+    if not chave:
+        print(
+            f"AVISO: o indicador do painel '{i.get('rotulo')}' não está casado com a "
+            "tabela de direção (_parecer.CHAVE_DO_ROTULO_DO_PAINEL) e saiu sem parecer.",
+            file=sys.stderr,
+        )
+        return ""
+    par = PAR.parecer(chave, i.get("percentil"))
+    return f'<div class="parecer-ind">{chip_parecer(par, com_porque=False)}</div>'
+
+
 def bloco_perfil_dos_municipios(alt: dict) -> str:
     """Como é cada CIDADE da lista — valor e posição nacional, nunca nota.
 
@@ -1872,10 +2078,12 @@ def bloco_perfil_dos_municipios(alt: dict) -> str:
     todas as regiões da mesma cidade e sugeriria que foram avaliadas como praças
     diferentes — o defeito já corrigido para a taxa de captura.
 
-    Por que não há cor de escala, seta, ícone de bom/ruim nem linha de total:
-    cada um deles converte o painel em nota num único commit. A ausência é a
-    decisão, não um esquecimento. A ordem é ALFABÉTICA, declarada no cabeçalho,
-    e não existe parâmetro de ordenação neste código.
+    Parecer por indicador — decisão do PM em 2026-11-27, que reverte a "matiz
+    única" de 2026-11-25: cada indicador ganha o rótulo Bom / Na média / Ruim
+    pela direção dele na tabela da casa (`_parecer.py`), ou Ambíguo / Sem
+    referência. O rótulo fala de UM número contra o país, nunca da cidade: não
+    há linha de total, não há contagem de "bons", e a ordem continua
+    ALFABÉTICA, declarada no cabeçalho, sem parâmetro de ordenação no código.
     """
     perfil = (alt or {}).get("perfil_dos_municipios") or {}
     cidades = perfil.get("municipios") or []
@@ -1899,7 +2107,8 @@ def bloco_perfil_dos_municipios(alt: dict) -> str:
             f'<span class="val">{valor} {e(unidade)}</span>'
             f'<span class="faixa-pct" title="percentil {pctl} — mediana nacional {num(i.get("mediana_nacional"), 1)} {e(unidade)}">'
             f'<i style="left:{max(0, min(100, pctl))}%"></i></span>'
-            f'<span class="pn">p{pctl}</span></div>'
+            f'<span class="pn">p{pctl}</span>'
+            f'{_chip_do_painel(i)}</div>'
         )
 
     linhas = []
@@ -1935,11 +2144,13 @@ def bloco_perfil_dos_municipios(alt: dict) -> str:
   <h2><span class="ic">◎</span> Como é cada cidade — valor e posição nacional</h2>
   <p class="explica"><b>Aqui a unidade muda: cada linha é uma cidade, não uma praça.</b>
   Estes indicadores são do município inteiro e seriam idênticos nas regiões da mesma
-  cidade — {exemplo}. Nenhum número desta seção pontua, nota ou ordena: cada indicador
-  aparece com o valor e com a posição dele na distribuição dos municípios brasileiros da
-  própria camada. <b>Nenhuma linha é melhor que outra</b>, e cidade com percentil alto em
-  três dimensões e baixo na quarta não é "três de quatro" — é uma cidade com um perfil, e
-  o perfil é o conteúdo.</p>
+  cidade — {exemplo}. Cada indicador aparece com o valor, a posição dele na distribuição
+  dos municípios brasileiros da própria camada e um <b>parecer</b>: se aquela posição é
+  boa, na média ou ruim <b>para aquele indicador</b> — percentil alto é bom em renda e
+  seria ruim num indicador em que mais é pior —, ou "Ambíguo" quando a casa não tem
+  direção defensável. O parecer é por número e não pontua a cidade: <b>nenhuma linha é
+  melhor que outra</b>, e cidade com pareceres bons em três dimensões e ruim na quarta não
+  é "três de quatro" — é uma cidade com um perfil, e o perfil é o conteúdo.</p>
   <p class="explica"><b>O que o percentil compara, e o que ele não compara.</b> Comparar
   cada cidade com a distribuição nacional da própria camada é o referente que esta análise
   usa. Comparar entre si os <b>percentis</b> destas cidades <b>não</b> é: quatro ou doze
@@ -1951,9 +2162,10 @@ def bloco_perfil_dos_municipios(alt: dict) -> str:
   e qualquer média entre os dois apagaria justamente ele.</p>
   <p class="explica"><b>Três ressalvas que mudam a leitura.</b> A captura do potencial pode
   ser baixa porque há mercado que ninguém atende <b>ou</b> porque a medição de mercado cobre
-  mal aquela praça — nada neste acervo separa os dois casos. <b>Habitantes por farmácia alto
-  tem a mesma ambiguidade</b>, e pela mesma razão: pode ser parque subdimensionado ou
-  cobertura parcial da base de farmácias. Essa base sustenta três dos indicadores deste
+  mal aquela praça — nada neste acervo separa os dois casos, e por isso o parecer dela é
+  "Ambíguo". <b>Habitantes por farmácia alto tem ambiguidade parecida</b>: pode ser parque
+  subdimensionado ou cobertura parcial da base de farmácias — o parecer "Bom" para percentil
+  alto assume que a base cobre bem a cidade. Essa base sustenta três dos indicadores deste
   painel — habitantes por farmácia, o percentual de credenciadas e as classes de renda dos
   domicílios —, então uma falha de cobertura nela afetaria os três juntos. E a razão de habitantes por
   farmácia usa uma contagem de população que é estimativa, cerca de 4% acima do Censo 2022:
@@ -2452,7 +2664,8 @@ def construir_impedimento(cfg: dict, zon: dict) -> str:
 <section>
   <h2><span class="ic">✓</span> Para confirmar em campo</h2>
   <ul class="proc">{campo or "<li>—</li>"}</ul>
-</section>""")
+</section>
+{bloco_provocacoes(cfg, "impedimento")}""")
 
     partes.append(f"""<section>
   <h2><span class="ic">§</span> Fontes</h2>
@@ -2656,7 +2869,8 @@ def construir_prospeccao(cfg: dict) -> str:
 <section>
   <h2><span class="ic">✓</span> Para confirmar antes de escolher</h2>
   <ul class="proc">{campo or "<li>—</li>"}</ul>
-</section>""")
+</section>
+{bloco_provocacoes(cfg, "prospeccao")}""")
 
     # A copia enxuta desta lista tira a secao Fontes, igual a do dossie de
     # ponto. O que ela NAO tira e o bloco "O que esta lista e, e o que ela nao
@@ -2801,9 +3015,10 @@ h4{font-size:12.5px;margin:16px 0 7px;color:var(--roxo);font-weight:700}
    O cabeçalho NÃO leva a faixa roxa da tabela de praças, e a seção tem borda e
    ícone próprios: colada e igual, ela seria lida como continuação da lista e
    herdaria a ordem por mercado, que é justamente o que não vale aqui.
-   A tira de percentil tem UMA matiz, sem escala de cor, sem seta e sem ícone
-   de bom/ruim — a ausência é a decisão. Colorir por faixa parece melhoria de
-   legibilidade e converte o painel em nota num único commit.
+   A tira de percentil continua com UMA matiz: ela mostra posição, não
+   qualidade. O juízo vem no chip de parecer ao lado (decisão do PM em
+   2026-11-27), que é por indicador e depende da direção dele — a mesma
+   posição pode ser boa num e ruim noutro, e por isso a tira não é colorida.
    Não existe tfoot: linha de total ou de média seria a composição que o script
    se recusa a emitir, reintroduzida pelo CSS. */
 section.painel{border-left:3px solid #2f6b8f;padding-left:14px}
@@ -2822,6 +3037,36 @@ table.painel-mun .nota-th{font-weight:400;font-size:10.5px;color:#6b7c86;margin-
 .painel-mun .faixa-pct i{position:absolute;top:-2px;width:2px;height:8px;
   background:#2f6b8f;border-radius:1px}
 @media print{section.painel{break-inside:avoid}}
+/* Parecer por número (2026-11-27). Cinco rótulos discretos, sem escala
+   contínua e sem total: cada chip fala de um número contra o referente dele. */
+.parecer{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+  padding:1px 7px;border-radius:9px;border:1px solid;vertical-align:middle;white-space:nowrap}
+.p-bom{color:#0f6b3c;background:#e6f4ec;border-color:#9fd3b5}
+.p-medio{color:#4a4a55;background:#f0f0f3;border-color:#cfcfd8}
+.p-ruim{color:#9a2f1f;background:#fbeae6;border-color:#eab3a8}
+.p-ambiguo{color:#7a5600;background:#fdf3dc;border-color:#ecd394}
+.p-semref{color:#6c6878;background:#fff;border-color:#dcdae2;font-weight:600}
+.parecer-porque{font-size:11.5px;color:var(--fraco);margin-left:5px}
+.parecer-linha{display:block;margin-top:5px}
+.painel-mun .parecer-ind{margin-top:2px}
+table.parecer-tab{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+table.parecer-tab th{text-align:left;font-size:11.5px;color:var(--fraco);font-weight:700;
+  padding:6px 8px;border-bottom:1px solid var(--linha)}
+table.parecer-tab td{padding:7px 8px;border-bottom:1px solid #f0eff3;vertical-align:top}
+/* Para conversar com o empresário. */
+section.provocacoes{border-left:4px solid #5b2a8c}
+.prov-intro{margin:0 0 10px;color:var(--fraco);font-size:13.5px}
+ol.prov{list-style:none;margin:0;padding:0}
+ol.prov li{padding:10px 0;border-bottom:1px solid #f0eff3}
+ol.prov li:last-child{border-bottom:0}
+.prov-perg{font-size:15px}
+.prov-n{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;
+  border-radius:11px;background:#5b2a8c;color:#fff;font-size:11.5px;font-weight:700;margin-right:8px}
+.prov-tema{display:inline-block;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;
+  color:#5b2a8c;border:1px solid #d9c9ec;border-radius:9px;padding:0 7px;margin-right:7px}
+.prov-achado{font-size:13px;color:var(--texto);margin:5px 0 0 30px}
+.prov-muda{font-size:12.5px;color:var(--fraco);margin:4px 0 0 30px}
+@media print{section.provocacoes{break-inside:avoid}}
 .lente{border:1px solid;border-left-width:4px;border-radius:8px;padding:11px 14px;margin-bottom:10px}
 .lente-tit{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
 .lente p{margin:9px 0 0;text-align:justify}
@@ -2997,6 +3242,22 @@ def main() -> int:
     # um dossie de ponto, que aqui nao existe. O erro fatal de perfil sem
     # responsavel tambem nao se aplica: ele existe porque a prosa do dossie
     # afirma de quem e cada loja, e esta lista nao afirma isso de ninguem.
+    # Para conversar com o empresário: alvo 10–15, teto 15 (PM, 2026-11-27).
+    _n_prov = len([p for p in (cfg.get("provocacoes_empresario") or []) if p])
+    if _n_prov > PROVOCACOES_TETO:
+        print(
+            f"AVISO: {_n_prov} provocações ao empresário — o teto é {PROVOCACOES_TETO}. "
+            "Corte pelas de maior consequência; a conferência mecânica reprova acima do teto.",
+            file=sys.stderr,
+        )
+    elif _n_prov == 0 and cfg.get("tipo") != "prospeccao":
+        print(
+            "AVISO: narrativa sem `provocacoes_empresario`. A seção 'Para conversar com o "
+            "empresário' não vai sair — e é ela que leva ao empresário o que o analista "
+            "não sabe responder.",
+            file=sys.stderr,
+        )
+
     if cfg.get("tipo") == "prospeccao":
         pagina = construir_prospeccao(cfg)
         return gravar_entregavel(pagina, args.saida, cfg, None)
@@ -3250,6 +3511,13 @@ def main() -> int:
                 "AVISO: a narrativa esta no formato de impedimento, mas o gate "
                 f"devolveu '{zon.get('veredito')}'. O relatorio completo sera montado "
                 "e as quatro lentes virao vazias.",
+                file=sys.stderr,
+            )
+        if 0 < _n_prov < PROVOCACOES_ALVO_MIN:
+            print(
+                f"AVISO: {_n_prov} provocação(ões) ao empresário no dossiê completo — o alvo "
+                f"é de {PROVOCACOES_ALVO_MIN} a {PROVOCACOES_TETO}. Se os achados sustentam mais, "
+                "elas estão faltando; se não sustentam, siga assim.",
                 file=sys.stderr,
             )
         pagina = construir(cfg, zon)

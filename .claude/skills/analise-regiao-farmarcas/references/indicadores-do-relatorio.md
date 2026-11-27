@@ -350,7 +350,7 @@ perdida — `crescimento_farmarcas` negativo é o segundo caso.
 
 | Campo do relatório do produto | Por quê |
 |---|---|
-| **Status (Recomendado / Não recomendado)** | o dossiê não pontua; a régua tem dono e vive no produto |
+| **Status (Recomendado / Não recomendado)** | o dossiê não pontua; a régua tem dono e vive no produto. O **parecer por número** (Bom / Na média / Ruim / Ambíguo / Sem referência) não é status: fala de um número contra o referente dele e nunca se soma — ver `benchmarks.md` |
 | **Score de viabilidade (%)** | idem |
 | **População flutuante** | não existe em fonte alguma: nem nas 57 bases, nem no código, nem em API pública localizada. Entra como lacuna, sempre |
 
@@ -390,6 +390,18 @@ A contagem declarada pela base entra como conferência. Quando as duas
 divergem, **as duas saem** e a divergência é o achado — não se escolhe uma em
 silêncio.
 
+## O município contra o país — parecer por número
+
+Bloco do dossiê de ponto, dentro do contexto macroeconômico (desde 2026-11-27).
+Os percentis municipais que `contexto_municipio.py` já apurava — renda
+domiciliar per capita, IPC, PIB per capita, IFDM — e a razão de habitantes por
+farmácia saem numa tabela com valor, mediana nacional, posição (percentil e
+número de municípios comparados) e o **parecer** de cada um, por
+`scripts/_parecer.py`. IPC e PIB per capita saem **Ambíguo**: o primeiro é
+total, proxy de porte, e porte não prevê faturamento (correlação medida
+−0,003); o segundo mede a planta em cidade industrial. Nenhum total, nenhuma
+contagem de pareceres.
+
 ---
 
 # Perfil por cidade — lista de praças
@@ -402,6 +414,17 @@ mediana nacional e número de municípios comparados.
 **Regra de corte:** só per capita, percentual ou razão. Total absoluto é proxy
 de porte e ordenaria as quatro dimensões por tamanho de cidade. Teto de três
 indicadores por dimensão.
+
+**Parecer por indicador** (desde 2026-11-27, decisão do PM que reverte a matiz
+única de 2026-11-25): cada indicador sai com o chip de parecer ao lado do
+percentil, calculado por `scripts/_parecer.py` pela direção do indicador e pelo
+tercil da distribuição. Direções de hoje: renda, consumo em drogarias por
+habitante, habitantes por farmácia, crescimento demográfico, crescimento do
+mercado municipal, municípios influenciados, população urbana e densidade —
+mais é melhor; classes A/B1/B2, captura do potencial e credenciamento ao
+Farmácia Popular — **Ambíguo**; papel na rede urbana — **Sem referência**. A
+tira de percentil continua com uma matiz (ela é posição, não juízo), a ordem
+continua alfabética, e não há linha de total.
 
 | Dimensão | Indicador | Base | Campo | Unidade |
 |---|---|---|---|---|

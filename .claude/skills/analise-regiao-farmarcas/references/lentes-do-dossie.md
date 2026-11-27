@@ -9,6 +9,13 @@ permite ao analista discordar.
 1. **número** — valor, com unidade, no texto
 2. **fonte de dado** — em **campo próprio** (`fonte`), nunca no meio da frase
 3. **comparação** — contra o município, a UF, ou a distribuição nacional
+4. **parecer** (quando o número tem referente) — campo `parecer` do item, que
+   diz se o número é bom ou ruim contra aquela comparação. O modelo informa o
+   indicador e a posição (`{"indicador": "renda_por_habitante", "posicao":
+   "acima", "referente": "anel de 5 km"}` ou `{"indicador":
+   "habitantes_por_farmacia", "percentil": 4}`); o rótulo — Bom, Na média, Ruim,
+   Ambíguo, Sem referência — sai de `scripts/_parecer.py`. Ver
+   `benchmarks.md`, `## Parecer por número`
 
 **A fonte sai do parágrafo.** Ela vai no campo `fonte` do item e aparece como
 referência numerada no fim da frase, resolvida na seção **Fontes** ao final do
@@ -140,6 +147,11 @@ informa é a posição:
 
 Quadrante sem item **continua desenhado**, com a linha de ausência no lugar do
 texto: buraco na matriz é informação, e tirar a caixa desalinha as outras três.
+
+O parecer não decide a lente. Um número "Bom" costuma estar em Forças, mas o
+quadrante continua sendo escolhido pelo que o item afirma — e um "Ruim" em
+Oportunidades é possível quando o item é a alavanca contra ele. O que não se
+faz é contar pareceres por quadrante.
 
 ## Tier de decisão
 

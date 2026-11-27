@@ -27,6 +27,11 @@ Os mesmos da narrativa do dossiê, mais dois que só o resumo usa:
     "resumo_gate":      "frase única com o veredito do gate e a regra citada"
     "resumo_perguntas": [{"titulo": "...", "texto": "..."}]
 
+`provocacoes_empresario` (o mesmo campo que o dossiê usa) sai aqui também, em
+"O que vai para a conversa com o empresário": o analista aprova o roteiro antes
+de levá-lo. E cada item de lente com `parecer` mostra o rótulo — calculado pela
+tabela de direção da casa, igual ao dossiê.
+
 `resumo_perguntas` é a seção que justifica o resumo existir: as outras descrevem,
 essa convida. Sem ela o script avisa, porque um resumo que só descreve devolve o
 mesmo "pode gerar" por cansaço que ele existe para evitar.
@@ -49,6 +54,9 @@ import json
 import os
 import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _parecer as PAR  # noqa: E402
 
 ORDEM_LENTES = ["Forças", "Fragilidades", "Oportunidades", "Dificuldades"]
 
@@ -121,6 +129,7 @@ h2 .n{color:var(--texto);font-weight:700}
  border-radius:0 10px 10px 0;padding:12px 16px;margin:0 0 10px}
 .perg .t{font-weight:600;display:block;margin-bottom:4px}
 .perg .d{color:var(--fraco);font-size:14px}
+.parecer{font-size:12px;color:var(--fraco);font-weight:600}
 .sem-perg{border-left:3px dashed var(--rascunho-linha);background:var(--rascunho-fundo);
  color:var(--rascunho);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14px}
 
@@ -142,7 +151,7 @@ def primeira_frase(t: str) -> str:
     return s[:-1] if s.endswith(".") else s
 
 
-def bloco_lentes(lentes: dict) -> str:
+def bloco_lentes(lentes: dict, modelo=None) -> str:
     out = ['<div class="quad">']
     for nome in ORDEM_LENTES:
         l = lentes.get(nome) or {}
@@ -153,12 +162,49 @@ def bloco_lentes(lentes: dict) -> str:
         if itens:
             out.append("<ul>")
             for i in itens:
-                out.append(f'<li>{e(i.get("titulo"))}</li>')
+                out.append(f'<li>{e(i.get("titulo"))}{_rotulo_do_item(i, modelo)}</li>')
             out.append("</ul>")
         else:
             out.append('<p class="vazia">Sem item nesta lente.</p>')
         out.append("</section>")
     out.append("</div>")
+    return "\n".join(out)
+
+
+def _rotulo_do_item(item: dict, modelo=None) -> str:
+    par = item.get("parecer")
+    if not par:
+        return ""
+    if isinstance(par, str):
+        par = {"rotulo": par}
+    chave = (par.get("indicador") or "").strip()
+    if chave in PAR.DIRECAO:
+        r = PAR.rotulo(chave, par.get("percentil"), par.get("posicao"), modelo)
+    else:
+        r = par.get("rotulo") if par.get("rotulo") in (PAR.AMBIGUO, PAR.SEM_REFERENCIA) else PAR.SEM_REFERENCIA
+    return f' <span class="parecer">[{e(r)}]</span>'
+
+
+def bloco_provocacoes(provs) -> str:
+    provs = [p for p in (provs or []) if p]
+    cab = f'<h2>O que vai para a conversa com o empresário <span class="n">({len(provs)})</span></h2>'
+    if not provs:
+        return cab + (
+            '<div class="sem-perg">A narrativa não traz provocações ao empresário. '
+            "O que o analista não sabe responder — história da praça, concorrência "
+            "vista de dentro, intenção do empresário — some do documento sem elas.</div>"
+        )
+    out = [cab]
+    for p in provs:
+        if isinstance(p, str):
+            out.append(f'<div class="perg"><span class="t">{e(p)}</span></div>')
+            continue
+        out.append(
+            '<div class="perg">'
+            f'<span class="t">{e(p.get("pergunta"))}</span>'
+            f'<span class="d">{e(p.get("achado"))}</span>'
+            "</div>"
+        )
     return "\n".join(out)
 
 
@@ -212,7 +258,7 @@ def montar(cfg: dict) -> str:
     dl = "\n".join(f"<dt>{e(k)}</dt><dd>{e(v)}</dd>" for k, v in ficha)
 
     if cfg.get("lentes"):
-        miolo = "<h2>O que o dossiê vai afirmar</h2>" + bloco_lentes(cfg["lentes"])
+        miolo = "<h2>O que o dossiê vai afirmar</h2>" + bloco_lentes(cfg["lentes"], cfg.get("modelo"))
     else:
         # Gate em impedimento ou lista de praças: não há quadrante.
         partes = []
@@ -248,6 +294,8 @@ def montar(cfg: dict) -> str:
 {bloco_lista("O que o dossiê NÃO vai saber", cfg.get("nao_sabe"), "Nenhuma lacuna declarada — o que, num dossiê de ponto, é sinal de que faltou declarar.")}
 
 {bloco_lista("O que fica para confirmar em campo", cfg.get("campo"), "Nenhum item de campo declarado.")}
+
+{bloco_provocacoes(cfg.get("provocacoes_empresario"))}
 
 {bloco_perguntas(cfg.get("resumo_perguntas"))}
 

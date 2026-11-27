@@ -52,6 +52,8 @@ try:
 except Exception:  # noqa: BLE001 — sem o módulo, a checagem de nome degrada
     B = None
 
+import _parecer as PAR  # noqa: E402 — tabela de direção, sem dependência de base
+
 
 # ---------------------------------------------------------------------------
 # Números escritos em português
@@ -255,7 +257,62 @@ def trechos_da_narrativa(cfg: dict):
             saida.append((rotulo, " ".join(
                 str(item.get(k) or "") for k in ("titulo", "texto", "fonte")
             )))
+            par = item.get("parecer")
+            if isinstance(par, dict):
+                txt = " ".join(str(par.get(k) or "") for k in ("porque", "referente"))
+                if txt.strip():
+                    saida.append((f"{rotulo} — parecer", txt))
+    # A seção para o empresário é narrativa como qualquer outra: o achado que
+    # motiva a pergunta cita número, e número sem origem ali é o mesmo defeito
+    # que em qualquer lente — com o agravante de ser dito em voz alta.
+    for i, p in enumerate(cfg.get("provocacoes_empresario") or []):
+        if isinstance(p, str):
+            saida.append((f"provocacoes_empresario[{i}]", p))
+        elif isinstance(p, dict):
+            saida.append((f"provocacoes_empresario[{i}]", " ".join(
+                str(p.get(k) or "") for k in ("tema", "achado", "pergunta", "o_que_muda")
+            )))
     return saida
+
+
+TETO_PROVOCACOES = 15  # decisão do PM em 2026-11-27: alvo 10–15, teto 15
+
+
+def checar_pareceres(cfg: dict):
+    """O rótulo de bom/ruim é reconferível, então se confere.
+
+    Duas coisas reprovam: rótulo fora dos cinco da casa, e rótulo que contradiz
+    a direção do indicador na tabela (`_parecer.py`). O gerador já troca o
+    rótulo pelo da tabela no HTML; o JSON com o rótulo contraditório continua
+    sendo o arquivo versionado, e a próxima geração herdaria a contradição.
+    Bom/Ruim para indicador FORA da tabela também reprova: sem direção
+    declarada, o rótulo seria palpite.
+    """
+    achados = []
+    for lente, conteudo in (cfg.get("lentes") or {}).items():
+        itens = conteudo.get("itens", []) if isinstance(conteudo, dict) else (conteudo or [])
+        for item in itens:
+            par = item.get("parecer")
+            if not par:
+                continue
+            if isinstance(par, str):
+                par = {"rotulo": par}
+            onde = f"{lente} — {(item.get('titulo') or '')[:48]}"
+            escrito = (par.get("rotulo") or "").strip()
+            chave = (par.get("indicador") or "").strip()
+            if escrito and escrito not in PAR.ROTULOS:
+                achados.append((onde, f"rótulo '{escrito}' fora dos cinco da casa: {', '.join(PAR.ROTULOS)}"))
+                continue
+            if chave in PAR.DIRECAO:
+                calc = PAR.rotulo(chave, par.get("percentil"), par.get("posicao"), cfg.get("modelo"))
+                if escrito and escrito != calc:
+                    achados.append((onde, f"'{escrito}' contradiz a direção de '{chave}', que dá '{calc}'"))
+            elif escrito in (PAR.BOM, PAR.MEDIO, PAR.RUIM):
+                achados.append((onde, f"'{escrito}' para indicador fora da tabela de direção ('{chave or 'sem indicador'}')"))
+    n = len([p for p in (cfg.get("provocacoes_empresario") or []) if p])
+    if n > TETO_PROVOCACOES:
+        achados.append(("provocacoes_empresario", f"{n} provocações — o teto é {TETO_PROVOCACOES}"))
+    return achados
 
 
 def numeros_estruturais(cfg: dict):
@@ -385,6 +442,14 @@ _PONTUACAO = (
     (r"\b(?:uma|duas|tr[êe]s|quatro|\d)\s+d(?:as|e)\s+(?:quatro|4)\s+dimens[õo]es\b", "contagem de dimensões é composição"),
     (r"\bno\s+topo\s+do\s+painel\b", "o painel é alfabético — não há topo"),
     (r"\branking\s+de\s+(?:munic[íi]pios|cidades|pra[çc]as)\b", "o documento não ranqueia"),
+    # O parecer por número (2026-11-27) é permitido; somá-lo não. "Bom" e
+    # "ruim" soltos passam — o que reprova é contar, saldar ou tirar maioria
+    # dos pareceres, que é a nota reintroduzida por extenso.
+    (r"\b(?:\d+|uma|um|dois|duas|tr[êe]s|quatro|cinco|seis|sete|oito|nove|dez|maioria\s+dos)\s+indicadores?\s+(?:s[ãa]o\s+|est[ãa]o\s+)?(?:bons|ruins|positivos|negativos|favor[áa]veis|desfavor[áa]veis)\b",
+     "parecer é por número: contar pareceres é nota"),
+    (r"\bsaldo\s+(?:positivo|negativo|dos\s+pareceres|dos\s+indicadores)\b", "parecer é por número: saldo é nota"),
+    (r"\bmaioria\s+dos\s+(?:indicadores|pareceres)\b", "parecer é por número: maioria é nota"),
+    (r"\bno\s+geral[,]?\s+(?:os\s+)?(?:indicadores|n[úu]meros)\s+(?:s[ãa]o|est[ãa]o)\s+(?:bons|ruins)\b", "parecer é por número: leitura geral é nota"),
 )
 
 _FERRAMENTA = (
@@ -473,8 +538,9 @@ def main() -> int:
     nomes = checar_nome_de_pessoa(corpo, cfg, args.ge)
     pontuacao = checar_padroes(corpo, _PONTUACAO, respeitar_negacao=True)
     ferramenta = checar_padroes(corpo, _FERRAMENTA)
+    pareceres = checar_pareceres(cfg)
 
-    reprova = len(sem_origem) + len(nomes) + len(pontuacao) + len(ferramenta)
+    reprova = len(sem_origem) + len(nomes) + len(pontuacao) + len(ferramenta) + len(pareceres)
 
     if args.json:
         json.dump(
@@ -492,6 +558,7 @@ def main() -> int:
                 "nome_de_pessoa": nomes,
                 "pontuacao": [{"trecho": a, "porque": p} for a, p, _ in pontuacao],
                 "ferramenta_no_corpo": [{"trecho": a, "tipo": p} for a, p, _ in ferramenta],
+                "parecer_e_provocacoes": [{"onde": o, "porque": p} for o, p in pareceres],
                 "reprovados": reprova,
             },
             sys.stdout, ensure_ascii=False, indent=1,
@@ -556,7 +623,7 @@ def main() -> int:
         print(f"   REPROVA  {trecho!r} — {porque}")
         print(f"            …{contexto}…")
     if not pontuacao:
-        print("   O dossiê não pontua, não nota e não recomenda.")
+        print("   O dossiê não pontua, não nota, não recomenda e não soma pareceres.")
     print()
 
     print(f"6. FERRAMENTA NO CORPO — {len(ferramenta)} achado(s)")
@@ -565,6 +632,15 @@ def main() -> int:
         print(f"            …{contexto}…")
     if not ferramenta:
         print("   O corpo cita fonte de dado, não ferramenta.")
+    print()
+
+    n_prov = len([p for p in (cfg.get("provocacoes_empresario") or []) if p])
+    print(f"7. PARECER POR NÚMERO E PROVOCAÇÕES — {len(pareceres)} achado(s) · {n_prov} provocação(ões) ao empresário")
+    for onde, porque in pareceres:
+        print(f"   REPROVA  {onde} — {porque}")
+    if not pareceres:
+        print("   Todo rótulo de parecer bate com a direção da tabela da casa, e as")
+        print(f"   provocações estão dentro do teto de {TETO_PROVOCACOES}.")
     print()
 
     print("-" * larg)

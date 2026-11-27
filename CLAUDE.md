@@ -68,9 +68,17 @@ Regras que valem para qualquer análise de dado neste projeto:
   e envelhece em silêncio.
 - **Lacuna é declarada**, com o que a destravaria — nunca preenchida por
   estimativa.
-- **O dossiê não pontua.** A régua de viabilidade 0–20 pertence ao produto e
-  tem dono (executivos da Farmarcas). Duplicá-la cria dois números divergentes
-  para a mesma pergunta.
+- **O dossiê não pontua — mas cada número tem parecer.** A régua de
+  viabilidade 0–20 pertence ao produto e tem dono (executivos da Farmarcas).
+  Duplicá-la cria dois números divergentes para a mesma pergunta. Desde
+  2026-11-27 (decisão do PM), todo número com referente sai com parecer — Bom,
+  Na média, Ruim, Ambíguo ou Sem referência —, por posição no percentil ou no
+  recorte da região e pela direção do indicador
+  (`analise-regiao-farmarcas/scripts/_parecer.py`). Parecer é por número: não
+  se soma, não se conta, não ordena e não recomenda.
+- **O que só o empresário sabe não se pergunta ao analista.** Vira a seção
+  "Para conversar com o empresário" do dossiê (de 10 a 15 perguntas), que o
+  analista leva à reunião com ele.
 - **Raio é a unidade de análise**, não isócrona — é o que o produto usa e o que
   torna o resultado comparável com a tela.
 - **Nome de pessoa nunca entra** em entregável: as bases de análises e

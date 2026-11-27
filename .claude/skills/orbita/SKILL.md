@@ -1,6 +1,6 @@
 ---
 name: orbita
-description: Conduz a análise de região ou de ponto comercial da Farmarcas como conversa - pergunta o mínimo para fixar o ponto, roda o gate de zoneamento e os dados, e discute os números com o analista, desafiando hipótese que o dado não sustenta, explicando o que cada camada significa e transformando lacuna em pergunta, até fechar o dossiê HTML no layout do Órbita, entregue na versão CURTA do relatório com a cópia completa gerada ao lado para conferência. Também atende quem ainda não tem ponto - a partir de uma cidade de referência, lista as praças onde a regra de expansão não barra a entrada de um grupo novo. Use quando o usuário disser 'vamos olhar essa região', 'me ajuda a analisar esse ponto', 'vale abrir aqui?', 'o que você acha dessa praça?', 'onde eu deveria olhar?', 'que praças valem olhar perto de X?', 'tô pensando em abrir um ponto', 'quero entender essa cidade', ou fornecer um endereço ou uma cidade pedindo contexto para abrir loja. Também atende o MAPEAMENTO de praças: 'vamos fazer um mapeamento', 'faz um mapeamento de X', 'quero fazer um estudo', 'faz um estudo da região', 'mapear onde dá para abrir' — e aí entrega a lista de praças, não o dossiê de ponto. O dossiê de ponto só sai com endereço; sem endereço o pedido é mapeamento, qualquer que seja a palavra usada. Do NOT use quando o pedido for pelo roteiro direto, sem conversa ('gera o dossiê completo de X', 'roda a análise desse endereço') → use /analise-regiao-farmarcas; do NOT use quando o pedido for pela versão curta SEM conversa, a partir de um endereço já decidido → use /analise-regiao-farmarcas-enxuto; do NOT use para calcular o score de viabilidade 0–20 → o dossiê não pontua, por decisão de produto; do NOT use para escrever cards do board SQO → use /orbita-user-stories; do NOT use para discovery de produto → use /product-discovery.
+description: Conduz a análise de região ou de ponto comercial da Farmarcas como conversa - pergunta o mínimo para fixar o ponto, roda o gate de zoneamento e os dados, e discute os números com o analista, desafiando hipótese que o dado não sustenta, explicando o que cada camada significa, dizendo se cada número é bom ou ruim contra o seu referente, transformando lacuna em pergunta e guardando o que só o empresário sabe como provocação para a conversa dele com o analista, até fechar o dossiê HTML no layout do Órbita, entregue na versão CURTA do relatório com a cópia completa gerada ao lado para conferência. Também atende quem ainda não tem ponto - a partir de uma cidade de referência, lista as praças onde a regra de expansão não barra a entrada de um grupo novo. Use quando o usuário disser 'vamos olhar essa região', 'me ajuda a analisar esse ponto', 'vale abrir aqui?', 'o que você acha dessa praça?', 'onde eu deveria olhar?', 'que praças valem olhar perto de X?', 'tô pensando em abrir um ponto', 'quero entender essa cidade', ou fornecer um endereço ou uma cidade pedindo contexto para abrir loja. Também atende o MAPEAMENTO de praças: 'vamos fazer um mapeamento', 'faz um mapeamento de X', 'quero fazer um estudo', 'faz um estudo da região', 'mapear onde dá para abrir' — e aí entrega a lista de praças, não o dossiê de ponto. O dossiê de ponto só sai com endereço; sem endereço o pedido é mapeamento, qualquer que seja a palavra usada. Do NOT use quando o pedido for pelo roteiro direto, sem conversa ('gera o dossiê completo de X', 'roda a análise desse endereço') → use /analise-regiao-farmarcas; do NOT use quando o pedido for pela versão curta SEM conversa, a partir de um endereço já decidido → use /analise-regiao-farmarcas-enxuto; do NOT use para calcular o score de viabilidade 0–20 → o dossiê não pontua, por decisão de produto; do NOT use para escrever cards do board SQO → use /orbita-user-stories; do NOT use para discovery de produto → use /product-discovery.
 ---
 
 # Órbita — a análise como conversa
@@ -29,10 +29,19 @@ Leia estas antes de qualquer outra coisa. Elas não cedem à conversa — a conv
   sei ainda — posso rodar X"**, seguido de rodar X. Nunca com ordem de grandeza,
   arredondamento, "deve ser por volta de" ou "costuma ser". Toda provocação que
   cita número cita número apurado **nesta sessão**.
-- **Nada é pontuado.** A régua de viabilidade 0–20 pertence ao produto e tem
-  dono. Vale para o ponto e para a praça: a lista de prospecção ordena por uma
-  quantidade medida, não classifica. A conversa provoca e descreve — não emite
-  veredito de viabilidade, não dá nota, não recomenda abrir.
+- **Nada é pontuado — mas cada número tem parecer.** A régua de viabilidade
+  0–20 pertence ao produto e tem dono. Vale para o ponto e para a praça: a lista
+  de prospecção ordena por uma quantidade medida, não classifica. A conversa
+  provoca e descreve — não emite veredito de viabilidade, não dá nota, não
+  recomenda abrir, **não soma nem conta pareceres**. O que ela faz, por decisão
+  do PM em 2026-11-27, é dizer **se cada número é bom ou ruim contra o seu
+  referente** — percentil nacional, município, UF ou o anel maior —, porque a
+  mesma posição é boa num indicador e ruim noutro e o analista não tem como
+  saber sozinho. O rótulo sai da tabela de direção
+  (`.claude/skills/analise-regiao-farmarcas/scripts/_parecer.py`): **Bom**,
+  **Na média**, **Ruim** (possível dificuldade), **Ambíguo** quando a casa não
+  tem direção defensável, **Sem referência** quando não há referente coerente.
+  Nunca faixa absoluta, nunca número inventado.
 - **Perfil e empresário não viram premissa.** Sem saber se é empresário novo ou
   já associado, o dossiê não sabe se a loja Farmarcas vizinha é conflito entre
   associados ou escolha estratégica dele. **Quem é o empresário se pergunta
@@ -60,9 +69,17 @@ Leia estas antes de qualquer outra coisa. Elas não cedem à conversa — a conv
   que é arquivo versionado do repositório. O responsável pelo GE entra por
   `--ge` na linha de comando da geração, e é a conferência mecânica que verifica
   que nenhum nome do cadastro vazou para o corpo.
-- **Pergunta sem resposta trava a fase.** Toda pergunta sai em **seletor**, uma
-  por cartão, e nenhuma fase converge enquanto houver uma sem resposta
-  explícita. "Não sei" é resposta — vira lacuna declarada; o silêncio não é. Nunca siga porque "dá para seguir": seguir sem as respostas
+- **O analista não responde pelo empresário.** Pergunta que só o empresário
+  sabe responder — história da praça, por que uma loja fechou ou a receita caiu,
+  concorrência vista de dentro, intenção, apetite, pergunta aberta demais — **não
+  vai a cartão**. Ela vira item de `provocacoes_empresario` e sai no dossiê, na
+  seção "Para conversar com o empresário": o analista leva o documento a ele, e
+  é lá que a resposta acontece. Alvo de 10 a 15, teto de 15. O critério é o
+  **teste do respondente**, em `## Protocolo de perguntas`.
+- **Pergunta sem resposta trava a fase.** Toda pergunta **ao analista** sai em
+  **seletor**, uma por cartão, e nenhuma fase converge enquanto houver uma sem
+  resposta explícita. Provocação ao empresário não é pergunta ao analista e não
+  trava nada. "Não sei" é resposta — vira lacuna declarada; o silêncio não é. Nunca siga porque "dá para seguir": seguir sem as respostas
   entrega o dossiê que o roteiro direto já entregaria, cobrando o custo da
   conversa. Os detalhes estão em `## Protocolo de perguntas`.
 - **Lacuna é conteúdo, não rodapé.** Na conversa ela vira pergunta; no documento,
@@ -83,7 +100,8 @@ Leia estas antes de qualquer outra coisa. Elas não cedem à conversa — a conv
 | Benchmarks | `.claude/skills/analise-regiao-farmarcas/references/benchmarks.md` | contra o que comparar — e o que nunca serve de referência |
 | Limites e vieses | `.claude/skills/analise-regiao-farmarcas/references/limites-e-vieses.md` | o que o dado não diz |
 | Modelo do dossiê | `.claude/skills/analise-regiao-farmarcas/references/modelo-de-dossie.md` | estrutura do entregável |
-| Provocações | `references/provocacoes.md` | o que perguntar em cima de cada camada |
+| Provocações | `references/provocacoes.md` | o que perguntar em cima de cada camada, e a quem — analista ou empresário |
+| Parecer por número | `.claude/skills/analise-regiao-farmarcas/scripts/_parecer.py` e `benchmarks.md`, seção `## Parecer por número` | a direção de cada indicador, os rótulos e o que o parecer não pode virar |
 | Aprendizados | `references/learnings.md` | o que já deu errado nesta skill. Se não existir, prossiga sem ele |
 
 ## O ritmo, e onde ele vale
@@ -167,6 +185,24 @@ declarada em `nao_sabe` ou `campo`, com o que a destravaria. O que não é
 resposta é o cartão ignorado — aí ele volta no turno seguinte, e a Fase C não
 fecha.
 
+**Antes de tudo, o teste do respondente — a pergunta é para o analista?**
+Decisão do PM em 2026-11-27: a conversa não gasta a atenção do analista com o
+que ele provavelmente não sabe. O teste: **se ele responder "não sei", isso é
+uma lacuna dele ou um assunto da conversa com o empresário?**
+
+| Fica com o analista — cartão | Vai ao empresário — `provocacoes_empresario` |
+|---|---|
+| atributos do pedido: âncora, modelo, alcance, perfil, nome do empresário, tipo de operação, bandeira | história da praça e da rede nela: loja que fechou, receita que caiu, associado que saiu |
+| recorte da análise: raio, rodar ou não uma camada, "Recomendar" | concorrência vista de dentro: quem disputa o cliente, como reagem a loja nova |
+| conferência que ele faz no sistema nesta sessão: cadastro, CNPJ, endereço | intenção e apetite do empresário: formato, mix, preço de entrada, entrada do imóvel, distância que aceita |
+| | fato local que só quem opera ali sabe: o bairro mudou desde 2010, o que traz gente à rua |
+
+Pergunta aberta demais não vai a cartão: ou vira fechada e respondível, ou vai
+ao empresário. E o fato **não some**: a provocação carrega o achado (número
+desta sessão), a pergunta e o que a resposta muda, e sai no dossiê. Ela não
+leva `muda:`, não vira cartão e não trava fase — quem vai respondê-la não está
+nesta conversa. Formato e exemplos em `references/provocacoes.md`.
+
 **Filtro de admissão — só pergunta que refina.** Toda pergunta carrega o campo
 `muda:`, que agora mora na descrição da opção ou no texto do cartão, não num
 sufixo de linha. Se não for possível preenchê-lo com um item de lente, uma
@@ -197,6 +233,7 @@ com números dentro. **Camada que é conjunto de números não vai em prosa.**
 | série, distribuição, composição, percentil | **gráfico**, por `show_widget` |
 | um ou dois números | **frase** — gráfico de duas barras é enfeite |
 | um número contra um limite (saturação, teto) | frase com a comparação junto |
+| um número contra um referente (percentil, município, UF, anel maior) | frase com a comparação **e o parecer**: "percentil 6 de renda — ruim, no terço de baixo do país" |
 
 **A tabela vai na resposta, nunca dentro do widget** — é o próprio guia da
 ferramenta que manda isso, e tabela em markdown já sai legível. O widget é para
@@ -341,6 +378,13 @@ python .claude/skills/analise-regiao-farmarcas/scripts/montar_relatorio.py \
   --saida  outputs/dossies/<arquivo>-completo.html --detalhes abertos
 ```
 
+**Provocações ao empresário no mapeamento: só quando há empresário.** Sem
+solicitante — o caso comum aqui — não há com quem conversar, e o campo
+`provocacoes_empresario` fica vazio. Quando o mapeamento é feito para um
+empresário conhecido, o que só ele sabe (até onde aceita operar, por que saiu
+de uma praça, que formato pretende) vai para o campo, no mesmo formato do
+dossiê, e sai na seção "Para conversar com o empresário".
+
 **Entregue a enxuta renderizada**, para abrir sozinha no painel lateral, e rode
 a conferência mecânica sobre a completa. Depois **ofereça** abrir o dossiê de
 uma das praças — oferta, nunca invocação automática, e ela só anda quando
@@ -353,8 +397,9 @@ fronteira do que você pode citar são **duas** listas, e nada fora delas:
 - **da linha da praça:** população do Censo, potencial de consumo, captura,
   preço médio, receita da praça e receita da rede nela;
 - **do perfil por cidade:** os indicadores das quatro dimensões, cada um com o
-  valor, o percentil nacional, a mediana nacional e o número de municípios
-  comparados, mais o papel na rede urbana.
+  valor, o percentil nacional, a mediana nacional, o número de municípios
+  comparados e o **parecer** que o painel imprime ao lado, mais o papel na rede
+  urbana.
 
 Número municipal que você leu em `contexto_municipio.py` ou em `mercado_utc.py`
 durante a conversa **continua sem procedência aqui** — medido em 2026-11-25,
@@ -371,8 +416,12 @@ não pelo número solto.
 **Travas desta fase:**
 - Ordenação é por mercado não atendido, que é quantidade medida. **Não vire
   ranking de "melhor praça".**
-- **O painel de perfil por cidade não compõe.** Não some percentis, não tire
-  média, não conte dimensões "ganhas" e não diga "lidera em três das quatro" —
+- **O painel de perfil por cidade dá parecer por número e não compõe.** Desde
+  2026-11-27 cada indicador sai com Bom / Na média / Ruim, ou Ambíguo / Sem
+  referência — diga-o na leitura, é ele que poupa o analista de saber se
+  percentil 28 é bom ou ruim naquele indicador. Mas não some percentis nem
+  pareceres, não tire média, não conte dimensões "ganhas" nem indicadores
+  "bons", e não diga "lidera em três das quatro" —
   é a mesma composição proibida, escrita por extenso, e o verificador reprova.
   Dentro de uma dimensão os indicadores podem apontar em direções opostas, e é
   esse contraste que vale conversar.
@@ -440,6 +489,9 @@ Comunique o veredito em uma frase, com a regra citada. Não é pergunta, é fato
 
 - `impedimento` → pule a Fase C. Vá para a D no formato de impedimento, e
   converse sobre praças alternativas — nunca sobre o mercado do ponto barrado.
+  O impedimento também leva `provocacoes_empresario`: o que só o empresário sabe
+  sobre a loja da rede que ocupa a vaga, o motivo do pedido e as praças onde a
+  regra não barra.
 - `alerta` → siga, com o alerta em destaque.
 - `liberado` → siga.
 - `indeterminado` → resolva a população do Censo antes de continuar.
@@ -469,17 +521,32 @@ faixas etárias e percentis vão em tabela ou gráfico, com a leitura ao lado.
 
 Fica no corpo, junto do número:
 
-1. **Ensinar a camada enquanto mostra.** O que é bom ou ruim naquele indicador
-   naquele contexto, com a comparação junto. É o caminho direto para reduzir o
+1. **Ensinar a camada enquanto mostra — com o parecer.** Todo número que tem
+   referente sai dizendo se é bom ou ruim **para aquele indicador**, pelo rótulo
+   da tabela de direção (`_parecer.py`): Bom, Na média, Ruim, Ambíguo ou Sem
+   referência, com uma linha de porquê. É o caminho direto para reduzir o
    conhecimento prévio exigido do analista, que é o objetivo do produto — e é
-   afirmação, não pergunta, então fica onde o número está.
+   afirmação, não pergunta, então fica onde o número está. No dossiê, o item da
+   lente leva o campo `parecer` (`{"indicador": ..., "percentil": N}` ou
+   `{"indicador": ..., "posicao": "acima|abaixo", "referente": "..."}`) e o
+   rótulo sai do script. Indicador fora da tabela sai "Sem referência" — não
+   invente direção.
 
-Vai para os cartões de pergunta, cada um dizendo de que camada saiu:
+Vai para os cartões de pergunta, cada um dizendo de que camada saiu — **só se
+passar no teste do respondente**:
 
 2. **Desafiar a hipótese que o dado não sustenta.** "Você está contando com o
    fluxo da avenida, e isso não está em base nenhuma — como você checaria?"
 3. **Transformar lacuna em pergunta.** "Ninguém sabe o fluxo aqui — vale uma
    contagem em campo antes de seguir?"
+
+Vai para `provocacoes_empresario`, sem cartão e sem travar a fase:
+
+4. **Guardar para o empresário o que só ele sabe.** Cada achado cuja pergunta
+   reprovou no teste do respondente vira um item com `tema`, `achado`,
+   `pergunta` e `o_que_muda`. Diga ao analista, em uma linha, quantas ficaram
+   guardadas para a conversa com o empresário — e siga. Alvo de 10 a 15, teto
+   de 15: passando disso, ficam as de maior consequência.
 
 Os cartões seguem a ordem em que as camadas foram apresentadas, e os da mesma
 camada ficam juntos. Cada um com o `muda:` preenchido — sem ele, a pergunta não
@@ -492,8 +559,10 @@ Para cada item candidato à lente, exija os três campos escritos: **número**,
 corte e **nunca vira texto**: afirmação de confiança baixa ou sem dado desce
 para lacuna, e o limite de método de item de confiança média vira lacuna também.
 
-**Convergência:** as quatro lentes com itens de três campos, cortadas por
-confiança e tier até caber em ~15 itens, mais `nao_sabe` e `campo` não vazios —
+**Convergência:** as quatro lentes com itens de três campos (e `parecer` onde
+o número tem referente), cortadas por confiança e tier até caber em ~15 itens,
+mais `nao_sabe` e `campo` não vazios, `provocacoes_empresario` com 10 a 15
+itens —
 e **nenhum cartão sem resposta explícita**. Com pendência, a fase não fecha:
 reapresente as pendentes.
 
@@ -529,8 +598,9 @@ python .claude/skills/analise-regiao-farmarcas/scripts/resumo_fechamento.py \
    pergunte pelo diálogo: gerar o dossiê agora, ou puxar mais um assunto antes.
 
 O script monta a ficha do ponto, o quadrante com os títulos dos itens de cada
-lente, as lacunas e os itens de campo pela primeira frase de cada um, e a seção
-de perguntas. Ele avisa quando `resumo_gate` ou `resumo_perguntas` faltam.
+lente (com o rótulo do parecer, quando houver), as lacunas e os itens de campo
+pela primeira frase de cada um, o bloco "O que vai para a conversa com o
+empresário" e a seção de perguntas. Ele avisa quando `resumo_gate` ou `resumo_perguntas` faltam.
 
 **A seção "Onde ainda cabe pergunta" é a que justifica o resumo existir.** As
 outras descrevem; essa convida. O analista acabou de responder um bloco de
@@ -598,7 +668,9 @@ HTML à mão** — é saída de script. Depois passe pelo subagente
 `(⌕) auditor-de-evidencia`, apontando-o para o `-completo.html`.
 
 Entregue a enxuta e diga, em uma linha, que a completa está ao lado dela para
-quem precisar conferir um número. O que **não** sai da enxuta: "O que este
+quem precisar conferir um número. **A enxuta é o que o analista leva ao
+empresário**: é nela que a seção "Para conversar com o empresário" vira roteiro
+da reunião. O que **não** sai da enxuta: "O que este
 dossiê NÃO sabe" e "Para confirmar em campo" continuam lá — lacuna é conteúdo,
 não aparato de conferência.
 
@@ -628,6 +700,12 @@ não aparato de conferência.
 | "Ele pediu recomendação, digo qual praça vale mais a pena" | recomendar caminho de análise é ajuda; ordenar praça por qualidade é a régua que tem dono, e foi removida à mão de dois relatórios |
 | "Desenho o gráfico com a conta feita no JavaScript" | conta no widget é número do modelo com outra roupa, e a conferência não enxerga a conversa |
 | "São três números, faço um gráfico para ficar bonito" | gráfico de duas ou três barras é enfeite; três linhas comparáveis são tabela, um número é frase |
+| "Pergunto ao analista por que a receita da rede caiu, ele deve saber" | quem sabe é o empresário; o analista responde "não sei", a fase trava e o fato some do documento — vai para `provocacoes_empresario` |
+| "Pergunta aberta sobre a concorrência rende conversa" | rende "não sei"; ou vira pergunta fechada que o analista responde, ou vai ao empresário |
+| "Guardo trinta provocações para o empresário, assim nada se perde" | lista longa vira questionário; alvo de 10 a 15, teto de 15 |
+| "Percentil 28 fala por si" | não fala: é bom num indicador e ruim noutro, e é exatamente o que o analista não sabe — diga o parecer |
+| "Três indicadores bons e um ruim: dá para dizer que a praça é boa" | é a nota com outro nome; o parecer é por número, e a conferência reprova contagem e saldo de pareceres |
+| "Escrevo 'Bom' no parecer, o indicador não está na tabela mas é óbvio" | sem direção declarada o rótulo é palpite; sai "Sem referência", e a direção nova entra na tabela por decisão do PM |
 | "Essa pergunta é interessante, mesmo sem mudar nada" | pergunta que não muda item, lacuna ou premissa gasta a atenção das que mudam |
 | "Renumero as perguntas a cada turno" | ele responde por número; renumerar quebra a resposta dele |
 | "Pergunto se pode gerar sem mostrar o que montei" | ele acabou de atravessar o turno mais denso da conversa e vai responder "pode" por cansaço; sem ver as lentes e as lacunas, a autorização não é revisão |
@@ -673,6 +751,13 @@ Não dê a tarefa por encerrada enquanto todos estes não forem verdade:
 - [ ] Toda pergunta saiu em cartão de seletor, uma por cartão, com `muda:`
       preenchido — nenhuma em prosa solta nem numerada em texto
 - [ ] Todo cartão trouxe **Não sei**, e **Recomendar** onde cabia recomendação
+- [ ] Nenhum cartão perguntou ao analista o que só o empresário sabe — passou
+      no teste do respondente
+- [ ] `provocacoes_empresario` com 10 a 15 itens (teto 15), cada um com achado
+      desta sessão, pergunta e o que muda, sem nome de pessoa
+- [ ] Todo número com referente saiu com parecer — na conversa e, no dossiê,
+      no campo `parecer` do item — e nenhum parecer foi somado, contado ou
+      usado para ordenar praça
 - [ ] Camada com três ou mais linhas comparáveis foi mostrada em tabela ou
       gráfico, com a leitura ao lado
 - [ ] Nenhum número desenhado num gráfico veio de conta feita no widget

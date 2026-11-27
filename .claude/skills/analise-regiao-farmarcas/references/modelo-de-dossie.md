@@ -21,7 +21,8 @@ macroeconômico **+ cidades que têm este município como polo** →
 microterritório e concorrência → venda mensal por faixa → potencial de consumo
 com split → **implantação do ponto** + geradores de fluxo → onde mais olhar →
 o que NÃO sabe (**bloco recolhido**, com a contagem no título) → para confirmar
-em campo (seção própria, visível) → **Fontes** (tabela numerada + procedência
+em campo (seção própria, visível) → **para conversar com o empresário** (seção
+própria, visível) → **Fontes** (tabela numerada + procedência
 geral) → rodapé.
 
 **Três blocos são condicionais, e a condição é de confiança, não de espaço:**
@@ -167,6 +168,7 @@ Mesmos campos de identificação do dossiê completo (`endereco`, `lat`, `lng`,
 | `alertas_cadastro` | o que no cadastro pode estar errado e erraria o teto junto |
 | `nao_sabe` | lacunas, as três perguntas respondidas em cada uma |
 | `campo` | o que confirmar, e o que muda conforme a resposta |
+| `provocacoes_empresario` | o que só o empresário sabe — sobre a loja que ocupa a vaga, o motivo do pedido, as praças onde a regra não barra. Mesmo formato do dossiê completo |
 
 O script preenche sozinho, a partir do gate: população do Censo com a data de
 extração, faixa aplicada, teto, as duas contagens, a tabela de lojas da cidade,
@@ -207,7 +209,7 @@ Zoneamento + resumo → o ponto não passa (regra, constatado, as duas contagens
 leitura do impedimento → lojas Farmarcas no município → o que mudaria o
 resultado → **onde mais olhar (praças onde a regra não barra)** → alertas de
 cadastro → o que esta checagem NÃO sabe (recolhido) → para confirmar em campo
-(seção própria) → Fontes →
+(seção própria) → para conversar com o empresário (seção própria) → Fontes →
 rodapé.
 
 ---
@@ -225,6 +227,8 @@ rodapé.
 
 ## Forças
 - **<Indicador>: <número>** — <comparação>. Fonte: `<base>` (campo próprio).
+  **Parecer:** <Bom | Na média | Ruim | Ambíguo | Sem referência> — <uma linha
+  de porquê>. <Campo `parecer` do item; o rótulo sai do script.>
   <Sem nota de confiança e sem o motivo dela: confiança baixa ou nenhuma não
   chega até aqui, e confiança alta ou média não se anuncia.>
 
@@ -251,6 +255,14 @@ rodapé.
 
 ## Para confirmar em campo
 - <No máximo 5 itens, cada um ligado a um item acima.>
+
+## Para conversar com o empresário
+1. **<A pergunta, curta, para ser dita em voz alta>** <tema: camada ou lente>
+   <O achado: o número apurado que motiva a pergunta.>
+   O que a resposta muda: <a leitura que depende dela.>
+<De 10 a 15 itens, teto de 15. O que o analista provavelmente não sabe e o
+empresário sabe: história da praça, concorrência vista de dentro, intenção,
+apetite. Sem nome de pessoa.>
 
 ## Procedência
 | Afirmação | Script | Base | Data do dump |
@@ -288,6 +300,18 @@ rodapé.
   bloco recolhido, em seção própria, porque é ação do analista e não lacuna.
 - **Nunca usar o vocabulário da decisão** — "recomendado", "aprovado",
   "viável", "score", "nota". Essas palavras pertencem ao comitê e ao produto.
+- **Todo número com referente leva parecer — e o parecer é por número.**
+  "Bom", "Na média", "Ruim" (possível dificuldade), "Ambíguo" e "Sem
+  referência" são o vocabulário permitido (decisão do PM em 2026-11-27), pela
+  tabela de direção de `scripts/_parecer.py`. Nunca somados, contados ou
+  usados para ordenar: "três indicadores bons" é nota. Ver `benchmarks.md`,
+  `## Parecer por número`.
+- **"Para conversar com o empresário" é roteiro, não questionário.** De 10 a
+  15 perguntas, cada uma partindo de um número do documento, escritas para o
+  analista dizer em voz alta. Passam pelo **teste do respondente**: se o
+  analista provavelmente não sabe e o empresário sabe, a pergunta é daqui; se
+  o analista sabe, ela foi feita na conversa; se é produto de etapa de campo,
+  é item de campo.
 - **Nenhum nome de pessoa.** Nem de empresário, nem de consultor, nem de
   analista — nem quando aparecem no parecer histórico.
 - **Divergência entre fontes é achado, não ruído.** Se `concorrentes_2025` e o
@@ -299,6 +323,9 @@ rodapé.
 
 ## Onde o dossiê termina
 
-Ele é insumo para o comentário da análise no Órbita. Não substitui o parecer do
-analista, não vai para o empresário, e não entra em apresentação executiva sem
-o analista ter lido.
+Ele é insumo para o comentário da análise no Órbita **e o roteiro da conversa
+do analista com o empresário** — decisão do PM em 2026-11-27, que reverte a
+regra de que ele não ia ao empresário. O analista apresenta o documento (a
+cópia enxuta), e a seção "Para conversar com o empresário" existe para essa
+reunião. Não substitui o parecer do analista, não leva nome de pessoa, e não
+entra em apresentação executiva sem o analista ter lido.

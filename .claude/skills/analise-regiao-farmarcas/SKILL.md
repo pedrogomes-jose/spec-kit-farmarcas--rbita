@@ -1,6 +1,6 @@
 ---
 name: analise-regiao-farmarcas
-description: Monta o dossiê de uma região para análise de ponto de farmácia da Farmarcas e entrega um relatório HTML no layout do relatório de viabilidade do Órbita — população na área, renda média, densidade, potencial de consumo com split entre Medicamentos e Higiene/Beleza/Nutrição, preço médio no brick, microterritório e concorrência, geradores de fluxo no entorno e praças alternativas — aplicando antes o gate de zoneamento (regras oficiais de expansão), e sem pontuar o ponto. Pergunta sempre se o solicitante é empresário novo ou já associado, porque isso muda a leitura de canibalização. Use quando o usuário pedir o roteiro direto, já sabendo o que quer — 'gera o dossiê completo de X', 'roda a análise desse endereço', 'quero o relatório de viabilidade desse ponto', 'faz o dossiê desse ponto', 'monta o relatório dessa região', ou fornecer um endereço/coordenada pedindo o relatório pronto, sem conversa. Do NOT use para calcular ou reproduzir o score de viabilidade 0–20 do produto → o dossiê não pontua, por decisão de produto; do NOT use para escrever cards do board SQO → use /orbita-user-stories; do NOT use para discovery de produto → use /product-discovery; do NOT use para escolher fornecedor de dado de mercado → use o subagente estrategista-fontes-dados; do NOT use quando o pedido for pelo dossiê 'enxuto', 'curto' ou 'sem as fontes' → use /analise-regiao-farmarcas-enxuto; do NOT use quando o pedido for exploratório ou conversacional ('vamos olhar essa região', 'vale abrir aqui?', 'me ajuda a analisar esse ponto', 'onde eu deveria olhar?') → use /orbita.
+description: Monta o dossiê de uma região para análise de ponto de farmácia da Farmarcas e entrega um relatório HTML no layout do relatório de viabilidade do Órbita — população na área, renda média, densidade, potencial de consumo com split entre Medicamentos e Higiene/Beleza/Nutrição, preço médio no brick, microterritório e concorrência, geradores de fluxo no entorno e praças alternativas — aplicando antes o gate de zoneamento (regras oficiais de expansão), sem pontuar o ponto mas com o parecer de cada número (bom ou ruim contra o seu referente), e com uma seção de perguntas para o analista levar ao empresário. Pergunta sempre se o solicitante é empresário novo ou já associado, porque isso muda a leitura de canibalização. Use quando o usuário pedir o roteiro direto, já sabendo o que quer — 'gera o dossiê completo de X', 'roda a análise desse endereço', 'quero o relatório de viabilidade desse ponto', 'faz o dossiê desse ponto', 'monta o relatório dessa região', ou fornecer um endereço/coordenada pedindo o relatório pronto, sem conversa. Do NOT use para calcular ou reproduzir o score de viabilidade 0–20 do produto → o dossiê não pontua, por decisão de produto; do NOT use para escrever cards do board SQO → use /orbita-user-stories; do NOT use para discovery de produto → use /product-discovery; do NOT use para escolher fornecedor de dado de mercado → use o subagente estrategista-fontes-dados; do NOT use quando o pedido for pelo dossiê 'enxuto', 'curto' ou 'sem as fontes' → use /analise-regiao-farmarcas-enxuto; do NOT use quando o pedido for exploratório ou conversacional ('vamos olhar essa região', 'vale abrir aqui?', 'me ajuda a analisar esse ponto', 'onde eu deveria olhar?') → use /orbita.
 ---
 
 # Dossiê de região — Farmarcas
@@ -42,10 +42,13 @@ Referências (ler quando indicado):
   Ela vale para o **2º grupo que entra** na praça, não para a 2ª loja contada. Loja
   adicional de grupo já presente recebe **alerta**, porque a página escreve "a 2ª
   loja" e não define esse caso.
-- **O painel de perfil por cidade não é nota.** Na lista de praças, cada cidade
-  ganha indicadores com valor e **posição na distribuição nacional da própria
-  camada** — o único referente que `references/benchmarks.md` permite. Não há
-  composto, não há ordenação por qualidade, não há recomendação de abertura, e
+- **O painel de perfil por cidade dá parecer por número, e não é nota.** Na
+  lista de praças, cada cidade ganha indicadores com valor, **posição na
+  distribuição nacional da própria camada** — o único referente que
+  `references/benchmarks.md` permite — e o **parecer** de cada um (Bom / Na
+  média / Ruim, Ambíguo, Sem referência), pela direção do indicador em
+  `scripts/_parecer.py` — decisão do PM em 2026-11-27, que reverte a matiz única.
+  Não há composto, não há ordenação por qualidade, não há recomendação de abertura, e
   nenhum agregado é emitido: dentro de uma dimensão os indicadores podem apontar
   em direções opostas, e a média apagaria o achado. **Só entra indicador per
   capita, percentual ou razão** — total absoluto (IPC, PIB total, potencial
@@ -270,6 +273,24 @@ Referências (ler quando indicado):
   "recomendado" ou "aprovado". A régua 0–20 tem dono (os executivos da
   Farmarcas) e vive no produto; duplicá-la cria dois números divergentes para a
   mesma pergunta e piora a desconfiança que originou o Órbita.
+- **Mas todo número com referente tem PARECER** (decisão do PM em 2026-11-27).
+  "Percentil 28" não diz ao analista se é bom ou ruim — e a resposta depende do
+  indicador. Cada número comparado a um referente (percentil nacional,
+  município, UF, anel maior) sai com **Bom**, **Na média**, **Ruim** (possível
+  dificuldade), **Ambíguo** ou **Sem referência**, pela tabela de direção de
+  `scripts/_parecer.py`, com corte por tercil da distribuição — posição, nunca
+  faixa absoluta. No item da lente, o campo `parecer` informa indicador e
+  posição; o rótulo sai do script. **O parecer é por número**: não se soma, não
+  se conta, não se salda, não ordena praça e não recomenda — a conferência
+  mecânica reprova as formas escritas disso.
+- **O que só o empresário sabe vai para o dossiê, não para o analista.**
+  História da praça, por que uma loja fechou ou a receita caiu, concorrência
+  vista de dentro, intenção e apetite: o analista provavelmente não sabe, e
+  perguntar a ele trava o trabalho e perde o fato. Isso vira
+  `provocacoes_empresario` — de 10 a 15 itens, teto de 15, cada um com o achado
+  apurado, a pergunta e o que a resposta muda — e sai na seção **"Para conversar
+  com o empresário"**, nos três formatos (no de prospecção, só quando há
+  empresário conhecido).
 - **Nenhum número sai do modelo.** Todo valor do dossiê vem de um script em
   `scripts/` ou de API pública consultada nesta sessão. Se um número não tem
   script de origem, ele não entra — nem "aproximadamente", nem "cerca de".
@@ -417,8 +438,10 @@ Referências (ler quando indicado):
 - **Divergência entre fontes é achado**, com os dois números — nunca escolher
   um em silêncio.
 - **Carimbar a data do dump** no topo. O dado é estático e envelhece em silêncio.
-- O dossiê é insumo para o comentário da análise no Órbita. **Não** vai para o
-  empresário e **não** substitui o parecer do analista.
+- O dossiê é insumo para o comentário da análise no Órbita **e é levado pelo
+  analista ao empresário** (decisão do PM em 2026-11-27): a seção "Para
+  conversar com o empresário" é o roteiro dessa conversa. **Não** substitui o
+  parecer do analista, e nome de pessoa continua fora.
 
 ## Step 0: Read Before You Write
 
@@ -456,6 +479,13 @@ Perguntar, porque cada uma muda o resultado e nenhuma é adivinhável:
 
 Se o usuário não souber alguma, registrar como premissa explícita e seguir —
 menos as duas primeiras, que mudam o gate e devem ser perguntadas.
+
+**Só se pergunta ao analista o que ele sabe** — os atributos do pedido acima, o
+recorte da análise e o que ele confere no sistema. O que provavelmente só o
+empresário sabe (história da praça, concorrência vista de dentro, intenção,
+apetite) não é pergunta desta etapa: vira `provocacoes_empresario` na narrativa.
+É o **teste do respondente**: se o "não sei" do analista é assunto da conversa
+com o empresário, a pergunta é do dossiê.
 
 Pegar o **código IBGE** do município na saída de `contexto_municipio.py`.
 Nunca digitar de memória: código errado traz a população de outra cidade e
@@ -576,6 +606,10 @@ que deixa de ser possível saber por causa disso, e o que resolveria.
 O mesmo vale para "Para confirmar em campo": cada item diz **o que checar e o
 que muda conforme a resposta**.
 
+E para "Para conversar com o empresário": cada item de `provocacoes_empresario`
+traz `tema`, `achado` (o número apurado que motiva a pergunta), `pergunta`
+(curta, para ser dita em voz alta) e `o_que_muda`. De 10 a 15, teto de 15.
+
 ## Step 6 — Escrever a narrativa e gerar o relatório
 
 Ler `references/modelo-de-dossie.md` e `references/indicadores-do-relatorio.md`.
@@ -586,9 +620,11 @@ O entregável é **HTML**, montado por script. A divisão é a regra da casa:
     texto  -> modelo     (o modelo não inventa número)
 
 1. Escrever a narrativa em JSON. **Com o gate liberado ou em alerta:** resumo em
-   uma linha, as quatro lentes com os campos de cada item, `nao_sabe` e `campo`.
+   uma linha, as quatro lentes com os campos de cada item (e `parecer` onde o
+   número tem referente), `nao_sabe`, `campo` e `provocacoes_empresario`.
    **Com o gate em impedimento:** resumo, `leitura` (parágrafos), `o_que_mudaria`,
-   `alertas_cadastro`, `nao_sabe` e `campo` — sem lentes, que seriam ignoradas.
+   `alertas_cadastro`, `nao_sabe`, `campo` e `provocacoes_empresario` — sem
+   lentes, que seriam ignoradas.
    Os dois formatos estão no topo de `scripts/montar_relatorio.py`. Salvar em
    `outputs/dossies/<AAAA-MM-DD>_<municipio>_<referencia>.json`.
 2. Gerar o relatório:
@@ -648,6 +684,9 @@ lente ficar vazia por falta de fonte.
 | Tentação | Por que não |
 |---|---|
 | "Faço uma nota de 0 a 10 só para resumir" | é a régua de novo, com outro nome |
+| "Três indicadores bons e um ruim: resumo como praça boa" | parecer é por número; contar ou saldar pareceres é a nota escrita por extenso, e a conferência reprova |
+| "Deixo só o percentil, quem lê sabe se é bom" | não sabe: percentil 28 é bom num indicador e ruim noutro. Diga o parecer |
+| "Pergunto ao usuário por que a receita da rede caiu" | quem sabe é o empresário; vira `provocacoes_empresario` e sai no dossiê |
 | "O usuário não disse o perfil, assumo empresário novo" | é a pergunta que muda a leitura de canibalização — pergunte |
 | "Ele disse que é empresário novo, não preciso do nome dele" | novo é a declaração; o cadastro é a confirmação. O teto deduplica grupo por nome normalizado, e grafia divergente barra pedido que caberia ou funde dois donos num grupo só |
 | "O ponto é barrado, mas rodo o mercado para enriquecer" | dossiê completo de ponto barrado sugere que há o que negociar |
@@ -833,6 +872,10 @@ lente ficar vazia por falta de fonte.
 - [ ] Nenhum "muda a leitura se" no relatório
 - [ ] Cada lacuna e cada item de campo explicado: o que falta, por que importa aqui, o que destrava
 - [ ] Nenhum score, nota ou "recomendado"
+- [ ] Todo número com referente com `parecer` no item — e nenhum parecer somado,
+      contado, saldado ou usado para ordenar
+- [ ] `provocacoes_empresario` com 10 a 15 itens (teto 15), cada um com achado
+      apurado, pergunta e o que muda, sem nome de pessoa
 - [ ] Seção "O que este dossiê NÃO sabe" presente, com fluxo de passantes —
       recolhida por padrão, com a contagem no título, e com o conteúdo íntegro
       dentro dela

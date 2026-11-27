@@ -17,8 +17,10 @@ original, do Step 0 ao Step 6, sem exceção**:
 
 Todas as regras valem aqui sem alteração — o gate de zoneamento antes de
 qualquer mercado, a pergunta obrigatória sobre o perfil do solicitante, nenhum
-número fora de script, o dossiê não pontua, nenhum nome de pessoa, lacuna
-sempre declarada, o quadrante SWOT, os dois raios. Os scripts são os mesmos
+número fora de script, o dossiê não pontua (mas cada número com referente tem
+parecer bom/ruim, por número e sem soma), nenhum nome de pessoa, lacuna
+sempre declarada, o quadrante SWOT, os dois raios, e as provocações ao
+empresário em `provocacoes_empresario`. Os scripts são os mesmos
 arquivos, em `../analise-regiao-farmarcas/scripts/`.
 
 ## A única diferença: o Step 6
@@ -44,7 +46,10 @@ Fica no rodapé a origem da coordenada e a data do acervo, que são o mínimo qu
 não pode sumir — toda distância do relatório é medida a partir da coordenada.
 
 O que NÃO muda: a seção "O que este dossiê NÃO sabe" continua presente e
-recolhida, e "Para confirmar em campo" continua visível. Lacuna não é aparato
+recolhida, "Para confirmar em campo" continua visível, e "Para conversar com o
+empresário" também — a versão enxuta é a que o analista costuma levar à
+reunião com o empresário, e o roteiro é conteúdo, não aparato. O chip de
+parecer de cada número também fica: ele não depende das Fontes. Lacuna não é aparato
 de conferência, é conteúdo — e lacuna silenciada vira conclusão errada.
 
 ## Critical — o que esta skill troca, e por quem paga
@@ -75,6 +80,7 @@ python .claude/skills/analise-regiao-farmarcas/scripts/montar_relatorio.py     -
 |---|---|
 | "Gero só a enxuta, a completa ninguém abre" | a completa é o que permite responder quando perguntarem; sem ela a pergunta vira retrabalho de uma análise inteira |
 | "Tiro também a seção de lacunas, que é longa" | lacuna não é aparato, é conteúdo — e lacuna silenciada vira conclusão errada |
+| "Tiro as provocações ao empresário para encurtar" | são o roteiro da conversa com ele, e é a enxuta que vai à reunião |
 | "Escrevo a fonte dentro do parágrafo, já que a seção saiu" | fonte no meio do texto é exatamente o que a regra da casa proíbe; o lugar dela é a cópia completa |
 | "Mando a enxuta para o auditor, ele entende" | ele reprova tudo por ausência de fonte, e com razão |
 | "Uso a enxuta para relatório de impedimento" | o relatório de impedimento não recolhe nem esconde explicação: lá o parágrafo é a mensagem, não o acompanhamento de um número |
